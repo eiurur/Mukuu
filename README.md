@@ -12,7 +12,7 @@
 
 # Development
 
-## First step
+### First step
 
 1. Clone project
 
@@ -50,19 +50,19 @@ npm run bootstrap
 
 4. Go to `http://127.0.0.1:8100`
 
-## Devement Start
+### Development Start
 
 ```
 npm run dev
 ```
 
-## Build
+### Build
 
 ```bash
 npm run build
 ```
 
-## Production Start
+### Production Start
 
 ```bash
 npm run start
