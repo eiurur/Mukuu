@@ -1,8 +1,15 @@
 # Mukuu (β)
 
+<div style="text-align:center;">
 <img src="media/home.png" alt="columns" width="640" height="auto">
+<p>
+Mukuu is the CUSTOM-ORDER-MAID-3D2(COM3D2) MOD Search Site.</p>
+</div>
 
-Mukuu is the CUSTOM-ORDER-MAID-3D2(COM3D2) MOD Search Site.
+# Requirement
+
+- Node.js 10+
+- MongoDB 3.4+
 
 # Development
 
