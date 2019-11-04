@@ -5,6 +5,10 @@
   <p>Mukuu is the CUSTOM-ORDER-MAID-3D2(COM3D2) MOD Search Site.</p>
 </div>
 
+# Usage
+
+Go to <a href="https://mukuu.herokuapp.com">https://mukuu.herokuapp.com</a>
+
 # Requirement
 
 - Node.js 10+
