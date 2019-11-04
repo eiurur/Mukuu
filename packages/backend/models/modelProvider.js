@@ -40,20 +40,19 @@ module.exports = class ModelProvider {
     builder.buildCondition(this.queryOption.raws, query);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
+    const q = builder.condition.length === 0 ? {} : { $and: builder.condition };
 
     const params = Object.assign(
       {
         model: this.model,
-        query:
-          builder.condition.length === 0 ? {} : { $and: builder.condition },
+        query: q,
         populates: this.populates,
       },
       searchOption,
     );
-    console.log(JSON.stringify(builder.condition));
+    logger.info(JSON.stringify(builder.condition));
     const finder = new Finder(params);
     return finder.find();
-    // return this.model.find(query, fields, options);
   }
 
   findOne(query = {}, fields = {}, options = {}) {

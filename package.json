@@ -29,6 +29,7 @@
     "test:common": "npm test --prefix ./packages/common",
     "test:server": "npm test --prefix ./packages/backend",
     "test:ui": "npm test --prefix ./packages/frontend",
+    "crawl:twitter": "npm run crawl:twitter --prefix ./packages/backend",
     "build": "lerna run build",
     "getv": "echo $IMAGE_VERSION",
     "docker:build": "IMAGE_VERSION=$(node -p \"require('./lerna.json').version\") && docker image build -t $npm_package_config_imageRepo:$IMAGE_VERSION -f ./docker/Dockerfile .",

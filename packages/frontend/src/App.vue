@@ -6,11 +6,11 @@
           <i class="el-icon-s-home"></i>
           <span slot="title">Home</span>
         </el-menu-item>
-        <el-menu-item index="user" :route="{name: 'user'}">
+        <el-menu-item index="user" :route="{name: 'user'}" disabled>
           <i class="el-icon-user-solid"></i>
           <span slot="title">Users</span>
         </el-menu-item>
-        <el-menu-item index="watch" :route="{name: 'watch'}">
+        <el-menu-item index="watch" :route="{name: 'watch'}" disabled>
           <i class="el-icon-view"></i>
           <span slot="title">Watch</span>
         </el-menu-item>

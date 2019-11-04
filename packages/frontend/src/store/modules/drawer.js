@@ -10,6 +10,7 @@ const state = {
     sort: 'updatedAtDesc'
   },
   posts: [],
+  isLoading: false,
   isComletedLoading: false
 };
 const getters = {
@@ -19,6 +20,7 @@ const getters = {
 };
 const actions = {
   async initialize({ commit, dispatch }, value) {
+    commit('CLEAR_USER');
     commit('CLEAR_POST');
     await dispatch('loadUser', value);
     await dispatch('loadPost');
