@@ -21,7 +21,7 @@
       <img
         :key="media.id_str"
         v-for="media in post.entities.media"
-        :src="`${media.media_url}:small`"
+        :src="`${media.media_url}?format=jpg&name=small`"
         class="original"
         data-zoomable
       />
