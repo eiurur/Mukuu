@@ -41,6 +41,7 @@ module.exports = class ModelProvider {
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
     const q = builder.condition.length === 0 ? {} : { $and: builder.condition };
+    logger.info(JSON.stringify(builder.condition));
 
     const params = Object.assign(
       {
@@ -50,7 +51,6 @@ module.exports = class ModelProvider {
       },
       searchOption,
     );
-    logger.info(JSON.stringify(builder.condition));
     const finder = new Finder(params);
     return finder.find();
   }

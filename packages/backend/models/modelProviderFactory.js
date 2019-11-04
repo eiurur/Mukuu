@@ -8,8 +8,6 @@ module.exports = class ModelProviderFactory {
         return new ModelProvider(User);
       case 'post':
         return new ModelProvider(Post);
-      // case 'image':
-      //   return new ImageProvider();
       default:
         return null;
     }
