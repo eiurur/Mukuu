@@ -1,0 +1,8 @@
+/* theme color */
+// $--color-primary: #c75d77;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import './reset.scss';
+@import '~element-ui/packages/theme-chalk/src/index';

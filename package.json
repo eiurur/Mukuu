@@ -1,0 +1,48 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eiurur/mukuu"
+  },
+  "author": "https://github.com/eiurur",
+  "bugs": {
+    "url": "https://github.com/eiurur/mukuu/issues",
+    "email": "eiurur789@gmail.com"
+  },
+  "license": "MIT",
+  "config": {
+    "imageRepo": "eiurur/mukuu",
+    "imageName": "mukuu"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend \"",
+    "dev:backend": "npm run dev --prefix ./packages/backend",
+    "dev:frontend": "npm run dev --prefix ./packages/frontend",
+    "start": "npm run start:backend",
+    "start:backend": "npm run start --prefix ./packages/backend",
+    "start:frontend": "npm run start --prefix ./packages/frontend",
+    "test": "npm run test:common && npm run test:server && npm run test:frontend",
+    "test:common": "npm test --prefix ./packages/common",
+    "test:server": "npm test --prefix ./packages/backend",
+    "test:ui": "npm test --prefix ./packages/frontend",
+    "build": "lerna run build",
+    "getv": "echo $IMAGE_VERSION",
+    "docker:build": "IMAGE_VERSION=$(node -p \"require('./lerna.json').version\") && docker image build -t $npm_package_config_imageRepo:$IMAGE_VERSION -f ./docker/Dockerfile .",
+    "publish": "lerna publish",
+    "preinstall": "npm cache clean -f",
+    "postinstall": "npm run bootstrap && npm run build"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "name": "mukuu",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "concurrently": "^5.0.0",
+    "lerna": "^3.17.0"
+  }
+}

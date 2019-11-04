@@ -1,0 +1,116 @@
+<template>
+  <el-row :gutter="20">
+    <el-col :span="4">
+      <el-form ref="form" :model="searchOption" label-width="56px">
+        <el-form-item label="検索">
+          <el-input placeholder="検索" prefix-icon="el-icon-search" v-model="searchOption.searchWord"></el-input>
+        </el-form-item>
+        <el-form-item label="並替">
+          <el-select v-model="searchOption.sort" placeholder="please select your zone">
+            <el-option label="投稿日時が新しい順" value="updatedAtDesc"></el-option>
+            <el-option label="投稿日時が古い順" value="updatedAtAsc"></el-option>
+            <el-option label="リツイートが多い順" value="retweetCountDesc"></el-option>
+            <el-option label="お気に入りが多い順" value="favoriteCountDesc"></el-option>
+            <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
+          </el-select>
+        </el-form-item>
+        <el-form-item label="開始日">
+          <el-date-picker
+            type="date"
+            placeholder="開始日"
+            v-model="searchOption.from"
+            style="width: 100%;"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item label="終了日">
+          <el-date-picker
+            type="date"
+            placeholder="終了日"
+            v-model="searchOption.to"
+            style="width: 100%;"
+          ></el-date-picker>
+        </el-form-item>
+      </el-form>
+    </el-col>
+    <el-col :span="12">
+      <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
+        <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
+      </section>
+    </el-col>
+    <el-col :span="8">
+      <UserDrawer></UserDrawer>
+    </el-col>
+  </el-row>
+</template>
+
+<style lang="scss" scoped>
+</style>
+
+<script>
+import post from "../api/post";
+import UserDrawer from "@/components/UserDrawer.vue";
+import Post from "@/components/Post.vue";
+
+export default {
+  name: "home",
+  data() {
+    return {
+      skip: 0,
+      limit: 20,
+      posts: [],
+      isLoading: false,
+      isCompletedLoading: false,
+      searchOption: {
+        searchWord: "",
+        sort: "updatedAtDesc",
+        from: "",
+        to: ""
+      }
+    };
+  },
+  components: {
+    UserDrawer,
+    Post
+  },
+  computed: {
+    canLoad() {
+      return this.isCompletedLoading || this.isLoading;
+    }
+  },
+  watch: {
+    searchOption: {
+      handler() {
+        this.skip = 0;
+        this.posts = [];
+        this.load();
+      },
+      deep: true
+    }
+  },
+  methods: {
+    async load() {
+      this.isLoading = true;
+      const newPosts = await post.fetch(
+        Object.assign({ limit: this.limit, skip: this.skip }, this.searchOption)
+      );
+      if (newPosts.length < 1) {
+        this.isComletedLoading = true;
+        return;
+      }
+      const expandedPosts = newPosts.map((p) => {
+        const ret = p;
+        if (p.entities) ret.entities = JSON.parse(p.entities);
+        return ret;
+      });
+      this.posts = [...this.posts, ...expandedPosts];
+      this.skip += this.limit;
+      this.isLoading = false;
+    },
+    openUserDrawer(postedBy) {
+      if (!postedBy) return;
+      const payload = Object.assign({}, postedBy);
+      this.$store.dispatch("drawer/initialize", payload);
+    }
+  }
+};
+</script>
