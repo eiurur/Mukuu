@@ -48,6 +48,8 @@ npm install
 npm run bootstrap
 ```
 
+4. Go to `http://127.0.0.1:8100`
+
 ## Devement Start
 
 ```
