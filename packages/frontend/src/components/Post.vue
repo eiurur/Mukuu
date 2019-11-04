@@ -21,7 +21,7 @@
       <img
         :key="media.id_str"
         v-for="media in post.entities.media"
-        :src="media.media_url"
+        :src="`${media.media_url}:small`"
         class="original"
         data-zoomable
       />
@@ -104,6 +104,12 @@ article.post {
     margin-bottom: 0;
   }
 
+  & .createdAt a {
+    color: #bbb;
+    &:hover {
+      color: #179afc;
+    }
+  }
   .text-container {
     .user {
       .icon {

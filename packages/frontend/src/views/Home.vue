@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       skip: 0,
-      limit: 20,
+      limit: 5,
       posts: [],
       isLoading: false,
       isCompletedLoading: false,

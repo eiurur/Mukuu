@@ -4,22 +4,25 @@ import user from '../../api/user';
 const state = {
   user: null,
   screenName: '',
-  limit: 20,
+  limit: 3,
   skip: 0,
   searchOption: {
     sort: 'updatedAtDesc'
   },
   posts: [],
   isLoading: false,
-  isComletedLoading: false
+  isCompletedLoading: false
 };
 const getters = {
   getUser: state => state.user,
   getPosts: state => state.posts,
+  isLoading: state => state.isLoading,
   isCompletedLoading: state => state.isCompletedLoading
 };
 const actions = {
   async initialize({ commit, dispatch }, value) {
+    commit('SET_LOADING_STATUS', false);
+    commit('SET_LOADING_COMPLETE_STATUS', false);
     commit('CLEAR_USER');
     commit('CLEAR_POST');
     await dispatch('loadUser', value);
@@ -34,6 +37,7 @@ const actions = {
     commit('SET_USER', data);
   },
   async loadPost({ commit, state }) {
+    commit('SET_LOADING_STATUS', true);
     if (!state.user || !state.user._id) return;
     const newPosts = await post.fetch(Object.assign({ limit: state.limit, skip: state.skip }, { postedBy: state.user._id }, state.searchOption));
     if (newPosts.length < 1) {
@@ -48,6 +52,7 @@ const actions = {
     const posts = [...state.posts, ...expandedPosts];
     commit('INCREMENT_SKIP');
     commit('SET_POST', posts);
+    commit('SET_LOADING_STATUS', false);
   },
   close({ commit }) {
     commit('CLEAR_USER');
@@ -61,8 +66,11 @@ const mutations = {
   SET_POST(state, payload) {
     state.posts = payload;
   },
+  SET_LOADING_STATUS(state, payload) {
+    state.isLoading = payload;
+  },
   SET_LOADING_COMPLETE_STATUS(state, payload) {
-    state.isComletedLoading = payload;
+    state.isCompletedLoading = payload;
   },
   INCREMENT_SKIP(state) {
     state.skip += state.limit;

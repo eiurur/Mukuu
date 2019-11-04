@@ -2,13 +2,18 @@
   <section class="infinite-list" ref="scrollable" v-if="user">
     <section class="profile">
       <div :style="{background: `#${user.profileBackgroundColor}`}">
-        <img :src="user.profileBannerUrl" class="banner" />
+        <img :src="`${user.profileBannerUrl}/web`" class="banner" />
       </div>
       <div class="icon">
-        <img :src="user.icon" />
+        <a :href="`https://twitter.com/${user.screenName}`" target="_blank">
+          <img :src="user.icon" />
+        </a>
       </div>
       <div class="text">
-        <div>{{user.name}} @ {{user.screenName}}</div>
+        <div>
+          <span class="name">{{user.name}}</span>
+          <span class="screen-name">@{{user.screenName}}</span>
+        </div>
         <div v-if="user.hostname">
           <i class="el-icon-link"></i>
           <a :href="user.url" target="_blank">{{user.hostname}}</a>
@@ -16,7 +21,7 @@
         <div v-html="$activateLink(user.description)"></div>
       </div>
     </section>
-    <section v-infinite-scroll="loadPost" infinite-scroll-disabled="isCompletedLoading">
+    <section v-infinite-scroll="loadPost" infinite-scroll-disabled="isDisableLoading">
       <Post :post="post" :useDrawer="false" :key="post._id" v-for="post in posts"></Post>
     </section>
   </section>
@@ -52,6 +57,11 @@
     padding: 1rem;
     padding-top: calc(1rem + 2.5rem);
     font-size: 1rem;
+
+    & .screen-name {
+      padding-left: 0.5rem;
+      opacity: 0.5;
+    }
   }
   & i > * {
     padding-left: 0.5rem;
@@ -88,9 +98,12 @@ export default {
         return this.$store.getters["drawer/getPosts"];
       }
     },
-    isCompletedLoading: {
+    isDisableLoading: {
       get() {
-        return this.$store.getters["drawer/isCompletedLoading"];
+        return (
+          this.$store.getters["drawer/isLoading"]
+          || this.$store.getters["drawer/isCompletedLoading"]
+        );
       }
     }
   },
