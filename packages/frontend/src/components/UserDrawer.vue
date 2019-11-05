@@ -83,10 +83,11 @@ export default {
       get() {
         const user = this.$store.getters["drawer/getUser"];
         if (!user) return user;
-        const icon = user.profileImageUrl
-          ? user.profileImageUrl.replace("_normal", "_bigger")
+        const { url, profileImageUrl } = user;
+        const icon = profileImageUrl
+          ? profileImageUrl.replace("_normal", "_bigger")
           : "";
-        const hostname = user.url ? new URL(user.url).hostname : "";
+        const hostname = url ? new URL(url).hostname : "";
         return Object.assign(user, {
           icon,
           hostname
