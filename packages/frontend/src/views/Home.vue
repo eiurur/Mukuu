@@ -35,6 +35,7 @@
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
         <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
+        <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
     <el-col :span="8">
@@ -50,6 +51,7 @@
 import post from "../api/post";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Post from "@/components/Post.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "home",
@@ -70,11 +72,15 @@ export default {
   },
   components: {
     UserDrawer,
-    Post
+    Post,
+    Loader
   },
   computed: {
     canLoad() {
       return this.isCompletedLoading || this.isLoading;
+    },
+    shouldShowLoader() {
+      return !this.isCompletedLoading && this.isLoading;
     }
   },
   watch: {
@@ -94,6 +100,7 @@ export default {
         Object.assign({ limit: this.limit, skip: this.skip }, this.searchOption)
       );
       if (newPosts.length < 1) {
+        this.isLoading = false;
         this.isComletedLoading = true;
         return;
       }

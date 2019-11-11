@@ -154,10 +154,19 @@ img:after {
 /** */
 
 .infinite-list {
+  position: relative;
   height: 100vh;
   margin: -1rem 0;
   padding: 0.5rem 0;
   list-style: none;
   overflow: auto;
+  margin-bottom: -4rem;
+}
+.el-loading-spinner {
+  margin-top: -1rem;
+}
+.el-loading-mask {
+  border-radius: 2rem;
+  margin: 1rem 0;
 }
 </style>

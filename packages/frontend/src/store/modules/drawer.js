@@ -41,6 +41,7 @@ const actions = {
     if (!state.user || !state.user._id) return;
     const newPosts = await post.fetch(Object.assign({ limit: state.limit, skip: state.skip }, { postedBy: state.user._id }, state.searchOption));
     if (newPosts.length < 1) {
+      commit('SET_LOADING_STATUS', false);
       commit('SET_LOADING_COMPLETE_STATUS', true);
       return;
     }

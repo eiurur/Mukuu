@@ -23,6 +23,7 @@
     </section>
     <section v-infinite-scroll="loadPost" infinite-scroll-disabled="isDisableLoading">
       <Post :post="post" :useDrawer="false" :key="post._id" v-for="post in posts"></Post>
+      <Loader :shouldShowLoader="shouldShowLoader"></Loader>
     </section>
   </section>
 </template>
@@ -71,11 +72,13 @@
 
 <script>
 import Post from "@/components/Post.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "UserDrawer",
   components: {
-    Post
+    Post,
+    Loader
   },
   props: ["postedBy"],
   computed: {
@@ -102,8 +105,16 @@ export default {
     isDisableLoading: {
       get() {
         return (
-          this.$store.getters["drawer/isLoading"]
-          || this.$store.getters["drawer/isCompletedLoading"]
+          this.$store.getters["drawer/isCompletedLoading"]
+          || this.$store.getters["drawer/isLoading"]
+        );
+      }
+    },
+    shouldShowLoader: {
+      get() {
+        return (
+          !this.$store.getters["drawer/isCompletedLoading"]
+          && this.$store.getters["drawer/isLoading"]
         );
       }
     }
