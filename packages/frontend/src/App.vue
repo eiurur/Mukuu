@@ -114,7 +114,7 @@ img:after {
   width: inherit;
   height: inherit;
   background: #ebebeb
-    url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Muku.com") no-repeat
+    url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu") no-repeat
     center;
   color: transparent;
 }
