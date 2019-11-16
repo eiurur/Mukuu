@@ -23,6 +23,9 @@
   &.clickable {
     cursor: pointer;
   }
+  & > div {
+    height: 100%;
+  }
   border-radius: 100%;
   & img {
     border-radius: 100%;
