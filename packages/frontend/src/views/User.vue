@@ -182,7 +182,6 @@ export default {
           this.searchOption
         )
       );
-      console.log(newUSers);
       if (newUSers.length < 1) {
         this.isLoading = false;
         this.isCompletedLoading = true;
