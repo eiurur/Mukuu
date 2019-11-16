@@ -45,10 +45,13 @@
           :href="link.url"
           target="_blank"
         >
-          <span>
-            <i class="el-icon-link"></i>
-            {{link.label}}
-          </span>
+          <el-tooltip placement="top" effect="light">
+            <div slot="content">{{link.url}}</div>
+            <span>
+              <i class="el-icon-link"></i>
+              {{link.label}}
+            </span>
+          </el-tooltip>
         </a>
       </div>
     </div>
