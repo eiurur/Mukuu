@@ -1,11 +1,11 @@
 <template>
-  <div class="icon">
+  <div class="icon clickable">
     <div v-if="useTwitterPage">
-      <a :href="`https://twitter.com/${user.screenName}`" target="_blank" class="clickable">
+      <a :href="`https://twitter.com/${user.screenName}`" target="_blank">
         <img :src="icon" />
       </a>
     </div>
-    <div v-else-if="useUserDrawer" @click="openUserDrawer" class="clickable">
+    <div v-else-if="useUserDrawer" @click="openUserDrawer">
       <img :src="icon" />
     </div>
     <div v-else>
@@ -16,11 +16,11 @@
 
 <style lang="scss" scoped>
 .icon {
-  min-width: 73px;
-  min-height: 73px;
+  width: 73px;
+  height: 73px;
   background: #ccc;
 
-  & .clickable {
+  &.clickable {
     cursor: pointer;
   }
   border-radius: 100%;
