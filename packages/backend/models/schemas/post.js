@@ -21,8 +21,8 @@ const PostSchema = new Schema({
   },
   text: String,
   entities: String,
-  favoriteCount: { type: Number, default: 0 },
-  retweetCount: { type: Number, default: 0 },
+  favoriteCount: { type: Number, default: 0, index: true },
+  retweetCount: { type: Number, default: 0, index: true },
   medias: [MediaScheme],
   postedBy: {
     type: ObjectId,
@@ -56,7 +56,7 @@ module.exports = {
   queryOption: {
     raws: ['_id', 'postedBy'],
     range: 'createdAt',
-    searchWord: ['name', 'screenName', 'text'],
+    searchWord: ['text'],
   },
   populates: ['postedBy'],
 };

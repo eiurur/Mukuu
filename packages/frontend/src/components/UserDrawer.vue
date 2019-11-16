@@ -4,11 +4,7 @@
       <div :style="{background: `#${user.profileBackgroundColor}`}">
         <img :src="`${user.profileBannerUrl}/web`" class="banner" />
       </div>
-      <div class="icon">
-        <a :href="`https://twitter.com/${user.screenName}`" target="_blank">
-          <img :src="user.icon" />
-        </a>
-      </div>
+      <Icon class="icon" :user="user" :useTwitterPage="true"></Icon>
       <div class="text">
         <div>
           <span class="name">{{user.name}}</span>
@@ -42,11 +38,7 @@
     position: absolute;
     top: calc(240px - 40px);
     left: 1rem;
-    border-radius: 100%;
     border: 4px solid white;
-    & img {
-      border-radius: 100%;
-    }
   }
   & .banner {
     object-fit: cover;
@@ -72,12 +64,14 @@
 
 <script>
 import Post from "@/components/Post.vue";
+import Icon from "@/components/Icon.vue";
 import Loader from "@/components/Loader.vue";
 
 export default {
   name: "UserDrawer",
   components: {
     Post,
+    Icon,
     Loader
   },
   props: ["postedBy"],
@@ -86,13 +80,9 @@ export default {
       get() {
         const user = this.$store.getters["drawer/getUser"];
         if (!user) return user;
-        const { url, profileImageUrl } = user;
-        const icon = profileImageUrl
-          ? profileImageUrl.replace("_normal", "_bigger")
-          : "";
+        const { url } = user;
         const hostname = url ? new URL(url).hostname : "";
         return Object.assign(user, {
-          icon,
           hostname
         });
       }

@@ -7,8 +7,8 @@
         </el-form-item>
         <el-form-item label="並替">
           <el-select v-model="searchOption.sort" placeholder="please select your zone">
-            <el-option label="投稿日時が新しい順" value="updatedAtDesc"></el-option>
-            <el-option label="投稿日時が古い順" value="updatedAtAsc"></el-option>
+            <el-option label="投稿日時が新しい順" value="createdAtDesc"></el-option>
+            <el-option label="投稿日時が古い順" value="createddAtAsc"></el-option>
             <el-option label="リツイートが多い順" value="retweetCountDesc"></el-option>
             <el-option label="お気に入りが多い順" value="favoriteCountDesc"></el-option>
             <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
@@ -64,7 +64,7 @@ export default {
       isCompletedLoading: false,
       searchOption: {
         searchWord: "",
-        sort: "updatedAtDesc",
+        sort: "createdAtDesc",
         from: "",
         to: ""
       }
@@ -101,7 +101,7 @@ export default {
       );
       if (newPosts.length < 1) {
         this.isLoading = false;
-        this.isComletedLoading = true;
+        this.isCompletedLoading = true;
         return;
       }
       const expandedPosts = newPosts.map((p) => {

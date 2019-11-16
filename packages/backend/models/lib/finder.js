@@ -32,10 +32,18 @@ module.exports = class Finder {
   buildSort(query) {
     switch (this.sort) {
       case 'updatedAtAsc': {
-        query.sort({ createdAt: 1 });
+        query.sort({ updatedAt: 1 });
         break;
       }
       case 'updatedAtDesc': {
+        query.sort({ updatedAt: -1 });
+        break;
+      }
+      case 'createdAtAsc': {
+        query.sort({ createdAt: 1 });
+        break;
+      }
+      case 'createdAtDesc': {
         query.sort({ createdAt: -1 });
         break;
       }
@@ -45,6 +53,14 @@ module.exports = class Finder {
       }
       case 'favoriteCountDesc': {
         query.sort({ favoriteCount: -1 });
+        break;
+      }
+      case 'followersCountDesc': {
+        query.sort({ followersCount: -1 });
+        break;
+      }
+      case 'friendsCountDesc': {
+        query.sort({ friendsCount: -1 });
         break;
       }
       default: {
