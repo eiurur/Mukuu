@@ -19,6 +19,7 @@
   width: 73px;
   height: 73px;
   background: #ccc;
+  border-radius: 100%;
 
   &.clickable {
     cursor: pointer;
@@ -26,7 +27,10 @@
   & > div {
     height: 100%;
   }
-  border-radius: 100%;
+  & a {
+    height: 100%;
+    display: block;
+  }
   & img {
     border-radius: 100%;
   }
