@@ -2,14 +2,14 @@
   <div class="icon clickable">
     <div v-if="useTwitterPage">
       <a :href="`https://twitter.com/${user.screenName}`" target="_blank">
-        <img :src="icon" />
+        <img :src="icon" onerror="this.style.display = 'none'" />
       </a>
     </div>
     <div v-else-if="useUserDrawer" @click="openUserDrawer">
-      <img :src="icon" />
+      <img :src="icon" onerror="this.style.display = 'none'" />
     </div>
     <div v-else>
-      <img :src="icon" />
+      <img :src="icon" onerror="this.style.display = 'none'" />
     </div>
   </div>
 </template>
