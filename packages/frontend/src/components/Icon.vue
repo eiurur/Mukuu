@@ -16,7 +16,6 @@
 
 <style lang="scss" scoped>
 .icon {
-  width: 73px;
   height: 73px;
   background: #ccc;
   border-radius: 100%;

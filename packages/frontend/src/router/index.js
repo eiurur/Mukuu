@@ -10,33 +10,33 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
   },
   {
     path: '/users',
-    name: 'user',
-    component: User
+    name: 'users',
+    component: User,
   },
   {
     path: '/watch',
     name: 'watch',
-    component: Watch
+    component: Watch,
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/About.vue')
+    component: () => import('../views/About.vue'),
   },
   {
     path: '*',
-    redirect: '/'
-  }
+    redirect: '/',
+  },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
