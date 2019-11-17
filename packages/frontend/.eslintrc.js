@@ -16,6 +16,7 @@ module.exports = {
     'no-return-assign': 0,
     'max-len': ['error', { code: 160 }],
     'no-underscore-dangle': 0,
+    'operator-linebreak': 0,
     'arrow-parens': 0,
     'implicit-arrow-linebreak': 0,
   },
