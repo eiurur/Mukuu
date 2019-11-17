@@ -13,7 +13,7 @@
     <section>
       <p>
         Github:
-        <a href="https://github.com/eiurur/Mukuu" target="_blank">Mikuu</a>
+        <a href="https://github.com/eiurur/Mukuu" target="_blank">Mukuu</a>
       </p>
     </section>
   </section>

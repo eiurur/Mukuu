@@ -10,11 +10,11 @@ module.exports = class Finder {
   }
 
   buildQuery(query) {
-    if (this.limit) {
+    if (!isNaN(this.limit)) {
       query = query.limit(this.limit);
     }
 
-    if (this.skip) {
+    if (!isNaN(this.skip)) {
       query = query.skip(this.skip);
     }
 
@@ -32,39 +32,39 @@ module.exports = class Finder {
   buildSort(query) {
     switch (this.sort) {
       case 'updatedAtAsc': {
-        query.sort({ updatedAt: 1 });
+        query.sort({ updatedAt: 'asc' });
         break;
       }
       case 'updatedAtDesc': {
-        query.sort({ updatedAt: -1 });
+        query.sort({ updatedAt: 'desc' });
         break;
       }
       case 'createdAtAsc': {
-        query.sort({ createdAt: 1 });
+        query.sort({ createdAt: 'asc' });
         break;
       }
       case 'createdAtDesc': {
-        query.sort({ createdAt: -1 });
+        query.sort({ createdAt: 'desc' });
         break;
       }
       case 'retweetCountDesc': {
-        query.sort({ retweetCount: -1 });
+        query.sort({ retweetCount: 'desc' });
         break;
       }
       case 'favoriteCountDesc': {
-        query.sort({ favoriteCount: -1 });
+        query.sort({ favoriteCount: 'desc' });
         break;
       }
       case 'followersCountDesc': {
-        query.sort({ followersCount: -1 });
+        query.sort({ followersCount: 'desc' });
         break;
       }
       case 'friendsCountDesc': {
-        query.sort({ friendsCount: -1 });
+        query.sort({ friendsCount: 'desc' });
         break;
       }
       default: {
-        query.sort({ createdAt: -1 });
+        query.sort({ createdAt: 'desc' });
         break;
       }
     }
