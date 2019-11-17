@@ -187,9 +187,9 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
-      const expandedUsers = newUSers.map((p) => {
+      const expandedUsers = newUSers.map(p => {
         const ret = p;
-        ret.posts = p.posts.map((post) => {
+        ret.posts = p.posts.map(post => {
           if (post.entities) post.entities = JSON.parse(post.entities);
           return post;
         });

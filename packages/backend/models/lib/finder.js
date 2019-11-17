@@ -89,17 +89,17 @@ module.exports = class Finder {
 
   findOne() {
     return new Promise((resolve, reject) => {
-      this.buildQuery(this.model.findOne(this.query, this.fields)).exec(
-        (err, result) => (err ? reject(err) : resolve(result)),
-      );
+      this.buildQuery(
+        this.model.findOne(this.query, this.fields),
+      ).exec((err, result) => (err ? reject(err) : resolve(result)));
     });
   }
 
   find() {
     return new Promise((resolve, reject) => {
-      this.buildQuery(this.model.find(this.query, this.fields)).exec(
-        (err, result) => (err ? reject(err) : resolve(result)),
-      );
+      this.buildQuery(
+        this.model.find(this.query, this.fields),
+      ).exec((err, result) => (err ? reject(err) : resolve(result)));
     });
   }
 };
