@@ -11,7 +11,6 @@ export default {
   normalize(posts) {
     return posts.map(post => {
       post.sourceUrl = `https://twitter.com/${post.postedBy.screenName}/status/${post.idStr}`;
-      console.log(post.createdAt, dayjs(post.createdAt));
       post.createdAt = dayjs(post.createdAt).format('YYYY-MM-DD');
       post.updatedAt = dayjs(post.updatedAt).format('YYYY-MM-DD');
       return post;
