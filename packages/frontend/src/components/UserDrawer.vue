@@ -1,18 +1,18 @@
 <template>
   <section class="infinite-list" ref="scrollable" v-if="user">
     <section class="profile">
-      <div :style="{background: `#${user.profileBackgroundColor}`}">
+      <div :style="{ background: `#${user.profileBackgroundColor}` }">
         <img :src="`${user.profileBannerUrl}/web`" class="banner" />
       </div>
       <Icon class="icon" :user="user" :useTwitterPage="true"></Icon>
       <div class="text">
         <div>
-          <span class="name">{{user.name}}</span>
-          <span class="screen-name">@{{user.screenName}}</span>
+          <span class="name">{{ user.name }}</span>
+          <span class="screen-name">@{{ user.screenName }}</span>
         </div>
         <div v-if="user.hostname">
           <i class="el-icon-link"></i>
-          <a :href="user.url" target="_blank">{{user.hostname}}</a>
+          <a :href="user.url" target="_blank">{{ user.hostname }}</a>
         </div>
         <div v-html="$activateLink(user.description)"></div>
       </div>
@@ -38,7 +38,7 @@
     position: absolute;
     top: calc(240px - 40px);
     left: 1rem;
-    border: 4px solid white;
+    box-shadow: 0 0 0 4px white;
   }
   & .banner {
     object-fit: cover;
@@ -63,59 +63,59 @@
 </style>
 
 <script>
-import Post from "@/components/Post.vue";
-import Icon from "@/components/Icon.vue";
-import Loader from "@/components/Loader.vue";
+import Post from '@/components/Post.vue';
+import Icon from '@/components/Icon.vue';
+import Loader from '@/components/Loader.vue';
 
 export default {
-  name: "UserDrawer",
+  name: 'UserDrawer',
   components: {
     Post,
     Icon,
-    Loader
+    Loader,
   },
-  props: ["postedBy"],
+  props: ['postedBy'],
   computed: {
     user: {
       get() {
-        const user = this.$store.getters["drawer/getUser"];
+        const user = this.$store.getters['drawer/getUser'];
         if (!user) return user;
         const { url } = user;
-        const hostname = url ? new URL(url).hostname : "";
+        const hostname = url ? new URL(url).hostname : '';
         return Object.assign(user, {
-          hostname
+          hostname,
         });
-      }
+      },
     },
     posts: {
       get() {
-        return this.$store.getters["drawer/getPosts"];
-      }
+        return this.$store.getters['drawer/getPosts'];
+      },
     },
     isDisableLoading: {
       get() {
         return (
-          this.$store.getters["drawer/isCompletedLoading"]
-          || this.$store.getters["drawer/isLoading"]
+          this.$store.getters['drawer/isCompletedLoading'] ||
+          this.$store.getters['drawer/isLoading']
         );
-      }
+      },
     },
     shouldShowLoader: {
       get() {
         return (
-          !this.$store.getters["drawer/isCompletedLoading"]
-          && this.$store.getters["drawer/isLoading"]
+          !this.$store.getters['drawer/isCompletedLoading'] &&
+          this.$store.getters['drawer/isLoading']
         );
-      }
-    }
+      },
+    },
   },
   mouted() {
     this.$refs.scrollable.scrollTop = 0;
   },
   methods: {
     async loadPost() {
-      await this.$store.dispatch("drawer/loadPost");
-    }
-  }
+      await this.$store.dispatch('drawer/loadPost');
+    },
+  },
 };
 </script>

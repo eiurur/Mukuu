@@ -16,6 +16,7 @@
 
 <style lang="scss" scoped>
 .icon {
+  width: 73px;
   height: 73px;
   background: #ccc;
   border-radius: 100%;
@@ -24,7 +25,8 @@
     cursor: pointer;
   }
   & > div {
-    height: 100%;
+    height: 73px;
+    width: 73px;
   }
   & a {
     height: 100%;

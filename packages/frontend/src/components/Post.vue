@@ -3,15 +3,15 @@
     <div class="text-container">
       <div class="user">
         <div class="icon" @click="openUserDrawer(post.postedBy)">
-          <img :src="post.postedBy.profileImageUrl" />
+          <img :src="post.postedBy.profileImageUrl" onerror="this.style.display = 'none'" />
         </div>
         <div class="profile">
           <div class="names">
-            <span class="name">{{post.postedBy.name}}</span>
-            <span class="screen-name">@{{post.postedBy.screenName}}</span>
+            <span class="name">{{ post.postedBy.name }}</span>
+            <span class="screen-name">@{{ post.postedBy.screenName }}</span>
           </div>
           <div class="createdAt">
-            <a :href="post.sourceUrl" target="_blank">{{post.createdAt}}</a>
+            <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
           </div>
         </div>
       </div>
@@ -29,11 +29,11 @@
     <div class="control">
       <div class="attributes">
         <div class="item retweet">
-          <span>{{post.retweetCount}}</span>
+          <span>{{ post.retweetCount }}</span>
           <span class="suffix">RT</span>
         </div>
         <div class="item favorite">
-          <span>{{post.favoriteCount}}</span>
+          <span>{{ post.favoriteCount }}</span>
           <span class="suffix">likes</span>
         </div>
       </div>
@@ -46,10 +46,10 @@
           target="_blank"
         >
           <el-tooltip placement="top" effect="light">
-            <div slot="content">{{link.url}}</div>
+            <div slot="content">{{ link.url }}</div>
             <span>
               <i class="el-icon-link"></i>
-              {{link.label}}
+              {{ link.label }}
             </span>
           </el-tooltip>
         </a>
@@ -197,17 +197,17 @@ article.post {
 </style>
 
 <script>
-import mediumZoom from "medium-zoom";
+import mediumZoom from 'medium-zoom';
 
 export default {
-  name: "Post",
-  props: ["post", "useDrawer"],
+  name: 'Post',
+  props: ['post', 'useDrawer'],
   methods: {
     openUserDrawer(postedBy) {
       if (!postedBy || !this.useDrawer) return;
       const payload = Object.assign({}, postedBy);
-      this.$store.dispatch("drawer/initialize", payload);
-    }
+      this.$store.dispatch('drawer/initialize', payload);
+    },
   },
   computed: {
     externalLinks: {
@@ -215,35 +215,31 @@ export default {
         return this.post.text
           .split(/\r\n|\n|\s/)
           .filter(
-            word => word.indexOf("ux.getuploader.com") !== -1
-              || word.indexOf("drive.google.com") !== -1
+            word =>
+              word.indexOf('ux.getuploader.com') !== -1 || word.indexOf('drive.google.com') !== -1,
           )
-          .map((url) => {
-            const match = url.match(
-              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
-            );
+          .map(url => {
+            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
             return match[1];
           })
-          .map((url) => {
+          .map(url => {
             const u = new URL(url);
             return {
               url: u.href,
               hostname: u.hostname,
-              label: u.hostname.split(".")[0]
+              label: u.hostname.split('.')[0],
             };
           });
-      }
-    }
+      },
+    },
   },
   mounted() {
     this.$nextTick(() => {
       const images = Array.from(
-        document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
+        document.querySelectorAll('[data-zoomable]:not(.medium-zoom-image)'),
       );
-      images.map(
-        img => (img.onload = () => mediumZoom(img, { background: "#000" }))
-      );
+      images.map(img => (img.onload = () => mediumZoom(img, { background: '#000' })));
     });
-  }
+  },
 };
 </script>
