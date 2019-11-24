@@ -118,14 +118,34 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
-      const expandedPosts = newPosts.map(p => {
+      const expandedPosts = newPosts.map((p, i) => {
         const ret = p;
         if (p.entities) ret.entities = JSON.parse(p.entities);
+        this.addDividingFlag(i, newPosts);
         return ret;
       });
       this.posts = [...this.posts, ...expandedPosts];
       this.skip += this.limit;
       this.isLoading = false;
+    },
+    addDividingFlag(index, posts) {
+      const current = posts[index];
+      if (index === 0) {
+        if (this.posts.length === 0) {
+          current.shouldShowDivider = true;
+          return;
+        }
+        const preInAll = this.posts[this.posts.length - 1];
+        if (preInAll.createdAt !== current.createdAt) {
+          current.shouldShowDivider = true;
+          return;
+        }
+        return;
+      }
+      const pre = posts[index - 1];
+      if (pre.createdAt !== current.createdAt) {
+        current.shouldShowDivider = true;
+      }
     },
     openUserDrawer(postedBy) {
       if (!postedBy) return;

@@ -45,6 +45,9 @@ main {
   height: 100%;
   min-height: 400px;
 }
+.el-divider__text {
+  background: transparent;
+}
 /* TODO: scope用のラッパクラスの配下に対象を限定する */
 .el-select {
   width: 100%;

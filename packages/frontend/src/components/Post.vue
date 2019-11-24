@@ -1,61 +1,64 @@
 <template>
-  <article class="post">
-    <div class="text-container">
-      <div class="user">
-        <div class="icon" @click="openUserDrawer(post.postedBy)">
-          <img :src="post.postedBy.profileImageUrl" onerror="this.style.display = 'none'" />
-        </div>
-        <div class="profile">
-          <div class="names">
-            <span class="name">{{ post.postedBy.name }}</span>
-            <span class="screen-name">@{{ post.postedBy.screenName }}</span>
+  <div class="post-container">
+    <el-divider content-position="center" v-if="post.shouldShowDivider">{{post.createdAt}}</el-divider>
+    <article class="post">
+      <div class="text-container">
+        <div class="user">
+          <div class="icon" @click="openUserDrawer(post.postedBy)">
+            <img :src="post.postedBy.profileImageUrl" onerror="this.style.display = 'none'" />
           </div>
-          <div class="createdAt">
-            <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
+          <div class="profile">
+            <div class="names">
+              <span class="name">{{ post.postedBy.name }}</span>
+              <span class="screen-name">@{{ post.postedBy.screenName }}</span>
+            </div>
+            <div class="createdAt">
+              <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
+            </div>
           </div>
         </div>
+        <div class="text" v-html="$activateLink(post.text)"></div>
       </div>
-      <div class="text" v-html="$activateLink(post.text)"></div>
-    </div>
-    <div v-if="post.entities.media" class="images">
-      <img
-        :key="media.id_str"
-        v-for="media in post.entities.media"
-        :src="`${media.media_url}?format=jpg&name=small`"
-        class="original"
-        data-zoomable
-      />
-    </div>
-    <div class="control">
-      <div class="attributes">
-        <div class="item retweet">
-          <span>{{ post.retweetCount }}</span>
-          <span class="suffix">RT</span>
+      <div v-if="post.entities.media" class="images">
+        <img
+          :key="media.id_str"
+          v-for="media in post.entities.media"
+          :src="`${media.media_url}?format=jpg&name=small`"
+          class="original"
+          data-zoomable
+        />
+      </div>
+      <div class="control">
+        <div class="attributes">
+          <div class="item retweet">
+            <span>{{ post.retweetCount }}</span>
+            <span class="suffix">RT</span>
+          </div>
+          <div class="item favorite">
+            <span>{{ post.favoriteCount }}</span>
+            <span class="suffix">likes</span>
+          </div>
         </div>
-        <div class="item favorite">
-          <span>{{ post.favoriteCount }}</span>
-          <span class="suffix">likes</span>
+        <div class="externalLinks">
+          <a
+            class="item"
+            v-for="link in externalLinks"
+            :key="link.url"
+            :href="link.url"
+            target="_blank"
+          >
+            <el-tooltip placement="top" effect="light">
+              <div slot="content">{{ link.url }}</div>
+              <span>
+                <i class="el-icon-link"></i>
+                {{ link.label }}
+              </span>
+            </el-tooltip>
+          </a>
         </div>
       </div>
-      <div class="externalLinks">
-        <a
-          class="item"
-          v-for="link in externalLinks"
-          :key="link.url"
-          :href="link.url"
-          target="_blank"
-        >
-          <el-tooltip placement="top" effect="light">
-            <div slot="content">{{ link.url }}</div>
-            <span>
-              <i class="el-icon-link"></i>
-              {{ link.label }}
-            </span>
-          </el-tooltip>
-        </a>
-      </div>
-    </div>
-  </article>
+    </article>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -86,6 +89,11 @@
     }
   }
 }
+.post-container {
+  & + .post-container {
+    margin-top: 1rem;
+  }
+}
 article.post {
   display: flex;
   flex-direction: column;
@@ -96,9 +104,6 @@ article.post {
 
   & > div + div {
     padding-top: 1rem;
-  }
-  & + .post {
-    margin-top: 1rem;
   }
   &:first-child {
     margin-top: 0;
@@ -197,17 +202,17 @@ article.post {
 </style>
 
 <script>
-import mediumZoom from 'medium-zoom';
+import mediumZoom from "medium-zoom";
 
 export default {
-  name: 'Post',
-  props: ['post', 'useDrawer'],
+  name: "Post",
+  props: ["post", "prePost", "useDrawer"],
   methods: {
     openUserDrawer(postedBy) {
       if (!postedBy || !this.useDrawer) return;
       const payload = Object.assign({}, postedBy);
-      this.$store.dispatch('drawer/initialize', payload);
-    },
+      this.$store.dispatch("drawer/initialize", payload);
+    }
   },
   computed: {
     externalLinks: {
@@ -216,10 +221,13 @@ export default {
           .split(/\r\n|\n|\s/)
           .filter(
             word =>
-              word.indexOf('ux.getuploader.com') !== -1 || word.indexOf('drive.google.com') !== -1,
+              word.indexOf("ux.getuploader.com") !== -1 ||
+              word.indexOf("drive.google.com") !== -1
           )
           .map(url => {
-            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
+            const match = url.match(
+              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
+            );
             return match[1];
           })
           .map(url => {
@@ -227,19 +235,21 @@ export default {
             return {
               url: u.href,
               hostname: u.hostname,
-              label: u.hostname.split('.')[0],
+              label: u.hostname.split(".")[0]
             };
           });
-      },
-    },
+      }
+    }
   },
   mounted() {
     this.$nextTick(() => {
       const images = Array.from(
-        document.querySelectorAll('[data-zoomable]:not(.medium-zoom-image)'),
+        document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
-      images.map(img => (img.onload = () => mediumZoom(img, { background: '#000' })));
+      images.map(
+        img => (img.onload = () => mediumZoom(img, { background: "#000" }))
+      );
     });
-  },
+  }
 };
 </script>
