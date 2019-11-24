@@ -25,6 +25,7 @@
           v-for="media in post.entities.media"
           :src="`${media.media_url}?format=jpg&name=small`"
           class="original"
+          :class="imageWidthStyle"
           data-zoomable
         />
       </div>
@@ -159,6 +160,17 @@ article.post {
   & > img + img {
     padding-left: 1rem;
   }
+
+  & .w33p {
+    max-width: 33%;
+  }
+
+  & .w50p {
+    max-width: 50%;
+  }
+  & .w100p {
+    max-width: 100%;
+  }
 }
 .control {
   display: flex;
@@ -215,6 +227,16 @@ export default {
     }
   },
   computed: {
+    imageWidthStyle: {
+      get() {
+        if (!this.post.entities.media) return {};
+        return {
+          w33p: this.post.entities.media.length === 3,
+          w50p: this.post.entities.media.length === 2,
+          w100p: this.post.entities.media.length === 1
+        };
+      }
+    },
     externalLinks: {
       get() {
         return this.post.text
