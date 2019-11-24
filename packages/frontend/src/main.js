@@ -9,10 +9,16 @@ import store from './store';
 
 import activateLink from './plugins/tweet';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 Vue.use(ElementUI, { locale });
 Vue.use(VueAnalytics, {
   id: 'UA-42893827-25',
-  router
+  router,
+  debug: {
+    enabled: !isProd,
+    sendHitTask: isProd,
+  },
 });
 
 Vue.prototype.$activateLink = activateLink;
@@ -25,5 +31,5 @@ new Vue({
   render: h => h(App),
   beforeCreate() {
     this.$store.dispatch('loadLocalStorage');
-  }
+  },
 }).$mount('#app');

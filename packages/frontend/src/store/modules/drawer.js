@@ -1,3 +1,4 @@
+import { page } from 'vue-analytics';
 import post from '../../api/post';
 import user from '../../api/user';
 
@@ -39,24 +40,27 @@ const actions = {
   async loadPost({ commit, state }) {
     commit('SET_LOADING_STATUS', true);
     if (!state.user || !state.user._id) return;
-    const newPosts = await post.fetch(
+    const { data, url } = await post.fetch(
       Object.assign(
         { limit: state.limit, skip: state.skip },
         { postedBy: state.user._id },
         state.searchOption,
       ),
     );
-    if (newPosts.length < 1) {
+    if (data.length < 1) {
       commit('SET_LOADING_STATUS', false);
       commit('SET_LOADING_COMPLETE_STATUS', true);
       return;
     }
-    const expandedPosts = newPosts.map(p => {
+    const expandedPosts = data.map(p => {
       const ret = p;
       if (p.entities) ret.entities = JSON.parse(p.entities);
       return ret;
     });
     const posts = [...state.posts, ...expandedPosts];
+    page({
+      location: url,
+    });
     commit('INCREMENT_SKIP');
     commit('SET_POST', posts);
     commit('SET_LOADING_STATUS', false);

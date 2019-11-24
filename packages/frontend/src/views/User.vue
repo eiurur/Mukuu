@@ -186,22 +186,25 @@ export default {
   },
   methods: {
     async fetchCount() {
-      this.total = await user.fetchCount(Object.assign({}, this.searchOption));
+      const { count } = await user.fetchCount(
+        Object.assign({}, this.searchOption)
+      );
+      this.total = count;
     },
     async load() {
       this.isLoading = true;
-      const newUSers = await user.fetch(
+      const { data, url } = await user.fetch(
         Object.assign(
           { limit: this.limit, skip: this.skip, includePostNum: 4 },
           this.searchOption
         )
       );
-      if (newUSers.length < 1) {
+      if (data.length < 1) {
         this.isLoading = false;
         this.isCompletedLoading = true;
         return;
       }
-      const expandedUsers = newUSers.map(p => {
+      const expandedUsers = data.map(p => {
         const ret = p;
         ret.posts = p.posts.map(post => {
           if (post.entities) post.entities = JSON.parse(post.entities);
@@ -220,6 +223,9 @@ export default {
       this.users = [...this.users, ...expandedUsers];
       this.skip += this.limit;
       this.isLoading = false;
+      this.$ga.page({
+        location: url
+      });
     }
   },
   updated() {

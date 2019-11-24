@@ -106,27 +106,33 @@ export default {
   },
   methods: {
     async fetchCount() {
-      this.total = await post.fetchCount(Object.assign({}, this.searchOption));
+      const { count } = await post.fetchCount(
+        Object.assign({}, this.searchOption)
+      );
+      this.total = count;
     },
     async load() {
       this.isLoading = true;
-      const newPosts = await post.fetch(
+      const { data, url } = await post.fetch(
         Object.assign({ limit: this.limit, skip: this.skip }, this.searchOption)
       );
-      if (newPosts.length < 1) {
+      if (data.length < 1) {
         this.isLoading = false;
         this.isCompletedLoading = true;
         return;
       }
-      const expandedPosts = newPosts.map((p, i) => {
+      const expandedPosts = data.map((p, i) => {
         const ret = p;
         if (p.entities) ret.entities = JSON.parse(p.entities);
-        this.addDividingFlag(i, newPosts);
+        this.addDividingFlag(i, data);
         return ret;
       });
       this.posts = [...this.posts, ...expandedPosts];
       this.skip += this.limit;
       this.isLoading = false;
+      this.$ga.page({
+        location: url
+      });
     },
     addDividingFlag(index, posts) {
       const current = posts[index];

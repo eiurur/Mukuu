@@ -19,17 +19,17 @@ export default {
   async fetch(params) {
     if (params.from) params.from = dayjs(params.from).format('YYYY-MM-DD');
     if (params.to) params.to = dayjs(params.to).format('YYYY-MM-DD');
-    const { data } = await axios.get(`${API_ROOT}/posts`, {
+    const { data, request } = await axios.get(`${API_ROOT}/posts`, {
       params,
     });
-    return this.normalize(data);
+    return { url: request.responseURL, data: this.normalize(data) };
   },
   async fetchCount(params) {
     if (params.from) params.from = dayjs(params.from).format('YYYY-MM-DD');
     if (params.to) params.to = dayjs(params.to).format('YYYY-MM-DD');
-    const { data } = await axios.get(`${API_ROOT}/posts/count`, {
+    const { data, request } = await axios.get(`${API_ROOT}/posts/count`, {
       params,
     });
-    return data.count;
+    return { url: request.responseURL, count: data.count };
   },
 };
