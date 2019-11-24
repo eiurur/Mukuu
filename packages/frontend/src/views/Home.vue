@@ -31,6 +31,7 @@
           ></el-date-picker>
         </el-form-item>
       </el-form>
+      <Counter :current="current" :total="total"></Counter>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -52,6 +53,7 @@ import post from "../api/post";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
+import Counter from "@/components/Counter.vue";
 
 export default {
   name: "home",
@@ -59,6 +61,7 @@ export default {
     return {
       skip: 0,
       limit: 5,
+      total: 0,
       posts: [],
       isLoading: false,
       isCompletedLoading: false,
@@ -73,7 +76,8 @@ export default {
   components: {
     UserDrawer,
     Post,
-    Loader
+    Loader,
+    Counter
   },
   computed: {
     canLoad() {
@@ -81,6 +85,9 @@ export default {
     },
     shouldShowLoader() {
       return !this.isCompletedLoading && this.isLoading;
+    },
+    current() {
+      return this.posts.length;
     }
   },
   watch: {
@@ -88,12 +95,19 @@ export default {
       handler() {
         this.skip = 0;
         this.posts = [];
+        this.fetchCount();
         this.load();
       },
       deep: true
     }
   },
+  mounted() {
+    this.fetchCount();
+  },
   methods: {
+    async fetchCount() {
+      this.total = await post.fetchCount(Object.assign({}, this.searchOption));
+    },
     async load() {
       this.isLoading = true;
       const newPosts = await post.fetch(

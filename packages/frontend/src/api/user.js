@@ -6,8 +6,14 @@ const API_ROOT = `/api/${VERSION}`;
 export default {
   async fetch(params) {
     const { data } = await axios.get(`${API_ROOT}/users`, {
-      params
+      params,
     });
     return data;
-  }
+  },
+  async fetchCount(params) {
+    const { data } = await axios.get(`${API_ROOT}/users/count`, {
+      params,
+    });
+    return data.count;
+  },
 };

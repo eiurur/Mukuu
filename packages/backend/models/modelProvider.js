@@ -25,10 +25,26 @@ module.exports = class ModelProvider {
     return this.model.aggregate(query).exec();
   }
 
-  count(query = {}) {
+  count(query = {}, searchOption = {}) {
     logger.info(`DBBaseProvider ${this.model.modelName} count`);
     logger.info('query  : ', JSON.stringify(query));
-    return this.model.count(query).exec();
+    const builder = new ConditionBuilder();
+    builder.buildCondition(this.queryOption.raws, query);
+    builder.addRangeCondition(this.queryOption.range, query.from, query.to);
+    builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
+    const q = builder.condition.length === 0 ? {} : { $and: builder.condition };
+    logger.info(JSON.stringify(builder.condition));
+
+    const params = Object.assign(
+      {
+        model: this.model,
+        query: q,
+        populates: this.populates,
+      },
+      searchOption,
+    );
+    const finder = new Finder(params);
+    return finder.count();
   }
 
   find(query = {}, searchOption = {}) {

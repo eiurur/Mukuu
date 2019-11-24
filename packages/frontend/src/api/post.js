@@ -24,4 +24,12 @@ export default {
     });
     return this.normalize(data);
   },
+  async fetchCount(params) {
+    if (params.from) params.from = dayjs(params.from).format('YYYY-MM-DD');
+    if (params.to) params.to = dayjs(params.to).format('YYYY-MM-DD');
+    const { data } = await axios.get(`${API_ROOT}/posts/count`, {
+      params,
+    });
+    return data.count;
+  },
 };

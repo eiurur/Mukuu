@@ -45,6 +45,13 @@ main {
   height: 100%;
   min-height: 400px;
 }
+/* TODO: scope用のラッパクラスの配下に対象を限定する */
+.el-select {
+  width: 100%;
+}
+.el-input {
+  width: 100%;
+}
 
 body,
 html,

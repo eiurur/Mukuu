@@ -102,4 +102,12 @@ module.exports = class Finder {
       ).exec((err, result) => (err ? reject(err) : resolve(result)));
     });
   }
+
+  count() {
+    return new Promise((resolve, reject) => {
+      this.buildQuery(
+        this.model.countDocuments(this.query, this.fields),
+      ).exec((err, result) => (err ? reject(err) : resolve(result)));
+    });
+  }
 };
