@@ -47,6 +47,7 @@
               v-for="media in user.medias"
               :src="media"
               class="original"
+              :class="imageWidthStyle(user.medias)"
               data-zoomable
             />
           </div>
@@ -114,12 +115,23 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  & img.original {
-    object-fit: cover;
-    height: 240px;
-    width: 25%;
-    border-radius: 0.5rem;
-    padding: 0.5rem 0;
+  & img {
+    &.original {
+      width: auto;
+      object-fit: cover;
+      height: 240px;
+      max-width: 25%;
+      border-radius: 0.5rem;
+    }
+    &.w33p {
+      max-width: 33%;
+    }
+    &.w50p {
+      max-width: 50%;
+    }
+    &.w100p {
+      max-width: 100%;
+    }
   }
 
   & img.original + img.original {
@@ -226,6 +238,14 @@ export default {
       this.$ga.page({
         location: url
       });
+    },
+    imageWidthStyle(medias) {
+      if (!medias) return {};
+      return {
+        w33p: medias.length === 3,
+        w50p: medias.length === 2,
+        w100p: medias.length === 1
+      };
     }
   },
   updated() {
