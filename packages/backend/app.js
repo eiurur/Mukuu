@@ -13,7 +13,7 @@ const listener = createListener();
 /**
  * routes, session
  */
-require('./routes/api')(listener);
+require('./routes/api/')(listener);
 require('./routes/routes')(listener);
 
 /**
