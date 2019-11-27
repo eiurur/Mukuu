@@ -135,6 +135,9 @@ export default {
       });
     },
     addDividingFlag(index, posts) {
+      if (!["createdAtAsc", "createdAtDesc"].includes(this.searchOption.sort)) {
+        return;
+      }
       const current = posts[index];
       if (index === 0) {
         if (this.posts.length === 0) {
