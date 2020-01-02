@@ -222,7 +222,7 @@ export default {
   methods: {
     openUserDrawer(postedBy) {
       if (!postedBy || !this.useDrawer) return;
-      const payload = Object.assign({}, postedBy);
+      const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
     }
   },

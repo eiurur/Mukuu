@@ -198,19 +198,15 @@ export default {
   },
   methods: {
     async fetchCount() {
-      const { count } = await user.fetchCount(
-        Object.assign({}, this.searchOption)
-      );
+      const { count } = await user.fetchCount({ ...this.searchOption });
       this.total = count;
     },
     async load() {
       this.isLoading = true;
-      const { data, url } = await user.fetch(
-        Object.assign(
-          { limit: this.limit, skip: this.skip, includePostNum: 4 },
-          this.searchOption
-        )
-      );
+      const { data, url } = await user.fetch({
+        ...{ limit: this.limit, skip: this.skip, includePostNum: 4 },
+        ...this.searchOption
+      });
       if (data.length < 1) {
         this.isLoading = false;
         this.isCompletedLoading = true;

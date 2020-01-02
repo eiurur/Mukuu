@@ -60,7 +60,7 @@ export default {
   methods: {
     openUserDrawer() {
       if (!this.user) return;
-      const payload = Object.assign({}, this.user);
+      const payload = { ...this.user };
       this.$store.dispatch("drawer/initialize", payload);
     }
   }

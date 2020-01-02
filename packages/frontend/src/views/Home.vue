@@ -106,16 +106,15 @@ export default {
   },
   methods: {
     async fetchCount() {
-      const { count } = await post.fetchCount(
-        Object.assign({}, this.searchOption)
-      );
+      const { count } = await post.fetchCount({ ...this.searchOption });
       this.total = count;
     },
     async load() {
       this.isLoading = true;
-      const { data, url } = await post.fetch(
-        Object.assign({ limit: this.limit, skip: this.skip }, this.searchOption)
-      );
+      const { data, url } = await post.fetch({
+        ...{ limit: this.limit, skip: this.skip },
+        ...this.searchOption
+      });
       if (data.length < 1) {
         this.isLoading = false;
         this.isCompletedLoading = true;
@@ -158,7 +157,7 @@ export default {
     },
     openUserDrawer(postedBy) {
       if (!postedBy) return;
-      const payload = Object.assign({}, postedBy);
+      const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
     }
   }
