@@ -43,7 +43,7 @@
           </div>
           <div v-if="user.medias" class="images">
             <img
-              :key="media.media_url"
+              :key="media.media_url_https"
               v-for="media in user.medias"
               :src="media"
               class="original"
@@ -185,6 +185,7 @@ export default {
   watch: {
     searchOption: {
       handler() {
+        this.isCompletedLoading = false;
         this.skip = 0;
         this.users = [];
         this.fetchCount();
@@ -218,13 +219,11 @@ export default {
           if (post.entities) post.entities = JSON.parse(post.entities);
           return post;
         });
-        ret.medias = ret.posts
-          .filter(p => p.entities && p.entities.media)
-          .map(p => p.entities.media)
-          .map(media => media.map(m => `${m.media_url}?format=jpg&name=small`))
-          .flat()
-          .sort(() => Math.random() - Math.random())
-          .slice(0, 4);
+        ret.medias = this.takeMedias(ret.posts, {
+          format: "jpg",
+          name: "small",
+          count: 4
+        });
         if (p.entities) ret.entities = JSON.parse(p.entities);
         return ret;
       });
@@ -234,6 +233,17 @@ export default {
       this.$ga.page({
         location: url
       });
+    },
+    takeMedias(tweets, { format = "jpg", name = "small", count = 4 } = {}) {
+      return tweets
+        .filter(p => p.entities && p.entities.media)
+        .map(p => p.entities.media)
+        .map(media =>
+          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
+        )
+        .flat()
+        .sort(() => Math.random() - Math.random())
+        .slice(0, count);
     },
     imageWidthStyle(medias) {
       if (!medias) return {};

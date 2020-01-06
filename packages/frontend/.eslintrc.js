@@ -10,6 +10,7 @@ module.exports = {
     "linebreak-style": 0,
     "comma-dangle": 0,
     "eol-last": 0,
+    "function-paren-newline": 0,
     "no-shadow": 0,
     quotes: 0,
     "no-param-reassign": 0,
