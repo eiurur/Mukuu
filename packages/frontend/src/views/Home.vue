@@ -14,18 +14,10 @@
             <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
           </el-select>
         </el-form-item>
-        <el-form-item label="開始日">
+        <el-form-item label="日付">
           <el-date-picker
             type="date"
-            placeholder="開始日"
-            v-model="searchOption.from"
-            style="width: 100%;"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item label="終了日">
-          <el-date-picker
-            type="date"
-            placeholder="終了日"
+            placeholder="日付"
             v-model="searchOption.to"
             style="width: 100%;"
           ></el-date-picker>
