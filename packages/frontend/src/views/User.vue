@@ -7,8 +7,8 @@
         </el-form-item>
         <el-form-item label="並替">
           <el-select v-model="searchOption.sort" placeholder="please select your zone">
-            <el-option label="作成日時が新しい順" value="createdAtDesc"></el-option>
-            <el-option label="作成日時が古い順" value="createdAtAsc"></el-option>
+            <el-option label="登録日時が新しい順" value="createdAtDesc"></el-option>
+            <el-option label="登録日時が古い順" value="createdAtAsc"></el-option>
             <el-option label="フォロワーが多い順" value="followersCountDesc"></el-option>
             <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
           </el-select>
@@ -144,6 +144,7 @@
 <script>
 import mediumZoom from "medium-zoom";
 import user from "../api/user";
+import { debounce } from "../plugins/util";
 import Icon from "@/components/Icon.vue";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
@@ -185,14 +186,19 @@ export default {
   watch: {
     searchOption: {
       handler() {
-        this.isCompletedLoading = false;
-        this.skip = 0;
-        this.users = [];
-        this.fetchCount();
-        this.load();
+        this.search();
       },
       deep: true
     }
+  },
+  created() {
+    this.search = debounce(() => {
+      this.isCompletedLoading = false;
+      this.skip = 0;
+      this.users = [];
+      this.fetchCount();
+      this.load();
+    }, 100);
   },
   mounted() {
     this.fetchCount();
