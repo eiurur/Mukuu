@@ -50,6 +50,7 @@
 
 <script>
 import post from "../api/post";
+import { debounce } from "../plugins/util";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
@@ -93,13 +94,19 @@ export default {
   watch: {
     searchOption: {
       handler() {
-        this.skip = 0;
-        this.posts = [];
-        this.fetchCount();
-        this.load();
+        this.search();
       },
       deep: true
     }
+  },
+  created() {
+    this.search = debounce(() => {
+      this.isCompletedLoading = false;
+      this.skip = 0;
+      this.posts = [];
+      this.fetchCount();
+      this.load();
+    }, 100);
   },
   mounted() {
     this.fetchCount();
