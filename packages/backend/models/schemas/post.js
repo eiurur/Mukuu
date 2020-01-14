@@ -21,8 +21,8 @@ const PostSchema = new Schema({
   },
   text: String,
   entities: String,
-  favoriteCount: { type: Number, default: 0, index: true },
-  retweetCount: { type: Number, default: 0, index: true },
+  favoriteCount: { type: Number, default: 0, index: -1 },
+  retweetCount: { type: Number, default: 0, index: -1 },
   medias: [MediaScheme],
   postedBy: {
     type: ObjectId,
@@ -32,10 +32,12 @@ const PostSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+    index: -1,
   },
   updatedAt: {
     type: Date,
     default: Date.now(),
+    index: -1,
   },
 });
 

@@ -14,7 +14,10 @@ const UserSchema = new Schema({
   url: String,
   description: String,
   protected: Boolean,
-  followersCount: Number,
+  followersCount: {
+    type: Number,
+    index: -1,
+  },
   friendsCount: Number,
   favouritesCount: Number,
   statusesCount: Number,
@@ -25,10 +28,12 @@ const UserSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+    index: -1,
   },
   updatedAt: {
     type: Date,
     default: Date.now(),
+    index: -1,
   },
 });
 
