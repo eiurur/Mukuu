@@ -1,6 +1,6 @@
 const TweetCrawler = require('./tweetCrawler');
-const ModelProviderFactory = require('../models/modelProviderFactory');
-const { sleep } = require('../lib/utils');
+const ModelProviderFactory = require('../../models/modelProviderFactory');
+const { sleep } = require('../../lib/utils');
 
 const CRAWL_INTERVAL_MS = 1000 * 2;
 

@@ -18,6 +18,10 @@ const UserSchema = new Schema({
     type: Number,
     index: -1,
   },
+  postCount: {
+    type: Number,
+    index: -1,
+  },
   friendsCount: Number,
   favouritesCount: Number,
   statusesCount: Number,

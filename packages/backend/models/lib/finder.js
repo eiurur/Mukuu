@@ -55,6 +55,10 @@ module.exports = class Finder {
         query.sort({ favoriteCount: 'desc' });
         break;
       }
+      case 'postCountDesc': {
+        query.sort({ postCount: 'desc' });
+        break;
+      }
       case 'followersCountDesc': {
         query.sort({ followersCount: 'desc' });
         break;

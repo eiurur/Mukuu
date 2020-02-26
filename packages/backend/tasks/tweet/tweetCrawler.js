@@ -1,12 +1,12 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const Twit = require('twit');
 const TwitterAPI = require('node-twitter-api');
 const dayjs = require('dayjs');
 
-const { sleep } = require('../lib/utils');
-const ModelProviderFactory = require('../models/modelProviderFactory');
+const { sleep } = require('../../lib/utils');
+const ModelProviderFactory = require('../../models/modelProviderFactory');
 
 const T = new Twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
