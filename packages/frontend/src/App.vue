@@ -18,6 +18,16 @@
           <i class="el-icon-info"></i>
           <span slot="title">About</span>
         </el-menu-item>
+        <el-menu-item>
+          <a
+            href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+            class="twitter-share-button"
+            data-text="Mukuu - COM3D2 MOD検索サービス"
+            data-url="https://mukuu.herokuapp.com/"
+            data-hashtags="#COM3D2"
+            data-show-count="false"
+          >Tweet</a>
+        </el-menu-item>
       </el-menu>
     </aside>
     <main>
@@ -44,6 +54,18 @@ main {
   width: 128px;
   height: 100%;
   min-height: 400px;
+}
+.el-menu-item:last-of-type {
+  position: absolute;
+  cursor: initial;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  &:hover,
+  &:focus {
+    background: none;
+  }
 }
 .el-divider__text {
   background: transparent;
