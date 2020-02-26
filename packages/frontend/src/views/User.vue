@@ -10,6 +10,7 @@
             <el-option label="登録日時が新しい順" value="createdAtDesc"></el-option>
             <el-option label="登録日時が古い順" value="createdAtAsc"></el-option>
             <el-option label="フォロワーが多い順" value="followersCountDesc"></el-option>
+            <el-option label="投稿数が多い順" value="postCountDesc"></el-option>
             <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
           </el-select>
         </el-form-item>
@@ -28,6 +29,10 @@
           </div>
           <div class="description" v-html="$activateLink(user.description)"></div>
           <div class="counts">
+            <div>
+              {{user.postCount}}
+              <span class="suffix">投稿数</span>
+            </div>
             <div>
               {{user.statusesCount}}
               <span class="suffix">ツイート</span>
