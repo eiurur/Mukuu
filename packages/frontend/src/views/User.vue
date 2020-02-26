@@ -167,7 +167,7 @@ export default {
       isCompletedLoading: false,
       searchOption: {
         searchWord: "",
-        sort: "followersCountDesc"
+        sort: "postCountDesc"
       }
     };
   },
