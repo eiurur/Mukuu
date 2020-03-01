@@ -51,9 +51,7 @@ export default {
       get() {
         if (!this.user) return this.user;
         const { profileImageUrl } = this.user;
-        return profileImageUrl
-          ? profileImageUrl.replace("_normal", "_bigger")
-          : "";
+        return profileImageUrl ? profileImageUrl.replace("_normal", "_bigger") : "";
       }
     }
   },

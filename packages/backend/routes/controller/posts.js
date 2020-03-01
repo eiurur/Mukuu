@@ -6,7 +6,8 @@ module.exports = class PostController {
     seaquencer(
       req,
       res,
-      (async ({ postedBy, searchWord, from, to }) => {
+      (async ({ data }) => {
+        const { postedBy, searchWord, from, to } = data;
         const postProvider = ModelProviderFactory.create('post');
         const query = {};
         if (postedBy) query.postedBy = postedBy;
@@ -22,12 +23,13 @@ module.exports = class PostController {
     );
   }
 
-  static get(req, res) {
+  static query(req, res) {
     seaquencer(
       req,
       res,
       // (async ({ query, fields, options }) => {
-      (async ({ postedBy, searchWord, from, to, limit, skip, sort }) => {
+      (async ({ data }) => {
+        const { postedBy, searchWord, from, to, limit, skip, sort } = data;
         const postProvider = ModelProviderFactory.create('post');
 
         const query = {};
@@ -46,11 +48,13 @@ module.exports = class PostController {
     );
   }
 
-  static getByScreenName(req, res) {
+  static queryByScreenName(req, res) {
     seaquencer(
       req,
       res,
-      (async ({ screenName, count, limit, skip }) => {
+      (async ({ data }) => {
+        const { screenName, count, limit, skip } = data;
+
         const userProvider = ModelProviderFactory.create('user');
         const user = await userProvider.findOne({ screenName });
         if (!user) return {};

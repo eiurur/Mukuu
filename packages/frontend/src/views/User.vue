@@ -3,7 +3,11 @@
     <el-col :span="4">
       <el-form ref="form" :model="searchOption" label-width="56px">
         <el-form-item label="検索">
-          <el-input placeholder="検索" prefix-icon="el-icon-search" v-model="searchOption.searchWord"></el-input>
+          <el-input
+            placeholder="検索"
+            prefix-icon="el-icon-search"
+            v-model="searchOption.searchWord"
+          ></el-input>
         </el-form-item>
         <el-form-item label="並替">
           <el-select v-model="searchOption.sort" placeholder="please select your zone">
@@ -23,26 +27,32 @@
           <div class="identity">
             <Icon :user="user" :useUserDrawer="true"></Icon>
             <div class="names">
-              <span>{{user.name}}</span>
-              <span class="screen-name">@{{user.screenName}}</span>
+              <span>{{ user.name }}</span>
+              <span class="screen-name">@{{ user.screenName }}</span>
             </div>
+            <WatchBtn
+              :class="{ absolute: true }"
+              :user="user"
+              :hasText="true"
+              :style="{ top: 0, right: 0 }"
+            ></WatchBtn>
           </div>
           <div class="description" v-html="$activateLink(user.description)"></div>
           <div class="counts">
             <div>
-              {{user.postCount}}
+              {{ user.postCount }}
               <span class="suffix">投稿数</span>
             </div>
             <div>
-              {{user.statusesCount}}
+              {{ user.statusesCount }}
               <span class="suffix">ツイート</span>
             </div>
             <div>
-              {{user.friendsCount}}
+              {{ user.friendsCount }}
               <span class="suffix">フォロー</span>
             </div>
             <div>
-              {{user.followersCount}}
+              {{ user.followersCount }}
               <span class="suffix">フォロワー</span>
             </div>
           </div>
@@ -85,6 +95,7 @@
     line-height: 1.5;
     flex-direction: row;
     align-items: center;
+    position: relative;
     .names {
       flex-direction: column;
       display: flex;
@@ -145,7 +156,6 @@
 }
 </style>
 
-
 <script>
 import mediumZoom from "medium-zoom";
 import user from "../api/user";
@@ -154,6 +164,7 @@ import Icon from "@/components/Icon.vue";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
+import WatchBtn from "@/components/WatchBtn.vue";
 
 export default {
   name: "user",
@@ -175,7 +186,8 @@ export default {
     UserDrawer,
     Icon,
     Loader,
-    Counter
+    Counter,
+    WatchBtn
   },
   computed: {
     canLoad() {
@@ -249,9 +261,7 @@ export default {
       return tweets
         .filter(p => p.entities && p.entities.media)
         .map(p => p.entities.media)
-        .map(media =>
-          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
-        )
+        .map(media => media.map(m => `${m.media_url_https}?format=${format}&name=${name}`))
         .flat()
         .sort(() => Math.random() - Math.random())
         .slice(0, count);
@@ -270,9 +280,7 @@ export default {
       const images = Array.from(
         document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
-      images.map(
-        img => (img.onload = () => mediumZoom(img, { background: "#000" }))
-      );
+      images.map(img => (img.onload = () => mediumZoom(img, { background: "#000" })));
     });
   }
 };

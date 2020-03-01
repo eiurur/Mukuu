@@ -4,7 +4,7 @@ const { logging, parameters } = require('../../middleware');
 const { PostController } = require('../controller/');
 
 module.exports = app => {
-  app.get(
+  app.post(
     `/api/${API_VERSION}/posts/count`,
     [parameters.getParameters, logging.log],
     PostController.count,
@@ -12,11 +12,11 @@ module.exports = app => {
   app.get(
     `/api/${API_VERSION}/posts/@:screenName`,
     [parameters.getParameters, logging.log],
-    PostController.getByScreenName,
+    PostController.queryByScreenName,
   );
-  app.get(
-    `/api/${API_VERSION}/posts`,
+  app.post(
+    `/api/${API_VERSION}/posts/list`,
     [parameters.getParameters, logging.log],
-    PostController.get,
+    PostController.query,
   );
 };

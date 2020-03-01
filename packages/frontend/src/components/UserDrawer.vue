@@ -5,7 +5,12 @@
         <img :src="`${user.profileBannerUrl}/web`" class="banner" />
       </div>
       <Icon class="icon" :user="user" :useTwitterPage="true"></Icon>
-      <WatchBtn :user="user"></WatchBtn>
+      <WatchBtn
+        :class="{ absolute: true }"
+        :hasText="true"
+        :user="user"
+        :style="{ top: 250 + 'px', right: 1 + 'rem' }"
+      ></WatchBtn>
       <div class="text">
         <div>
           <span class="name">{{ user.name }}</span>

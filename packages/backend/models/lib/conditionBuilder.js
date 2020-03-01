@@ -7,12 +7,16 @@ module.exports = class ConditionBuilder {
     return this;
   }
 
+  transformCondition(value) {
+    if (Array.isArray(value)) return { $in: value };
+    return value;
+  }
   buildCondition(keys, condition) {
     this.condition = [];
     Object.keys(condition).forEach(key => {
       if (keys.includes(key)) {
         const tmp = {};
-        tmp[key] = condition[key];
+        tmp[key] = this.transformCondition(condition[key]);
         this.condition.push(tmp);
       }
     });

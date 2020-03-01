@@ -1,14 +1,14 @@
 <template>
-  <div class="counter">
+  <section class="counter">
     <div v-if="total > 0">
-      <span class="current">{{current}}</span>
+      <span class="current">{{ current }}</span>
       <span class="separator">/</span>
-      <span class="total">{{total}} 件中</span>
+      <span class="total">{{ total }} 件中</span>
     </div>
     <div v-else>
       <span class="total">0件</span>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

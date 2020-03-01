@@ -18,7 +18,8 @@ const actions = {
 };
 const mutations = {
   ADD_WATCH(state, payload) {
-    state.watches = [...state.watches, payload].filter(
+    // NOTE: 最後に追加したユーザが先頭
+    state.watches = [payload, ...state.watches].filter(
       (b1, i, watches) => watches.findIndex(b2 => b1.id === b2.id) === i
     );
   },

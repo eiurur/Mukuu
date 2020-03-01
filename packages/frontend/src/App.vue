@@ -2,15 +2,15 @@
   <div id="app">
     <aside class="el-aside">
       <el-menu :router="true" :default-active="$route.path" class="el-menu-vertical">
-        <el-menu-item index="/" :route="{name: 'home'}">
+        <el-menu-item index="/" :route="{ name: 'home' }">
           <i class="el-icon-s-home"></i>
           <span slot="title">Home</span>
         </el-menu-item>
-        <el-menu-item index="/users" :route="{name: 'users'}">
+        <el-menu-item index="/users" :route="{ name: 'users' }">
           <i class="el-icon-user-solid"></i>
           <span slot="title">Users</span>
         </el-menu-item>
-        <el-menu-item index="/watch" :route="{name: 'watch'}" disabled>
+        <el-menu-item index="/watch" :route="{ name: 'watch' }">
           <i class="el-icon-view"></i>
           <span slot="title">Watch</span>
         </el-menu-item>
@@ -26,7 +26,8 @@
             data-url="https://mukuu.herokuapp.com/"
             data-hashtags="#COM3D2"
             data-show-count="false"
-          >Tweet</a>
+            >Tweet</a
+          >
         </el-menu-item>
       </el-menu>
     </aside>
@@ -88,10 +89,9 @@ html,
   overflow: hidden;
 }
 #app {
-  font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック",
-    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo",
-    "MSPゴシック", "Osaka", "MS PGothic", "Arial", "Helvetica", "Verdana",
-    "sans-serif";
+  font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック", "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "MSPゴシック", "Osaka", "MS PGothic", "Arial",
+    "Helvetica", "Verdana", "sans-serif";
   font-size: 18px;
   font-weight: 600;
   margin-top: 0;
@@ -145,10 +145,16 @@ img:after {
   left: 0;
   width: inherit;
   height: inherit;
-  background: #ebebeb
-    url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu") no-repeat
+  background: #ebebeb url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu") no-repeat
     center;
   color: transparent;
+}
+.center {
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* 子要素をflexboxにより縦方向に揃える */
+  justify-content: center; /* 子要素をflexboxにより中央に配置する */
+  align-items: center; /* 子要素をflexboxにより中央に配置する */
 }
 
 /* extend property */
@@ -187,12 +193,10 @@ img:after {
 
 .infinite-list {
   position: relative;
-  height: 100vh;
-  margin: -1rem 0;
-  padding: 0.5rem 0;
+  flex-grow: 1;
   list-style: none;
   overflow: auto;
-  margin-bottom: -4rem;
+  min-height: 0;
 }
 .el-loading-spinner {
   margin-top: -1rem;
@@ -200,5 +204,19 @@ img:after {
 .el-loading-mask {
   border-radius: 2rem;
   margin: 1rem 0;
+}
+.el-row {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  padding: 0.5rem 0;
+}
+.el-col {
+  flex-direction: column;
+}
+[class*="el-col-"] {
+  flex-grow: 1;
+  display: flex;
 }
 </style>

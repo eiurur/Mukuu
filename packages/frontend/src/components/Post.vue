@@ -1,6 +1,8 @@
 <template>
   <div class="post-container">
-    <el-divider content-position="center" v-if="post.shouldShowDivider">{{post.createdAt}}</el-divider>
+    <el-divider content-position="center" v-if="post.shouldShowDivider">{{
+      post.createdAt
+    }}</el-divider>
     <article class="post">
       <div class="text-container">
         <div class="user">
@@ -124,6 +126,8 @@ article.post {
       .icon {
         height: 48px;
         width: 48px;
+        min-width: 48px;
+        max-height: 48px;
         background: rgba(0, 0, 0, 0.12);
         border-radius: 100%;
         cursor: pointer;
@@ -243,13 +247,10 @@ export default {
           .split(/\r\n|\n|\s/)
           .filter(
             word =>
-              word.indexOf("ux.getuploader.com") !== -1 ||
-              word.indexOf("drive.google.com") !== -1
+              word.indexOf("ux.getuploader.com") !== -1 || word.indexOf("drive.google.com") !== -1
           )
           .map(url => {
-            const match = url.match(
-              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
-            );
+            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
             return match[1];
           })
           .map(url => {
@@ -268,9 +269,7 @@ export default {
       const images = Array.from(
         document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
-      images.map(
-        img => (img.onload = () => mediumZoom(img, { background: "#000" }))
-      );
+      images.map(img => (img.onload = () => mediumZoom(img, { background: "#000" })));
     });
   }
 };
