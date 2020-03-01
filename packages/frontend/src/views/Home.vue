@@ -3,7 +3,11 @@
     <el-col :span="4">
       <el-form ref="form" :model="searchOption" label-width="56px">
         <el-form-item label="検索">
-          <el-input placeholder="検索" prefix-icon="el-icon-search" v-model="searchOption.searchWord"></el-input>
+          <el-input
+            placeholder="検索"
+            prefix-icon="el-icon-search"
+            v-model="searchOption.searchWord"
+          ></el-input>
         </el-form-item>
         <el-form-item label="並替">
           <el-select v-model="searchOption.sort" placeholder="please select sort type">
@@ -37,8 +41,7 @@
   </el-row>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
 
 <script>
 import post from "../api/post";

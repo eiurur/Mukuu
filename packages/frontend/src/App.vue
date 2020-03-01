@@ -47,37 +47,6 @@ main {
   width: 100%;
   padding: 1rem;
 }
-.el-aside {
-  background: white;
-  width: 128px;
-}
-.el-menu-vertical {
-  width: 128px;
-  height: 100%;
-  min-height: 400px;
-}
-.el-menu-item:last-of-type {
-  position: absolute;
-  cursor: initial;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  &:hover,
-  &:focus {
-    background: none;
-  }
-}
-.el-divider__text {
-  background: transparent;
-}
-/* TODO: scope用のラッパクラスの配下に対象を限定する */
-.el-select {
-  width: 100%;
-}
-.el-input {
-  width: 100%;
-}
 
 body,
 html,
@@ -206,11 +175,10 @@ img:after {
   margin: 1rem 0;
 }
 .el-row {
-  position: absolute;
-  top: 0;
-  bottom: 0;
   display: flex;
+  height: 100vh;
   padding: 0.5rem 0;
+  margin: -1rem 0;
 }
 .el-col {
   flex-direction: column;
@@ -218,5 +186,36 @@ img:after {
 [class*="el-col-"] {
   flex-grow: 1;
   display: flex;
+}
+.el-aside {
+  background: white;
+  width: 128px;
+}
+.el-menu-vertical {
+  width: 128px;
+  height: 100%;
+  min-height: 400px;
+}
+.el-menu-item:last-of-type {
+  position: absolute;
+  cursor: initial;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  &:hover,
+  &:focus {
+    background: none;
+  }
+}
+.el-divider__text {
+  background: #eee;
+}
+/* TODO: scope用のラッパクラスの配下に対象を限定する */
+.el-select {
+  width: 100%;
+}
+.el-input {
+  width: 100%;
 }
 </style>
