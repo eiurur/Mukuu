@@ -1,30 +1,32 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import drawer from './modules/drawer';
+import Vue from "vue";
+import Vuex from "vuex";
+import drawer from "./modules/drawer";
+import bookmark from "./modules/bookmark";
 
-const debug = process.env.NODE_ENV !== 'production';
+const debug = process.env.NODE_ENV !== "production";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    drawer
+    drawer,
+    bookmark
   },
   strict: debug,
   actions: {
     saveLocalStorage({ commit }) {
-      commit('SAVE');
+      commit("SAVE");
     },
     loadLocalStorage({ commit }) {
-      commit('LOAD');
+      commit("LOAD");
     }
   },
   mutations: {
     SAVE(state) {
-      localStorage.setItem('store', JSON.stringify(state));
+      localStorage.setItem("store", JSON.stringify(state));
     },
     LOAD(state) {
-      if (localStorage.getItem('store')) {
-        const store = JSON.parse(localStorage.getItem('store'));
+      if (localStorage.getItem("store")) {
+        const store = JSON.parse(localStorage.getItem("store"));
         this.replaceState(Object.assign(state, store));
       }
     }
