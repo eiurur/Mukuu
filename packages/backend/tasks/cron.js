@@ -11,12 +11,12 @@ const runProcess = async filepath => {
 };
 
 const workerJob = new CronJob({
-  cronTime: '* * * * *',
-  // cronTime: '0 0,6,12,18 * * *',
+  // cronTime: '* * * * *',
+  cronTime: '0 0,6,9,12,15,18,21 * * *',
   onTick: async () => {
     console.log('--- start cron ---');
-    await runProcess(path.resolve(__dirname, 'database', 'updateDatabase'));
     await runProcess(path.resolve(__dirname, 'tweet', 'tweetCrawling'));
+    await runProcess(path.resolve(__dirname, 'database', 'updateDatabase'));
     console.log('--- end cron ---');
   },
   start: true,
