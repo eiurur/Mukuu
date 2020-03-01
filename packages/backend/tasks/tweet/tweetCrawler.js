@@ -73,7 +73,7 @@ module.exports = class TweetCrawler {
   }
   async start(api, searchParam) {
     let maxId = 0;
-    logger.cron('~~~ START TWEET CRAWLING ~~~');
+    logger.info('~~~ START TWEET CRAWLING ~~~');
     while (1) {
       try {
         const searchOption = Object.assign(searchParam, {
@@ -123,17 +123,17 @@ module.exports = class TweetCrawler {
         const tailTweet = statuses[statuses.length - 1];
         if (!tailTweet) return;
         maxId = this.decStrNum(tailTweet.id_str);
-        logger.cron(tailTweet.id_str);
-        logger.cron(maxId);
+        logger.info(tailTweet.id_str);
+        logger.info(maxId);
 
         await sleep(SEARCH_INTERVAL);
         if (statuses.length <= 0) return;
       } catch (e) {
-        logger.cron(e);
+        logger.info(e);
         return;
       }
     }
-    logger.cron('~~~ FINISH TWEET CRAWLING ~~~');
+    logger.info('~~~ FINISH TWEET CRAWLING ~~~');
   }
 
   async search(option) {

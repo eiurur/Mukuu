@@ -1,9 +1,10 @@
 const ModelProviderFactory = require('../../models/modelProviderFactory');
+const path = require('path');
 const logger = require(path.join('..', '..', 'logger'))('cron');
 
 (async () => {
   try {
-    logger.cron('UPDATE DATABASE');
+    logger.info('UPDATE DATABASE');
 
     const userProvider = ModelProviderFactory.create('user');
     const postProvider = ModelProviderFactory.create('post');
@@ -11,7 +12,7 @@ const logger = require(path.join('..', '..', 'logger'))('cron');
     const query = {};
     const searchOption = {};
     const users = await userProvider.find(query, searchOption);
-    logger.cron('update users count : ', users.length);
+    logger.info('update users count : ', users.length);
     for (const user of users) {
       const postQuery = { postedBy: user._id };
       const postSearchOption = {};
@@ -26,9 +27,9 @@ const logger = require(path.join('..', '..', 'logger'))('cron');
         entity.data,
         entity.options,
       );
-      logger.cron('update  : ', JSON.stringify(dbUser));
+      logger.info('update  : ', JSON.stringify(dbUser));
     }
   } catch (e) {
-    logger.cron(e);
+    logger.info(e);
   }
 })();
