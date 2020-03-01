@@ -7,6 +7,7 @@ const dayjs = require('dayjs');
 
 const { sleep } = require('../../lib/utils');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
+const logger = require(path.join('..', '..', 'logger'))('cron');
 
 const T = new Twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -72,6 +73,7 @@ module.exports = class TweetCrawler {
   }
   async start(api, searchParam) {
     let maxId = 0;
+    logger.cron('~~~ START TWEET CRAWLING ~~~');
     while (1) {
       try {
         const searchOption = Object.assign(searchParam, {
@@ -121,16 +123,17 @@ module.exports = class TweetCrawler {
         const tailTweet = statuses[statuses.length - 1];
         if (!tailTweet) return;
         maxId = this.decStrNum(tailTweet.id_str);
-        console.log(tailTweet.id_str);
-        console.log(maxId);
+        logger.cron(tailTweet.id_str);
+        logger.cron(maxId);
 
         await sleep(SEARCH_INTERVAL);
         if (statuses.length <= 0) return;
       } catch (e) {
-        console.log(e);
+        logger.cron(e);
         return;
       }
     }
+    logger.cron('~~~ FINISH TWEET CRAWLING ~~~');
   }
 
   async search(option) {

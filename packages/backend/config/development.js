@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-const { logger } = require(path.resolve('logger'));
+const logger = require(path.resolve('logger'));
 
 module.exports = function(app) {
   app.locals.pretty = true;

@@ -3,7 +3,7 @@ const fs = require('fs');
 const morgan = require('morgan');
 const path = require('path');
 
-const { logger } = require(path.resolve('logger'));
+const logger = require(path.resolve('logger'))();
 
 module.exports = app => {
   app.locals.pretty = false;

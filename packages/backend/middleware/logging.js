@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const path = require('path');
 
-const { logger } = require(path.resolve('logger'));
+const logger = require(path.resolve('logger'))();
 
 module.exports = {
   log(req, res, next) {

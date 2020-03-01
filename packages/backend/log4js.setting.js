@@ -10,10 +10,20 @@ module.exports = {
       filename: `${root}/logs/apps/app`,
       alwaysIncludePattern: 'true',
     },
+    cron: {
+      type: 'dateFile',
+      pattern: 'yyyyMMdd.log',
+      filename: `${root}/logs/apps/cron`,
+      alwaysIncludePattern: 'true',
+    },
   },
   categories: {
     default: {
       appenders: ['stdout', 'logfile'],
+      level: 'ALL',
+    },
+    cron: {
+      appenders: ['stdout', 'cron'],
       level: 'ALL',
     },
     error: {

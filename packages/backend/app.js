@@ -3,8 +3,7 @@ const path = require('path');
 const cluster = require('cluster');
 const createListener = require('./express');
 const numCPUs = require('os').cpus().length;
-const { logger } = require(path.resolve('logger'));
-
+const logger = require(path.resolve('logger'))();
 /**
  * Application
  */

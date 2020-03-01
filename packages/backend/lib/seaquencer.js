@@ -1,5 +1,5 @@
 const path = require('path');
-const { logger } = require(path.resolve('logger'));
+const logger = require(path.resolve('logger'))();
 // const SlackLogger = require(path.resolve('lib', 'utils', 'SlackLogger'));
 
 exports.seaquencer = (req, res, resolver) => {
