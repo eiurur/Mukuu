@@ -5,6 +5,7 @@
         <img :src="`${user.profileBannerUrl}/web`" class="banner" />
       </div>
       <Icon class="icon" :user="user" :useTwitterPage="true"></Icon>
+      <WatchBtn :user="user"></WatchBtn>
       <div class="text">
         <div>
           <span class="name">{{ user.name }}</span>
@@ -63,59 +64,61 @@
 </style>
 
 <script>
-import Post from '@/components/Post.vue';
-import Icon from '@/components/Icon.vue';
-import Loader from '@/components/Loader.vue';
+import Post from "@/components/Post.vue";
+import Icon from "@/components/Icon.vue";
+import Loader from "@/components/Loader.vue";
+import WatchBtn from "@/components/WatchBtn.vue";
 
 export default {
-  name: 'UserDrawer',
+  name: "UserDrawer",
   components: {
     Post,
     Icon,
     Loader,
+    WatchBtn
   },
-  props: ['postedBy'],
+  props: ["postedBy"],
   computed: {
     user: {
       get() {
-        const user = this.$store.getters['drawer/getUser'];
+        const user = this.$store.getters["drawer/getUser"];
         if (!user) return user;
         const { url } = user;
-        const hostname = url ? new URL(url).hostname : '';
+        const hostname = url ? new URL(url).hostname : "";
         return Object.assign(user, {
-          hostname,
+          hostname
         });
-      },
+      }
     },
     posts: {
       get() {
-        return this.$store.getters['drawer/getPosts'];
-      },
+        return this.$store.getters["drawer/getPosts"];
+      }
     },
     isDisableLoading: {
       get() {
         return (
-          this.$store.getters['drawer/isCompletedLoading'] ||
-          this.$store.getters['drawer/isLoading']
+          this.$store.getters["drawer/isCompletedLoading"] ||
+          this.$store.getters["drawer/isLoading"]
         );
-      },
+      }
     },
     shouldShowLoader: {
       get() {
         return (
-          !this.$store.getters['drawer/isCompletedLoading'] &&
-          this.$store.getters['drawer/isLoading']
+          !this.$store.getters["drawer/isCompletedLoading"] &&
+          this.$store.getters["drawer/isLoading"]
         );
-      },
-    },
+      }
+    }
   },
   mouted() {
     this.$refs.scrollable.scrollTop = 0;
   },
   methods: {
     async loadPost() {
-      await this.$store.dispatch('drawer/loadPost');
-    },
-  },
+      await this.$store.dispatch("drawer/loadPost");
+    }
+  }
 };
 </script>
