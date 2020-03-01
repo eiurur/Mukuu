@@ -14,7 +14,7 @@
         <div slot="content">ウォッチリストから削除する</div>
         <span>
           <i class="el-icon-view"></i>
-          <span v-if="this.hasText">ウォッチ解除</span>
+          <span v-if="this.hasText">ウォッチ中</span>
         </span>
       </el-tooltip>
     </a>
