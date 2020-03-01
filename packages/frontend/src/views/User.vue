@@ -122,7 +122,7 @@
 }
 .suffix {
   opacity: 0.5;
-  font-size: 75%;
+  font-size: 60%;
 }
 .profile + .profile {
   margin-top: 1rem;

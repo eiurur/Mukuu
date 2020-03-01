@@ -192,7 +192,7 @@ article.post {
     text-overflow: ellipsis;
   }
   & .suffix {
-    font-size: 0.75rem;
+    font-size: 60%;
     padding-left: 0.5rem;
   }
   & .attributes {
