@@ -7,7 +7,7 @@
       <div class="text-container">
         <div class="user">
           <div class="icon" @click="openUserDrawer(post.postedBy)">
-            <img :src="post.postedBy.profileImageUrl" onerror="this.style.display = 'none'" />
+            <img v-lazy="post.postedBy.profileImageUrl" onerror="this.style.display = 'none'" />
           </div>
           <div class="profile">
             <div class="names">
@@ -25,7 +25,7 @@
         <img
           :key="media.id_str"
           v-for="media in post.entities.media"
-          :src="`${media.media_url_https}?format=jpg&name=small`"
+          v-lazy="`${media.media_url_https}?format=jpg&name=medium`"
           class="original"
           :class="imageWidthStyle"
           data-zoomable
@@ -265,12 +265,12 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      const images = Array.from(
-        document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
-      );
-      images.map(img => (img.onload = () => mediumZoom(img, { background: "#000" })));
-    });
+    const images = Array.from(document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)"));
+    images.map(
+      img =>
+        (img.onload = () =>
+          !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+    );
   }
 };
 </script>

@@ -21,6 +21,7 @@ module.exports = {
     "arrow-parens": 0,
     "implicit-arrow-linebreak": 0,
     "space-before-function-paren": 0,
+    "unexpected-character-in-unquoted-attribute-value": 0,
     "import/named": 0,
     "import/prefer-default-export": 0
   },

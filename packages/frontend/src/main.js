@@ -1,24 +1,35 @@
-import Vue from 'vue';
-import ElementUI from 'element-ui';
-import VueAnalytics from 'vue-analytics';
-import locale from 'element-ui/lib/locale/lang/ja';
+import Vue from "vue";
+import ElementUI from "element-ui";
+import VueAnalytics from "vue-analytics";
+import VueLazyload from "vue-lazyload";
 
-import App from './App.vue';
-import router from './router';
-import store from './store';
+import locale from "element-ui/lib/locale/lang/ja";
 
-import activateLink from './plugins/tweet';
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 
-const isProd = process.env.NODE_ENV === 'production';
+import activateLink from "./plugins/tweet";
+
+const isProd = process.env.NODE_ENV === "production";
 
 Vue.use(ElementUI, { locale });
 Vue.use(VueAnalytics, {
-  id: 'UA-42893827-25',
+  id: "UA-42893827-25",
   router,
   debug: {
     enabled: !isProd,
-    sendHitTask: isProd,
-  },
+    sendHitTask: isProd
+  }
+});
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  filter: {
+    progressive(listener) {
+      listener.el.setAttribute("lazy-progressive", "true");
+      listener.loading = listener.src.replace("name=medium", "name=small");
+    }
+  }
 });
 
 Vue.prototype.$activateLink = activateLink;
@@ -30,6 +41,6 @@ new Vue({
   store,
   render: h => h(App),
   beforeCreate() {
-    this.$store.dispatch('loadLocalStorage');
-  },
-}).$mount('#app');
+    this.$store.dispatch("loadLocalStorage");
+  }
+}).$mount("#app");

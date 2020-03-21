@@ -6,7 +6,7 @@
         <div class="watch" :key="user._id" v-for="user in watches">
           <div class="user">
             <div class="icon" @click="openUserDrawer(user)">
-              <img :src="user.profileImageUrl" onerror="this.style.display = 'none'" />
+              <img v-lazy="user.profileImageUrl" onerror="this.style.display = 'none'" />
             </div>
             <div class="profile">
               <div class="names">

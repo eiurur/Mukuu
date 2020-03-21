@@ -60,7 +60,7 @@
             <img
               :key="media.media_url_https"
               v-for="media in user.medias"
-              :src="media"
+              v-lazy="media"
               class="original"
               :class="imageWidthStyle(user.medias)"
               data-zoomable
@@ -244,7 +244,7 @@ export default {
         });
         ret.medias = this.takeMedias(ret.posts, {
           format: "jpg",
-          name: "small",
+          name: "medium",
           count: 4
         });
         if (p.entities) ret.entities = JSON.parse(p.entities);
@@ -257,7 +257,7 @@ export default {
         location: url
       });
     },
-    takeMedias(tweets, { format = "jpg", name = "small", count = 4 } = {}) {
+    takeMedias(tweets, { format = "jpg", name = "medium", count = 4 } = {}) {
       return tweets
         .filter(p => p.entities && p.entities.media)
         .map(p => p.entities.media)
@@ -276,12 +276,12 @@ export default {
     }
   },
   updated() {
-    this.$nextTick(() => {
-      const images = Array.from(
-        document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
-      );
-      images.map(img => (img.onload = () => mediumZoom(img, { background: "#000" })));
-    });
+    const images = Array.from(document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)"));
+    images.map(
+      img =>
+        (img.onload = () =>
+          !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+    );
   }
 };
 </script>

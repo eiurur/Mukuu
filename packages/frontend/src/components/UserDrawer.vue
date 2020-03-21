@@ -2,7 +2,7 @@
   <section class="infinite-list" ref="scrollable" v-if="user">
     <section class="profile">
       <div :style="{ background: `#${user.profileBackgroundColor}` }">
-        <img :src="`${user.profileBannerUrl}/web`" class="banner" />
+        <img v-lazy="`${user.profileBannerUrl}/web`" class="banner" />
       </div>
       <Icon class="icon" :user="user" :useTwitterPage="true"></Icon>
       <WatchBtn
