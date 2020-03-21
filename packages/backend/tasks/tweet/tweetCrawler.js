@@ -96,29 +96,7 @@ module.exports = class TweetCrawler {
           ) {
             continue;
           }
-
-          const userProvider = ModelProviderFactory.create('user');
-          const user = {
-            query: { idStr: tweet.user.id_str },
-            data: mapper.user(tweet.user),
-            options: { new: true, upsert: true },
-          };
-          const dbUser = await userProvider.findOneAndUpdate(
-            user.query,
-            user.data,
-            user.options,
-          );
-          const postProvider = ModelProviderFactory.create('post');
-          const post = {
-            query: { idStr: tweet.id_str },
-            data: mapper.post(tweet, dbUser._id),
-            options: { new: true, upsert: true },
-          };
-          await postProvider.findOneAndUpdate(
-            post.query,
-            post.data,
-            post.options,
-          );
+          await this.save(tweet);
         }
         const tailTweet = statuses[statuses.length - 1];
         if (!tailTweet) return;
@@ -135,22 +113,6 @@ module.exports = class TweetCrawler {
     }
     logger.info('~~~ FINISH TWEET CRAWLING ~~~');
   }
-
-  async search(option) {
-    const param = Object.assign(
-      {
-        result_type: 'mixed',
-        count: 200,
-        tweet_mode: 'extended',
-        include_entities: true,
-      },
-      option,
-    );
-    console.log(param);
-    const { data } = await T.get('search/tweets', param);
-    return data;
-  }
-
   statuses(option) {
     return new Promise((resolve, reject) => {
       const param = Object.assign(
@@ -172,6 +134,56 @@ module.exports = class TweetCrawler {
         },
       );
     });
+  }
+  async search(option) {
+    const param = Object.assign(
+      {
+        result_type: 'mixed',
+        count: 200,
+        tweet_mode: 'extended',
+        include_entities: true,
+      },
+      option,
+    );
+    console.log(param);
+    const { data } = await T.get('search/tweets', param);
+    return data;
+  }
+  async save(tweet) {
+    const userProvider = ModelProviderFactory.create('user');
+    const user = {
+      query: { idStr: tweet.user.id_str },
+      data: mapper.user(tweet.user),
+      options: { new: true, upsert: true },
+    };
+    const dbUser = await userProvider.findOneAndUpdate(
+      user.query,
+      user.data,
+      user.options,
+    );
+    const postProvider = ModelProviderFactory.create('post');
+    const post = {
+      query: { idStr: tweet.id_str },
+      data: mapper.post(tweet, dbUser._id),
+      options: { new: true, upsert: true },
+    };
+    await postProvider.findOneAndUpdate(post.query, post.data, post.options);
+  }
+
+  async status(tweetId, option = {}) {
+    const param = Object.assign(
+      {
+        result_type: 'mixed',
+        count: 200,
+        tweet_mode: 'extended',
+        include_entities: true,
+      },
+      option,
+    );
+    const { data } = await T.get(`statuses/show/${tweetId}`, param);
+    const tweet = this.expandUrl(data);
+    this.save(tweet);
+    return data;
   }
 
   expandUrl(tweet) {
