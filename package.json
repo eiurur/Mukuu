@@ -46,7 +46,7 @@
   "name": "mukuu",
   "dependencies": {
     "chalk": "^3.0.0",
-    "concurrently": "^5.0.0",
-    "lerna": "^3.18.4"
+    "concurrently": "^5.1.0",
+    "lerna": "^3.20.2"
   }
 }
