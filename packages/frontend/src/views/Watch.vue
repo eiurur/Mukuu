@@ -86,12 +86,12 @@ section + section {
 </style>
 
 <script>
-import post from "../api/post";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import WatchBtn from "@/components/WatchBtn.vue";
+import post from "../api/post";
 
 export default {
   name: "home",

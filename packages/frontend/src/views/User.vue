@@ -158,13 +158,13 @@
 
 <script>
 import mediumZoom from "medium-zoom";
-import user from "../api/user";
-import { debounce } from "../plugins/util";
 import Icon from "@/components/Icon.vue";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import WatchBtn from "@/components/WatchBtn.vue";
+import { debounce } from "../plugins/util";
+import user from "../api/user";
 
 export default {
   name: "user",

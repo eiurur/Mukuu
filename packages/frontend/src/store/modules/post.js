@@ -1,6 +1,5 @@
 import { page } from "vue-analytics";
 import post from "../../api/post";
-import watch from "./watch";
 
 const state = {
   limit: 4,
@@ -19,13 +18,13 @@ const getters = {
   isCompletedLoading: state => state.isCompletedLoading
 };
 const actions = {
-  async initialize({ commit, dispatch }, value) {
+  async initialize({ commit, dispatch }) {
     commit("SET_LOADING_STATUS", false);
     commit("SET_LOADING_COMPLETE_STATUS", false);
     commit("CLEAR_POST");
     await dispatch("loadPost");
   },
-  async loadPost({ commit, state, rootGetters }, value) {
+  async loadPost({ commit, state }, value) {
     commit("SET_LOADING_STATUS", true);
     const { data, url } = await post.fetch({
       ...{ limit: state.limit, skip: state.skip },

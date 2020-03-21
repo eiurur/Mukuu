@@ -44,12 +44,12 @@
 <style lang="scss" scoped></style>
 
 <script>
-import post from "../api/post";
-import { debounce } from "../plugins/util";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
+import { debounce } from "../plugins/util";
+import post from "../api/post";
 
 export default {
   name: "home",
