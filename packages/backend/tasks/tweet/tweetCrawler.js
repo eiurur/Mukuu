@@ -80,7 +80,7 @@ module.exports = class TweetCrawler {
           text.indexOf('drive.google.com') === -1),
     });
   }
-  async start(api, searchParam, matchPattern) {
+  async start(api, searchParam, { matchPattern }) {
     let maxId = 0;
     logger.info('~~~ START TWEET CRAWLING ~~~');
     while (1) {
