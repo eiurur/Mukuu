@@ -156,7 +156,7 @@ article.post {
   img {
     width: auto;
     object-fit: cover;
-    height: 240px;
+    height: 320px;
     // object-fit: cover;
     max-width: 25%;
     border-radius: 0.5rem;
