@@ -52,6 +52,7 @@
     width: 100%;
   }
   & .text {
+    word-break: break-word;
     background: white;
     padding: 1rem;
     padding-top: calc(1rem + 2.5rem);

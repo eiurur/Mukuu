@@ -137,6 +137,7 @@ article.post {
       }
     }
     .text {
+      word-break: break-word;
       font-size: 1rem;
       font-weight: 500;
     }
