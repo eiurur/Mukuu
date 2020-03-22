@@ -8,7 +8,7 @@
         >のMODの検索を効率化するためのサイトです。
       </p>
       <p>
-        データの収集源はTwitterのみで、収集対象はツイート本文に「#COM3D」と「ux.getuplaoder.com」または「drive.google.com」が含まれているツイートとなっています。
+        データの収集源はTwitterのみで、収集対象はツイート本文に「#COM3D」「#CM3D2」「カスタムメイド3D2」「カスタムオーダーメイド3D2」と「ux.getuplaoder.com」または「drive.google.com」が含まれているツイートとなっています。
       </p>
     </section>
     <h1>外部リンク</h1>

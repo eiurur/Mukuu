@@ -66,12 +66,21 @@ module.exports = class TweetCrawler {
   constructor() {}
 
   async traverseStatuses(searchParam) {
-    await this.start('statuses', searchParam);
+    await this.start('statuses', searchParam, {
+      matchPattern: text =>
+        text.indexOf('ux.getuploader.com') === -1 &&
+        text.indexOf('drive.google.com') === -1,
+    });
   }
   async traverseSearch(searchParam) {
-    await this.start('search', searchParam);
+    await this.start('search', searchParam, {
+      matchPattern: text =>
+        !/(#co?m3d2|#カスタム(オーダー)?メイド3d2)/.test(text) ||
+        (text.indexOf('ux.getuploader.com') === -1 &&
+          text.indexOf('drive.google.com') === -1),
+    });
   }
-  async start(api, searchParam) {
+  async start(api, searchParam, matchPattern) {
     let maxId = 0;
     logger.info('~~~ START TWEET CRAWLING ~~~');
     while (1) {
@@ -88,12 +97,7 @@ module.exports = class TweetCrawler {
         console.log(originalStatuses.length);
         for (let tweet of originalStatuses) {
           tweet = this.expandUrl(tweet);
-          if (
-            tweet.full_text.toLowerCase().indexOf('#com3d2') === -1 ||
-            (tweet.full_text.toLowerCase().indexOf('ux.getuploader.com') ===
-              -1 &&
-              tweet.full_text.toLowerCase().indexOf('drive.google.com') === -1)
-          ) {
+          if (matchPattern && matchPattern(tweet.full_text.toLowerCase())) {
             continue;
           }
           await this.save(tweet);

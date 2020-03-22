@@ -7,6 +7,8 @@ node_modules
 
 **/node_modules/**
 **/logs/**
+**/SiteCrawler.js
+**/SiteCrawling.js
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/

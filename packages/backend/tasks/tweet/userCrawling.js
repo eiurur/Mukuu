@@ -27,7 +27,7 @@ const CRAWL_INTERVAL_MS = 1000 * 2;
     }
     await sleep(CRAWL_INTERVAL_MS);
   } catch (e) {
-    logger.info('mochiMochiCrawler error: ', e);
+    logger.info('SiteCrawler error: ', e);
     await browser.close();
     return;
   }

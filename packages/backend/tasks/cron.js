@@ -17,18 +17,46 @@ const runProcess = async filepath => {
   return stdout;
 };
 
-const workerJob = new CronJob({
+const tweetJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 0,6,9,12,15,18,21 * * *',
+  cronTime: '0 0,18,21 * * *',
   onTick: async () => {
-    logger.info('--- start cron ---');
+    logger.info('--- start tweet cron ---');
     await Promise.all([
       runProcess(path.resolve(__dirname, 'tweet', 'tweetCrawling')),
-      runProcess(path.resolve(__dirname, 'database', 'updateDatabase')),
     ]);
-    logger.info('--- finish cron ---');
+    logger.info('--- finish tweet cron ---');
   },
   start: true,
   timeZone: 'Asia/Tokyo',
 });
-workerJob.start();
+const userJob = new CronJob({
+  // cronTime: '* * * * *',
+  cronTime: '0 9 * * *',
+  onTick: async () => {
+    logger.info('--- start user cron ---');
+    await Promise.all([
+      runProcess(path.resolve(__dirname, 'tweet', 'userCrawling')),
+    ]);
+    logger.info('--- finish user cron ---');
+  },
+  start: true,
+  timeZone: 'Asia/Tokyo',
+});
+const databaseJob = new CronJob({
+  // cronTime: '* * * * *',
+  cronTime: '0 23 * * *',
+  onTick: async () => {
+    logger.info('--- start database cron ---');
+    await Promise.all([
+      runProcess(path.resolve(__dirname, 'database', 'updateDatabase.js')),
+    ]);
+    logger.info('--- finish database cron ---');
+  },
+  start: true,
+  timeZone: 'Asia/Tokyo',
+});
+
+tweetJob.start();
+userJob.start();
+databaseJob.start();
