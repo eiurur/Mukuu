@@ -26,8 +26,7 @@
             data-url="https://mukuu.herokuapp.com/"
             data-hashtags="COM3D2"
             data-show-count="false"
-            >Tweet</a
-          >
+          >Tweet</a>
         </el-menu-item>
       </el-menu>
     </aside>
@@ -48,6 +47,10 @@ main {
   padding: 1rem;
 }
 
+*:focus {
+  outline: none;
+}
+
 body,
 html,
 #app {
@@ -58,9 +61,10 @@ html,
   overflow: hidden;
 }
 #app {
-  font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック", "ヒラギノ角ゴ Pro W3",
-    "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "MSPゴシック", "Osaka", "MS PGothic", "Arial",
-    "Helvetica", "Verdana", "sans-serif";
+  font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック",
+    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo",
+    "MSPゴシック", "Osaka", "MS PGothic", "Arial", "Helvetica", "Verdana",
+    "sans-serif";
   font-size: 18px;
   font-weight: 600;
   margin-top: 0;
@@ -114,7 +118,8 @@ img:after {
   left: 0;
   width: inherit;
   height: inherit;
-  background: #ebebeb url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu") no-repeat
+  background: #ebebeb
+    url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu") no-repeat
     center;
   color: transparent;
 }

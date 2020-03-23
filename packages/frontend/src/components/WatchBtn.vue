@@ -37,7 +37,6 @@ div.btn {
     border: #bbb 1px solid;
     color: #bbb;
     border-radius: 4rem;
-    padding: 0rem 1rem;
     line-height: 1.7;
     overflow: hidden;
     white-space: nowrap;
@@ -46,6 +45,9 @@ div.btn {
       background: #fe346e;
       border: #fe346e;
       color: white;
+    }
+    & > span {
+      padding: 0rem 1rem;
     }
   }
 }

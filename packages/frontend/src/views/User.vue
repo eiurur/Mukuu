@@ -276,12 +276,16 @@ export default {
     }
   },
   updated() {
-    const images = Array.from(document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)"));
-    images.map(
-      img =>
-        (img.onload = () =>
-          !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
-    );
+    this.$nextTick(() => {
+      const images = Array.from(
+        document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
+      );
+      images.map(
+        img =>
+          (img.onload = () =>
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+      );
+    });
   }
 };
 </script>

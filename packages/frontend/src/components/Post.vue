@@ -1,8 +1,10 @@
 <template>
   <div class="post-container">
-    <el-divider content-position="center" v-if="post.shouldShowDivider">{{
+    <el-divider content-position="center" v-if="post.shouldShowDivider">
+      {{
       post.createdAt
-    }}</el-divider>
+      }}
+    </el-divider>
     <article class="post">
       <div class="text-container">
         <div class="user">
@@ -35,11 +37,9 @@
         <div class="attributes">
           <div class="item retweet">
             <span>{{ post.retweetCount }}</span>
-            <span class="suffix">RT</span>
           </div>
           <div class="item favorite">
             <span>{{ post.favoriteCount }}</span>
-            <span class="suffix">likes</span>
           </div>
         </div>
         <div class="externalLinks">
@@ -187,14 +187,12 @@ article.post {
     background: rgba(0, 0, 0, 0.6);
     color: white;
     border-radius: 4rem;
-    padding: 0rem 1rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-  }
-  & .suffix {
-    font-size: 60%;
-    padding-left: 0.5rem;
+    & > span {
+      padding: 0rem 1rem;
+    }
   }
   & .attributes {
     display: flex;
@@ -204,9 +202,19 @@ article.post {
     }
     & .retweet {
       background: rgba(11, 197, 123, 0.8);
+      & > span:after {
+        content: "RT";
+        font-size: 60%;
+        padding-left: 0.5rem;
+      }
     }
     & .favorite {
       background: rgba(232, 28, 79, 0.8);
+      & > span:after {
+        content: "likes";
+        font-size: 60%;
+        padding-left: 0.5rem;
+      }
     }
   }
   & .externalLinks {
@@ -248,10 +256,13 @@ export default {
           .split(/\r\n|\n|\s/)
           .filter(
             word =>
-              word.indexOf("ux.getuploader.com") !== -1 || word.indexOf("drive.google.com") !== -1
+              word.indexOf("ux.getuploader.com") !== -1 ||
+              word.indexOf("drive.google.com") !== -1
           )
           .map(url => {
-            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
+            const match = url.match(
+              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
+            );
             return match[1];
           })
           .map(url => {
@@ -266,12 +277,17 @@ export default {
     }
   },
   mounted() {
-    const images = Array.from(document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)"));
-    images.map(
-      img =>
-        (img.onload = () =>
-          !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
-    );
+    this.$nextTick(() => {
+      const images = Array.from(
+        document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
+      );
+      images.map(
+        img =>
+          (img.onload = () =>
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
+      );
+    });
   }
 };
 </script>
