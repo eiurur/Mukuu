@@ -10,7 +10,7 @@ module.exports = class HistoryController {
         const historyProvider = ModelProviderFactory.create('history');
         const history = {
           query: { text: text },
-          data: { $inc: { count: 1 } },
+          data: { $inc: { count: 1 }, updatedAt: Date.now() },
           options: { new: true, upsert: true },
         };
         await historyProvider.findOneAndUpdate(

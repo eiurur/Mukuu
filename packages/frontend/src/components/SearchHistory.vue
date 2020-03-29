@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     async pourHistory() {
-      this.relatedHistory = await this.fetch({ sort: "createdAtDesc" });
+      this.relatedHistory = await this.fetch({ sort: "updatedAtDesc" });
       this.mostHistory = await this.fetch({ sort: "countDesc" });
     },
     async fetch(param) {

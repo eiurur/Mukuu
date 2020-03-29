@@ -6,7 +6,7 @@
           <el-input
             placeholder="検索"
             prefix-icon="el-icon-search"
-            @change.native="registerHistory"
+            @blur="registerHistory"
             v-model="searchOption.searchWord"
           ></el-input>
         </el-form-item>
