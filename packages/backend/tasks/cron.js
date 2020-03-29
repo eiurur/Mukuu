@@ -19,7 +19,7 @@ const runProcess = async filepath => {
 
 const tweetJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 0,18,21 * * *',
+  cronTime: '0 0,18,20,21 * * *',
   onTick: async () => {
     logger.info('--- start tweet cron ---');
     await Promise.all([
@@ -32,7 +32,7 @@ const tweetJob = new CronJob({
 });
 const userJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 9 * * *',
+  cronTime: '0 6 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
     await Promise.all([

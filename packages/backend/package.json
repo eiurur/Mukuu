@@ -7,7 +7,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
     "start:cron": "cross-env NODE_ENV=production node tasks/cron.js",
-    "start:crawl": "cross-env NODE_ENV=production node tasks/tweetCrawling.js",
+    "start:crawl": "cross-env NODE_ENV=production node tasks/tweet/tweetCrawling.js",
     "dev": "nodemon app.js"
   },
   "dependencies": {
