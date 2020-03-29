@@ -2,7 +2,6 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 import VueAnalytics from "vue-analytics";
 import VueLazyload from "vue-lazyload";
-
 import locale from "element-ui/lib/locale/lang/ja";
 
 import App from "./App.vue";

@@ -26,7 +26,8 @@
             data-url="https://mukuu.herokuapp.com/"
             data-hashtags="COM3D2"
             data-show-count="false"
-          >Tweet</a>
+            >Tweet</a
+          >
         </el-menu-item>
       </el-menu>
     </aside>
@@ -44,7 +45,7 @@
 }
 main {
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 *:focus {
@@ -61,10 +62,9 @@ html,
   overflow: hidden;
 }
 #app {
-  font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック",
-    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo",
-    "MSPゴシック", "Osaka", "MS PGothic", "Arial", "Helvetica", "Verdana",
-    "sans-serif";
+  font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック", "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "MSPゴシック", "Osaka", "MS PGothic", "Arial",
+    "Helvetica", "Verdana", "sans-serif";
   font-size: 18px;
   font-weight: 600;
   margin-top: 0;
@@ -118,8 +118,7 @@ img:after {
   left: 0;
   width: inherit;
   height: inherit;
-  background: #ebebeb
-    url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu") no-repeat
+  background: #ebebeb url("https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu") no-repeat
     center;
   color: transparent;
 }
@@ -172,6 +171,9 @@ img:after {
   overflow: auto;
   min-height: 0;
 }
+.infinite-list > .padding {
+  padding-right: 0.5rem;
+}
 .el-loading-spinner {
   margin-top: -1rem;
 }
@@ -181,12 +183,17 @@ img:after {
 }
 .el-row {
   display: flex;
-  height: 100vh;
-  padding: 0.5rem 0;
-  margin: -1rem 0;
+  height: calc(100vh - 1rem);
+  // height: 100vh;
+  // padding: 0.5rem 0;
+  // margin: -1rem 0;
 }
 .el-col {
   flex-direction: column;
+}
+.el-col:not(:first-of-type):not(:last-of-type) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 [class*="el-col-"] {
   flex-grow: 1;
@@ -222,5 +229,8 @@ img:after {
 }
 .el-input {
   width: 100%;
+}
+.el-form-item {
+  margin-bottom: 1rem;
 }
 </style>

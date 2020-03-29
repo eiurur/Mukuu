@@ -67,6 +67,10 @@ module.exports = class Finder {
         query.sort({ friendsCount: 'desc' });
         break;
       }
+      case 'countDesc': {
+        query.sort({ count: 'desc' });
+        break;
+      }
       default: {
         query.sort({ createdAt: 'desc' });
         break;

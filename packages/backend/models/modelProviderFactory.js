@@ -1,9 +1,11 @@
 const ModelProvider = require('./modelProvider');
-const { User, Post } = require('./schemas');
+const { History, User, Post } = require('./schemas');
 
 module.exports = class ModelProviderFactory {
   static create(name) {
     switch (name.toLowerCase()) {
+      case 'history':
+        return new ModelProvider(History);
       case 'user':
         return new ModelProvider(User);
       case 'post':

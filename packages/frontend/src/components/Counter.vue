@@ -13,6 +13,8 @@
 
 <style lang="scss" scoped>
 .counter {
+  color: #606266;
+  margin-bottom: 1rem;
   padding: 0 0.5rem;
   text-align: right;
 }

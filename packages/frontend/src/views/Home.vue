@@ -6,6 +6,7 @@
           <el-input
             placeholder="検索"
             prefix-icon="el-icon-search"
+            @change.native="registerHistory"
             v-model="searchOption.searchWord"
           ></el-input>
         </el-form-item>
@@ -28,6 +29,7 @@
         </el-form-item>
       </el-form>
       <Counter :current="current" :total="total"></Counter>
+      <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -44,12 +46,14 @@
 <style lang="scss" scoped></style>
 
 <script>
-import UserDrawer from "@/components/UserDrawer.vue";
-import Post from "@/components/Post.vue";
-import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
+import Loader from "@/components/Loader.vue";
+import Post from "@/components/Post.vue";
+import SearchHistory from "@/components/SearchHistory.vue";
+import UserDrawer from "@/components/UserDrawer.vue";
 import { debounce } from "../plugins/util";
 import post from "../api/post";
+import history from "../api/history";
 
 export default {
   name: "home",
@@ -66,14 +70,16 @@ export default {
         sort: "createdAtDesc",
         from: "",
         to: ""
-      }
+      },
+      registerTimerID: null
     };
   },
   components: {
-    UserDrawer,
-    Post,
+    Counter,
     Loader,
-    Counter
+    Post,
+    SearchHistory,
+    UserDrawer
   },
   computed: {
     canLoad() {
@@ -107,6 +113,13 @@ export default {
     this.fetchCount();
   },
   methods: {
+    registerHistory: debounce(e => {
+      if (!e.target.value) return;
+      history.register("search", { text: e.target.value });
+    }, 3000),
+    selectSearchWord(searchWord) {
+      this.searchOption.searchWord = searchWord;
+    },
     async fetchCount() {
       const { count } = await post.fetchCount({ ...this.searchOption });
       this.total = count;
