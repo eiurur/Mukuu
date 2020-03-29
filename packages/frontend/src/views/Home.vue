@@ -6,6 +6,7 @@
           <el-input
             placeholder="検索"
             prefix-icon="el-icon-search"
+            :clearable="true"
             @blur="registerHistory"
             v-model="searchOption.searchWord"
           ></el-input>
@@ -28,7 +29,11 @@
           ></el-date-picker>
         </el-form-item>
       </el-form>
-      <Counter :current="current" :total="total"></Counter>
+      <Counter
+        :current="current"
+        :total="total"
+        @changeCurrentNumber="changeCurrentNumber"
+      ></Counter>
       <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>
     </el-col>
     <el-col :span="12">
@@ -89,25 +94,25 @@ export default {
       return !this.isCompletedLoading && this.isLoading;
     },
     current() {
-      return this.posts.length;
+      return Math.min(this.skip, this.total);
     }
   },
   watch: {
     searchOption: {
       handler() {
-        this.search();
+        this.search({ skip: 0 });
       },
       deep: true
     }
   },
   created() {
-    this.search = debounce(() => {
+    this.search = ({ skip }) => {
       this.isCompletedLoading = false;
-      this.skip = 0;
+      this.skip = skip || 0;
       this.posts = [];
       this.fetchCount();
       this.load();
-    }, 100);
+    };
   },
   mounted() {
     this.fetchCount();
@@ -119,6 +124,9 @@ export default {
     }, 1000),
     selectSearchWord(searchWord) {
       this.searchOption.searchWord = searchWord;
+    },
+    changeCurrentNumber(skip) {
+      this.search({ skip });
     },
     async fetchCount() {
       const { count } = await post.fetchCount({ ...this.searchOption });

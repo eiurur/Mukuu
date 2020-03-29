@@ -3,7 +3,12 @@
     <el-col :span="4">
       <el-form ref="form" :model="searchOption" label-width="56px">
         <el-form-item label="検索">
-          <el-input placeholder="検索" prefix-icon="el-icon-search" v-model="searchOption.searchWord"></el-input>
+          <el-input
+            placeholder="検索"
+            prefix-icon="el-icon-search"
+            :clearable="true"
+            v-model="searchOption.searchWord"
+          ></el-input>
         </el-form-item>
         <el-form-item label="並替">
           <el-select v-model="searchOption.sort" placeholder="please select your zone">
@@ -15,7 +20,11 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <Counter :current="current" :total="total"></Counter>
+      <Counter
+        :current="current"
+        :total="total"
+        @changeCurrentNumber="changeCurrentNumber"
+      ></Counter>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -159,7 +168,6 @@ import UserDrawer from "@/components/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import WatchBtn from "@/components/WatchBtn.vue";
-import { debounce } from "../plugins/util";
 import user from "../api/user";
 
 export default {
@@ -193,30 +201,33 @@ export default {
       return !this.isCompletedLoading && this.isLoading;
     },
     current() {
-      return this.users.length;
+      return Math.min(this.skip, this.total);
     }
   },
   watch: {
     searchOption: {
       handler() {
-        this.search();
+        this.search({ skip: 0 });
       },
       deep: true
     }
   },
   created() {
-    this.search = debounce(() => {
+    this.search = ({ skip }) => {
       this.isCompletedLoading = false;
-      this.skip = 0;
+      this.skip = skip || 0;
       this.users = [];
       this.fetchCount();
       this.load();
-    }, 100);
+    };
   },
   mounted() {
     this.fetchCount();
   },
   methods: {
+    changeCurrentNumber(skip) {
+      this.search({ skip });
+    },
     async fetchCount() {
       const { count } = await user.fetchCount({ ...this.searchOption });
       this.total = count;
@@ -257,9 +268,7 @@ export default {
       return tweets
         .filter(p => p.entities && p.entities.media)
         .map(p => p.entities.media)
-        .map(media =>
-          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
-        )
+        .map(media => media.map(m => `${m.media_url_https}?format=${format}&name=${name}`))
         .flat()
         .sort(() => Math.random() - Math.random())
         .slice(0, count);
@@ -281,8 +290,7 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
   }
