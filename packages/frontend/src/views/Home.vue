@@ -116,7 +116,7 @@ export default {
     registerHistory: debounce(e => {
       if (!e.target.value) return;
       history.register("search", { text: e.target.value });
-    }, 3000),
+    }, 1000),
     selectSearchWord(searchWord) {
       this.searchOption.searchWord = searchWord;
     },
