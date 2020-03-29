@@ -59,15 +59,16 @@ export default {
   props: ["word"],
   data() {
     return {
+      timerID: null,
       relatedHistory: [],
       mostHistory: []
     };
   },
-  async mounted() {
-    this.relatedHistory = await this.fetch({ sort: "createdAtDesc" });
-    this.mostHistory = await this.fetch({ sort: "countDesc" });
-  },
   methods: {
+    async pourHistory() {
+      this.relatedHistory = await this.fetch({ sort: "createdAtDesc" });
+      this.mostHistory = await this.fetch({ sort: "countDesc" });
+    },
     async fetch(param) {
       const { data } = await history.fetch("search", param);
       return data;
@@ -75,6 +76,15 @@ export default {
     selectSearchWord(text) {
       this.$emit("selectSearchWord", text);
     }
+  },
+  async mounted() {
+    await this.pourHistory();
+    this.timerID = setInterval(async () => {
+      await this.pourHistory();
+    }, 5000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timerID);
   }
 };
 </script>
