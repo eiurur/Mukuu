@@ -40,9 +40,7 @@ const mapper = {
       profileBackgroundImageUrl: user.profile_background_image_url_https,
       profileImageUrl: user.profile_image_url_https,
       profileBannerUrl: user.profile_banner_url,
-      createdAt: dayjs(user.created_at.replace('+0000', '')).format(
-        'YYYY-MM-DD hh:mm:ss',
-      ),
+      createdAt: dayjs(user.created_at.replace('+0000', '')).valueOf(),
       updatedAt: Date.now(),
     };
   },
@@ -53,9 +51,7 @@ const mapper = {
       entities: JSON.stringify(tweet.extended_entities || tweet.entities),
       favoriteCount: tweet.favorite_count,
       retweetCount: tweet.retweet_count,
-      createdAt: dayjs(tweet.created_at.replace('+0000', '')).format(
-        'YYYY-MM-DD hh:mm:ss',
-      ),
+      createdAt: dayjs(tweet.created_at.replace('+0000', '')).valueOf(),
       postedBy: postedBy,
       updatedAt: Date.now(),
     };
