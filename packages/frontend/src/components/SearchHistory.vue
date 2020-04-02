@@ -3,16 +3,20 @@
     <div class="padding">
       <div class="title">最近の検索ワード</div>
       <div class="words">
-        <span v-for="item in relatedHistory" :key="item._id" @click="selectSearchWord(item.text)">{{
+        <span v-for="item in relatedHistory" :key="item._id" @click="selectSearchWord(item.text)">
+          {{
           item.text
-        }}</span>
+          }}
+        </span>
       </div>
       <el-divider></el-divider>
       <div class="title">よく検索されているワード</div>
       <div class="words">
-        <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.text)">{{
+        <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.text)">
+          {{
           item.text
-        }}</span>
+          }}
+        </span>
       </div>
     </div>
   </section>
@@ -81,7 +85,7 @@ export default {
     await this.pourHistory();
     this.timerID = setInterval(async () => {
       await this.pourHistory();
-    }, 5000);
+    }, 30 * 1000);
   },
   beforeDestroy() {
     clearInterval(this.timerID);
