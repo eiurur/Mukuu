@@ -58,7 +58,7 @@ module.exports = {
   queryOption: {
     raws: ['_id', 'postedBy'],
     range: 'createdAt',
-    searchWord: ['text'],
+    searchWord: ['text', 'postedBy.screenName'],
   },
   populates: ['postedBy'],
 };
