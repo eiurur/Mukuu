@@ -26,6 +26,9 @@ module.exports = class ModelProvider {
     if (!this.queryOption.preprocess) {
       return conditions;
     }
+    if (query.searchWord === undefined || query.searchWord === '') {
+      return conditions;
+    }
 
     for (let process of this.queryOption.preprocess) {
       console.log(process, query);
