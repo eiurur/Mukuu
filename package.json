@@ -37,6 +37,7 @@
     "publish": "lerna publish",
     "preinstall": "npm cache clean -f",
     "postinstall": "npm run bootstrap && npm run build",
+    "clean:dep": "rm -rf node_modules/ && rm -rf ./packages/frontend/node_modules/ && rm -rf ./packages/backend/node_modules",
     "update:dep": "cd ./packages/frontend && npx ncu -u && cd ../../ && cd ./packages/backend && npx ncu -u && cd ../../",
     "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../"
   },
