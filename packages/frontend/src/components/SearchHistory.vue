@@ -81,7 +81,7 @@ export default {
     await this.pourHistory();
     this.timerID = setInterval(async () => {
       await this.pourHistory();
-    }, 5000);
+    }, 15 * 1000);
   },
   beforeDestroy() {
     clearInterval(this.timerID);
