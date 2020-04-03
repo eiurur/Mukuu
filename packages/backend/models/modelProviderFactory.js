@@ -14,4 +14,16 @@ module.exports = class ModelProviderFactory {
         return null;
     }
   }
+  static getSchema(name) {
+    switch (name.toLowerCase()) {
+      case 'history':
+        return History;
+      case 'user':
+        return User;
+      case 'post':
+        return Post;
+      default:
+        return null;
+    }
+  }
 };

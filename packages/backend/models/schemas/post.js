@@ -58,7 +58,10 @@ module.exports = {
   queryOption: {
     raws: ['_id', 'postedBy'],
     range: 'createdAt',
-    searchWord: ['text', 'postedBy.screenName'],
+    preprocess: [
+      { model: 'User', in: ['screenName'], use: '_id', key: 'postedBy' },
+    ],
+    searchWord: ['text'],
   },
   populates: ['postedBy'],
 };

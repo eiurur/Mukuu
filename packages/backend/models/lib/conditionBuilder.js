@@ -11,6 +11,7 @@ module.exports = class ConditionBuilder {
     if (Array.isArray(value)) return { $in: value };
     return value;
   }
+
   buildCondition(keys, condition) {
     this.condition = [];
     Object.keys(condition).forEach(key => {

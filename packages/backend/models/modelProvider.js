@@ -4,6 +4,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const logger = require(path.join('..', 'logger'))();
 const { ConditionBuilder, Finder } = require('./lib');
+const ModelProviderFactory = require('./ModelProviderFactory');
 
 const uri = process.env.MONGODB_URI;
 const db = mongoose.connect(uri, {
@@ -19,21 +20,59 @@ module.exports = class ModelProvider {
     this.queryOption = Schema.queryOption;
   }
 
+  // preprocess: [{ model: 'User', in: ['screenName'], use: '_id', key: 'postedBy' }],
+  async preprocess(query = {}) {
+    let conditions = [];
+    if (!this.queryOption.preprocess) {
+      return conditions;
+    }
+
+    for (let process of this.queryOption.preprocess) {
+      console.log(process, query);
+      if (process.model) {
+        const builder = new ConditionBuilder();
+        builder.addSearchWord(process.in, query.searchWord);
+        console.log(builder.condition);
+        const q =
+          builder.condition.length === 0 ? {} : { $and: builder.condition };
+
+        const { model } = ModelProviderFactory.getSchema(process.model);
+        const params = Object.assign({
+          model: model,
+          query: q,
+          // populates: this.populates,
+        });
+        const finder = new Finder(params);
+        const list = await finder.find();
+        const tmp = {};
+        tmp[process.key] = { $in: list.map(item => item[process.use]) };
+        conditions.push(tmp);
+      }
+    }
+    return conditions;
+  }
+
   aggregate(query = {}) {
     logger.info(`DBBaseProvider ${this.model.modelName} aggregate`);
     logger.info('query  : ', JSON.stringify(query));
     return this.model.aggregate(query).exec();
   }
 
-  count(query = {}, searchOption = {}) {
+  async count(query = {}, searchOption = {}) {
     logger.info(`DBBaseProvider ${this.model.modelName} count`);
     logger.info('query  : ', JSON.stringify(query));
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
-    const q = builder.condition.length === 0 ? {} : { $and: builder.condition };
-    logger.info(JSON.stringify(builder.condition));
+
+    const extendConditions = await this.preprocess(query);
+    const conditions = builder.condition.map(condition => {
+      if (condition.$or) condition.$or = condition.$or.concat(extendConditions);
+      return condition;
+    });
+    const q = conditions.length === 0 ? {} : { $and: conditions };
+    logger.info(JSON.stringify(q));
 
     const params = Object.assign(
       {
@@ -47,7 +86,7 @@ module.exports = class ModelProvider {
     return finder.count();
   }
 
-  find(query = {}, searchOption = {}) {
+  async find(query = {}, searchOption = {}) {
     logger.info(`DBBaseProvider ${this.model.modelName} find`);
     logger.info('query  : ', JSON.stringify(query));
     logger.info('searchOption: ', searchOption);
@@ -56,8 +95,13 @@ module.exports = class ModelProvider {
     builder.buildCondition(this.queryOption.raws, query);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
-    const q = builder.condition.length === 0 ? {} : { $and: builder.condition };
-    logger.info(JSON.stringify(builder.condition));
+    const extendConditions = await this.preprocess(query);
+    const conditions = builder.condition.map(condition => {
+      if (condition.$or) condition.$or = condition.$or.concat(extendConditions);
+      return condition;
+    });
+    const q = conditions.length === 0 ? {} : { $and: conditions };
+    logger.info(JSON.stringify(q));
 
     const params = Object.assign(
       {
