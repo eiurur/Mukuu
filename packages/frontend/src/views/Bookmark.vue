@@ -1,28 +1,35 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="4">
-      <Counter :current="current" :total="total"></Counter>
-      <section class="infinite-list">
-        <div class="watch" :key="user._id" v-for="user in watches">
-          <div class="user">
-            <div class="icon" @click="openUserDrawer(user)">
-              <img v-lazy="user.profileImageUrl" onerror="this.style.display = 'none'" />
-            </div>
-            <div class="profile">
-              <div class="names">
-                <span class="name">{{ user.name }}</span>
-                <span class="screen-name">@{{ user.screenName }}</span>
-              </div>
-            </div>
-            <WatchBtn :user="user"></WatchBtn>
-          </div>
-        </div>
-      </section>
+      <el-form ref="form" :model="searchOption" label-width="56px">
+        <el-form-item label="検索">
+          <el-input
+            placeholder="検索"
+            prefix-icon="el-icon-search"
+            :clearable="true"
+            v-model="searchOption.searchWord"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="並替">
+          <el-select v-model="searchOption.sort" placeholder="please select sort type">
+            <el-option label="投稿日時が新しい順" value="createdAtDesc"></el-option>
+            <el-option label="投稿日時が古い順" value="createdAtAsc"></el-option>
+            <el-option label="リツイートが多い順" value="retweetCountDesc"></el-option>
+            <el-option label="お気に入りが多い順" value="favoriteCountDesc"></el-option>
+            <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <Counter
+        :current="current"
+        :total="total"
+        @changeCurrentNumber="changeCurrentNumber"
+      ></Counter>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
         <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
-        <div class="center" v-if="isEmptyWatches">ウォッチリストに登録がありません。</div>
+        <div class="center" v-if="isEmptyWatches">ブックマークに登録がありません。</div>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
@@ -36,7 +43,7 @@
 section + section {
   margin-top: 0.5rem;
 }
-.watches {
+.bookmarks {
   margin-top: 1rem;
   overflow: hidden;
 }
@@ -90,11 +97,10 @@ import UserDrawer from "@/components/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
-import WatchBtn from "@/components/WatchBtn.vue";
 import post from "../api/post";
 
 export default {
-  name: "watch",
+  name: "bookmark",
   data() {
     return {
       skip: 0,
@@ -116,8 +122,7 @@ export default {
     UserDrawer,
     Post,
     Loader,
-    Counter,
-    WatchBtn
+    Counter
   },
   computed: {
     canLoad() {
@@ -147,30 +152,33 @@ export default {
       this.fetchCount();
       this.load();
     };
-    this.watches = this.$store.getters["watch/watches"];
+    this.bookmarks = this.$store.getters["bookmark/bookmarks"];
   },
   mounted() {
     this.fetchCount();
   },
   methods: {
+    changeCurrentNumber(skip) {
+      this.search({ skip });
+    },
     async fetchCount() {
-      if (!this.watches.length) return;
+      if (!this.bookmarks.length) return;
       const { count } = await post.fetchCount({
-        ...{ postedBy: this.watches.map(user => user._id) },
+        ...{ column: { _id: this.bookmarks.map(post => post._id) } },
         ...this.searchOption
       });
       this.total = count;
     },
     async load() {
       this.isLoading = true;
-      if (!this.watches.length) {
+      if (!this.bookmarks.length) {
         this.isLoading = false;
         this.isEmptyWatches = true;
         return;
       }
       const { data, url } = await post.fetch({
         ...{ limit: this.limit, skip: this.skip },
-        ...{ column: { postedBy: this.watches.map(user => user._id) } },
+        ...{ column: { _id: this.bookmarks.map(post => post._id) } },
         ...this.searchOption
       });
       if (data.length < 1) {

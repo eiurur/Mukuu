@@ -65,7 +65,7 @@ module.exports = class ModelProvider {
     logger.info(`DBBaseProvider ${this.model.modelName} count`);
     logger.info('query  : ', JSON.stringify(query));
     const builder = new ConditionBuilder();
-    builder.buildCondition(this.queryOption.raws, query);
+    builder.buildCondition(this.queryOption.raws, query.column);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
 
@@ -95,7 +95,7 @@ module.exports = class ModelProvider {
     logger.info('searchOption: ', searchOption);
 
     const builder = new ConditionBuilder();
-    builder.buildCondition(this.queryOption.raws, query);
+    builder.buildCondition(this.queryOption.raws, query.column);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
     const extendConditions = await this.preprocess(query);

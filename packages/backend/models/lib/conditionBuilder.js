@@ -12,12 +12,13 @@ module.exports = class ConditionBuilder {
     return value;
   }
 
-  buildCondition(keys, condition) {
+  buildCondition(keys, column) {
     this.condition = [];
-    Object.keys(condition).forEach(key => {
+    if (!column) return;
+    Object.keys(column).forEach(key => {
       if (keys.includes(key)) {
         const tmp = {};
-        tmp[key] = this.transformCondition(condition[key]);
+        tmp[key] = this.transformCondition(column[key]);
         this.condition.push(tmp);
       }
     });

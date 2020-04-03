@@ -42,7 +42,7 @@ const actions = {
     if (!state.user || !state.user._id) return;
     const { data, url } = await post.fetch({
       ...{ limit: state.limit, skip: state.skip },
-      ...{ postedBy: state.user._id },
+      ...{ column: { postedBy: state.user._id } },
       ...state.searchOption
     });
     if (data.length < 1) {

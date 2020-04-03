@@ -14,6 +14,10 @@
           <i class="el-icon-view"></i>
           <span slot="title">Watch</span>
         </el-menu-item>
+        <el-menu-item index="/bookmark" :route="{ name: 'bookmark' }">
+          <i class="el-icon-collection-tag"></i>
+          <span slot="title">Bukuma</span>
+        </el-menu-item>
         <el-menu-item index="/about">
           <i class="el-icon-info"></i>
           <span slot="title">About</span>

@@ -7,10 +7,10 @@ module.exports = class PostController {
       req,
       res,
       (async ({ data }) => {
-        const { postedBy, searchWord, from, to } = data;
+        const { column, searchWord, from, to } = data;
         const postProvider = ModelProviderFactory.create('post');
         const query = {};
-        if (postedBy) query.postedBy = postedBy;
+        if (column) query.column = column;
         if (searchWord) query.searchWord = searchWord;
         if (from) query.from = from;
         if (to) query.to = to;
@@ -29,11 +29,11 @@ module.exports = class PostController {
       res,
       // (async ({ query, fields, options }) => {
       (async ({ data }) => {
-        const { postedBy, searchWord, from, to, limit, skip, sort } = data;
+        const { column, searchWord, from, to, limit, skip, sort } = data;
         const postProvider = ModelProviderFactory.create('post');
 
         const query = {};
-        if (postedBy) query.postedBy = postedBy;
+        if (column) query.column = column;
         if (searchWord) query.searchWord = searchWord;
         if (from) query.from = from;
         if (to) query.to = to;

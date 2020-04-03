@@ -1,36 +1,46 @@
 <template>
-  <div>
-    <a class="item" v-if="!this.bookmark" @click="addBookmark">
+  <div class="bookmark">
+    <span class="item add" v-if="!this.bookmark" @click="addBookmark">
       <el-tooltip placement="top" effect="light">
         <div slot="content">ブックマーク</div>
         <span>
-          <i class="el-icon-star-off"></i>
-          ブックマーク
+          <i class="el-icon-collection-tag"></i>
         </span>
       </el-tooltip>
-    </a>
-    <a class="item" v-if="this.bookmark" @click="removeBookmark">
+    </span>
+    <span class="item remove" v-if="this.bookmark" @click="removeBookmark">
       <el-tooltip placement="top" effect="light">
         <div slot="content">ブックマーク解除</div>
         <span>
-          <i class="el-icon-star-on"></i>
-          ブックマーク解除
+          <i class="el-icon-collection-tag"></i>
         </span>
       </el-tooltip>
-    </a>
+    </span>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.item {
-  display: block;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  border-radius: 4rem;
-  padding: 0rem 1rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.bookmark {
+  .item {
+    cursor: pointer;
+    display: block;
+    border-radius: 4rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 1px solid #bbb;
+    color: #bbb;
+    border-radius: 4rem;
+    line-height: 1.7;
+    &.remove {
+      background: #1c84e8;
+      border: 1px solid #1c84e8;
+      color: white;
+    }
+    & > span {
+      padding: 0rem 1rem;
+    }
+  }
 }
 </style>
 
@@ -41,17 +51,20 @@ export default {
   computed: {
     bookmark: {
       get() {
-        const bookmark = this.$store.getters["bookmark/find"](this.post);
+        const id = this.post.idStr;
+        const bookmark = this.$store.getters["bookmark/find"](id);
         return !!bookmark;
       }
     }
   },
   methods: {
     addBookmark() {
-      this.$store.dispatch("drawer/addBookmark", this.post);
+      this.$store.dispatch("bookmark/addBookmark", this.post);
+      this.$store.dispatch("saveLocalStorage");
     },
     removeBookmark() {
-      this.$store.dispatch("drawer/removeBookmak", this.post);
+      this.$store.dispatch("bookmark/removeBookmark", this.post);
+      this.$store.dispatch("saveLocalStorage");
     }
   }
 };

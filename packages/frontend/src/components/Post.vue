@@ -1,9 +1,7 @@
 <template>
   <div class="post-container">
     <el-divider content-position="center" v-if="post.shouldShowDivider">
-      {{
-      post.createdAt
-      }}
+      {{ post.createdAt }}
     </el-divider>
     <article class="post">
       <div class="text-container">
@@ -33,7 +31,7 @@
           data-zoomable
         />
       </div>
-      <div class="control">
+      <div class="footer">
         <div class="attributes">
           <div class="item retweet">
             <span>{{ post.retweetCount }}</span>
@@ -42,22 +40,25 @@
             <span>{{ post.favoriteCount }}</span>
           </div>
         </div>
-        <div class="externalLinks">
-          <a
-            class="item"
-            v-for="link in externalLinks"
-            :key="link.url"
-            :href="link.url"
-            target="_blank"
-          >
-            <el-tooltip placement="top" effect="light">
-              <div slot="content">{{ link.url }}</div>
-              <span>
-                <i class="el-icon-link"></i>
-                {{ link.label }}
-              </span>
-            </el-tooltip>
-          </a>
+        <div class="controls">
+          <div class="externalLinks">
+            <a
+              class="item"
+              v-for="link in externalLinks"
+              :key="link.url"
+              :href="link.url"
+              target="_blank"
+            >
+              <el-tooltip placement="top" effect="light">
+                <div slot="content">{{ link.url }}</div>
+                <span>
+                  <i class="el-icon-link"></i>
+                  {{ link.label }}
+                </span>
+              </el-tooltip>
+            </a>
+          </div>
+          <BookmarkBtn :post="post"></BookmarkBtn>
         </div>
       </div>
     </article>
@@ -177,10 +178,17 @@ article.post {
     max-width: 100%;
   }
 }
-.control {
+.footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  .controls {
+    display: flex;
+    div + div {
+      padding-left: 1rem;
+    }
+  }
 
   & .item {
     display: block;
@@ -229,8 +237,11 @@ article.post {
 <script>
 import mediumZoom from "medium-zoom";
 
+import BookmarkBtn from "@/components/BookmarkBtn.vue";
+
 export default {
   name: "Post",
+  components: { BookmarkBtn },
   props: ["post", "prePost", "useDrawer"],
   methods: {
     openUserDrawer(postedBy) {
@@ -256,13 +267,10 @@ export default {
           .split(/\r\n|\n|\s/)
           .filter(
             word =>
-              word.indexOf("ux.getuploader.com") !== -1 ||
-              word.indexOf("drive.google.com") !== -1
+              word.indexOf("ux.getuploader.com") !== -1 || word.indexOf("drive.google.com") !== -1
           )
           .map(url => {
-            const match = url.match(
-              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
-            );
+            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
             return match[1];
           })
           .map(url => {
@@ -284,8 +292,7 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
   }

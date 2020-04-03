@@ -34,7 +34,7 @@ div.btn {
   & > .item {
     display: block;
     background: white;
-    border: #bbb 1px solid;
+    border: 1px solid #bbb;
     color: #bbb;
     border-radius: 4rem;
     line-height: 1.7;
@@ -43,7 +43,7 @@ div.btn {
     text-overflow: ellipsis;
     &.remove {
       background: #fe346e;
-      border: #fe346e;
+      border: 1px solid #fe346e;
       color: white;
     }
     & > span {

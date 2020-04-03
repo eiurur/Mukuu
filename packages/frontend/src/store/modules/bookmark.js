@@ -8,10 +8,12 @@ const getters = {
 const actions = {
   // async initialize({ commit }, value) {},
   addBookmark({ commit }, value) {
-    commit("ADD_BOOKMARK", value);
+    const payload = { ...value, ...{ id: value.idStr } };
+    commit("ADD_BOOKMARK", payload);
   },
   removeBookmark({ commit }, value) {
-    commit("REMOVE_BOOKMARK", value);
+    const payload = { ...value, ...{ id: value.idStr } };
+    commit("REMOVE_BOOKMARK", payload);
   }
 };
 const mutations = {
