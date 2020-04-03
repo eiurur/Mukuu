@@ -4,7 +4,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const logger = require(path.join('..', 'logger'))();
 const { ConditionBuilder, Finder } = require('./lib');
-const ModelProviderFactory = require('./modelProviderFactory');
+const SchemeFactory = require('./schemaFactory');
 
 const uri = process.env.MONGODB_URI;
 const db = mongoose.connect(uri, {
@@ -36,7 +36,7 @@ module.exports = class ModelProvider {
         const q =
           builder.condition.length === 0 ? {} : { $and: builder.condition };
 
-        const { model } = ModelProviderFactory.getSchema(process.model);
+        const { model } = SchemeFactory.create(process.model);
         const params = Object.assign({
           model: model,
           query: q,
