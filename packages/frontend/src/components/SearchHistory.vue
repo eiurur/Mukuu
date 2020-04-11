@@ -3,16 +3,20 @@
     <div class="padding">
       <div class="title">最近の検索ワード</div>
       <div class="words">
-        <span v-for="item in relatedHistory" :key="item._id" @click="selectSearchWord(item.text)">{{
+        <span v-for="item in relatedHistory" :key="item._id" @click="selectSearchWord(item.text)">
+          {{
           item.text
-        }}</span>
+          }}
+        </span>
       </div>
       <el-divider></el-divider>
       <div class="title">よく検索されているワード</div>
       <div class="words">
-        <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.text)">{{
+        <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.text)">
+          {{
           item.text
-        }}</span>
+          }}
+        </span>
       </div>
     </div>
   </section>
@@ -20,7 +24,7 @@
 
 <style lang="scss" scoped>
 .history {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   .title {
     font-size: 14px;
     color: #606266;
