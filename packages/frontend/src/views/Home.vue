@@ -109,7 +109,6 @@ export default {
   watch: {
     searchOption: {
       handler() {
-        console.log(this.canWatchSearchOption);
         if (this.canWatchSearchOption) {
           this.search({});
         }
@@ -127,10 +126,8 @@ export default {
     };
   },
   mounted() {
-    console.log("mounted b:", this.canWatchSearchOption);
     this.restoreSearchOptionFromQueryString();
     this.fetchCount();
-    console.log("mounted a:", this.canWatchSearchOption);
   },
   methods: {
     registerHistory: debounce(e => {

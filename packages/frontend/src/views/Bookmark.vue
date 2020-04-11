@@ -150,7 +150,6 @@ export default {
   },
   created() {
     this.search = ({ skip } = {}) => {
-      console.log(skip);
       this.isCompletedLoading = false;
       this.isEmptyWatches = false;
       this.skip = skip || 0;
