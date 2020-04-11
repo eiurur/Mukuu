@@ -5,7 +5,7 @@ const { execFile } = require('child_process');
 const execFileAsync = promisify(execFile);
 const logger = require(path.join('..', 'logger'))('cron');
 
-const runProcess = async filepath => {
+const runProcess = async (filepath) => {
   const { stdout, stderr } = await execFileAsync('node', [filepath], {
     maxBuffer: 1024 * 1024 * 10,
     shell: true,
@@ -19,7 +19,7 @@ const runProcess = async filepath => {
 
 const tweetJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 0,9,12,14,18,20,21 * * *',
+  cronTime: '0 0,9,12,14,18,20,22 * * *',
   onTick: async () => {
     logger.info('--- start tweet cron ---');
     await Promise.all([
@@ -45,7 +45,7 @@ const userJob = new CronJob({
 });
 const databaseJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 23 * * *',
+  cronTime: '0 21 * * *',
   onTick: async () => {
     logger.info('--- start database cron ---');
     await Promise.all([

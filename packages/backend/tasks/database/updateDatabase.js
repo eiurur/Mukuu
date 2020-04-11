@@ -14,7 +14,7 @@ const logger = require(path.join('..', '..', 'logger'))('cron');
     const users = await userProvider.find(query, searchOption);
     logger.info('update users count : ', users.length);
     for (const user of users) {
-      const postQuery = { postedBy: user._id };
+      const postQuery = { column: { postedBy: user._id } };
       const postSearchOption = {};
       const posts = await postProvider.find(postQuery, postSearchOption);
       const entity = {
