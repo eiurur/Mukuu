@@ -18,6 +18,7 @@ module.exports = {
     "max-len": ["error", { code: 160 }],
     "no-underscore-dangle": 0,
     "operator-linebreak": 0,
+    "object-curly-newline": 0,
     "arrow-parens": 0,
     "implicit-arrow-linebreak": 0,
     "space-before-function-paren": 0,
