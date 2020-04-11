@@ -31,7 +31,7 @@ module.exports = class HistoryController {
       (async ({ sort }) => {
         const historyProvider = ModelProviderFactory.create('history');
         const query = {};
-        const searchOption = { limit: 6, skip: 0 };
+        const searchOption = { limit: 8, skip: 0 };
         if (sort) searchOption.sort = sort;
         const historys = await historyProvider.find(query, searchOption);
         return historys;
