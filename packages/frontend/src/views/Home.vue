@@ -34,10 +34,10 @@
       </el-form>
       <el-form :inline="true" @submit.native.prevent size="mini" class="between">
         <el-form-item>
-          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+          <el-button type="danger" icon="el-icon-close" @click="clear">クリア</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="danger" icon="el-icon-close" @click="clear">クリア</el-button>
+          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
         </el-form-item>
       </el-form>
       <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>

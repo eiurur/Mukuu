@@ -169,9 +169,19 @@ img:after {
 
 /** */
 
+.right-side {
+  display: flex;
+  justify-content: flex-end;
+  & .el-form-item:last-of-type {
+    margin-right: 0;
+  }
+}
 .between {
   display: flex;
   justify-content: space-between;
+  & .el-form-item:last-of-type {
+    margin-right: 0;
+  }
 }
 .prefix-icon {
   width: 25px;

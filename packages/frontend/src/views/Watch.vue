@@ -1,7 +1,11 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="4">
-      <Counter :current="current" :total="total"></Counter>
+      <el-form :inline="true" @submit.native.prevent size="mini" class="right-side mb-0">
+        <el-form-item>
+          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+        </el-form-item>
+      </el-form>
       <section class="infinite-list">
         <div class="watch" :key="user._id" v-for="user in watches">
           <div class="user">
@@ -33,6 +37,9 @@
 </template>
 
 <style lang="scss" scoped>
+.mb-0 > div {
+  margin-bottom: 0;
+}
 section + section {
   margin-top: 0.5rem;
 }

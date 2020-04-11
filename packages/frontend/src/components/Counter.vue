@@ -26,7 +26,7 @@
 <style lang="scss" scoped>
 .counter {
   .displayPanel {
-    padding: 0 0.5rem;
+    padding-left: 0.5rem;
     text-align: right;
   }
 }
