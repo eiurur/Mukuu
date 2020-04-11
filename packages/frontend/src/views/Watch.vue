@@ -156,7 +156,7 @@ export default {
     async fetchCount() {
       if (!this.watches.length) return;
       const { count } = await post.fetchCount({
-        ...{ postedBy: this.watches.map(user => user._id) },
+        ...{ column: { postedBy: this.watches.map(user => user._id) } },
         ...this.searchOption
       });
       this.total = count;
