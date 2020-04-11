@@ -29,11 +29,7 @@
           ></el-date-picker>
         </el-form-item>
       </el-form>
-      <Counter
-        :current="current"
-        :total="total"
-        @changeCurrentNumber="changeCurrentNumber"
-      ></Counter>
+      <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
       <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>
     </el-col>
     <el-col :span="12">
@@ -51,6 +47,7 @@
 <style lang="scss" scoped></style>
 
 <script>
+import dayjs from "dayjs";
 import Counter from "@/components/Counter.vue";
 import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
@@ -70,10 +67,11 @@ export default {
       posts: [],
       isLoading: false,
       isCompletedLoading: false,
+      canWatchSearchOption: false,
       searchOption: {
         searchWord: "",
         sort: "createdAtDesc",
-        from: "",
+        // from: "",
         to: ""
       },
       registerTimerID: null
@@ -100,13 +98,17 @@ export default {
   watch: {
     searchOption: {
       handler() {
-        this.search({ skip: 0 });
+        console.log(this.canWatchSearchOption);
+        if (this.canWatchSearchOption) {
+          this.search({});
+        }
       },
       deep: true
     }
   },
   created() {
     this.search = ({ skip }) => {
+      console.log("search:skip = ", this.skip);
       this.isCompletedLoading = false;
       this.skip = skip || 0;
       this.posts = [];
@@ -115,13 +117,37 @@ export default {
     };
   },
   mounted() {
+    console.log("mounted b:", this.canWatchSearchOption);
+    this.restoreSearchOptionFromQueryString();
     this.fetchCount();
+    console.log("mounted a:", this.canWatchSearchOption);
   },
   methods: {
     registerHistory: debounce(e => {
       if (!e.target.value) return;
       history.register("search", { text: e.target.value });
     }, 1000),
+    restoreSearchOptionFromQueryString() {
+      const { searchWord, to, sort, skip } = this.$route.query;
+      this.searchOption = {
+        searchWord: searchWord || "",
+        to: !to ? "" : dayjs(to).format("YYYY-MM-DD"),
+        sort: sort || "createdAtDesc"
+      };
+      this.skip = skip ? Number(skip) : 0;
+    },
+    storeSearchOptionToQueryString() {
+      this.$router.push({
+        query: {
+          searchWord: this.searchOption.searchWord || "",
+          to: !this.searchOption.to
+            ? ""
+            : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          sort: this.searchOption.sort || "createdAtDesc",
+          skip: this.skip
+        }
+      });
+    },
     selectSearchWord(searchWord) {
       this.searchOption.searchWord = searchWord;
     },
@@ -133,11 +159,13 @@ export default {
       this.total = count;
     },
     async load() {
+      console.log(this.skip, this.searchOption);
       this.isLoading = true;
       const { data, url } = await post.fetch({
         ...{ limit: this.limit, skip: this.skip },
         ...this.searchOption
       });
+      this.canWatchSearchOption = true;
       if (data.length < 1) {
         this.isLoading = false;
         this.isCompletedLoading = true;
@@ -150,6 +178,7 @@ export default {
         return ret;
       });
       this.posts = [...this.posts, ...expandedPosts];
+      this.storeSearchOptionToQueryString();
       this.skip += this.limit;
       this.isLoading = false;
       this.$ga.page({
