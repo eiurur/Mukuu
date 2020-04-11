@@ -23,7 +23,14 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+      <el-form :inline="true" @submit.native.prevent size="mini" class="between">
+        <el-form-item>
+          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="danger" icon="el-icon-close" @click="clear">Clear</el-button>
+        </el-form-item>
+      </el-form>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -38,7 +45,7 @@
               :class="{ absolute: true }"
               :user="user"
               :hasText="true"
-              :style="{ top: 0, right: 0 }"
+              :style="{ right: 0 }"
             ></WatchBtn>
           </div>
           <div class="description" v-html="$activateLink(user.description)"></div>
@@ -226,6 +233,13 @@ export default {
   methods: {
     changeCurrentNumber(skip) {
       this.search({ skip });
+    },
+    clear() {
+      this.searchOption = {
+        searchWord: "",
+        sort: "postCountDesc"
+      };
+      this.skip = 0;
     },
     async fetchCount() {
       const { count } = await user.fetchCount({ ...this.searchOption });

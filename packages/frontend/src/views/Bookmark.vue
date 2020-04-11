@@ -23,7 +23,14 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+      <el-form :inline="true" @submit.native.prevent size="mini" class="between">
+        <el-form-item>
+          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="danger" icon="el-icon-close" @click="clear">Clear</el-button>
+        </el-form-item>
+      </el-form>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -112,7 +119,6 @@ export default {
       searchOption: {
         searchWord: "",
         sort: "createdAtDesc",
-        from: "",
         to: ""
       }
     };
@@ -159,6 +165,13 @@ export default {
   methods: {
     changeCurrentNumber(skip) {
       this.search({ skip });
+    },
+    clear() {
+      this.searchOption = {
+        searchWord: "",
+        sort: "createdAtDesc",
+        to: ""
+      };
     },
     async fetchCount() {
       if (!this.bookmarks.length) return;

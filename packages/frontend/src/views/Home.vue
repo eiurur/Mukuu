@@ -32,7 +32,14 @@
           ></el-date-picker>
         </el-form-item>
       </el-form>
-      <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+      <el-form :inline="true" @submit.native.prevent size="mini" class="between">
+        <el-form-item>
+          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="danger" icon="el-icon-close" @click="clear">Clear</el-button>
+        </el-form-item>
+      </el-form>
       <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>
     </el-col>
     <el-col :span="12">
@@ -131,6 +138,13 @@ export default {
       if (!e.target.value) return;
       history.register("search", { text: e.target.value });
     }, 1000),
+    clear() {
+      this.searchOption = {
+        searchWord: "",
+        sort: "createdAtDesc",
+        to: ""
+      };
+    },
     restoreSearchOptionFromQueryString() {
       const { searchWord, to, sort, skip } = this.$route.query;
       this.searchOption = {

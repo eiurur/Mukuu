@@ -169,6 +169,10 @@ img:after {
 
 /** */
 
+.between {
+  display: flex;
+  justify-content: space-between;
+}
 .prefix-icon {
   width: 25px;
 }

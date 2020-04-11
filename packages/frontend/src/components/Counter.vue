@@ -1,7 +1,7 @@
 <template>
   <section class="counter">
     <div v-if="total > 0">
-      <div v-if="isInputMode == false" @click="onInputMode">
+      <div v-if="isInputMode == false" @click="onInputMode" class="displayPanel">
         <span class="current">{{ current }}</span>
         <span class="separator">/</span>
         <span class="total">{{ total }} 件中</span>
@@ -25,8 +25,10 @@
 
 <style lang="scss" scoped>
 .counter {
-  padding: 0 0.5rem;
-  text-align: right;
+  .displayPanel {
+    padding: 0 0.5rem;
+    text-align: right;
+  }
 }
 .separator {
   padding: 0 0.5rem;
