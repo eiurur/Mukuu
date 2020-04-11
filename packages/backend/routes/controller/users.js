@@ -52,7 +52,7 @@ module.exports = class UserController {
           const postProvider = ModelProviderFactory.create('post');
           const usersWithPost = [];
           for (const user of users) {
-            const postQuery = { postedBy: user._id };
+            const postQuery = { column: { postedBy: user._id } };
             const postSearchOption = {
               limit: includePostNum,
               skip: 0,
