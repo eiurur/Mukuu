@@ -119,7 +119,6 @@ export default {
   },
   created() {
     this.search = ({ skip }) => {
-      console.log("search:skip = ", this.skip);
       this.isCompletedLoading = false;
       this.skip = skip || 0;
       this.posts = [];
@@ -144,6 +143,7 @@ export default {
         sort: "createdAtDesc",
         to: ""
       };
+      this.skip = 0;
     },
     restoreSearchOptionFromQueryString() {
       const { searchWord, to, sort, skip } = this.$route.query;
@@ -177,7 +177,6 @@ export default {
       this.total = count;
     },
     async load() {
-      console.log(this.skip, this.searchOption);
       this.isLoading = true;
       const { data, url } = await post.fetch({
         ...{ limit: this.limit, skip: this.skip },

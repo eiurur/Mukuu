@@ -137,7 +137,7 @@ export default {
       return !this.isCompletedLoading && this.isLoading;
     },
     current() {
-      return this.posts.length;
+      return Math.min(this.skip, this.total);
     }
   },
   watch: {
@@ -149,10 +149,11 @@ export default {
     }
   },
   created() {
-    this.search = () => {
+    this.search = ({ skip } = {}) => {
+      console.log(skip);
       this.isCompletedLoading = false;
       this.isEmptyWatches = false;
-      this.skip = 0;
+      this.skip = skip || 0;
       this.posts = [];
       this.fetchCount();
       this.load();
@@ -172,6 +173,7 @@ export default {
         sort: "createdAtDesc",
         to: ""
       };
+      this.skip = 0;
     },
     async fetchCount() {
       if (!this.bookmarks.length) return;

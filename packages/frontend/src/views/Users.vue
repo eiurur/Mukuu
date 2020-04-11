@@ -219,7 +219,7 @@ export default {
     }
   },
   created() {
-    this.search = ({ skip }) => {
+    this.search = ({ skip } = {}) => {
       this.isCompletedLoading = false;
       this.skip = skip || 0;
       this.users = [];

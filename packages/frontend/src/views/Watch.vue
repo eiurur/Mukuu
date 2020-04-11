@@ -37,9 +37,6 @@
 </template>
 
 <style lang="scss" scoped>
-.mb-0 > div {
-  margin-bottom: 0;
-}
 section + section {
   margin-top: 0.5rem;
 }
@@ -134,7 +131,7 @@ export default {
       return !this.isCompletedLoading && this.isLoading;
     },
     current() {
-      return this.posts.length;
+      return Math.min(this.skip, this.total);
     }
   },
   watch: {
@@ -146,10 +143,10 @@ export default {
     }
   },
   created() {
-    this.search = () => {
+    this.search = ({ skip } = {}) => {
       this.isCompletedLoading = false;
       this.isEmptyWatches = false;
-      this.skip = 0;
+      this.skip = skip || 0;
       this.posts = [];
       this.fetchCount();
       this.load();
@@ -160,6 +157,9 @@ export default {
     this.fetchCount();
   },
   methods: {
+    changeCurrentNumber(skip) {
+      this.search({ skip });
+    },
     async fetchCount() {
       if (!this.watches.length) return;
       const { count } = await post.fetchCount({
