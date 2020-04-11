@@ -37,7 +37,7 @@
           <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
         </el-form-item>
         <el-form-item>
-          <el-button type="danger" icon="el-icon-close" @click="clear">Clear</el-button>
+          <el-button type="danger" icon="el-icon-close" @click="clear">クリア</el-button>
         </el-form-item>
       </el-form>
       <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>
