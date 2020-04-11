@@ -1,0 +1,211 @@
+*:focus {
+  outline: none;
+}
+* {
+  outline: none !important;
+}
+
+body,
+html,
+#app {
+  height: 100%;
+  margin: 0;
+  background: #eee;
+  color: #000;
+  overflow: hidden;
+}
+#app {
+  font-family: YuGothic, 'Yu Gothic', '游ゴシック体', '游ゴシック',
+    'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo',
+    'MSPゴシック', 'Osaka', 'MS PGothic', 'Arial', 'Helvetica', 'Verdana',
+    'sans-serif';
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 0;
+  line-height: 1.8;
+  display: flex;
+  /* color: #2c3e50; */
+}
+#nav {
+  padding: 0 0 30px;
+}
+* {
+  box-sizing: border-box;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+a.disabled {
+  text-decoration: none;
+  pointer-events: none;
+  cursor: default;
+}
+a {
+  color: #179afc;
+  transition: color 0.3s;
+  &:hover {
+    color: #409eff;
+    // color: #37d3db;
+  }
+}
+
+img:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  background: #ebebeb
+    url('https://via.placeholder.com/300/ebebeb/FFFFFF?text=Mukuu') no-repeat
+    center;
+  color: transparent;
+}
+.center {
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* 子要素をflexboxにより縦方向に揃える */
+  justify-content: center; /* 子要素をflexboxにより中央に配置する */
+  align-items: center; /* 子要素をflexboxにより中央に配置する */
+}
+.oneline-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* extend property */
+::-webkit-scrollbar {
+  background-color: #f4f4f4;
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f4f4f4;
+}
+::-webkit-scrollbar-track:hover {
+  background-color: #f4f4f4;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #babac0;
+  border-radius: 8px;
+  border: 5px solid #f4f4f4;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a0a0a5;
+  border: 4px solid #f4f4f4;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* */
+.medium-zoom-image--opened {
+  width: auto !important;
+}
+
+/** */
+.right-side {
+  display: flex;
+  justify-content: flex-end;
+  & .el-form-item:last-of-type {
+    margin-right: 0;
+  }
+}
+.between {
+  display: flex;
+  justify-content: space-between;
+  & .el-form-item:last-of-type {
+    margin-right: 0;
+  }
+}
+.prefix-icon {
+  width: 25px;
+}
+.infinite-list {
+  position: relative;
+  flex-grow: 1;
+  list-style: none;
+  overflow: auto;
+  min-height: 0;
+}
+.infinite-list > .padding {
+  padding-right: 0.5rem;
+}
+.el-loading-spinner {
+  margin-top: -1rem;
+}
+.el-loading-mask {
+  border-radius: 2rem;
+  margin: 1rem 0;
+}
+.el-row {
+  display: flex;
+  height: calc(100vh - 1rem);
+}
+.el-col {
+  flex-direction: column;
+}
+.el-col:not(:first-of-type):not(:last-of-type) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+[class*='el-col-'] {
+  flex-grow: 1;
+  display: flex;
+}
+.el-aside {
+  background: white;
+  width: 128px;
+}
+.el-menu-vertical {
+  width: 128px;
+  height: 100%;
+  min-height: 400px;
+}
+.el-menu-item {
+  color: #909399;
+}
+.el-menu-item:last-of-type {
+  position: absolute;
+  cursor: initial;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  &:hover,
+  &:focus {
+    background: none;
+  }
+}
+.el-divider__text {
+  background: #eee;
+}
+/* TODO: scope用のラッパクラスの配下に対象を限定する */
+.el-select {
+  width: 100%;
+}
+.el-input {
+  width: 100%;
+}
+.el-form-item {
+  margin-bottom: 1rem;
+}

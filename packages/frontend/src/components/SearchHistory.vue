@@ -4,18 +4,14 @@
       <div class="title">最近の検索ワード</div>
       <div class="words">
         <span v-for="item in relatedHistory" :key="item._id" @click="selectSearchWord(item.text)">
-          {{
-          item.text
-          }}
+          {{ item.text }}
         </span>
       </div>
       <el-divider></el-divider>
       <div class="title">よく検索されているワード</div>
       <div class="words">
         <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.text)">
-          {{
-          item.text
-          }}
+          {{ item.text }}
         </span>
       </div>
     </div>
