@@ -33,4 +33,5 @@ module.exports = {
   queryOption: {
     range: 'createdAt',
   },
+  logLevel: 'info',
 };
