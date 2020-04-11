@@ -54,6 +54,9 @@ main {
 *:focus {
   outline: none;
 }
+* {
+  outline: none !important;
+}
 
 body,
 html,
@@ -133,6 +136,11 @@ img:after {
   flex-direction: column; /* 子要素をflexboxにより縦方向に揃える */
   justify-content: center; /* 子要素をflexboxにより中央に配置する */
   align-items: center; /* 子要素をflexboxにより中央に配置する */
+}
+.oneline-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* extend property */
