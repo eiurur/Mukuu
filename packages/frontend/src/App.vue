@@ -169,6 +169,9 @@ img:after {
 
 /** */
 
+.prefix-icon {
+  width: 25px;
+}
 .infinite-list {
   position: relative;
   flex-grow: 1;

@@ -1,8 +1,8 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-form ref="form" :model="searchOption" label-width="56px">
-        <el-form-item label="検索">
+      <el-form ref="form" :model="searchOption">
+        <el-form-item>
           <el-input
             placeholder="検索"
             prefix-icon="el-icon-search"
@@ -10,8 +10,11 @@
             v-model="searchOption.searchWord"
           ></el-input>
         </el-form-item>
-        <el-form-item label="並替">
+        <el-form-item>
           <el-select v-model="searchOption.sort" placeholder="please select your zone">
+            <template slot="prefix">
+              <i class="el-icon-sort prefix-icon"></i>
+            </template>
             <el-option label="登録日時が新しい順" value="createdAtDesc"></el-option>
             <el-option label="登録日時が古い順" value="createdAtAsc"></el-option>
             <el-option label="フォロワーが多い順" value="followersCountDesc"></el-option>
@@ -20,11 +23,7 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <Counter
-        :current="current"
-        :total="total"
-        @changeCurrentNumber="changeCurrentNumber"
-      ></Counter>
+      <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -268,7 +267,9 @@ export default {
       return tweets
         .filter(p => p.entities && p.entities.media)
         .map(p => p.entities.media)
-        .map(media => media.map(m => `${m.media_url_https}?format=${format}&name=${name}`))
+        .map(media =>
+          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
+        )
         .flat()
         .sort(() => Math.random() - Math.random())
         .slice(0, count);
@@ -290,7 +291,8 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
       );
     });
   }

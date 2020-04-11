@@ -1,8 +1,8 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-form ref="form" :model="searchOption" label-width="56px">
-        <el-form-item label="検索">
+      <el-form ref="form" :model="searchOption">
+        <el-form-item>
           <el-input
             placeholder="検索"
             prefix-icon="el-icon-search"
@@ -11,8 +11,11 @@
             v-model="searchOption.searchWord"
           ></el-input>
         </el-form-item>
-        <el-form-item label="並替">
+        <el-form-item>
           <el-select v-model="searchOption.sort" placeholder="please select sort type">
+            <template slot="prefix">
+              <i class="el-icon-sort prefix-icon"></i>
+            </template>
             <el-option label="投稿日時が新しい順" value="createdAtDesc"></el-option>
             <el-option label="投稿日時が古い順" value="createdAtAsc"></el-option>
             <el-option label="リツイートが多い順" value="retweetCountDesc"></el-option>
@@ -20,7 +23,7 @@
             <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
           </el-select>
         </el-form-item>
-        <el-form-item label="日付">
+        <el-form-item>
           <el-date-picker
             type="date"
             placeholder="日付"
@@ -44,7 +47,8 @@
   </el-row>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
 
 <script>
 import dayjs from "dayjs";
