@@ -25,10 +25,14 @@
       </el-form>
       <el-form :inline="true" @submit.native.prevent size="mini" class="between">
         <el-form-item>
-          <el-button type="danger" icon="el-icon-close" @click="clear">クリア</el-button>
+          <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
         </el-form-item>
         <el-form-item>
-          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+          <Counter
+            :current="current"
+            :total="total"
+            @changeCurrentNumber="changeCurrentNumber"
+          ></Counter>
         </el-form-item>
       </el-form>
     </el-col>
@@ -281,9 +285,7 @@ export default {
       return tweets
         .filter(p => p.entities && p.entities.media)
         .map(p => p.entities.media)
-        .map(media =>
-          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
-        )
+        .map(media => media.map(m => `${m.media_url_https}?format=${format}&name=${name}`))
         .flat()
         .sort(() => Math.random() - Math.random())
         .slice(0, count);
@@ -305,8 +307,7 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
   }

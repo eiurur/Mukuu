@@ -34,10 +34,14 @@
       </el-form>
       <el-form :inline="true" @submit.native.prevent size="mini" class="between">
         <el-form-item>
-          <el-button type="danger" icon="el-icon-close" @click="clear">クリア</el-button>
+          <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
         </el-form-item>
         <el-form-item>
-          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+          <Counter
+            :current="current"
+            :total="total"
+            @changeCurrentNumber="changeCurrentNumber"
+          ></Counter>
         </el-form-item>
       </el-form>
       <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>
@@ -54,8 +58,7 @@
   </el-row>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
 
 <script>
 import dayjs from "dayjs";
@@ -155,9 +158,7 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to
-            ? ""
-            : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to ? "" : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }
