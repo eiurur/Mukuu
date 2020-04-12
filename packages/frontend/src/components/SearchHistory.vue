@@ -90,7 +90,7 @@ export default {
     startPolling() {
       this.timerID = setInterval(async () => {
         await this.pourHistory();
-      }, 3000);
+      }, 15 * 1000);
     },
     stopPolling() {
       clearInterval(this.timerID);
