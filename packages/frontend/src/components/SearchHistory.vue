@@ -3,16 +3,20 @@
     <div class="padding">
       <div class="title">最近の検索ワード</div>
       <div class="words">
-        <span v-for="item in relatedHistory" :key="item._id" @click="selectSearchWord(item.text)">
-          {{ item.text }}
-        </span>
+        <span
+          v-for="item in relatedHistory"
+          :key="item._id"
+          @click="selectSearchWord(item.text)"
+        >{{ item.text }}</span>
       </div>
       <el-divider></el-divider>
       <div class="title">よく検索されているワード</div>
       <div class="words">
-        <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.text)">
-          {{ item.text }}
-        </span>
+        <span
+          v-for="item in mostHistory"
+          :key="item._id"
+          @click="selectSearchWord(item.text)"
+        >{{ item.text }}</span>
       </div>
     </div>
   </section>
@@ -75,16 +79,33 @@ export default {
     },
     selectSearchWord(text) {
       this.$emit("selectSearchWord", text);
+    },
+    handlePolling() {
+      if (document.visibilityState === "visible") {
+        this.startPolling();
+      } else {
+        this.stopPolling();
+      }
+    },
+    startPolling() {
+      this.timerID = setInterval(async () => {
+        await this.pourHistory();
+      }, 3000);
+    },
+    stopPolling() {
+      clearInterval(this.timerID);
     }
   },
   async mounted() {
     await this.pourHistory();
-    this.timerID = setInterval(async () => {
-      await this.pourHistory();
-    }, 15 * 1000);
+    this.startPolling();
+  },
+  created() {
+    document.addEventListener("visibilitychange", this.handlePolling);
   },
   beforeDestroy() {
-    clearInterval(this.timerID);
+    window.removeEventListener("visibilitychange", this.handlePolling);
+    this.stopPolling();
   }
 };
 </script>
