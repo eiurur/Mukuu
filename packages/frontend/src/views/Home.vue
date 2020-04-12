@@ -185,7 +185,9 @@ export default {
       });
       this.canWatchSearchOption = true;
       if (data.length < 1) {
-        this.isEmpty = true;
+        if (this.posts.length < 1) {
+          this.isEmpty = true;
+        }
         this.isLoading = false;
         this.isCompletedLoading = true;
         return;

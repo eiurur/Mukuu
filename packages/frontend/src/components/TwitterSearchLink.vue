@@ -29,7 +29,7 @@ export default {
     twitterSearchText: {
       get() {
         return encodeURIComponent(
-          `${this.searchWord} ux.getuploader.com OR drive.google.com  #COM3D2 OR #CM3D2 OR #カスタムメイド3D2 OR #カスタムオーダーメイド3D2`
+          `${this.searchWord} ux.getuploader.com OR drive.google.com #COM3D2 OR #CM3D2 OR #カスタムメイド3D2 OR #カスタムオーダーメイド3D2`
         );
       }
     },
