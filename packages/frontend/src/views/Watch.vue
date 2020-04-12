@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-form :inline="true" @submit.native.prevent size="mini" class="right-side mb-0">
+      <el-form :inline="true" @submit.native.prevent size="mini" class="right-side">
         <el-form-item>
           <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
         </el-form-item>
