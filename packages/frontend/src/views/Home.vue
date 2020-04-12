@@ -37,17 +37,14 @@
           <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
         </el-form-item>
         <el-form-item>
-          <Counter
-            :current="current"
-            :total="total"
-            @changeCurrentNumber="changeCurrentNumber"
-          ></Counter>
+          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
         </el-form-item>
       </el-form>
       <SearchHistory @selectSearchWord="selectSearchWord"></SearchHistory>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
+        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty"></TwitterSearchLink>
         <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
@@ -67,6 +64,7 @@ import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
 import SearchHistory from "@/components/SearchHistory.vue";
 import UserDrawer from "@/components/UserDrawer.vue";
+import TwitterSearchLink from "@/components/TwitterSearchLink.vue";
 import { debounce } from "../plugins/util";
 import post from "../api/post";
 import history from "../api/history";
@@ -80,6 +78,7 @@ export default {
       total: 0,
       posts: [],
       isLoading: false,
+      isEmpty: false,
       isCompletedLoading: false,
       canWatchSearchOption: false,
       searchOption: {
@@ -96,6 +95,7 @@ export default {
     Loader,
     Post,
     SearchHistory,
+    TwitterSearchLink,
     UserDrawer
   },
   computed: {
@@ -122,6 +122,7 @@ export default {
   created() {
     this.search = ({ skip }) => {
       this.isCompletedLoading = false;
+      this.isEmpty = false;
       this.skip = skip || 0;
       this.posts = [];
       this.fetchCount();
@@ -158,7 +159,9 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to ? "" : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to
+            ? ""
+            : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }
@@ -182,6 +185,7 @@ export default {
       });
       this.canWatchSearchOption = true;
       if (data.length < 1) {
+        this.isEmpty = true;
         this.isLoading = false;
         this.isCompletedLoading = true;
         return;
