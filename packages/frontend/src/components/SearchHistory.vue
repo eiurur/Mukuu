@@ -82,6 +82,7 @@ export default {
     },
     handlePolling() {
       if (document.visibilityState === "visible") {
+        this.pourHistory();
         this.startPolling();
       } else {
         this.stopPolling();
