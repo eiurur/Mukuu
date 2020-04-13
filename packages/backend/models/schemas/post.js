@@ -23,6 +23,7 @@ const PostSchema = new Schema({
   entities: String,
   favoriteCount: { type: Number, default: 0, index: -1 },
   retweetCount: { type: Number, default: 0, index: -1 },
+  totalCount: { type: Number, default: 0, index: -1 },
   medias: [MediaScheme],
   postedBy: {
     type: ObjectId,

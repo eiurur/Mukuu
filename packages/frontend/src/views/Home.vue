@@ -20,7 +20,7 @@
             <el-option label="投稿日時が古い順" value="createdAtAsc"></el-option>
             <el-option label="リツイートが多い順" value="retweetCountDesc"></el-option>
             <el-option label="お気に入りが多い順" value="favoriteCountDesc"></el-option>
-            <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
+            <el-option label="人気順" value="totalCountDesc"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>

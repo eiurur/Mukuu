@@ -24,7 +24,7 @@ const twitterAPI = new TwitterAPI({
 const SEARCH_INTERVAL = 1000 * 2;
 
 const mapper = {
-  user: user => {
+  user: (user) => {
     return {
       idStr: user.id_str,
       name: user.name,
@@ -51,6 +51,7 @@ const mapper = {
       entities: JSON.stringify(tweet.extended_entities || tweet.entities),
       favoriteCount: tweet.favorite_count,
       retweetCount: tweet.retweet_count,
+      totalCount: tweet.favorite_count + tweet.retweet_count,
       createdAt: dayjs(tweet.created_at.replace('+0000', '')).valueOf(),
       postedBy: postedBy,
       updatedAt: Date.now(),
@@ -63,14 +64,14 @@ module.exports = class TweetCrawler {
 
   async traverseStatuses(searchParam) {
     await this.start('statuses', searchParam, {
-      matchPattern: text =>
+      matchPattern: (text) =>
         text.indexOf('ux.getuploader.com') === -1 &&
         text.indexOf('drive.google.com') === -1,
     });
   }
   async traverseSearch(searchParam) {
     await this.start('search', searchParam, {
-      matchPattern: text =>
+      matchPattern: (text) =>
         !/(#co?m3d2|#カスタム(オーダー)?メイド3d2)/.test(text) ||
         (text.indexOf('ux.getuploader.com') === -1 &&
           text.indexOf('drive.google.com') === -1),
@@ -88,7 +89,7 @@ module.exports = class TweetCrawler {
         const { statuses, search_metadata } = await this[api](searchOption);
         if (!statuses) return;
         const originalStatuses = statuses.filter(
-          tweet => !tweet.retweeted_status,
+          (tweet) => !tweet.retweeted_status,
         );
         console.log(originalStatuses.length);
         for (let tweet of originalStatuses) {
@@ -190,13 +191,13 @@ module.exports = class TweetCrawler {
     if (!tweet) return tweet;
 
     if (tweet.entities && tweet.entities.urls) {
-      tweet.entities.urls.map(urls => {
+      tweet.entities.urls.map((urls) => {
         tweet.full_text = tweet.full_text.replace(urls.url, urls.expanded_url);
       });
     }
     if (tweet.extended_entities && tweet.extended_entities.urls) {
       console.log(tweet.extended_entities.urls);
-      tweet.extended_entities.urls.map(urls => {
+      tweet.extended_entities.urls.map((urls) => {
         tweet.full_text = tweet.full_text.replace(urls.url, urls.expanded_url);
       });
     }
@@ -206,7 +207,7 @@ module.exports = class TweetCrawler {
         tweet.user.entities.description &&
         tweet.user.entities.description.urls
       ) {
-        tweet.user.entities.description.urls.map(urls => {
+        tweet.user.entities.description.urls.map((urls) => {
           tweet.user.description = tweet.user.description.replace(
             urls.url,
             urls.expanded_url,
@@ -218,7 +219,7 @@ module.exports = class TweetCrawler {
         tweet.user.entities.url &&
         tweet.user.entities.url.urls
       ) {
-        tweet.user.entities.url.urls.map(urls => {
+        tweet.user.entities.url.urls.map((urls) => {
           tweet.user.url = tweet.user.url.replace(urls.url, urls.expanded_url);
         });
       }

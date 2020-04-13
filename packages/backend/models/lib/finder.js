@@ -55,6 +55,10 @@ module.exports = class Finder {
         query.sort({ favoriteCount: 'desc' });
         break;
       }
+      case 'totalCountDesc': {
+        query.sort({ totalCount: 'desc' });
+        break;
+      }
       case 'postCountDesc': {
         query.sort({ postCount: 'desc' });
         break;
@@ -80,7 +84,7 @@ module.exports = class Finder {
   }
 
   buildPopulate(query) {
-    this.populates.forEach(populate => {
+    this.populates.forEach((populate) => {
       if (typeof populate === 'string' || populate instanceof String) {
         query = query.populate(populate);
       } else if (Array.isArray(populate)) {
