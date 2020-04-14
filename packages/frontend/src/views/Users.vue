@@ -1,36 +1,41 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-form ref="form" :model="searchOption">
-        <el-form-item>
-          <el-input
-            placeholder="検索"
-            prefix-icon="el-icon-search"
-            :clearable="true"
-            v-model="searchOption.searchWord"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-select v-model="searchOption.sort" placeholder="please select your zone">
-            <template slot="prefix">
-              <i class="el-icon-sort prefix-icon"></i>
-            </template>
-            <el-option label="登録日時が新しい順" value="createdAtDesc"></el-option>
-            <el-option label="登録日時が古い順" value="createdAtAsc"></el-option>
-            <el-option label="フォロワーが多い順" value="followersCountDesc"></el-option>
-            <el-option label="投稿数が多い順" value="postCountDesc"></el-option>
-            <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <el-form :inline="true" @submit.native.prevent size="mini" class="between">
-        <el-form-item>
-          <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
-        </el-form-item>
-        <el-form-item>
-          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
-        </el-form-item>
-      </el-form>
+      <div>
+        <el-form ref="form" :model="searchOption">
+          <el-form-item>
+            <el-input
+              placeholder="検索"
+              prefix-icon="el-icon-search"
+              :clearable="true"
+              v-model="searchOption.searchWord"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="searchOption.sort" placeholder="please select your zone">
+              <template slot="prefix">
+                <i class="el-icon-sort prefix-icon"></i>
+              </template>
+              <el-option label="登録日時が新しい順" value="createdAtDesc"></el-option>
+              <el-option label="登録日時が古い順" value="createdAtAsc"></el-option>
+              <el-option label="フォロワーが多い順" value="followersCountDesc"></el-option>
+              <el-option label="投稿数が多い順" value="postCountDesc"></el-option>
+              <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <el-form :inline="true" @submit.native.prevent size="mini" class="between">
+          <el-form-item>
+            <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
+          </el-form-item>
+          <el-form-item>
+            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="sb">
+        <Spons></Spons>
+      </div>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -176,6 +181,7 @@ import Icon from "@/components/Icon.vue";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
+import Spons from "@/components/Spons.vue";
 import WatchBtn from "@/components/WatchBtn.vue";
 import user from "../api/user";
 
@@ -200,6 +206,7 @@ export default {
     Icon,
     Loader,
     Counter,
+    Spons,
     WatchBtn
   },
   computed: {

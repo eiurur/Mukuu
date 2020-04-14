@@ -30,8 +30,7 @@
             data-url="https://mukuu.herokuapp.com/"
             data-hashtags="COM3D2"
             data-show-count="false"
-            >Tweet</a
-          >
+          >Tweet</a>
         </el-menu-item>
       </el-menu>
     </aside>
@@ -47,5 +46,21 @@
 main {
   width: 100%;
   padding: 0.5rem;
+}
+.sb {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 4px;
+  bottom: 0;
+  a {
+    width: 100%;
+  }
+  img {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
 }
 </style>

@@ -1,14 +1,19 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-form :inline="true" @submit.native.prevent size="mini" class="right-side">
-        <!-- <el-form-item>
+      <div>
+        <el-form :inline="true" @submit.native.prevent size="mini" class="right-side">
+          <!-- <el-form-item>
           <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
-        </el-form-item>-->
-        <el-form-item>
-          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
-        </el-form-item>
-      </el-form>
+          </el-form-item>-->
+          <el-form-item>
+            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="sb">
+        <Spons></Spons>
+      </div>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -71,6 +76,9 @@ section + section {
     flex-direction: column;
     & .screen-name {
       opacity: 0.5;
+      &:before {
+        content: "@";
+      }
     }
   }
 }
@@ -81,6 +89,7 @@ import UserDrawer from "@/components/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
+import Spons from "@/components/Spons.vue";
 
 export default {
   name: "bookmark",
@@ -99,7 +108,8 @@ export default {
     UserDrawer,
     Post,
     Loader,
-    Counter
+    Counter,
+    Spons
   },
   computed: {
     canLoad() {
