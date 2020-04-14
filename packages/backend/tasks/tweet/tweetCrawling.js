@@ -8,7 +8,8 @@ const dayjs = require('dayjs');
     const searchOption = {
       // since: dayjs(timestamp).format('YYYY-MM-DD_00:00:00_JST'),
       // until: dayjs(timestamp).format('YYYY-MM-DD_23:59:59_JST'),
-      q: '#COM3D2 url:ux.getuploader.com OR url:drive.google.com',
+      q:
+        'url:ux.getuploader.com OR url:drive.google.com COM3D2 OR CM3D2 OR カスタムオーダーメイド3D2 OR カスタムメイド3D2 OR オダメ OR カスメ',
     };
     await crawler.traverseSearch(searchOption);
     // timestamp = dayjs(timestamp)

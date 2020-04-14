@@ -65,7 +65,7 @@ module.exports = class TweetCrawler {
   async traverseStatuses(searchParam, isFinish) {
     await this.start('statuses', searchParam, {
       rejectPattern: (text) =>
-        !/(koika2|コイカツ)/.test(text) ||
+        !/(コイカツ|koika2|ハニーセレクト|HoneySelect|)/.test(text) ||
         (text.indexOf('ux.getuploader.com') === -1 &&
           text.indexOf('drive.google.com') === -1),
       isFinish: isFinish,

@@ -32,7 +32,7 @@ export default {
         const HASH_TAGS =
           "#COM3D2 OR #CM3D2 OR #カスタムメイド3D2 OR #カスタムオーダーメイド3D2";
         const WORDS =
-          "COM3D2 OR CM3D2 OR カスタムオーダーメイド3D2 OR カスタムメイド3D2";
+          "COM3D2 OR CM3D2 OR カスタムオーダーメイド3D2 OR カスタムメイド3D2 OR オダメ OR カスメ";
         return encodeURIComponent(
           `${this.searchWord} ${domains} ${HASH_TAGS} OR ${WORDS}`
         );
