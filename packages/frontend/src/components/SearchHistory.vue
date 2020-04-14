@@ -1,23 +1,54 @@
 <template>
   <section class="history infinite-list">
     <div class="padding">
-      <div class="title">最近の検索ワード</div>
-      <div class="words">
-        <span
-          v-for="item in relatedHistory"
-          :key="item._id"
-          @click="selectSearchWord(item.text)"
-        >{{ item.text }}</span>
-      </div>
-      <el-divider></el-divider>
-      <div class="title">よく検索されているワード</div>
-      <div class="words">
-        <span
-          v-for="item in mostHistory"
-          :key="item._id"
-          @click="selectSearchWord(item.text)"
-        >{{ item.text }}</span>
-      </div>
+      <div class="title">検索ワード</div>
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="直近" name="first">
+          <div class="words">
+            <span
+              v-for="item in relatedHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.text)"
+            >{{ item.text }}</span>
+          </div>
+        </el-tab-pane>
+        <!-- <el-tab-pane label="日上位" name="second">
+          <div class="words">
+            <span
+              v-for="item in todayHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.text)"
+            >{{ item.text }}</span>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="週上位" name="third">
+          <div class="words">
+            <span
+              v-for="item in weeklyHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.text)"
+            >{{ item.text }}</span>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="月上位" name="fourth">
+          <div class="words">
+            <span
+              v-for="item in monthlyHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.text)"
+            >{{ item.text }}</span>
+          </div>
+        </el-tab-pane>-->
+        <el-tab-pane label="全体上位" name="five">
+          <div class="words">
+            <span
+              v-for="item in mostHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.text)"
+            >{{ item.text }}</span>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </section>
 </template>
@@ -56,6 +87,7 @@
 }
 </style>
 <script>
+// import dayjs from "dayjs";
 import history from "../api/history";
 
 export default {
@@ -63,20 +95,46 @@ export default {
   props: ["word"],
   data() {
     return {
+      activeName: "first",
       timerID: null,
       relatedHistory: [],
+      // todayHistory: [],
+      // weeklyHistory: [],
+      // monthlyHistory: [],
       mostHistory: []
     };
   },
   methods: {
     async pourHistory() {
       this.relatedHistory = await this.fetch({ sort: "updatedAtDesc" });
+      // this.todayHistory = await this.fetch({
+      //   sort: "countDesc",
+      //   from: dayjs()
+      //     .add(-1, "days")
+      //     .format("YYYY-MM-DD"),
+      //   to: dayjs().format("YYYY-MM-DD")
+      // });
+      // this.weeklyHistory = await this.fetch({
+      //   sort: "countDesc",
+      //   from: dayjs()
+      //     .add(-7, "days")
+      //     .format("YYYY-MM-DD"),
+      //   to: dayjs().format("YYYY-MM-DD")
+      // });
+      // this.monthlyHistory = await this.fetch({
+      //   sort: "countDesc",
+      //   from: dayjs()
+      //     .add(-30, "days")
+      //     .format("YYYY-MM-DD"),
+      //   to: dayjs().format("YYYY-MM-DD")
+      // });
       this.mostHistory = await this.fetch({ sort: "countDesc" });
     },
     async fetch(param) {
       const { data } = await history.fetch("search", param);
       return data;
     },
+    handleClick() {},
     selectSearchWord(text) {
       this.$emit("selectSearchWord", text);
     },
