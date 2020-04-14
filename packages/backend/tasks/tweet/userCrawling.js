@@ -1,3 +1,4 @@
+const path = require('path');
 const TweetCrawler = require('./tweetCrawler');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const { sleep } = require('../../lib/utils');
@@ -13,11 +14,11 @@ const CRAWL_INTERVAL_MS = 1000 * 2;
     const user = await userProvider.find({});
     logger.info(user.length, user[0]);
     if (user.length === 0) return;
-    const screenNames = user.map(u => u.screenName);
-    for (const screenName of screenNames) {
+    const userIdList = user.map((u) => u.idStr);
+    for (const userId of userIdList) {
       try {
         const searchOption = Object.assign({
-          screen_name: screenName,
+          user_id: userId,
           include_rts: false,
         });
         await crawler.traverseStatuses(searchOption);
