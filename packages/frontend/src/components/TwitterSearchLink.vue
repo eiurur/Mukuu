@@ -28,8 +28,13 @@ export default {
   computed: {
     twitterSearchText: {
       get() {
+        const domains = "ux.getuploader.com OR drive.google.com";
+        const HASH_TAGS =
+          "#COM3D2 OR #CM3D2 OR #カスタムメイド3D2 OR #カスタムオーダーメイド3D2";
+        const WORDS =
+          "COM3D2 OR CM3D2 OR カスタムオーダーメイド3D2 OR カスタムメイド3D2";
         return encodeURIComponent(
-          `${this.searchWord} ux.getuploader.com OR drive.google.com #COM3D2 OR #CM3D2 OR #カスタムメイド3D2 OR #カスタムオーダーメイド3D2`
+          `${this.searchWord} ${domains} ${HASH_TAGS} OR ${WORDS}`
         );
       }
     },
