@@ -19,7 +19,7 @@ const runProcess = async (filepath) => {
 
 const tweetJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 0,9,12,14,18,20,22 * * *',
+  cronTime: '0 0,9,12,15,18,20,23 * * *',
   onTick: async () => {
     logger.info('--- start tweet cron ---');
     await Promise.all([
@@ -36,7 +36,7 @@ const userJob = new CronJob({
   onTick: async () => {
     logger.info('--- start user cron ---');
     await Promise.all([
-      runProcess(path.resolve(__dirname, 'tweet', 'userCrawling')),
+      runProcess(path.resolve(__dirname, 'tweet', 'dailyUserCrawling')),
     ]);
     logger.info('--- finish user cron ---');
   },
@@ -45,7 +45,7 @@ const userJob = new CronJob({
 });
 const databaseJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 21 * * *',
+  cronTime: '0 13,21 * * *',
   onTick: async () => {
     logger.info('--- start database cron ---');
     await Promise.all([

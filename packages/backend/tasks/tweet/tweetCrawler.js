@@ -62,22 +62,24 @@ const mapper = {
 module.exports = class TweetCrawler {
   constructor() {}
 
-  async traverseStatuses(searchParam) {
+  async traverseStatuses(searchParam, isFinish) {
     await this.start('statuses', searchParam, {
-      matchPattern: (text) =>
-        text.indexOf('ux.getuploader.com') === -1 &&
-        text.indexOf('drive.google.com') === -1,
+      rejectPattern: (text) =>
+        !/(koika2|コイカツ)/.test(text) ||
+        (text.indexOf('ux.getuploader.com') === -1 &&
+          text.indexOf('drive.google.com') === -1),
+      isFinish: isFinish,
     });
   }
   async traverseSearch(searchParam) {
     await this.start('search', searchParam, {
-      matchPattern: (text) =>
-        !/(#co?m3d2|#カスタム(オーダー)?メイド3d2)/.test(text) ||
+      rejectPattern: (text) =>
+        !/(co?m3d2|カスタム(オーダー)?メイド3d2)/.test(text) ||
         (text.indexOf('ux.getuploader.com') === -1 &&
           text.indexOf('drive.google.com') === -1),
     });
   }
-  async start(api, searchParam, { matchPattern }) {
+  async start(api, searchParam, { rejectPattern, isFinish }) {
     let maxId = 0;
     logger.info('~~~ START TWEET CRAWLING ~~~');
     while (1) {
@@ -94,7 +96,8 @@ module.exports = class TweetCrawler {
         console.log(originalStatuses.length);
         for (let tweet of originalStatuses) {
           tweet = this.expandUrl(tweet);
-          if (matchPattern && matchPattern(tweet.full_text.toLowerCase())) {
+          await this.saveUser(tweet); // update user info
+          if (rejectPattern && rejectPattern(tweet.full_text.toLowerCase())) {
             continue;
           }
           await this.save(tweet);
@@ -107,6 +110,7 @@ module.exports = class TweetCrawler {
 
         await sleep(SEARCH_INTERVAL);
         if (statuses.length <= 0) return;
+        if (isFinish && isFinish(tailTweet)) return;
       } catch (e) {
         logger.info(e);
         return;
@@ -150,27 +154,6 @@ module.exports = class TweetCrawler {
     const { data } = await T.get('search/tweets', param);
     return data;
   }
-  async save(tweet) {
-    const userProvider = ModelProviderFactory.create('user');
-    const user = {
-      query: { idStr: tweet.user.id_str },
-      data: mapper.user(tweet.user),
-      options: { new: true, upsert: true },
-    };
-    const dbUser = await userProvider.findOneAndUpdate(
-      user.query,
-      user.data,
-      user.options,
-    );
-    const postProvider = ModelProviderFactory.create('post');
-    const post = {
-      query: { idStr: tweet.id_str },
-      data: mapper.post(tweet, dbUser._id),
-      options: { new: true, upsert: true },
-    };
-    await postProvider.findOneAndUpdate(post.query, post.data, post.options);
-  }
-
   async status(tweetId, option = {}) {
     const param = Object.assign(
       {
@@ -186,7 +169,33 @@ module.exports = class TweetCrawler {
     this.save(tweet);
     return data;
   }
-
+  async save(tweet) {
+    const dbUser = await this.saveUser(tweet);
+    await this.savePost(tweet, dbUser);
+  }
+  async saveUser(tweet) {
+    const userProvider = ModelProviderFactory.create('user');
+    const user = {
+      query: { idStr: tweet.user.id_str },
+      data: mapper.user(tweet.user),
+      options: { new: true, upsert: true },
+    };
+    const dbUser = await userProvider.findOneAndUpdate(
+      user.query,
+      user.data,
+      user.options,
+    );
+    return dbUser;
+  }
+  async savePost(tweet, dbUser) {
+    const postProvider = ModelProviderFactory.create('post');
+    const post = {
+      query: { idStr: tweet.id_str },
+      data: mapper.post(tweet, dbUser._id),
+      options: { new: true, upsert: true },
+    };
+    await postProvider.findOneAndUpdate(post.query, post.data, post.options);
+  }
   expandUrl(tweet) {
     if (!tweet) return tweet;
 
