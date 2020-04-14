@@ -123,16 +123,16 @@ export default {
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 高飛車で生意気なお嬢様",
           title: "キャラクターパック 高飛車で生意気なお嬢様"
+        },
+        {
+          link: "https://dl.s-court.me/item.php?iid=212",
+          src:
+            "https://pbs.twimg.com/media/EVihLFYUYAEthym?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパック 甘々デレデレでご主人様を信仰している妹系幼馴染",
+          title:
+            "キャラクターパック 甘々デレデレでご主人様を信仰している妹系幼馴染"
         }
-        // {
-        //   link:
-        //     "",
-        //   src:
-        //     "https://pbs.twimg.com/media/EVihLFYUYAEthym?format=jpg&name=large",
-        //   alt:
-        //     "カスタムオーダーメイド3D2 キャラクターパック 大人の余裕を持つ、頼れるメイド秘書",
-        //   title: "キャラクターパック 大人の余裕を持つ、頼れるメイド秘書"
-        // }
       ]
     };
   },
@@ -152,6 +152,8 @@ img {
   display: flex;
   align-items: flex-end;
   border-radius: 0.25rem 0.25rem 0 0;
+  min-height: 160px;
+  object-fit: cover;
 }
 section {
   width: 100%;
