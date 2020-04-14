@@ -32,7 +32,7 @@ const tweetJob = new CronJob({
 });
 const userJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 6 * * *',
+  cronTime: '0 13,21 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
     await Promise.all([
@@ -45,7 +45,7 @@ const userJob = new CronJob({
 });
 const databaseJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 13,21 * * *',
+  cronTime: '0 14,22 * * *',
   onTick: async () => {
     logger.info('--- start database cron ---');
     await Promise.all([
