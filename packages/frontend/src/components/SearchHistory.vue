@@ -39,7 +39,7 @@
             >{{ item.text }}</span>
           </div>
         </el-tab-pane>-->
-        <el-tab-pane label="全体上位" name="five">
+        <el-tab-pane label="上位" name="five">
           <div class="words">
             <span
               v-for="item in mostHistory"
