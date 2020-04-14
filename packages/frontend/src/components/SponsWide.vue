@@ -76,7 +76,63 @@ export default {
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 大人の余裕を持つ、頼れるメイド秘書",
           title: "キャラクターパック 大人の余裕を持つ、頼れるメイド秘書"
+        },
+
+        {
+          link:
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss095%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
+          src:
+            "https://pbs.twimg.com/media/EViiA8UU4AA77RU?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパック 病的な程一途な大和撫子",
+          title: "キャラクターパック 病的な程一途な大和撫子"
+        },
+        {
+          link:
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss96%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
+          src:
+            "https://pbs.twimg.com/media/EViiA84U8AYLnrH?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパック 母性的なお姉ちゃん",
+          title: "キャラクターパック 母性的なお姉ちゃん"
+        },
+        {
+          link:
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss101%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
+          src:
+            "https://pbs.twimg.com/media/EViiA9aUMAEbSrV?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパック M心を刺激する、ドS女王様",
+          title: "キャラクターパック M心を刺激する、ドS女王様"
+        },
+
+        {
+          link:
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss112%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
+          src:
+            "https://pbs.twimg.com/media/EVihLFcUYAULk9m?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパック 警戒心の強い無愛想",
+          title: "キャラクターパック 警戒心の強い無愛想"
+        },
+        {
+          link:
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss113%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
+          src:
+            "https://pbs.twimg.com/media/EVihLFcUEAAqp_d?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパック 高飛車で生意気なお嬢様",
+          title: "キャラクターパック 高飛車で生意気なお嬢様"
         }
+        // {
+        //   link:
+        //     "",
+        //   src:
+        //     "https://pbs.twimg.com/media/EVihLFYUYAEthym?format=jpg&name=large",
+        //   alt:
+        //     "カスタムオーダーメイド3D2 キャラクターパック 大人の余裕を持つ、頼れるメイド秘書",
+        //   title: "キャラクターパック 大人の余裕を持つ、頼れるメイド秘書"
+        // }
       ]
     };
   },
