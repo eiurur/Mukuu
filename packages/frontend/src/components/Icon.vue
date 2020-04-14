@@ -74,6 +74,7 @@ export default {
       if (!this.user) return;
       const payload = { ...this.user };
       this.$store.dispatch("drawer/initialize", payload);
+      this.$store.dispatch("saveLocalStorage");
     }
   }
 };

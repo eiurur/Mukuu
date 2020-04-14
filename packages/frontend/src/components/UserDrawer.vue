@@ -14,7 +14,7 @@
       <div class="text">
         <div>
           <span class="name">{{ user.name }}</span>
-          <span class="screen-name">@{{ user.screenName }}</span>
+          <span class="screen-name">{{ user.screenName }}</span>
         </div>
         <div v-if="user.hostname">
           <i class="el-icon-link"></i>
@@ -61,6 +61,9 @@
     & .screen-name {
       padding-left: 0.5rem;
       opacity: 0.5;
+      &:before {
+        content: "@";
+      }
     }
   }
   & i > * {

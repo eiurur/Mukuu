@@ -1,8 +1,6 @@
 <template>
   <div class="post-container">
-    <el-divider content-position="center" v-if="post.shouldShowDivider">
-      {{ post.createdAt }}
-    </el-divider>
+    <el-divider content-position="center" v-if="post.shouldShowDivider">{{ post.createdAt }}</el-divider>
     <article class="post">
       <div class="text-container">
         <div class="user">
@@ -12,7 +10,7 @@
           <div class="profile">
             <div class="names">
               <span class="name">{{ post.postedBy.name }}</span>
-              <span class="screen-name">@{{ post.postedBy.screenName }}</span>
+              <span class="screen-name">{{ post.postedBy.screenName }}</span>
             </div>
             <div class="createdAt">
               <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
@@ -84,6 +82,9 @@
     flex-direction: column;
     & .screen-name {
       opacity: 0.5;
+      &::before {
+        content: "@";
+      }
     }
     & .createdAt {
       a {
@@ -248,6 +249,7 @@ export default {
       if (!postedBy || !this.useDrawer) return;
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
+      this.$store.dispatch("saveLocalStorage");
     }
   },
   computed: {
@@ -267,10 +269,13 @@ export default {
           .split(/\r\n|\n|\s/)
           .filter(
             word =>
-              word.indexOf("ux.getuploader.com") !== -1 || word.indexOf("drive.google.com") !== -1
+              word.indexOf("ux.getuploader.com") !== -1 ||
+              word.indexOf("drive.google.com") !== -1
           )
           .map(url => {
-            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
+            const match = url.match(
+              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
+            );
             return match[1];
           })
           .map(url => {
@@ -292,7 +297,8 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
       );
     });
   }

@@ -15,7 +15,7 @@
             <div class="profile">
               <div class="names">
                 <span class="name">{{ user.name }}</span>
-                <span class="screen-name">@{{ user.screenName }}</span>
+                <span class="screen-name">{{ user.screenName }}</span>
               </div>
             </div>
             <WatchBtn :user="user"></WatchBtn>
@@ -84,6 +84,9 @@ section + section {
     flex-direction: column;
     & .screen-name {
       opacity: 0.5;
+      &:before {
+        content: "@";
+      }
     }
   }
 }
@@ -224,6 +227,7 @@ export default {
       if (!postedBy) return;
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
+      this.$store.dispatch("saveLocalStorage");
     }
   }
 };

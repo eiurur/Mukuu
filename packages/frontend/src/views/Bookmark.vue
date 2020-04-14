@@ -166,6 +166,7 @@ export default {
       if (!postedBy) return;
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
+      this.$store.dispatch("saveLocalStorage");
     }
   }
 };

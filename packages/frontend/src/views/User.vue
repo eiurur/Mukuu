@@ -8,7 +8,7 @@
             <Icon :user="user" :useUserDrawer="true"></Icon>
             <div class="names">
               <span>{{ user.name }}</span>
-              <span class="screen-name">@{{ user.screenName }}</span>
+              <span class="screen-name">{{ user.screenName }}</span>
             </div>
             <WatchBtn
               :class="{ absolute: true }"
@@ -82,6 +82,9 @@
       padding-left: 1rem;
       .screen-name {
         opacity: 0.5;
+        &:before {
+          content: "@";
+        }
       }
     }
   }
