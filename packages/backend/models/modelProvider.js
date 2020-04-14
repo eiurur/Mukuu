@@ -35,7 +35,6 @@ module.exports = class ModelProvider {
       if (process.model) {
         const builder = new ConditionBuilder();
         builder.addSearchWord(process.in, query.searchWord);
-        console.log(builder.condition);
         const q =
           builder.condition.length === 0 ? {} : { $and: builder.condition };
 

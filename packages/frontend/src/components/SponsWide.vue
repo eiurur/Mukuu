@@ -14,15 +14,6 @@ export default {
       links: [
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fdlsoft.dmm.co.jp%2Fdetail%2Fshall_0106%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=package_large",
-          src:
-            "https://pics.dmm.co.jp/digital/pcgame/shall_0106/shall_0106pl.jpg",
-          alt: "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）",
-          title:
-            "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）"
-        },
-        {
-          link:
             "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013149.html",
           src:
             "https://pics.dmm.co.jp/digital/pcgame/shall_0106/shall_0106pl.jpg",
