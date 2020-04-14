@@ -14,7 +14,7 @@ export default {
       links: [
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fdlsoft.dmm.co.jp%2Fdetail%2Fshall_0106%2F&af_id=ujv4gaydzt1z-001&ch=toolbar&ch_id=package_large",
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fdlsoft.dmm.co.jp%2Fdetail%2Fshall_0106%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=package_large",
           src:
             "https://pics.dmm.co.jp/digital/pcgame/shall_0106/shall_0106pl.jpg",
           alt: "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）",
@@ -40,7 +40,7 @@ export default {
         },
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708apc13139%2F&af_id=ujv4gaydzt1z-001&ch=toolbar&ch_id=link",
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708apc13139%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
           src: "https://pics.dmm.co.jp/mono/game/708apc13139/708apc13139pl.jpg",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 小動物系ふわふわ妹",
@@ -48,7 +48,7 @@ export default {
         },
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss098%2F&af_id=ujv4gaydzt1z-001&ch=toolbar&ch_id=link",
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss098%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
           src: "https://pics.dmm.co.jp/mono/game/708kiss098/708kiss098pl.jpg",
           alt:
             "カスタムオーダーメイド3D2＆カスタムメイド3D2 キャラクターパック 健康的でスポーティなボクっ娘",
@@ -56,7 +56,7 @@ export default {
         },
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss105%2F&af_id=ujv4gaydzt1z-001&ch=toolbar&ch_id=link",
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss105%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
           src: "https://pics.dmm.co.jp/mono/game/708kiss105/708kiss105pl.jpg",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 無口で甘えたがりな文学少女",
@@ -64,7 +64,7 @@ export default {
         },
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss108%2F&af_id=ujv4gaydzt1z-001&ch=toolbar&ch_id=link",
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss108%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
           src: "https://pics.dmm.co.jp/mono/game/708kiss108/708kiss108pl.jpg",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 天然サディスティックな小悪魔",
@@ -72,7 +72,7 @@ export default {
         },
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss109%2F&af_id=ujv4gaydzt1z-001&ch=toolbar&ch_id=link",
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss109%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
           src: "https://pics.dmm.co.jp/mono/game/708kiss109/708kiss109pl.jpg",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 色気のあるおしとやかなお姉さん",
@@ -80,7 +80,7 @@ export default {
         },
         {
           link:
-            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss110%2F&af_id=ujv4gaydzt1z-001&ch=toolbar&ch_id=link",
+            "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708kiss110%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
           src: "https://pics.dmm.co.jp/mono/game/708kiss110/708kiss110pl.jpg",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 大人の余裕を持つ、頼れるメイド秘書",
