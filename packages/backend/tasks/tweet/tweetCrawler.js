@@ -65,7 +65,9 @@ module.exports = class TweetCrawler {
   async traverseStatuses(searchParam, isFinish) {
     await this.start('statuses', searchParam, {
       rejectPattern: (text) =>
-        !/(コイカツ|koika2|ハニーセレクト|HoneySelect|)/.test(text) ||
+        /(^@.+|コイカツ|koika2|ハニーセレクト|HoneySelect|スカイリム|\[ダウンロード\] )/.test(
+          text,
+        ) ||
         (text.indexOf('ux.getuploader.com') === -1 &&
           text.indexOf('drive.google.com') === -1),
       isFinish: isFinish,
@@ -93,10 +95,14 @@ module.exports = class TweetCrawler {
         const originalStatuses = statuses.filter(
           (tweet) => !tweet.retweeted_status,
         );
-        console.log(originalStatuses.length);
+        logger.info(originalStatuses.length);
+        let updatedUserData = false;
         for (let tweet of originalStatuses) {
           tweet = this.expandUrl(tweet);
-          await this.saveUser(tweet); // update user info
+          if (!updatedUserData) {
+            await this.saveUser(tweet);
+            updatedUserData = true;
+          }
           if (rejectPattern && rejectPattern(tweet.full_text.toLowerCase())) {
             continue;
           }
@@ -150,7 +156,7 @@ module.exports = class TweetCrawler {
       },
       option,
     );
-    console.log(param);
+    logger.info(param);
     const { data } = await T.get('search/tweets', param);
     return data;
   }
@@ -205,7 +211,7 @@ module.exports = class TweetCrawler {
       });
     }
     if (tweet.extended_entities && tweet.extended_entities.urls) {
-      console.log(tweet.extended_entities.urls);
+      logger.info(tweet.extended_entities.urls);
       tweet.extended_entities.urls.map((urls) => {
         tweet.full_text = tweet.full_text.replace(urls.url, urls.expanded_url);
       });
