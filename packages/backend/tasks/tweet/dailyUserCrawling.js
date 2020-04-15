@@ -24,10 +24,21 @@ const CRAWL_RANGE_DAYS_MS = 3 * ONE_DAY_MS;
           user_id: userId,
           include_rts: false,
         });
-        const isFinish = (tweet) =>
-          dayjs().valueOf() -
-            dayjs(tweet.created_at.replace('+0000', '')).valueOf() >
-          CRAWL_RANGE_DAYS_MS;
+        const isFinish = (tweet) => {
+          const currentAt = dayjs().valueOf();
+          const tweetedAt = dayjs(
+            tweet.created_at.replace('+0000', ''),
+          ).valueOf();
+          logger.info('isFinish');
+          logger.info(currentAt);
+          logger.info(tweetedAt);
+          logger.info(CRAWL_RANGE_DAYS_MS);
+          logger.info(
+            currentAt - tweetedAt,
+            currentAt - tweetedAt > CRAWL_RANGE_DAYS_MS,
+          );
+          return currentAt - tweetedAt > CRAWL_RANGE_DAYS_MS;
+        };
         await crawler.traverseStatuses(searchOption, isFinish);
       } catch (e) {
         logger.info('TwitterCrawler error', e);
@@ -36,7 +47,6 @@ const CRAWL_RANGE_DAYS_MS = 3 * ONE_DAY_MS;
     await sleep(CRAWL_INTERVAL_MS);
   } catch (e) {
     logger.info('SiteCrawler error: ', e);
-    await browser.close();
     return;
   }
 })();
