@@ -1,5 +1,5 @@
 <template>
-  <div class="post-container">
+  <div class="post-container" v-if="externalLinks.length > 0">
     <el-divider content-position="center" v-if="post.shouldShowDivider">{{ post.createdAt }}</el-divider>
     <article class="post">
       <div class="text-container">
@@ -276,8 +276,10 @@ export default {
             const match = url.match(
               /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
             );
+            if (!match) return null;
             return match[1];
           })
+          .filter(url => !!url)
           .map(url => {
             const u = new URL(url);
             return {
