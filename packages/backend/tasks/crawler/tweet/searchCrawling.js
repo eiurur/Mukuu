@@ -1,4 +1,4 @@
-const TweetCrawler = require('./tweetCrawler');
+const TweetCrawler = require('../tweetCrawler');
 const dayjs = require('dayjs');
 
 (async () => {

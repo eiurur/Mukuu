@@ -46,23 +46,27 @@ const spawnProcess = (cmd, args = [], option = {}) => {
   });
 };
 
-const tweetJob = new CronJob({
+const searchCrawlerJob = new CronJob({
   // cronTime: '* * * * *',
   cronTime: '0 0,9,12,15,18,20,22 * * *',
   onTick: async () => {
-    logger.info('--- start tweet cron ---');
-    const args = [path.resolve(__dirname, 'tweet', 'tweetCrawling')];
+    logger.info('--- start search cron ---');
+    const args = [
+      path.resolve(__dirname, 'crawler', 'tweet', 'searchCrawling'),
+    ];
     const stdout = await spawnProcess('node', args);
-    logger.info('--- finish tweet cron ---');
+    logger.info('--- finish search cron ---');
   },
   start: true,
   timeZone: 'Asia/Tokyo',
 });
-const userJob = new CronJob({
+const userCrawlerJob = new CronJob({
   cronTime: '0 13,21 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
-    const args = [path.resolve(__dirname, 'tweet', 'dailyUserCrawling')];
+    const args = [
+      path.resolve(__dirname, 'crawler', 'tweet', 'dailyUserCrawling'),
+    ];
     const stdout = await spawnProcess('node', args);
     logger.info('--- finish user cron ---');
   },
@@ -82,6 +86,6 @@ const databaseJob = new CronJob({
   timeZone: 'Asia/Tokyo',
 });
 
-tweetJob.start();
-userJob.start();
+searchCrawlerJob.start();
+userCrawlerJob.start();
 databaseJob.start();
