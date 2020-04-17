@@ -1,5 +1,6 @@
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const path = require('path');
+const { pattern } = require(path.join('..', '..', 'config', 'constants'));
 const logger = require(path.join('..', '..', 'logger'))('cron');
 
 (async () => {
@@ -7,7 +8,7 @@ const logger = require(path.join('..', '..', 'logger'))('cron');
     logger.info('REMOVE DATABASE');
     const postProvider = ModelProviderFactory.create('post');
     const query = {
-      text: /(^@.+|コイカツ|koika2|ハニーセレクト|HoneySelect|スカイリム|\[ダウンロード\] )/,
+      text: pattern.rejectedWords,
     };
     await postProvider.remove(query);
   } catch (e) {

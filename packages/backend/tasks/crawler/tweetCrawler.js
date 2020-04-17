@@ -5,6 +5,7 @@ const Twit = require('twit');
 const TwitterAPI = require('node-twitter-api');
 const dayjs = require('dayjs');
 
+const { pattern, acceptedDomains } = require('../../config/constants');
 const { sleep } = require('../../lib/utils');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const logger = require(path.join('..', '..', 'logger'))('cron');
@@ -65,20 +66,16 @@ module.exports = class TweetCrawler {
   async traverseStatuses(searchParam, isFinish) {
     await this.start('statuses', searchParam, {
       rejectPattern: (text) =>
-        /(^@.+|コイカツ|koika2|ハニーセレクト|HoneySelect|スカイリム|\[ダウンロード\] )/.test(
-          text,
-        ) ||
-        (text.indexOf('ux.getuploader.com') === -1 &&
-          text.indexOf('drive.google.com') === -1),
+        pattern.rejectedWords.test(text) ||
+        acceptedDomains.every((domain) => text.indexOf(domain) === -1),
       isFinish: isFinish,
     });
   }
   async traverseSearch(searchParam) {
     await this.start('search', searchParam, {
       rejectPattern: (text) =>
-        !/(co?m3d2|カスタム(オーダー)?メイド3d2)/.test(text) ||
-        (text.indexOf('ux.getuploader.com') === -1 &&
-          text.indexOf('drive.google.com') === -1),
+        !pattern.acceptedWords.test(text) ||
+        acceptedDomains.every((domain) => text.indexOf(domain) === -1),
     });
   }
   async start(api, searchParam, { rejectPattern, isFinish }) {
