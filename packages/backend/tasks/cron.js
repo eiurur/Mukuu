@@ -74,7 +74,7 @@ const databaseJob = new CronJob({
   cronTime: '0 14,23 * * *',
   onTick: async () => {
     logger.info('--- start database cron ---');
-    const args = [path.resolve(__dirname, 'tweet', 'updateDatabase')];
+    const args = [path.resolve(__dirname, 'database', 'updateDatabase')];
     const stdout = await spawnProcess('node', args);
     logger.info('--- finish database cron ---');
   },

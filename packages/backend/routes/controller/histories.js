@@ -20,9 +20,15 @@ module.exports = class HistoryController {
         //   history.options,
         // );
 
+        const postProvider = ModelProviderFactory.create('post');
+        const query = {};
+        query.searchWord = word;
+        const postCount = await postProvider.count(query);
+
         const shProvider = ModelProviderFactory.create('searchHistory');
         const newSH = new shProvider.schema();
         newSH.word = word;
+        newSH.postCount = postCount;
         await newSH.save();
         return { result: 'ok' };
       })(req.params),
@@ -64,6 +70,7 @@ module.exports = class HistoryController {
         query.push({
           $group: {
             _id: '$word',
+            postCount: { $max: '$postCount' },
             count: {
               $sum: 1,
             },
@@ -74,7 +81,7 @@ module.exports = class HistoryController {
             _id: 0,
             word: '$_id',
             count: 1,
-            sum: 1,
+            postCount: 1,
           },
         });
         if (sort) {
@@ -88,8 +95,8 @@ module.exports = class HistoryController {
         }
         query.push({ $limit: 8 });
         console.log(query);
-        const historys = await shProvider.aggregate(query);
-        return historys;
+        const histories = await shProvider.aggregate(query);
+        return histories;
       })(req.params),
     );
   }

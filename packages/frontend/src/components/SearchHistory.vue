@@ -9,48 +9,50 @@
               v-for="item in relatedHistory"
               :key="item._id"
               @click="selectSearchWord(item.word)"
-              >{{ item.word }}</span
             >
+              <span class="word">{{ item.word }}</span>
+              <span class="postCount">{{ item.postCount }}</span>
+            </span>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="日上位" name="second">
+        <el-tab-pane label="日" name="second">
           <div class="words">
-            <span
-              v-for="item in todayHistory"
-              :key="item._id"
-              @click="selectSearchWord(item.word)"
-              >{{ item.word }}</span
-            >
+            <span v-for="item in todayHistory" :key="item._id" @click="selectSearchWord(item.word)">
+              <span class="word">{{ item.word }}</span>
+              <span class="postCount">{{ item.postCount }}</span>
+            </span>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="週上位" name="third">
+        <el-tab-pane label="週" name="third">
           <div class="words">
             <span
               v-for="item in weeklyHistory"
               :key="item._id"
               @click="selectSearchWord(item.word)"
-              >{{ item.word }}</span
             >
+              <span class="word">{{ item.word }}</span>
+              <span class="postCount">{{ item.postCount }}</span>
+            </span>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="月上位" name="fourth">
+        <el-tab-pane label="月" name="fourth">
           <div class="words">
             <span
               v-for="item in monthlyHistory"
               :key="item._id"
               @click="selectSearchWord(item.word)"
-              >{{ item.word }}</span
             >
+              <span class="word">{{ item.word }}</span>
+              <span class="postCount">{{ item.postCount }}</span>
+            </span>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="上位" name="five">
+        <el-tab-pane label="全期間" name="five">
           <div class="words">
-            <span
-              v-for="item in mostHistory"
-              :key="item._id"
-              @click="selectSearchWord(item.word)"
-              >{{ item.word }}</span
-            >
+            <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.word)">
+              <span class="word">{{ item.word }}</span>
+              <span class="postCount">{{ item.postCount }}</span>
+            </span>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -67,7 +69,8 @@
     line-height: 40px;
   }
   .words > span {
-    display: inline-block;
+    justify-content: space-between;
+    display: flex;
     padding: 0.25rem 1rem;
     border-radius: 1rem;
     border: 1px solid #d5d8db;
@@ -78,9 +81,17 @@
     transition: all 0.3s ease;
     font-size: 14px;
     width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    & + span {
+      margin-top: 0.5rem;
+    }
+    .word {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .postCount {
+    }
+
     &:hover {
       background: white;
       border: 1px solid #eee;
