@@ -38,7 +38,11 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -145,7 +149,7 @@ export default {
   methods: {
     registerHistory: debounce(e => {
       if (!e.target.value) return;
-      history.register("search", { text: e.target.value });
+      history.register("search", { word: e.target.value });
     }, 1000),
     clear() {
       this.searchOption = {
@@ -168,9 +172,7 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to
-            ? ""
-            : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to ? "" : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }

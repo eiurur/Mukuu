@@ -8,17 +8,19 @@
             <span
               v-for="item in relatedHistory"
               :key="item._id"
-              @click="selectSearchWord(item.text)"
-            >{{ item.text }}</span>
+              @click="selectSearchWord(item.word)"
+              >{{ item.word }}</span
+            >
           </div>
         </el-tab-pane>
-        <!-- <el-tab-pane label="日上位" name="second">
+        <el-tab-pane label="日上位" name="second">
           <div class="words">
             <span
               v-for="item in todayHistory"
               :key="item._id"
-              @click="selectSearchWord(item.text)"
-            >{{ item.text }}</span>
+              @click="selectSearchWord(item.word)"
+              >{{ item.word }}</span
+            >
           </div>
         </el-tab-pane>
         <el-tab-pane label="週上位" name="third">
@@ -26,8 +28,9 @@
             <span
               v-for="item in weeklyHistory"
               :key="item._id"
-              @click="selectSearchWord(item.text)"
-            >{{ item.text }}</span>
+              @click="selectSearchWord(item.word)"
+              >{{ item.word }}</span
+            >
           </div>
         </el-tab-pane>
         <el-tab-pane label="月上位" name="fourth">
@@ -35,17 +38,19 @@
             <span
               v-for="item in monthlyHistory"
               :key="item._id"
-              @click="selectSearchWord(item.text)"
-            >{{ item.text }}</span>
+              @click="selectSearchWord(item.word)"
+              >{{ item.word }}</span
+            >
           </div>
-        </el-tab-pane>-->
+        </el-tab-pane>
         <el-tab-pane label="上位" name="five">
           <div class="words">
             <span
               v-for="item in mostHistory"
               :key="item._id"
-              @click="selectSearchWord(item.text)"
-            >{{ item.text }}</span>
+              @click="selectSearchWord(item.word)"
+              >{{ item.word }}</span
+            >
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -87,7 +92,7 @@
 }
 </style>
 <script>
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import history from "../api/history";
 
 export default {
@@ -98,40 +103,37 @@ export default {
       activeName: "first",
       timerID: null,
       relatedHistory: [],
-      // todayHistory: [],
-      // weeklyHistory: [],
-      // monthlyHistory: [],
+      todayHistory: [],
+      weeklyHistory: [],
+      monthlyHistory: [],
       mostHistory: []
     };
   },
   methods: {
     async pourHistory() {
-      this.relatedHistory = await this.fetch({ sort: "updatedAtDesc" });
-      // this.todayHistory = await this.fetch({
-      //   sort: "countDesc",
-      //   from: dayjs()
-      //     .add(-1, "days")
-      //     .format("YYYY-MM-DD"),
-      //   to: dayjs().format("YYYY-MM-DD")
-      // });
-      // this.weeklyHistory = await this.fetch({
-      //   sort: "countDesc",
-      //   from: dayjs()
-      //     .add(-7, "days")
-      //     .format("YYYY-MM-DD"),
-      //   to: dayjs().format("YYYY-MM-DD")
-      // });
-      // this.monthlyHistory = await this.fetch({
-      //   sort: "countDesc",
-      //   from: dayjs()
-      //     .add(-30, "days")
-      //     .format("YYYY-MM-DD"),
-      //   to: dayjs().format("YYYY-MM-DD")
-      // });
-      this.mostHistory = await this.fetch({ sort: "countDesc" });
+      this.relatedHistory = await this.aggregate({ sort: { createdAt: -1 } });
+      this.todayHistory = await this.aggregate({
+        from: dayjs()
+          .add(-1, "days")
+          .format("YYYY-MM-DD"),
+        to: dayjs().format("YYYY-MM-DD")
+      });
+      this.weeklyHistory = await this.aggregate({
+        from: dayjs()
+          .add(-7, "days")
+          .format("YYYY-MM-DD"),
+        to: dayjs().format("YYYY-MM-DD")
+      });
+      this.monthlyHistory = await this.aggregate({
+        from: dayjs()
+          .add(-30, "days")
+          .format("YYYY-MM-DD"),
+        to: dayjs().format("YYYY-MM-DD")
+      });
+      this.mostHistory = await this.aggregate({});
     },
-    async fetch(param) {
-      const { data } = await history.fetch("search", param);
+    async aggregate(param) {
+      const { data } = await history.aggregate("search", param);
       return data;
     },
     handleClick() {},

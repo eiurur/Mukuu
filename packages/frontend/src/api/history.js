@@ -4,8 +4,8 @@ const VERSION = "v1";
 const API_ROOT = `/api/${VERSION}`;
 
 export default {
-  async fetch(type, params) {
-    const { data, request } = await axios.get(`${API_ROOT}/history/${type}/list`, {
+  async aggregate(type, params) {
+    const { data, request } = await axios.get(`${API_ROOT}/history/${type}/aggregate`, {
       params
     });
     return { url: request.responseURL, data };

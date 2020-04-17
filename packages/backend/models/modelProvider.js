@@ -21,6 +21,10 @@ module.exports = class ModelProvider {
     this.logger.level = Schema.logLevel || 'debug';
   }
 
+  get schema() {
+    return this.model;
+  }
+
   // preprocess: [{ model: 'User', in: ['screenName'], use: '_id', key: 'postedBy' }],
   async preprocess(query = {}) {
     let conditions = [];
@@ -54,7 +58,7 @@ module.exports = class ModelProvider {
     return conditions;
   }
 
-  aggregate(query = {}) {
+  aggregate(query = []) {
     this.logger.debug(`DBBaseProvider ${this.model.modelName} aggregate`);
     this.logger.debug('query  : ', JSON.stringify(query));
     return this.model.aggregate(query).exec();
