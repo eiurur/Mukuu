@@ -31,12 +31,12 @@ const UserSchema = new Schema({
   profileBannerUrl: String,
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
     index: -1,
   },
   updatedAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
     index: -1,
   },
 });

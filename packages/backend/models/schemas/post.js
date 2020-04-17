@@ -32,12 +32,12 @@ const PostSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
     index: -1,
   },
   updatedAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
     index: -1,
   },
 });

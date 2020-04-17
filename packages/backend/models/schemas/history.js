@@ -12,12 +12,12 @@ const HistorySchema = new Schema({
   count: { type: Number, default: 0, index: -1 },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
     index: -1,
   },
   updatedAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
     index: -1,
   },
 });
