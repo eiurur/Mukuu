@@ -8,7 +8,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import activateLink from "./plugins/tweet";
+import { activateLink, parseToExternalLinks } from "./plugins/tweet";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -32,6 +32,7 @@ Vue.use(VueLazyload, {
 });
 
 Vue.prototype.$activateLink = activateLink;
+Vue.prototype.$parseToExternalLinks = parseToExternalLinks;
 
 Vue.config.productionTip = false;
 

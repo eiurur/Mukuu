@@ -3,11 +3,12 @@
     <el-col :span="4">
       <div>
         <el-form :inline="true" @submit.native.prevent size="mini" class="right-side">
-          <!-- <el-form-item>
-          <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
-          </el-form-item>-->
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
