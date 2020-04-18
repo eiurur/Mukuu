@@ -48,7 +48,7 @@ const spawnProcess = (cmd, args = [], option = {}) => {
 
 const searchCrawlerJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 0,9,12,15,18,20,22 * * *',
+  cronTime: '0 1,9,12,15,18,20,22 * * *',
   onTick: async () => {
     logger.info('--- start search cron ---');
     const args = [
@@ -61,7 +61,7 @@ const searchCrawlerJob = new CronJob({
   timeZone: 'Asia/Tokyo',
 });
 const userCrawlerJob = new CronJob({
-  cronTime: '0 11,21 * * *',
+  cronTime: '0 0,11,21 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
     const args = [
