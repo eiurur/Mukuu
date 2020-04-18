@@ -71,6 +71,7 @@ module.exports = class HistoryController {
           $group: {
             _id: '$word',
             postCount: { $max: '$postCount' },
+            createdAtLatest: { $max: '$createdAt' },
             count: {
               $sum: 1,
             },
@@ -82,11 +83,12 @@ module.exports = class HistoryController {
             word: '$_id',
             count: 1,
             postCount: 1,
+            createdAtLatest: 1,
           },
         });
         if (sort) {
           query.push({
-            $sort: { createdAt: -1 },
+            $sort: { createdAtLatest: -1 },
           });
         } else {
           query.push({
