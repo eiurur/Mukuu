@@ -49,7 +49,6 @@ export default {
   computed: {
     imageWidthStyle: {
       get() {
-        console.log(this.media);
         if (!this.media) return {};
         return {
           w33p: this.media.length === 3,
