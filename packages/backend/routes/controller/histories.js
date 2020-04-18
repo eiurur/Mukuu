@@ -7,27 +7,17 @@ module.exports = class HistoryController {
       req,
       res,
       (async ({ word }) => {
-        // 一旦
-        // const historyProvider = ModelProviderFactory.create('history');
-        // const history = {
-        //   query: { word: word },
-        //   data: { $inc: { count: 1 }, updatedAt: Date.now() },
-        //   options: { new: true, upsert: true },
-        // };
-        // await historyProvider.findOneAndUpdate(
-        //   history.query,
-        //   history.data,
-        //   history.options,
-        // );
-
+        if (word === undefined || word === null) return { result: 'invalid' };
+        const normalizedWord = word.trim();
+        if (normalizedWord === '') return { result: 'invalid' };
         const postProvider = ModelProviderFactory.create('post');
         const query = {};
-        query.searchWord = word;
+        query.searchWord = normalizedWord;
         const postCount = await postProvider.count(query);
 
         const shProvider = ModelProviderFactory.create('searchHistory');
         const newSH = new shProvider.schema();
-        newSH.word = word;
+        newSH.word = normalizedWord;
         newSH.postCount = postCount;
         await newSH.save();
         return { result: 'ok' };
@@ -35,23 +25,6 @@ module.exports = class HistoryController {
     );
   }
 
-  static query(req, res) {
-    seaquencer(
-      req,
-      res,
-      // (async ({ query, fields, options }) => {
-      (async ({ sort, from, to }) => {
-        const historyProvider = ModelProviderFactory.create('history');
-        const query = {};
-        if (from) query.from = from;
-        if (to) query.to = to;
-        const searchOption = { limit: 8, skip: 0 };
-        if (sort) searchOption.sort = sort;
-        const historys = await historyProvider.find(query, searchOption);
-        return historys;
-      })(req.params),
-    );
-  }
   static aggregate(req, res) {
     seaquencer(
       req,
@@ -96,7 +69,6 @@ module.exports = class HistoryController {
           });
         }
         query.push({ $limit: 8 });
-        console.log(query);
         const histories = await shProvider.aggregate(query);
         return histories;
       })(req.params),

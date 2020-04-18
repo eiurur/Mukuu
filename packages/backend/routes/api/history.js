@@ -9,11 +9,6 @@ module.exports = (app) => {
     [parameters.getParameters],
     HistoryController.register,
   );
-  // app.get(
-  //   `/api/${API_VERSION}/history/:type/list`,
-  //   [parameters.getParameters],
-  //   HistoryController.query,
-  // );
   app.get(
     `/api/${API_VERSION}/history/:type/aggregate`,
     [parameters.getParameters],

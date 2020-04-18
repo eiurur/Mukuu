@@ -1,6 +1,8 @@
 <template>
   <div class="post-container" v-if="externalLinks.length > 0">
-    <el-divider content-position="center" v-if="post.shouldShowDivider">{{ post.createdAt }}</el-divider>
+    <el-divider content-position="center" v-if="post.shouldShowDivider">{{
+      post.createdAt
+    }}</el-divider>
     <article class="post">
       <div class="text-container">
         <div class="user">
@@ -239,6 +241,7 @@ article.post {
 import mediumZoom from "medium-zoom";
 
 import BookmarkBtn from "@/components/BookmarkBtn.vue";
+import { acceptedDomains } from "@mukuu/common/lib/constants";
 
 export default {
   name: "Post",
@@ -267,15 +270,9 @@ export default {
       get() {
         return this.post.text
           .split(/\r\n|\n|\s/)
-          .filter(
-            word =>
-              word.indexOf("ux.getuploader.com") !== -1 ||
-              word.indexOf("drive.google.com") !== -1
-          )
+          .filter(word => acceptedDomains.some(domain => word.indexOf(domain) !== -1))
           .map(url => {
-            const match = url.match(
-              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
-            );
+            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
             if (!match) return null;
             return match[1];
           })
@@ -299,8 +296,7 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
   }

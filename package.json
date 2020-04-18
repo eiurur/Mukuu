@@ -39,7 +39,9 @@
     "postinstall": "npm run bootstrap && npm run build",
     "clean:dep": "rm -rf node_modules/ && rm -rf ./packages/frontend/node_modules/ && rm -rf ./packages/backend/node_modules",
     "update:dep": "cd ./packages/frontend && npx ncu -u && cd ../../ && cd ./packages/backend && npx ncu -u && cd ../../",
-    "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../"
+    "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../",
+    "reject": "node ./packages/backend/tasks/database/removeUntargets",
+    "migrate:history": "node ./packages/backend/tasks/patch/migrateHistoryToSearchHistory"
   },
   "engines": {
     "node": "12.x"

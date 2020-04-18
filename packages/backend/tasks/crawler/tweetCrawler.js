@@ -5,7 +5,7 @@ const Twit = require('twit');
 const TwitterAPI = require('node-twitter-api');
 const dayjs = require('dayjs');
 
-const { pattern, acceptedDomains } = require('../../config/constants');
+const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
 const { sleep } = require('../../lib/utils');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const logger = require(path.join('..', '..', 'logger'))('cron');
