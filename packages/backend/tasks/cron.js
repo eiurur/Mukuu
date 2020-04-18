@@ -61,7 +61,7 @@ const searchCrawlerJob = new CronJob({
   timeZone: 'Asia/Tokyo',
 });
 const userCrawlerJob = new CronJob({
-  cronTime: '0 13,21 * * *',
+  cronTime: '0 11,21 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
     const args = [
