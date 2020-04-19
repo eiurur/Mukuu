@@ -3,8 +3,8 @@
     <div class="center">
       <p>
         <a :href="this.twitterSearchLink" target="_blank">
-          <i class="el-icon-link"></i>
           <span>Twitterで検索する</span>
+          <i class="el-icon-right"></i>
         </a>
       </p>
     </div>
@@ -13,7 +13,8 @@
 
 <style lang="scss" scoped>
 .user-search-word {
-  i + span {
+  i + span,
+  span + i {
     margin-left: 0.5rem;
   }
 }
@@ -22,12 +23,12 @@
 <script>
 export default {
   name: "UserSearchLink",
-  props: ["word"],
+  props: ["user"],
   computed: {
     twitterSearchText: {
       get() {
         return encodeURIComponent(
-          `from:${this.word} ux.getuploader.com OR drive.google.com`
+          `from:${this.user.screenName} ux.getuploader.com OR drive.google.com`
         );
       }
     },

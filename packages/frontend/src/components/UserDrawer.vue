@@ -22,6 +22,17 @@
         </div>
         <div v-html="$activateLink(user.description)"></div>
       </div>
+      <div class="footer">
+        <div class="counts">
+          <div>
+            {{ user.postCount }}
+            <span class="suffix">投稿数</span>
+          </div>
+          <div>
+            <UserSearchLink :user="user"></UserSearchLink>
+          </div>
+        </div>
+      </div>
     </section>
     <section v-infinite-scroll="loadPost" infinite-scroll-disabled="isDisableLoading">
       <Post :post="post" :useDrawer="false" :key="post._id" v-for="post in posts"></Post>
@@ -70,12 +81,26 @@
     padding-left: 0.5rem;
   }
 }
+
+.footer {
+  background: white;
+  .counts {
+    font: bold;
+    display: flex;
+    justify-content: space-around;
+  }
+  .suffix {
+    opacity: 0.5;
+    font-size: 60%;
+  }
+}
 </style>
 
 <script>
 import Post from "@/components/Post.vue";
 import Icon from "@/components/Icon.vue";
 import Loader from "@/components/Loader.vue";
+import UserSearchLink from "@/components/UserSearchLink.vue";
 import WatchBtn from "@/components/WatchBtn.vue";
 
 export default {
@@ -84,6 +109,7 @@ export default {
     Post,
     Icon,
     Loader,
+    UserSearchLink,
     WatchBtn
   },
   props: ["postedBy"],
