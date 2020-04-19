@@ -1,7 +1,13 @@
 <template>
   <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
-    <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty"></TwitterSearchLink>
+    <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty">
+      <template v-slot:caption>
+        <p>サイト内で見つかりませんでした。</p>
+      </template>
+    </TwitterSearchLink>
     <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
+    <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="wrap">
+    </TwitterSearchLink>
     <Loader :shouldShowLoader="shouldShowLoader"></Loader>
   </section>
 </template>
@@ -47,6 +53,9 @@ export default {
     },
     shouldShowLoader() {
       return !this.isCompletedLoading && this.isLoading;
+    },
+    isLoadedLast() {
+      return this.total === this.current;
     },
     current() {
       return Math.min(this.skip, this.total);

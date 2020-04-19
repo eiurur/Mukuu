@@ -1,12 +1,10 @@
 <template>
   <div class="user-search-word">
     <div class="center">
-      <p>
-        <a :href="this.twitterSearchLink" target="_blank">
-          <span>Twitterで検索する</span>
-          <i class="el-icon-right"></i>
-        </a>
-      </p>
+      <a :href="this.twitterSearchLink" target="_blank">
+        <i class="el-icon-link"></i>
+        <span>Twitterで検索する</span>
+      </a>
     </div>
   </div>
 </template>

@@ -65,8 +65,8 @@
   & .text {
     word-break: break-word;
     background: white;
-    padding: 1rem;
-    padding-top: calc(1rem + 2.5rem);
+    padding: 0.5rem 1rem;
+    padding-top: 3rem;
     font-size: 1rem;
 
     & .screen-name {
@@ -83,6 +83,7 @@
 }
 
 .footer {
+  padding: 0.5rem 0 1rem;
   background: white;
   .counts {
     font: bold;

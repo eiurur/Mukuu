@@ -51,8 +51,16 @@
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
-        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty"></TwitterSearchLink>
+        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty" class="wrap"
+          >>
+          <template v-slot:caption>
+            <p>サイト内で見つかりませんでした。</p>
+          </template>
+        </TwitterSearchLink>
         <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
+
+        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="tail">
+        </TwitterSearchLink>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
@@ -65,6 +73,23 @@
 <style lang="scss" scoped>
 section + section {
   margin-top: 1rem;
+}
+.twitter-search-word.tail {
+  display: flex;
+  padding: 0.25rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #d5d8db;
+  background: #eee;
+  cursor: pointer;
+  word-break: break-word;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  width: 100%;
+  margin: 1rem 0;
+  &:hover {
+    background: white;
+    border: 1px solid #eee;
+  }
 }
 </style>
 
@@ -117,6 +142,9 @@ export default {
     },
     shouldShowLoader() {
       return !this.isCompletedLoading && this.isLoading;
+    },
+    isLoadedLast() {
+      return this.total !== 0 && this.total === this.current;
     },
     current() {
       return Math.min(this.skip, this.total);
