@@ -15,7 +15,7 @@
             </span>
           </div>
         </el-tab-pane>
-        <!-- <el-tab-pane label="日" name="second">
+        <el-tab-pane label="日" name="second">
           <div class="words">
             <span v-for="item in todayHistory" :key="item._id" @click="selectSearchWord(item.word)">
               <span class="word">{{ item.word }}</span>
@@ -46,7 +46,7 @@
               <span class="postCount">{{ item.postCount }}</span>
             </span>
           </div>
-        </el-tab-pane> -->
+        </el-tab-pane>
         <el-tab-pane label="上位" name="five">
           <div class="words">
             <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.word)">
@@ -103,7 +103,7 @@
 }
 </style>
 <script>
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import history from "../api/history";
 
 export default {
@@ -123,24 +123,24 @@ export default {
   methods: {
     async pourHistory() {
       this.relatedHistory = await this.aggregate({ sort: { createdAt: -1 } });
-      // this.todayHistory = await this.aggregate({
-      //   from: dayjs()
-      //     .add(-1, "days")
-      //     .format("YYYY-MM-DD"),
-      //   to: dayjs().format("YYYY-MM-DD")
-      // });
-      // this.weeklyHistory = await this.aggregate({
-      //   from: dayjs()
-      //     .add(-7, "days")
-      //     .format("YYYY-MM-DD"),
-      //   to: dayjs().format("YYYY-MM-DD")
-      // });
-      // this.monthlyHistory = await this.aggregate({
-      //   from: dayjs()
-      //     .add(-30, "days")
-      //     .format("YYYY-MM-DD"),
-      //   to: dayjs().format("YYYY-MM-DD")
-      // });
+      this.todayHistory = await this.aggregate({
+        from: dayjs()
+          .add(-1, "days")
+          .valueOf(),
+        to: dayjs().valueOf()
+      });
+      this.weeklyHistory = await this.aggregate({
+        from: dayjs()
+          .add(-7, "days")
+          .valueOf(),
+        to: dayjs().valueOf()
+      });
+      this.monthlyHistory = await this.aggregate({
+        from: dayjs()
+          .add(-30, "days")
+          .valueOf(),
+        to: dayjs().valueOf()
+      });
       this.mostHistory = await this.aggregate({});
     },
     async aggregate(param) {

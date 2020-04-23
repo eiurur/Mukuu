@@ -25,7 +25,7 @@
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
-        <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
+        <Post :post="post" :useDrawer="true" mediaType="flex" :key="post._id" v-for="post in posts"></Post>
         <div class="center" v-if="isEmptyWatches">ウォッチリストに登録がありません。</div>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>

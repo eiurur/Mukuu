@@ -1,40 +1,50 @@
 <template>
-  <div v-if="media" class="media-list">
-    <img
-      :key="item.id_str"
-      v-for="item in media"
-      v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
-      class="original"
-      :class="imageWidthStyle"
-      data-zoomable
-    />
+  <div v-if="media" class="media-list-container">
+    <div class="media-list">
+      <img
+        :key="item.id_str"
+        v-for="item in media"
+        v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
+        class="original"
+        :style="style"
+        :class="imageWidthStyle"
+        data-zoomable
+      />
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.media-list-container {
+  height: 320px;
+}
 .media-list {
   display: flex;
+  height: 100%;
   img {
     width: auto;
     object-fit: cover;
-    height: 320px;
-    // object-fit: cover;
+    object-position: top;
+    // height: 320px;
     max-width: 25%;
-    border-radius: 0.5rem;
   }
 
   & > img + img {
-    padding-left: 1rem;
+    padding-left: 0.25rem;
   }
 
   & .w33p {
+    max-height: 100%;
     max-width: 33%;
   }
   & .w50p {
+    max-height: 100%;
     max-width: 50%;
   }
   & .w100p {
+    max-height: 100%;
     max-width: 100%;
+    border-radius: 0.5rem !important;
   }
 }
 </style>
@@ -43,7 +53,7 @@
 import mediumZoom from "medium-zoom";
 
 export default {
-  name: "MediaList",
+  name: "FlexMediaList",
   props: ["media"],
   methods: {},
   computed: {
@@ -66,7 +76,8 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
       );
     });
   }

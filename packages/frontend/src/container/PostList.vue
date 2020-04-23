@@ -5,7 +5,7 @@
         <p>サイト内で見つかりませんでした。</p>
       </template>
     </TwitterSearchLink>
-    <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
+    <Post :post="post" :useDrawer="true" mediaType="flex" :key="post._id" v-for="post in posts"></Post>
     <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="wrap"></TwitterSearchLink>
     <Loader :shouldShowLoader="shouldShowLoader"></Loader>
   </section>

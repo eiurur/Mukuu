@@ -72,7 +72,8 @@
               <span class="suffix">フォロワー</span>
             </div>
           </div>
-          <div v-if="user.medias" class="images">
+          <FlexMediaList :media="user.medias" class="media-list"></FlexMediaList>
+          <!-- <div v-if="user.medias" class="images">
             <img
               :key="media.media_url_https"
               v-for="media in user.medias"
@@ -81,7 +82,7 @@
               :class="imageWidthStyle(user.medias)"
               data-zoomable
             />
-          </div>
+          </div>-->
         </article>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
@@ -146,32 +147,8 @@
 .profile + .profile {
   margin-top: 1rem;
 }
-.images {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  & img {
-    &.original {
-      width: auto;
-      object-fit: cover;
-      height: 240px;
-      max-width: 25%;
-      border-radius: 0.5rem;
-    }
-    &.w33p {
-      max-width: 33%;
-    }
-    &.w50p {
-      max-width: 50%;
-    }
-    &.w100p {
-      max-width: 100%;
-    }
-  }
-
-  & img.original + img.original {
-    padding-left: 0.5rem;
-  }
+.media-list {
+  height: 180px;
 }
 </style>
 
@@ -181,6 +158,7 @@ import Icon from "@/components/Icon.vue";
 import UserDrawer from "@/components/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
+import FlexMediaList from "@/components/FlexMediaList.vue";
 import Spons from "@/components/Spons.vue";
 import WatchBtn from "@/components/WatchBtn.vue";
 import { debounce } from "../plugins/util";
@@ -207,6 +185,7 @@ export default {
     Icon,
     Loader,
     Counter,
+    FlexMediaList,
     Spons,
     WatchBtn
   },
@@ -288,16 +267,18 @@ export default {
         location: url
       });
     },
-    takeMedias(tweets, { format = "jpg", name = "medium", count = 4 } = {}) {
-      return tweets
-        .filter(p => p.entities && p.entities.media)
-        .map(p => p.entities.media)
-        .map(media =>
-          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
-        )
-        .flat()
-        .sort(() => Math.random() - Math.random())
-        .slice(0, count);
+    takeMedias(tweets, { count = 4 } = {}) {
+      return (
+        tweets
+          .filter(p => p.entities && p.entities.media)
+          .map(p => p.entities.media)
+          // .map(media =>
+          //   media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
+          // )
+          .flat()
+          .sort(() => Math.random() - Math.random())
+          .slice(0, count)
+      );
     },
     imageWidthStyle(medias) {
       if (!medias) return {};

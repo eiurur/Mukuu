@@ -1,14 +1,17 @@
 <template>
   <div class="post-container" v-if="hasExternalLink">
-    <el-divider content-position="center" v-if="post.shouldShowDivider">{{
+    <el-divider content-position="center" v-if="post.shouldShowDivider">
+      {{
       post.createdAt
-    }}</el-divider>
+      }}
+    </el-divider>
     <article class="post">
       <div class="text-container">
         <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
         <div class="text" v-html="$activateLink(post.text)"></div>
       </div>
-      <MediaList :media="post.entities.media"></MediaList>
+      <GridMediaList v-if="isGrid" :media="post.entities.media"></GridMediaList>
+      <FlexMediaList v-if="isFlex" :media="post.entities.media"></FlexMediaList>
       <PostFooter :post="post"></PostFooter>
     </article>
   </div>
@@ -56,15 +59,16 @@ article.post {
 </style>
 
 <script>
-import MediaList from "@/components/MediaList.vue";
+import FlexMediaList from "@/components/FlexMediaList.vue";
+import GridMediaList from "@/components/GridMediaList.vue";
 import PostFooter from "@/components/PostFooter.vue";
 import UserProfile from "@/components/UserProfile.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
   name: "Post",
-  components: { MediaList, PostFooter, UserProfile },
-  props: ["post", "prePost", "useDrawer"],
+  components: { FlexMediaList, GridMediaList, PostFooter, UserProfile },
+  props: ["post", "prePost", "mediaType", "useDrawer"],
   methods: {
     openUserDrawer(postedBy) {
       if (!postedBy || !this.useDrawer) return;
@@ -74,6 +78,16 @@ export default {
     }
   },
   computed: {
+    isGrid: {
+      get() {
+        return this.mediaType === "grid";
+      }
+    },
+    isFlex: {
+      get() {
+        return this.mediaType === "flex";
+      }
+    },
     hasExternalLink: {
       get() {
         return parseToExternalLinks(this.post.text).length > 0;

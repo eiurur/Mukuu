@@ -35,7 +35,7 @@
       </div>
     </section>
     <section v-infinite-scroll="loadPost" infinite-scroll-disabled="isDisableLoading">
-      <Post :post="post" :useDrawer="false" :key="post._id" v-for="post in posts"></Post>
+      <Post :post="post" :useDrawer="false" mediaType="grid" :key="post._id" v-for="post in posts"></Post>
       <Loader :shouldShowLoader="shouldShowLoader"></Loader>
     </section>
   </section>
