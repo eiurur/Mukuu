@@ -27,6 +27,12 @@
     object-position: top;
     // height: 320px;
     max-width: 25%;
+    &:first-of-type {
+      border-radius: 0.5rem 0 0 0.5rem / 0.5rem 0 0 0.5rem;
+    }
+    &:last-of-type {
+      border-radius: 0 0.5rem 0.5rem 0 / 0 0.5rem 0.5rem 0;
+    }
   }
 
   & > img + img {
