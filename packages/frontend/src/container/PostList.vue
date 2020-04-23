@@ -6,8 +6,7 @@
       </template>
     </TwitterSearchLink>
     <Post :post="post" :useDrawer="true" :key="post._id" v-for="post in posts"></Post>
-    <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="wrap">
-    </TwitterSearchLink>
+    <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="wrap"></TwitterSearchLink>
     <Loader :shouldShowLoader="shouldShowLoader"></Loader>
   </section>
 </template>
@@ -23,6 +22,7 @@ import dayjs from "dayjs";
 import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
 import TwitterSearchLink from "@/components/TwitterSearchLink.vue";
+import { debounce } from "../plugins/util";
 import post from "../api/post";
 
 export default {
@@ -72,14 +72,14 @@ export default {
     }
   },
   created() {
-    this.search = ({ skip }) => {
+    this.search = debounce(({ skip }) => {
       this.isCompletedLoading = false;
       this.isEmpty = false;
       this.skip = skip || 0;
       this.posts = [];
       this.fetchCount();
       this.load();
-    };
+    }, 500);
   },
   mounted() {
     this.restoreSearchOptionFromQueryString();

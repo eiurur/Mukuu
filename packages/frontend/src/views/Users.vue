@@ -29,11 +29,7 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter
-              :current="current"
-              :total="total"
-              @changeCurrentNumber="changeCurrentNumber"
-            ></Counter>
+            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -187,6 +183,7 @@ import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import Spons from "@/components/Spons.vue";
 import WatchBtn from "@/components/WatchBtn.vue";
+import { debounce } from "../plugins/util";
 import user from "../api/user";
 
 export default {
@@ -233,13 +230,13 @@ export default {
     }
   },
   created() {
-    this.search = ({ skip } = {}) => {
+    this.search = debounce(({ skip } = {}) => {
       this.isCompletedLoading = false;
       this.skip = skip || 0;
       this.users = [];
       this.fetchCount();
       this.load();
-    };
+    }, 100).bind(this);
   },
   mounted() {
     this.fetchCount();
@@ -295,7 +292,9 @@ export default {
       return tweets
         .filter(p => p.entities && p.entities.media)
         .map(p => p.entities.media)
-        .map(media => media.map(m => `${m.media_url_https}?format=${format}&name=${name}`))
+        .map(media =>
+          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
+        )
         .flat()
         .sort(() => Math.random() - Math.random())
         .slice(0, count);
@@ -317,7 +316,8 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
       );
     });
   }
