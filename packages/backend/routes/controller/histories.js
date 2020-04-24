@@ -33,8 +33,10 @@ module.exports = class HistoryController {
         const shProvider = ModelProviderFactory.create('searchHistory');
         const query = [];
         const match = { createdAt: {} };
-        if (from) match.createdAt.$gte = new Date(from);
-        if (to) match.createdAt.$lt = new Date(to);
+        if (from) match.createdAt.$gte = new Date(Number(from));
+        if (to) match.createdAt.$lt = new Date(Number(to));
+        console.log(match);
+
         if (from || to) {
           query.push({
             $match: match,

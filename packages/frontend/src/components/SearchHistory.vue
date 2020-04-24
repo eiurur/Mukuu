@@ -35,7 +35,7 @@
             </span>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="月" name="fourth">
+        <!-- <el-tab-pane label="月" name="fourth">
           <div class="words">
             <span
               v-for="item in monthlyHistory"
@@ -46,7 +46,7 @@
               <span class="postCount">{{ item.postCount }}</span>
             </span>
           </div>
-        </el-tab-pane>
+        </el-tab-pane>-->
         <el-tab-pane label="上位" name="five">
           <div class="words">
             <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.word)">
@@ -55,6 +55,18 @@
             </span>
           </div>
         </el-tab-pane>
+        <!-- <el-tab-pane label="ランダム" name="fourth">
+          <div class="words">
+            <span
+              v-for="item in randomHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.word)"
+            >
+              <span class="word">{{ item.word }}</span>
+              <span class="postCount">{{ item.postCount }}</span>
+            </span>
+          </div>
+        </el-tab-pane>-->
       </el-tabs>
     </div>
   </section>
@@ -117,7 +129,8 @@ export default {
       todayHistory: [],
       weeklyHistory: [],
       monthlyHistory: [],
-      mostHistory: []
+      mostHistory: [],
+      randomHistory: []
     };
   },
   methods: {
