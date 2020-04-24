@@ -35,7 +35,6 @@ module.exports = class HistoryController {
         const match = { createdAt: {} };
         if (from) match.createdAt.$gte = new Date(Number(from));
         if (to) match.createdAt.$lt = new Date(Number(to));
-        console.log(match);
 
         if (from || to) {
           query.push({
