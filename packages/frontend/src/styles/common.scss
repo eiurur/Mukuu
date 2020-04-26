@@ -65,6 +65,9 @@ a {
   }
 }
 
+img {
+  position: relative;
+}
 img:after {
   content: '';
   position: absolute;
