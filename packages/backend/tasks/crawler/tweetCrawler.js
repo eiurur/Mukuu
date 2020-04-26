@@ -76,6 +76,7 @@ module.exports = class TweetCrawler {
     await this.start('search', searchParam, {
       rejectPattern: (text) =>
         !pattern.acceptedWords.test(text) ||
+        pattern.rejectedWords.test(text) ||
         acceptedDomains.every((domain) => text.indexOf(domain) === -1),
     });
   }
@@ -102,6 +103,7 @@ module.exports = class TweetCrawler {
             updatedUserData = true;
           }
           if (rejectPattern && rejectPattern(tweet.full_text.toLowerCase())) {
+            logger.info('REJECT:', tweet.full_text.toLowerCase());
             continue;
           }
           await this.save(tweet);
