@@ -148,8 +148,11 @@ export default {
       }
     }
   },
-  mouted() {
-    this.$refs.scrollable.scrollTop = 0;
+  watch: {
+    // この関数は question が変わるごとに実行されます。
+    postedBy() {
+      this.$refs.scrollable.scrollTop = 0;
+    }
   },
   methods: {
     async loadPost() {
