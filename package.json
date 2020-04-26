@@ -41,6 +41,8 @@
     "update:dep": "cd ./packages/frontend && npx ncu -u && cd ../../ && cd ./packages/backend && npx ncu -u && cd ../../",
     "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../",
     "reject": "node ./packages/backend/tasks/database/removeUntargets",
+    "crawl:user": "node ./packages/backend/tasks/crawler/tweet/userCrawling.js",
+    "crawl:search": "node ./packages/backend/tasks/crawler/tweet/searchCrawling.js",
     "migrate:history": "node ./packages/backend/tasks/patch/migrateHistoryToSearchHistory"
   },
   "engines": {

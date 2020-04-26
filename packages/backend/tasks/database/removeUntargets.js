@@ -1,6 +1,7 @@
-const ModelProviderFactory = require('../../models/modelProviderFactory');
 const path = require('path');
-const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
+
+const ModelProviderFactory = require('../../models/modelProviderFactory');
+const { pattern } = require('@mukuu/common/lib/constants');
 const logger = require(path.join('..', '..', 'logger'))('cron');
 
 (async () => {
