@@ -44,7 +44,7 @@ module.exports = class HistoryController {
         query.push({
           $group: {
             _id: '$word',
-            postCount: { $max: '$postCount' },
+            postCount: { $last: '$postCount' },
             createdAtLatest: { $max: '$createdAt' },
             count: {
               $sum: 1,
