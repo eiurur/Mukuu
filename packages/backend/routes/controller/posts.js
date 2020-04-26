@@ -1,6 +1,6 @@
 const { seaquencer } = require('../../lib/seaquencer');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
-const TweetCrawler = require('../../tasks/crawler/TweetCrawler');
+const TweetCrawler = require('../../tasks/crawler/tweetCrawler');
 
 module.exports = class PostController {
   static count(req, res) {
