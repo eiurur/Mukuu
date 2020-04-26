@@ -55,7 +55,7 @@ export default {
         });
         this.results.push(result);
       } catch (e) {
-        console.error(e);
+        this.$message.error(JSON.stringify(e, undefined, 4));
       }
     }
   }
