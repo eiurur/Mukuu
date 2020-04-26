@@ -61,6 +61,7 @@ const searchCrawlerJob = new CronJob({
   timeZone: 'Asia/Tokyo',
 });
 const userCrawlerJob = new CronJob({
+  // cronTime: '* * * * *',
   cronTime: '0 0,11,21 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
@@ -73,12 +74,24 @@ const userCrawlerJob = new CronJob({
   start: true,
   timeZone: 'Asia/Tokyo',
 });
-const databaseJob = new CronJob({
+const removeJob = new CronJob({
+  // cronTime: '* * * * *',
+  cronTime: '30 0,11,21 * * *',
+  onTick: async () => {
+    logger.info('--- start user cron ---');
+    const args = [path.resolve(__dirname, 'database', 'removeUntargets')];
+    const stdout = await spawnProcess('node', args);
+    logger.info('--- finish user cron ---');
+  },
+  start: true,
+  timeZone: 'Asia/Tokyo',
+});
+const userJob = new CronJob({
   // cronTime: '* * * * *',
   cronTime: '0 14,23 * * *',
   onTick: async () => {
     logger.info('--- start database cron ---');
-    const args = [path.resolve(__dirname, 'database', 'updateDatabase')];
+    const args = [path.resolve(__dirname, 'database', 'updateUserDatabase')];
     const stdout = await spawnProcess('node', args);
     logger.info('--- finish database cron ---');
   },
@@ -88,4 +101,5 @@ const databaseJob = new CronJob({
 
 searchCrawlerJob.start();
 userCrawlerJob.start();
-databaseJob.start();
+removeJob.start();
+userJob.start();
