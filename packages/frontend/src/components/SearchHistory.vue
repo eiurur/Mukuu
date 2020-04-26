@@ -47,7 +47,7 @@
             </span>
           </div>
         </el-tab-pane>-->
-        <el-tab-pane label="上位" name="five">
+        <el-tab-pane label="累計" name="five">
           <div class="words">
             <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.word)">
               <span class="word">{{ item.word }}</span>
