@@ -148,7 +148,7 @@
   margin-top: 1rem;
 }
 .media-list {
-  height: 180px;
+  height: 240px;
 }
 </style>
 
