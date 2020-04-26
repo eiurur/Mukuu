@@ -139,6 +139,10 @@ export default {
     this.bookmarks = this.$store.getters["bookmark/bookmarks"];
     if (Array.isArray(this.bookmarks)) {
       this.bookmarks = Array.from(this.bookmarks).reverse();
+      this.bookmarks = this.bookmarks.map(bookmark => {
+        bookmark.shouldShowDivider = false;
+        return bookmark;
+      });
     }
   },
   mounted() {
