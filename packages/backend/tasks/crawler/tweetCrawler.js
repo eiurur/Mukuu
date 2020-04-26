@@ -53,8 +53,9 @@ const mapper = {
       favoriteCount: tweet.favorite_count,
       retweetCount: tweet.retweet_count,
       totalCount: tweet.favorite_count + tweet.retweet_count,
-      createdAt: dayjs(tweet.created_at.replace('+0000', '')).valueOf(),
+      selfRegister: !!tweet.selfRegister,
       postedBy: postedBy,
+      createdAt: dayjs(tweet.created_at.replace('+0000', '')).valueOf(),
       updatedAt: Date.now(),
     };
   },
@@ -157,7 +158,7 @@ module.exports = class TweetCrawler {
     const { data } = await T.get('search/tweets', param);
     return data;
   }
-  async status(tweetId, option = {}) {
+  async status(tweetId, option = {}, extendData = {}) {
     const param = Object.assign(
       {
         result_type: 'mixed',
@@ -168,7 +169,8 @@ module.exports = class TweetCrawler {
       option,
     );
     const { data } = await T.get(`statuses/show/${tweetId}`, param);
-    const tweet = this.expandUrl(data);
+    let tweet = this.expandUrl(data);
+    tweet = Object.assign(tweet, extendData);
     this.save(tweet);
     return data;
   }

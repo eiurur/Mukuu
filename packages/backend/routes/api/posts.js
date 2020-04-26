@@ -3,7 +3,7 @@ const API_VERSION = 'v1';
 const { logging, parameters } = require('../../middleware');
 const { PostController } = require('../controller/');
 
-module.exports = app => {
+module.exports = (app) => {
   app.post(
     `/api/${API_VERSION}/posts/count`,
     [parameters.getParameters, logging.log],
@@ -18,5 +18,10 @@ module.exports = app => {
     `/api/${API_VERSION}/posts/list`,
     [parameters.getParameters, logging.log],
     PostController.query,
+  );
+  app.post(
+    `/api/${API_VERSION}/posts/register`,
+    [parameters.getParameters, logging.log],
+    PostController.register,
   );
 };

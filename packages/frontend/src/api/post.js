@@ -31,5 +31,9 @@ export default {
       data: params
     });
     return { url: request.responseURL, count: data.count };
+  },
+  async register(params) {
+    const { data, request } = await axios.post(`${API_ROOT}/posts/register`, params);
+    return { url: request.responseURL, data };
   }
 };

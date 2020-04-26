@@ -24,6 +24,10 @@ const PostSchema = new Schema({
   favoriteCount: { type: Number, default: 0, index: -1 },
   retweetCount: { type: Number, default: 0, index: -1 },
   totalCount: { type: Number, default: 0, index: -1 },
+  selfRegister: {
+    type: Boolean,
+    default: false,
+  }, // 手動登録か否か
   medias: [MediaScheme],
   postedBy: {
     type: ObjectId,

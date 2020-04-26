@@ -1,5 +1,6 @@
 const { seaquencer } = require('../../lib/seaquencer');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
+const TweetCrawler = require('../../tasks/crawler/TweetCrawler');
 
 module.exports = class PostController {
   static count(req, res) {
@@ -63,6 +64,29 @@ module.exports = class PostController {
           postedBy: user._id,
         });
         return posts;
+      })(req.params),
+    );
+  }
+
+  static register(req, res) {
+    seaquencer(
+      req,
+      res,
+      (async ({ data }) => {
+        let { tweetID } = data;
+        try {
+          new URL(tweetID);
+          tweetID = /https?:\/\/twitter.com\/?(?:\#!\/)?(?:\w+)\/status(?:es)?\/(\d+)/.exec(
+            tweetID,
+          )[1];
+        } catch (_) {}
+        const crawler = new TweetCrawler();
+        const result = await crawler.status(
+          tweetID,
+          {},
+          { selfRegister: true },
+        );
+        return result;
       })(req.params),
     );
   }
