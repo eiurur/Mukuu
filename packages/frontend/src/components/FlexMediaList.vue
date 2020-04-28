@@ -6,7 +6,6 @@
         v-for="item in media"
         v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
         class="original"
-        :style="style"
         :class="imageWidthStyle"
         data-zoomable
       />
@@ -82,8 +81,7 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
   }

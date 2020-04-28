@@ -205,8 +205,14 @@ img:after {
     background: none;
   }
 }
+.el-divider--horizontal {
+  margin: 48px 0;
+}
 .el-divider__text {
-  background: #eee;
+  // background: #eee;
+  background: #3a8ee6;
+  color: white;
+  border-radius: 1rem;
 }
 /* TODO: scope用のラッパクラスの配下に対象を限定する */
 .el-select {
