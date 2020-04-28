@@ -1,5 +1,6 @@
 import Vue from "vue";
 import ElementUI from "element-ui";
+import { Plugin } from "vue-fragment";
 import VueAnalytics from "vue-analytics";
 import VueLazyload from "vue-lazyload";
 import locale from "element-ui/lib/locale/lang/ja";
@@ -13,6 +14,7 @@ import { activateLink, parseToExternalLinks } from "./plugins/tweet";
 const isProd = process.env.NODE_ENV === "production";
 
 Vue.use(ElementUI, { locale });
+Vue.use(Plugin);
 Vue.use(VueAnalytics, {
   id: "UA-42893827-25",
   router,
