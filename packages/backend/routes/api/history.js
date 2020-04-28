@@ -14,4 +14,9 @@ module.exports = (app) => {
     [parameters.getParameters],
     HistoryController.aggregate,
   );
+  app.get(
+    `/api/${API_VERSION}/history/:type/random`,
+    [parameters.getParameters],
+    HistoryController.random,
+  );
 };

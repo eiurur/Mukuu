@@ -75,4 +75,31 @@ module.exports = class HistoryController {
       })(req.params),
     );
   }
+  static random(req, res) {
+    seaquencer(
+      req,
+      res,
+      (async ({ sort, from, to }) => {
+        const shProvider = ModelProviderFactory.create('searchHistory');
+        const query = [];
+        const match = { createdAt: {} };
+        if (from) match.createdAt.$gte = new Date(Number(from));
+        if (to) match.createdAt.$lt = new Date(Number(to));
+
+        query.push({
+          $match: { postCount: { $gte: 1 } },
+        });
+        // query.push({
+        //   $group: {
+        //     _id: '$word',
+        //     postCount: { $last: '$postCount' },
+        //     createdAtLatest: { $max: '$createdAt' },
+        //   },
+        // });
+        query.push({ $sample: { size: 1 } });
+        const history = await shProvider.aggregate(query);
+        return history[0];
+      })(req.params),
+    );
+  }
 };

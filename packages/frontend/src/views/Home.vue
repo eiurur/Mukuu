@@ -10,7 +10,9 @@
               :clearable="true"
               @blur="registerHistory"
               v-model="searchOption.searchWord"
-            ></el-input>
+            >
+              <el-button slot="append" icon="el-icon-magic-stick" @click="searchRandom"></el-button>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-select v-model="searchOption.sort" placeholder="please select sort type">
@@ -170,6 +172,11 @@ export default {
     this.fetchCount();
   },
   methods: {
+    async searchRandom() {
+      const { data } = await history.random("search");
+      const { word } = data;
+      this.searchOption.searchWord = word;
+    },
     registerHistory: debounce(e => {
       if (!e.target.value) return;
       history.register("search", { word: e.target.value });
