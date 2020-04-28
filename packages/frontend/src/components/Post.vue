@@ -1,20 +1,27 @@
 <template>
-  <div class="post-container" v-if="hasExternalLink">
-    <el-divider content-position="center" v-if="post.shouldShowDivider">
-      {{
-      post.createdAt
-      }}
-    </el-divider>
-    <article class="post">
-      <div class="text-container">
-        <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
-        <div class="text" v-html="$activateLink(post.text)"></div>
+  <fragment>
+    <div
+      class="el-divider el-divider--horizontal"
+      :class="{ sticky: useSticky }"
+      v-if="post.shouldShowDivider"
+    >
+      <div class="el-divider__text is-center">
+        {{ post.createdAt }}
       </div>
-      <GridMediaList v-if="isGrid" :media="post.entities.media"></GridMediaList>
-      <FlexMediaList v-if="isFlex" :media="post.entities.media"></FlexMediaList>
-      <PostFooter :post="post"></PostFooter>
-    </article>
-  </div>
+    </div>
+
+    <div class="post-container" v-if="hasExternalLink">
+      <article class="post">
+        <div class="text-container">
+          <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
+          <div class="text" v-html="$activateLink(post.text)"></div>
+        </div>
+        <GridMediaList v-if="isGrid" :media="post.entities.media"></GridMediaList>
+        <FlexMediaList v-if="isFlex" :media="post.entities.media"></FlexMediaList>
+        <PostFooter :post="post"></PostFooter>
+      </article>
+    </div>
+  </fragment>
 </template>
 
 <style lang="scss" scoped>
@@ -68,7 +75,25 @@ import { parseToExternalLinks } from "@/plugins/tweet";
 export default {
   name: "Post",
   components: { FlexMediaList, GridMediaList, PostFooter, UserProfile },
-  props: ["post", "prePost", "mediaType", "useDrawer"],
+  props: {
+    post: {
+      type: Object
+    },
+    prePost: {
+      type: Object
+    },
+    mediaType: {
+      type: String
+    },
+    useDrawer: {
+      type: Boolean,
+      default: false
+    },
+    useSticky: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     openUserDrawer(postedBy) {
       if (!postedBy || !this.useDrawer) return;

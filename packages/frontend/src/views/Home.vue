@@ -40,7 +40,11 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -55,9 +59,20 @@
             <p>サイト内で見つかりませんでした。</p>
           </template>
         </TwitterSearchLink>
-        <Post :post="post" :useDrawer="true" mediaType="flex" :key="post._id" v-for="post in posts"></Post>
+        <Post
+          :post="post"
+          :useDrawer="true"
+          :useSticky="useSticky"
+          mediaType="flex"
+          :key="post._id"
+          v-for="post in posts"
+        ></Post>
 
-        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="tail"></TwitterSearchLink>
+        <TwitterSearchLink
+          :searchWord="searchOption.searchWord"
+          v-if="isLoadedLast"
+          class="tail"
+        ></TwitterSearchLink>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
@@ -145,6 +160,9 @@ export default {
     },
     current() {
       return Math.min(this.skip, this.total);
+    },
+    useSticky() {
+      return !this.searchOption.searchWord;
     }
   },
   watch: {
@@ -175,7 +193,7 @@ export default {
     async searchRandom() {
       const { data } = await history.random("search");
       const { word } = data;
-      this.searchOption.searchWord = word;
+      this.selectSearchWord(word);
     },
     registerHistory: debounce(e => {
       if (!e.target.value) return;
@@ -202,9 +220,7 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to
-            ? ""
-            : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to ? "" : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }
