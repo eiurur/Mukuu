@@ -218,13 +218,13 @@ img[lazy='loaded']:after {
 .el-divider--horizontal {
   margin: 1.5rem 0;
   z-index: 100;
-  &.sticky {
-    top: 1.5rem;
-    position: sticky;
-  }
+  // &.sticky {
+  //   top: 1.5rem;
+  //   position: sticky;
+  // }
 }
 .el-divider {
-  background: none;
+  // background: none;
 }
 .el-divider__text {
   // background: #eee;
