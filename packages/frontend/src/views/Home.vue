@@ -27,12 +27,13 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-date-picker
+            <!-- <el-date-picker
               type="date"
               placeholder="日付"
               v-model="searchOption.to"
               style="width: 100%;"
-            ></el-date-picker>
+            ></el-date-picker>-->
+            <Heatmap :searchOption="searchOption" :passSearchOption="setSearchOption"></Heatmap>
           </el-form-item>
         </el-form>
         <el-form :inline="true" @submit.native.prevent size="mini" class="between">
@@ -40,11 +41,7 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter
-              :current="current"
-              :total="total"
-              @changeCurrentNumber="changeCurrentNumber"
-            ></Counter>
+            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -68,11 +65,7 @@
           v-for="post in posts"
         ></Post>
 
-        <TwitterSearchLink
-          :searchWord="searchOption.searchWord"
-          v-if="isLoadedLast"
-          class="tail"
-        ></TwitterSearchLink>
+        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="tail"></TwitterSearchLink>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
@@ -86,6 +79,7 @@
 section + section {
   margin-top: 1rem;
 }
+
 .twitter-search-word.tail {
   display: flex;
   padding: 0.25rem 1rem;
@@ -112,7 +106,8 @@ import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
 import SearchHistory from "@/components/SearchHistory.vue";
 import SponsWide from "@/components/SponsWide.vue";
-import UserDrawer from "@/components/UserDrawer.vue";
+import Heatmap from "@/components/Heatmap.vue";
+import UserDrawer from "@/container/UserDrawer.vue";
 import TwitterSearchLink from "@/components/TwitterSearchLink.vue";
 import { debounce } from "../plugins/util";
 import post from "../api/post";
@@ -142,6 +137,7 @@ export default {
   components: {
     Counter,
     Loader,
+    Heatmap,
     Post,
     SearchHistory,
     SponsWide,
@@ -220,7 +216,9 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to ? "" : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to
+            ? ""
+            : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }
@@ -228,6 +226,9 @@ export default {
     },
     selectSearchWord(searchWord) {
       this.searchOption.searchWord = searchWord;
+    },
+    setSearchOption(searchOption) {
+      this.searchOption = searchOption;
     },
     changeCurrentNumber(skip) {
       this.search({ skip });

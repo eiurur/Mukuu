@@ -3,6 +3,7 @@ import ElementUI from "element-ui";
 import { Plugin } from "vue-fragment";
 import VueAnalytics from "vue-analytics";
 import VueLazyload from "vue-lazyload";
+import dayjs from "dayjs";
 import locale from "element-ui/lib/locale/lang/ja";
 
 import App from "./App.vue";
@@ -35,6 +36,7 @@ Vue.use(VueLazyload, {
 
 Vue.prototype.$activateLink = activateLink;
 Vue.prototype.$parseToExternalLinks = parseToExternalLinks;
+Vue.prototype.$dayjs = dayjs;
 
 Vue.config.productionTip = false;
 

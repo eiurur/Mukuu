@@ -93,7 +93,7 @@ section + section {
 </style>
 
 <script>
-import UserDrawer from "@/components/UserDrawer.vue";
+import UserDrawer from "@/container/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";

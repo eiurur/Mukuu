@@ -24,7 +24,8 @@ module.exports = {
     "space-before-function-paren": 0,
     "unexpected-character-in-unquoted-attribute-value": 0,
     "import/named": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "no-undef": 0
   },
   parserOptions: {
     parser: "babel-eslint"

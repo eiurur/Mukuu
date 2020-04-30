@@ -245,3 +245,22 @@ img[lazy='loaded']:after {
 .history .el-tabs__item {
   padding: 0 16px;
 }
+
+.cal-heatmap-container rect:hover {
+  stroke-width: 1 !important;
+}
+.days-selected .cal-heatmap-container rect {
+  opacity: 0.5;
+}
+.cal-heatmap-container .graph-rect {
+  // fill: rgb(104, 107, 112);
+  fill: white;
+}
+.cal-heatmap-container rect.highlight {
+  stroke-width: 0;
+  opacity: 1;
+}
+.cal-heatmap-container rect.highlight-now {
+  stroke-width: 0;
+  opacity: 1;
+}

@@ -35,5 +35,11 @@ export default {
   async register(params) {
     const { data, request } = await axios.post(`${API_ROOT}/posts/register`, params);
     return { url: request.responseURL, data };
+  },
+  async aggregate(params) {
+    const { data, request } = await axios.post(`${API_ROOT}/posts/aggregate`, {
+      data: params
+    });
+    return { url: request.responseURL, data };
   }
 };

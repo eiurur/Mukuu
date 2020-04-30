@@ -30,7 +30,8 @@
             data-url="https://mukuu.herokuapp.com/"
             data-hashtags="COM3D2"
             data-show-count="false"
-          >Tweet</a>
+            >Tweet</a
+          >
         </el-menu-item>
       </el-menu>
     </aside>

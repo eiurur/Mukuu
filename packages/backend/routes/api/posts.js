@@ -24,4 +24,9 @@ module.exports = (app) => {
     [parameters.getParameters, logging.log],
     PostController.register,
   );
+  app.post(
+    `/api/${API_VERSION}/posts/aggregate`,
+    [parameters.getParameters, logging.log],
+    PostController.aggregate,
+  );
 };

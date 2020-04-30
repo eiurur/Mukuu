@@ -90,4 +90,48 @@ module.exports = class PostController {
       })(req.params),
     );
   }
+
+  static aggregate(req, res) {
+    seaquencer(
+      req,
+      res,
+      (async ({ sort, from, to }) => {
+        const postProvider = ModelProviderFactory.create('post');
+        const query = [];
+        query.push({
+          $group: {
+            _id: {
+              year: { $year: '$createdAt' },
+              month: { $month: '$createdAt' },
+              day: { $dayOfMonth: '$createdAt' },
+            },
+            // postCount: { $last: '$postCount' },
+            // createdAtLatest: { $max: '$createdAt' },
+            count: {
+              $sum: 1,
+            },
+          },
+        });
+        query.push({
+          $project: {
+            _id: 0,
+            date: '$_id',
+            count: 1,
+          },
+        });
+        // if (sort) {
+        //   query.push({
+        //     $sort: { createdAtLatest: -1 },
+        //   });
+        // } else {
+        //   query.push({
+        //     $sort: { count: -1 },
+        //   });
+        // }
+        // query.push({ $limit: 8 });
+        const posts = await postProvider.aggregate(query);
+        return posts;
+      })(req.params),
+    );
+  }
 };
