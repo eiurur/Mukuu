@@ -45,17 +45,21 @@
 </style>
 
 <script>
+import {
+  acceptedDomains,
+  acceptedHashtags,
+  acceptedWords
+} from "@mukuu/common/lib/constants";
+
 export default {
   name: "TwitterSearchLink",
   props: ["searchWord"],
   computed: {
     twitterSearchText: {
       get() {
-        const domains = "ux.getuploader.com OR drive.google.com";
-        const HASH_TAGS =
-          "#COM3D2 OR #CM3D2 OR #カスタムメイド3D2 OR #カスタムオーダーメイド3D2";
-        const WORDS =
-          "COM3D2 OR CM3D2 OR カスタムオーダーメイド3D2 OR カスタムメイド3D2 OR オダメ OR カスメ";
+        const domains = acceptedDomains.join(" OR ");
+        const HASH_TAGS = acceptedHashtags.join(" OR ");
+        const WORDS = acceptedWords.join(" OR ");
         return encodeURIComponent(
           `${this.searchWord} ${domains} ${HASH_TAGS} OR ${WORDS}`
         );

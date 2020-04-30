@@ -19,15 +19,17 @@
 </style>
 
 <script>
+import { acceptedDomains } from "@mukuu/common/lib/constants";
+
+const domains = acceptedDomains.join(" OR ");
+
 export default {
   name: "UserSearchLink",
   props: ["user"],
   computed: {
     twitterSearchText: {
       get() {
-        return encodeURIComponent(
-          `from:${this.user.screenName} ux.getuploader.com OR drive.google.com`
-        );
+        return encodeURIComponent(`from:${this.user.screenName} ${domains}`);
       }
     },
     twitterSearchLink: {
