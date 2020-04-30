@@ -4,6 +4,7 @@ import { Plugin } from "vue-fragment";
 import VueAnalytics from "vue-analytics";
 import VueLazyload from "vue-lazyload";
 import dayjs from "dayjs";
+import "dayjs/locale/ja";
 import locale from "element-ui/lib/locale/lang/ja";
 
 import App from "./App.vue";
@@ -13,6 +14,8 @@ import store from "./store";
 import { activateLink, parseToExternalLinks } from "./plugins/tweet";
 
 const isProd = process.env.NODE_ENV === "production";
+
+dayjs.locale("ja");
 
 Vue.use(ElementUI, { locale });
 Vue.use(Plugin);

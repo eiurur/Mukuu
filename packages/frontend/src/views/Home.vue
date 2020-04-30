@@ -100,7 +100,6 @@ section + section {
 </style>
 
 <script>
-import dayjs from "dayjs";
 import Counter from "@/components/Counter.vue";
 import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
@@ -207,7 +206,7 @@ export default {
       const { searchWord, to, sort, skip } = this.$route.query;
       this.searchOption = {
         searchWord: searchWord || "",
-        to: !to ? "" : dayjs(to).format("YYYY-MM-DD"),
+        to: !to ? "" : this.$dayjs(to).format("YYYY-MM-DD"),
         sort: sort || "createdAtDesc"
       };
       this.skip = skip ? Number(skip) : 0;
@@ -218,7 +217,7 @@ export default {
           searchWord: this.searchOption.searchWord || "",
           to: !this.searchOption.to
             ? ""
-            : dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+            : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }

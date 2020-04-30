@@ -115,7 +115,6 @@
 }
 </style>
 <script>
-import dayjs from "dayjs";
 import history from "../api/history";
 
 export default {
@@ -137,22 +136,22 @@ export default {
     async pourHistory() {
       this.relatedHistory = await this.aggregate({ sort: { createdAt: -1 } });
       this.todayHistory = await this.aggregate({
-        from: dayjs()
+        from: this.$dayjs()
           .add(-1, "days")
           .valueOf(),
-        to: dayjs().valueOf()
+        to: this.$dayjs().valueOf()
       });
       this.weeklyHistory = await this.aggregate({
-        from: dayjs()
+        from: this.$dayjs()
           .add(-7, "days")
           .valueOf(),
-        to: dayjs().valueOf()
+        to: this.$dayjs().valueOf()
       });
       this.monthlyHistory = await this.aggregate({
-        from: dayjs()
+        from: this.$dayjs()
           .add(-30, "days")
           .valueOf(),
-        to: dayjs().valueOf()
+        to: this.$dayjs().valueOf()
       });
       this.mostHistory = await this.aggregate({});
     },

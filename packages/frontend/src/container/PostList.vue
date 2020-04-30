@@ -18,7 +18,6 @@ section + section {
 </style>
 
 <script>
-import dayjs from "dayjs";
 import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
 import TwitterSearchLink from "@/components/TwitterSearchLink.vue";
