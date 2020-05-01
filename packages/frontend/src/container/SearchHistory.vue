@@ -2,7 +2,7 @@
   <section class="history infinite-list">
     <div class="padding">
       <div class="title">検索ワード</div>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName">
         <el-tab-pane label="直近" name="first">
           <div class="words">
             <span
@@ -55,18 +55,6 @@
             </span>
           </div>
         </el-tab-pane>
-        <!-- <el-tab-pane label="ランダム" name="fourth">
-          <div class="words">
-            <span
-              v-for="item in randomHistory"
-              :key="item._id"
-              @click="selectSearchWord(item.word)"
-            >
-              <span class="word">{{ item.word }}</span>
-              <span class="postCount">{{ item.postCount }}</span>
-            </span>
-          </div>
-        </el-tab-pane>-->
       </el-tabs>
     </div>
   </section>
@@ -101,16 +89,10 @@
       white-space: nowrap;
       overflow: hidden;
     }
-    .postCount {
-    }
-
     &:hover {
       background: white;
       border: 1px solid #eee;
     }
-    // & + span {
-    //   margin-top: 0.25rem;
-    // }
   }
 }
 </style>
@@ -128,30 +110,33 @@ export default {
       todayHistory: [],
       weeklyHistory: [],
       monthlyHistory: [],
-      mostHistory: [],
-      randomHistory: []
+      mostHistory: []
     };
   },
   methods: {
     async pourHistory() {
+      const today = this.$dayjs().valueOf();
+      const yesterday = this.$dayjs()
+        .add(-1, "days")
+        .valueOf();
+      const lastWeek = this.$dayjs()
+        .add(-7, "days")
+        .valueOf();
+      const lastMonth = this.$dayjs()
+        .add(-30, "days")
+        .valueOf();
       this.relatedHistory = await this.aggregate({ sort: { createdAt: -1 } });
       this.todayHistory = await this.aggregate({
-        from: this.$dayjs()
-          .add(-1, "days")
-          .valueOf(),
-        to: this.$dayjs().valueOf()
+        from: yesterday,
+        to: today
       });
       this.weeklyHistory = await this.aggregate({
-        from: this.$dayjs()
-          .add(-7, "days")
-          .valueOf(),
-        to: this.$dayjs().valueOf()
+        from: lastWeek,
+        to: today
       });
       this.monthlyHistory = await this.aggregate({
-        from: this.$dayjs()
-          .add(-30, "days")
-          .valueOf(),
-        to: this.$dayjs().valueOf()
+        from: lastMonth,
+        to: today
       });
       this.mostHistory = await this.aggregate({});
     },
@@ -159,7 +144,6 @@ export default {
       const { data } = await history.aggregate("search", param);
       return data;
     },
-    handleClick() {},
     selectSearchWord(text) {
       this.$emit("selectSearchWord", text);
     },

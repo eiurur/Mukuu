@@ -101,8 +101,8 @@
 import Post from "@/components/Post.vue";
 import Icon from "@/components/Icon.vue";
 import Loader from "@/components/Loader.vue";
-import UserSearchLink from "@/components/UserSearchLink.vue";
-import WatchBtn from "@/components/WatchBtn.vue";
+import UserSearchLink from "@/components/links/UserSearchLink.vue";
+import WatchBtn from "@/components/btn/WatchBtn.vue";
 
 export default {
   name: "UserDrawer",

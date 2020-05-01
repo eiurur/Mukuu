@@ -100,14 +100,16 @@ section + section {
 </style>
 
 <script>
+import SearchHistory from "@/container/SearchHistory.vue";
+import UserDrawer from "@/container/UserDrawer.vue";
+
 import Counter from "@/components/Counter.vue";
 import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
-import SearchHistory from "@/components/SearchHistory.vue";
-import SponsWide from "@/components/SponsWide.vue";
+import SponsWide from "@/components/sponsor/SponsWide.vue";
 import Heatmap from "@/components/Heatmap.vue";
-import UserDrawer from "@/container/UserDrawer.vue";
-import TwitterSearchLink from "@/components/TwitterSearchLink.vue";
+import TwitterSearchLink from "@/components/links/TwitterSearchLink.vue";
+
 import { debounce } from "../plugins/util";
 import post from "../api/post";
 import history from "../api/history";

@@ -86,11 +86,7 @@ export default {
         domain: "month",
         domainLabelFormat: "%Y-%m",
         data: json,
-        start: new Date(
-          today.getFullYear(),
-          today.getMonth() - (3 - 1),
-          today.getDate()
-        ),
+        start: new Date(today.getFullYear(), today.getMonth() - (3 - 1), today.getDate()),
         range: 3,
         tooltip: true,
         legendColors: {

@@ -12,7 +12,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="searchOption.sort" placeholder="please select your zone">
+            <el-select v-model="searchOption.sort">
               <template slot="prefix">
                 <i class="el-icon-sort prefix-icon"></i>
               </template>
@@ -159,8 +159,8 @@ import UserDrawer from "@/container/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import FlexMediaList from "@/components/FlexMediaList.vue";
-import Spons from "@/components/Spons.vue";
-import WatchBtn from "@/components/WatchBtn.vue";
+import Spons from "@/components/sponsor/Spons.vue";
+import WatchBtn from "@/components/btn/WatchBtn.vue";
 import { debounce } from "../plugins/util";
 import user from "../api/user";
 

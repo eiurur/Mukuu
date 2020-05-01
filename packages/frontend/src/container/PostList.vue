@@ -20,7 +20,7 @@ section + section {
 <script>
 import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
-import TwitterSearchLink from "@/components/TwitterSearchLink.vue";
+import TwitterSearchLink from "@/components/links/TwitterSearchLink.vue";
 import { debounce } from "../plugins/util";
 import post from "../api/post";
 

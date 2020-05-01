@@ -86,7 +86,7 @@ import UserDrawer from "@/container/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
-import Spons from "@/components/Spons.vue";
+import Spons from "@/components/sponsor/Spons.vue";
 
 export default {
   name: "bookmark",

@@ -97,7 +97,7 @@ import UserDrawer from "@/container/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
-import WatchBtn from "@/components/WatchBtn.vue";
+import WatchBtn from "@/components/btn/WatchBtn.vue";
 import post from "../api/post";
 
 export default {

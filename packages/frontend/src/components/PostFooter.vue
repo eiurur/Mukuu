@@ -89,7 +89,7 @@
 </style>
 
 <script>
-import BookmarkBtn from "@/components/BookmarkBtn.vue";
+import BookmarkBtn from "@/components/btn/BookmarkBtn.vue";
 import { acceptedDomains } from "@mukuu/common/lib/constants";
 
 export default {
@@ -102,9 +102,13 @@ export default {
       get() {
         return this.post.text
           .split(/\r\n|\n|\s/)
-          .filter(word => acceptedDomains.some(domain => word.indexOf(domain) !== -1))
+          .filter(word =>
+            acceptedDomains.some(domain => word.indexOf(domain) !== -1)
+          )
           .map(url => {
-            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
+            const match = url.match(
+              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
+            );
             if (!match) return null;
             return match[1];
           })
