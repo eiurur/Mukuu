@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <aside class="el-aside">
-      <el-menu :router="true" :default-active="$route.path" class="el-menu-vertical">
+      <el-menu
+        :router="true"
+        :default-active="$route.path"
+        :mode="$mq == 'sm' ? 'horizontal' : 'vertical'"
+      >
         <el-menu-item index="/" :route="{ name: 'home' }">
           <i class="el-icon-s-home"></i>
           <span slot="title">Home</span>
@@ -21,17 +25,6 @@
         <el-menu-item index="/about">
           <i class="el-icon-info"></i>
           <span slot="title">About</span>
-        </el-menu-item>
-        <el-menu-item>
-          <a
-            href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-            class="twitter-share-button"
-            data-text="Mukuu - COM3D2 MOD検索サービス"
-            data-url="https://mukuu.herokuapp.com/"
-            data-hashtags="COM3D2"
-            data-show-count="false"
-            >Tweet</a
-          >
         </el-menu-item>
       </el-menu>
     </aside>

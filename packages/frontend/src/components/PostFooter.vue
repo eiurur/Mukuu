@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   .controls {
     display: flex;
@@ -102,13 +103,9 @@ export default {
       get() {
         return this.post.text
           .split(/\r\n|\n|\s/)
-          .filter(word =>
-            acceptedDomains.some(domain => word.indexOf(domain) !== -1)
-          )
+          .filter(word => acceptedDomains.some(domain => word.indexOf(domain) !== -1))
           .map(url => {
-            const match = url.match(
-              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
-            );
+            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
             if (!match) return null;
             return match[1];
           })

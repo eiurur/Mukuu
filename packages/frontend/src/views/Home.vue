@@ -27,13 +27,13 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <!-- <el-date-picker
+            <el-date-picker
               type="date"
               placeholder="日付"
               v-model="searchOption.to"
               style="width: 100%;"
-            ></el-date-picker>-->
-            <Heatmap :searchOption="searchOption" :passSearchOption="setSearchOption"></Heatmap>
+            ></el-date-picker>
+            <!-- <Heatmap :searchOption="searchOption" :passSearchOption="setSearchOption"></Heatmap> -->
           </el-form-item>
         </el-form>
         <el-form :inline="true" @submit.native.prevent size="mini" class="between">
@@ -41,7 +41,11 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -65,7 +69,11 @@
           v-for="post in posts"
         ></Post>
 
-        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="tail"></TwitterSearchLink>
+        <TwitterSearchLink
+          :searchWord="searchOption.searchWord"
+          v-if="isLoadedLast"
+          class="tail"
+        ></TwitterSearchLink>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
@@ -89,7 +97,7 @@ section + section {
   cursor: pointer;
   word-break: break-word;
   transition: all 0.3s ease;
-  font-size: 14px;
+  font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
   width: 100%;
   margin: 1rem 0;
   &:hover {
@@ -107,7 +115,7 @@ import Counter from "@/components/Counter.vue";
 import Loader from "@/components/Loader.vue";
 import Post from "@/components/Post.vue";
 import SponsWide from "@/components/sponsor/SponsWide.vue";
-import Heatmap from "@/components/Heatmap.vue";
+// import Heatmap from "@/components/Heatmap.vue";
 import TwitterSearchLink from "@/components/links/TwitterSearchLink.vue";
 
 import { debounce } from "../plugins/util";
@@ -138,7 +146,7 @@ export default {
   components: {
     Counter,
     Loader,
-    Heatmap,
+    // Heatmap,
     Post,
     SearchHistory,
     SponsWide,
@@ -217,9 +225,7 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to
-            ? ""
-            : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to ? "" : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }
@@ -288,12 +294,6 @@ export default {
       if (pre.createdAt !== current.createdAt) {
         current.shouldShowDivider = true;
       }
-    },
-    openUserDrawer(postedBy) {
-      if (!postedBy) return;
-      const payload = { ...postedBy };
-      this.$store.dispatch("drawer/initialize", payload);
-      this.$store.dispatch("saveLocalStorage");
     }
   }
 };

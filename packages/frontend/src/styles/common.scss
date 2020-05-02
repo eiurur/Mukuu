@@ -19,7 +19,7 @@ html,
     'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo',
     'MSPゴシック', 'Osaka', 'MS PGothic', 'Arial', 'Helvetica', 'Verdana',
     'sans-serif';
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 600;
   margin-top: 0;
   line-height: 1.8;
@@ -152,6 +152,7 @@ img[lazy='loaded']:after {
 .between {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   & .el-form-item:last-of-type {
     margin-right: 0;
   }
@@ -169,6 +170,8 @@ img[lazy='loaded']:after {
 .infinite-list > .padding {
   padding-right: 0.5rem;
 }
+
+/* ------ element-ui ------ */
 .el-loading-spinner {
   margin-top: -1rem;
 }
@@ -193,38 +196,41 @@ img[lazy='loaded']:after {
 }
 .el-aside {
   background: white;
-  width: 128px;
+  // width: 128px;
 }
-.el-menu-vertical {
-  width: 128px;
-  height: 100%;
-  min-height: 400px;
+.el-menu--collapse {
+  width: auto;
 }
+// .el-menu-vertical {
+//   width: 128px;
+//   height: 100%;
+//   min-height: 400px;
+// }
 .el-menu-item {
   color: #909399;
 }
-.el-menu-item:last-of-type {
-  position: absolute;
-  cursor: initial;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  &:hover,
-  &:focus {
-    background: none;
-  }
-}
+// .el-menu-item:last-of-type {
+//   position: absolute;
+//   cursor: initial;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   text-align: center;
+//   &:hover,
+//   &:focus {
+//     background: none;
+//   }
+// }
 .el-divider--horizontal {
   margin: 1.5rem 0;
   z-index: 100;
-  // &.sticky {
-  //   top: 1.5rem;
-  //   position: sticky;
-  // }
+  &.sticky {
+    top: 1.5rem;
+    position: sticky;
+  }
 }
 .el-divider {
-  // background: none;
+  background: none;
 }
 .el-divider__text {
   // background: #eee;
@@ -246,6 +252,7 @@ img[lazy='loaded']:after {
   padding: 0 16px;
 }
 
+/* ------ cel-heatmap ------ */
 .cal-heatmap-container rect:hover {
   stroke-width: 1 !important;
 }
@@ -263,4 +270,19 @@ img[lazy='loaded']:after {
 .cal-heatmap-container rect.highlight-now {
   stroke-width: 0;
   opacity: 1;
+}
+
+@media only screen and (max-width: 1080px) {
+  #app {
+    display: flex;
+    flex-direction: column;
+  }
+  .el-menu--horizontal > .el-menu-item {
+    height: 48px;
+    line-height: 48px;
+    font-size: 1rem;
+  }
+  .el-menu-item {
+    padding: 0 1rem;
+  }
 }

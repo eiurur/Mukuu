@@ -79,7 +79,6 @@ export default {
         const key = new Date(year, month, day).valueOf() / 1000;
         json[key] = item.count;
       });
-      console.log(json);
       const today = new Date();
       const cal = new CalHeatMap();
       cal.init({

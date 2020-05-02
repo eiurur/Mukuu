@@ -64,7 +64,7 @@
 .history {
   margin-left: 0.5rem;
   .title {
-    font-size: 14px;
+    font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
     color: #606266;
     line-height: 40px;
   }
@@ -79,7 +79,7 @@
     cursor: pointer;
     word-break: break-word;
     transition: all 0.3s ease;
-    font-size: 14px;
+    font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
     width: 100%;
     & + span {
       margin-top: 0.5rem;

@@ -145,7 +145,7 @@ section {
   border-radius: 0.25rem;
 }
 .title {
-  font-size: 14px;
+  font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
   padding: 0.25rem;
 }
 </style>
