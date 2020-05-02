@@ -3,9 +3,12 @@ import ElementUI from "element-ui";
 import { Plugin } from "vue-fragment";
 import VueAnalytics from "vue-analytics";
 import VueLazyload from "vue-lazyload";
+import VueMq from "vue-mq";
+
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import locale from "element-ui/lib/locale/lang/ja";
+import { errorImageBase64 } from "@mukuu/common/lib/constants";
 
 import App from "./App.vue";
 import router from "./router";
@@ -34,7 +37,17 @@ Vue.use(VueLazyload, {
       listener.el.setAttribute("lazy-progressive", "true");
       listener.loading = listener.src.replace("name=medium", "name=small");
     }
-  }
+  },
+  error: errorImageBase64
+});
+Vue.use(VueMq, {
+  breakpoints: {
+    // default breakpoints - customize this
+    sm: 1080,
+    md: 1920,
+    lg: Infinity
+  },
+  defaultBreakpoint: "md" // customize this for SSR
 });
 
 Vue.prototype.$activateLink = activateLink;
