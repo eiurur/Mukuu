@@ -9,6 +9,7 @@
               v-for="item in relatedHistory"
               :key="item._id"
               @click="selectSearchWord(item.word)"
+              :title="item.word"
             >
               <span class="word">{{ item.word }}</span>
               <span class="postCount">{{ item.postCount }}</span>
@@ -17,7 +18,12 @@
         </el-tab-pane>
         <el-tab-pane label="日" name="second">
           <div class="words">
-            <span v-for="item in todayHistory" :key="item._id" @click="selectSearchWord(item.word)">
+            <span
+              v-for="item in todayHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.word)"
+              :title="item.word"
+            >
               <span class="word">{{ item.word }}</span>
               <span class="postCount">{{ item.postCount }}</span>
             </span>
@@ -29,6 +35,7 @@
               v-for="item in weeklyHistory"
               :key="item._id"
               @click="selectSearchWord(item.word)"
+              :title="item.word"
             >
               <span class="word">{{ item.word }}</span>
               <span class="postCount">{{ item.postCount }}</span>
@@ -49,7 +56,12 @@
         </el-tab-pane>-->
         <el-tab-pane label="累計" name="five">
           <div class="words">
-            <span v-for="item in mostHistory" :key="item._id" @click="selectSearchWord(item.word)">
+            <span
+              v-for="item in mostHistory"
+              :key="item._id"
+              @click="selectSearchWord(item.word)"
+              :title="item.word"
+            >
               <span class="word">{{ item.word }}</span>
               <span class="postCount">{{ item.postCount }}</span>
             </span>
