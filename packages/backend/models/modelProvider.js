@@ -113,7 +113,7 @@ module.exports = class ModelProvider {
     });
     const q = conditions.length === 0 ? {} : { $and: conditions };
     this.logger.debug(JSON.stringify(q));
-    console.log(util.inspect(q, false, null));
+    // console.log(util.inspect(q, false, null));
 
     const params = Object.assign(
       {
