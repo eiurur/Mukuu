@@ -44,9 +44,55 @@ module.exports = class ConditionBuilder {
     this.condition.push(condition);
   }
 
+  // preprocess用(screenName)
+  addIncludeWord(keys = [], searchWord = '') {
+    const trimedSearchWord = searchWord.trim();
+    if (!keys || keys.length < 1 || trimedSearchWord === '') return;
+    // const { orWords, andWords } = this.parseSearchWord(trimedSearchWord);
+    // const escapedWord = [...orWords, ...andWords]
+    //   .map(escapeStringRegexp)
+    //   .join('|');
+    const escapedWord = trimedSearchWord
+      .split(/\s+/)
+      .map(escapeStringRegexp)
+      .join('|');
+    const condition = {};
+    condition.$or = keys.map((key) => {
+      const tmp = {};
+      tmp[key] = new RegExp(`(${escapedWord})`, 'i');
+      return tmp;
+    });
+    this.condition.push(condition);
+  }
   addSearchWord(keys = [], searchWord = '') {
-    if (!keys || keys.length < 1 || searchWord === '') return;
+    const trimedSearchWord = searchWord.trim();
+    if (!keys || keys.length < 1 || trimedSearchWord === '') return;
+    const orWords = trimedSearchWord.split(/\s+/).map(escapeStringRegexp);
+    const condition = {};
+    if (orWords.length > 0) {
+      const orCondition = [...orWords].map((word) => {
+        return this.buildSearchCondition(keys, word);
+      });
+      condition.$or = orCondition.flat();
+    }
+    // const { orWords } = this.parseSearchWord(trimedSearchWord);
+    // const condition = {};
+    // if (orWords.size > 0) {
+    //   const orCondition = [...orWords].map((word) => {
+    //     return this.buildSearchCondition(keys, word);
+    //   });
+    //   condition.$or = orCondition.flat();
+    // }
+    // if (andWords.size > 0) {
+    //   const andCondition = [...andWords].map((word) => {
+    //     return this.buildSearchCondition(keys, word);
+    //   });
+    //   condition.$and = andCondition.flat();
+    // }
+    this.condition.push(condition);
+  }
 
+  parseSearchWord(searchWord) {
     const orWords = new Set();
     const andWords = new Set();
     const words = searchWord.split(/\s+/);
@@ -71,35 +117,18 @@ module.exports = class ConditionBuilder {
         prev = cur;
       }
     }
-
-    console.log(orWords.size);
-    console.log(andWords.size);
-    const condition = {};
-    if (orWords.size > 0) {
-      const orCondition = [...orWords].map((word) => {
-        return this.buildSearchCondition(keys, word);
-      });
-      condition.$or = orCondition;
-    }
-    if (andWords.size > 0) {
-      const andCondition = [...andWords].map((word) => {
-        return this.buildSearchCondition(keys, word);
-      });
-      condition.$and = andCondition;
-    }
-    this.condition.push(condition);
-    // console.log(JSON.stringify([...orWords]));
-    // console.log(JSON.stringify([...andWords]));
+    return {
+      orWords,
+      andWords,
+    };
   }
 
   buildSearchCondition(keys = [], word = '') {
     const escapedWord = escapeStringRegexp(word);
-    const condition = {};
-    condition.$or = keys.map((key) => {
+    return keys.map((key) => {
       const tmp = {};
       tmp[key] = new RegExp(escapedWord, 'i');
       return tmp;
     });
-    return condition;
   }
 };

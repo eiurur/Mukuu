@@ -1,4 +1,5 @@
 const path = require('path');
+const util = require('util');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
@@ -75,6 +76,8 @@ module.exports = class ModelProvider {
     const extendConditions = await this.preprocess(query);
     const conditions = builder.condition.map((condition) => {
       if (condition.$or) condition.$or = condition.$or.concat(extendConditions);
+      // if (condition.$and)
+      //   condition.$and = condition.$and.concat(extendConditions);
       return condition;
     });
     const q = conditions.length === 0 ? {} : { $and: conditions };
@@ -104,10 +107,13 @@ module.exports = class ModelProvider {
     const extendConditions = await this.preprocess(query);
     const conditions = builder.condition.map((condition) => {
       if (condition.$or) condition.$or = condition.$or.concat(extendConditions);
+      // if (condition.$and)
+      //   condition.$and = condition.$and.concat(extendConditions);
       return condition;
     });
     const q = conditions.length === 0 ? {} : { $and: conditions };
     this.logger.debug(JSON.stringify(q));
+    console.log(util.inspect(q, false, null));
 
     const params = Object.assign(
       {
