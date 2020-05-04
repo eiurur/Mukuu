@@ -8,6 +8,7 @@
 body,
 html,
 #app {
+  font-size: 16px;
   height: 100%;
   margin: 0;
   background: #eee;
@@ -276,6 +277,9 @@ img[lazy='loaded']:after {
   #app {
     display: flex;
     flex-direction: column;
+  }
+  .el-row {
+    height: calc(100vh - 5rem);
   }
   .el-menu--horizontal > .el-menu-item {
     height: 48px;
