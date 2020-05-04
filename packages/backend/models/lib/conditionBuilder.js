@@ -72,20 +72,22 @@ module.exports = class ConditionBuilder {
       }
     }
 
-    if (orWords.size) {
+    console.log(orWords.size);
+    console.log(andWords.size);
+    const condition = {};
+    if (orWords.size > 0) {
       const orCondition = [...orWords].map((word) => {
-        searchWord = searchWord.replace(word, '');
         return this.buildSearchCondition(keys, word);
       });
-      this.condition.push({ $or: orCondition });
+      condition.$or = orCondition;
     }
-    if (andWords.size) {
+    if (andWords.size > 0) {
       const andCondition = [...andWords].map((word) => {
-        searchWord = searchWord.replace(word, '');
         return this.buildSearchCondition(keys, word);
       });
-      this.condition.push({ $and: andCondition });
+      condition.$and = andCondition;
     }
+    this.condition.push(condition);
     // console.log(JSON.stringify([...orWords]));
     // console.log(JSON.stringify([...andWords]));
   }
