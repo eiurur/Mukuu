@@ -79,26 +79,16 @@ module.exports = class HistoryController {
     seaquencer(
       req,
       res,
-      (async ({ sort, from, to }) => {
+      (async ({ sort, limit }) => {
         const shProvider = ModelProviderFactory.create('searchHistory');
         const query = [];
-        const match = { createdAt: {} };
-        if (from) match.createdAt.$gte = new Date(Number(from));
-        if (to) match.createdAt.$lt = new Date(Number(to));
-
         query.push({
           $match: { postCount: { $gte: 1 } },
         });
-        // query.push({
-        //   $group: {
-        //     _id: '$word',
-        //     postCount: { $last: '$postCount' },
-        //     createdAtLatest: { $max: '$createdAt' },
-        //   },
-        // });
-        query.push({ $sample: { size: 1 } });
+        const size = Number(limit || 1);
+        query.push({ $sample: { size } });
         const history = await shProvider.aggregate(query);
-        return history[0];
+        return history;
       })(req.params),
     );
   }
