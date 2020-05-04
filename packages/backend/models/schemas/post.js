@@ -54,6 +54,11 @@ PostSchema.index(
   { unique: true },
 );
 
+PostSchema.index({
+  text: 1,
+  postedBy: 1,
+});
+
 mongoose.model('Post', PostSchema);
 
 const Post = mongoose.model('Post');
