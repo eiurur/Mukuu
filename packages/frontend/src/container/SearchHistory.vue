@@ -92,6 +92,9 @@
     word-break: break-word;
     transition: all 0.3s ease;
     font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     width: 100%;
     & + span {
       margin-top: 0.5rem;
