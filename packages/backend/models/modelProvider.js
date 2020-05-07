@@ -59,47 +59,7 @@ module.exports = class ModelProvider {
     return conditions;
   }
 
-  aggregate(query = []) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} aggregate`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    return this.model.aggregate(query).exec();
-  }
-
-  async count(query = {}, searchOption = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} count`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    const builder = new ConditionBuilder();
-    builder.buildCondition(this.queryOption.raws, query.column);
-    builder.addRangeCondition(this.queryOption.range, query.from, query.to);
-    builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
-
-    const extendConditions = await this.preprocess(query);
-    const conditions = builder.condition.map((condition) => {
-      if (condition.$or) condition.$or = condition.$or.concat(extendConditions);
-      // if (condition.$and)
-      //   condition.$and = condition.$and.concat(extendConditions);
-      return condition;
-    });
-    const q = conditions.length === 0 ? {} : { $and: conditions };
-    this.logger.debug(JSON.stringify(q));
-
-    const params = Object.assign(
-      {
-        model: this.model,
-        query: q,
-        populates: this.populates,
-      },
-      searchOption,
-    );
-    const finder = new Finder(params);
-    return finder.count();
-  }
-
-  async find(query = {}, searchOption = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} find`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    this.logger.debug('searchOption: ', searchOption);
-
+  async buildFinder(query = {}, searchOption = {}) {
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
@@ -124,6 +84,27 @@ module.exports = class ModelProvider {
       searchOption,
     );
     const finder = new Finder(params);
+    return finder;
+  }
+
+  aggregate(query = []) {
+    this.logger.debug(`DBBaseProvider ${this.model.modelName} aggregate`);
+    this.logger.debug('query  : ', JSON.stringify(query));
+    return this.model.aggregate(query).exec();
+  }
+
+  async count(query = {}, searchOption = {}) {
+    this.logger.debug(`DBBaseProvider ${this.model.modelName} count`);
+    this.logger.debug('query  : ', JSON.stringify(query));
+    const finder = await this.buildFinder(query, searchOption);
+    return finder.count();
+  }
+
+  async find(query = {}, searchOption = {}) {
+    this.logger.debug(`DBBaseProvider ${this.model.modelName} find`);
+    this.logger.debug('query  : ', JSON.stringify(query));
+    this.logger.debug('searchOption: ', searchOption);
+    const finder = await this.buildFinder(query, searchOption);
     return finder.find();
   }
 
