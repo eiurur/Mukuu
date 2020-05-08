@@ -29,8 +29,8 @@ const spawnProcess = (cmd, args = [], option = {}) => {
     });
     child.stdout.on('end', () => {
       const stdoutContent = Buffer.concat(stdoutChunks).toString();
-      console.log('stdout chars:', stdoutContent.length);
-      console.log(stdoutContent);
+      logger.info('stdout chars:', stdoutContent.length);
+      logger.info(stdoutContent);
       return resolve(stdoutContent);
     });
 
@@ -39,8 +39,8 @@ const spawnProcess = (cmd, args = [], option = {}) => {
     });
     child.stderr.on('end', () => {
       const stderrContent = Buffer.concat(stderrChunks).toString();
-      console.log('stderr chars:', stderrContent.length);
-      console.log(stderrContent);
+      logger.info('stderr chars:', stderrContent.length);
+      logger.info(stderrContent);
       return reject(stderrContent);
     });
   });

@@ -83,7 +83,6 @@ module.exports = class ModelProvider {
         $in: list.map((item) => item[identifier]),
       };
       conditions.push(tmp);
-      console.log(conditions);
     }
     if (!conditions.length) {
       return null;
@@ -107,7 +106,6 @@ module.exports = class ModelProvider {
         ? {}
         : { $and: [...conditions, ...extendConditions] };
     this.logger.debug(JSON.stringify(q));
-    console.log('q: ', util.inspect(q, false, null));
 
     const params = Object.assign(
       {
