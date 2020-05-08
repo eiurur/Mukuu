@@ -63,24 +63,10 @@ module.exports = class ConditionBuilder {
     this.condition.push(condition);
   }
   addSearchWord(keys = [], { orWords, andWords }) {
-    // const trimedSearchWord = searchWord.trim();
-    // if (!keys || keys.length < 1) return;
-    // const { orWords, andWords } = ConditionBuilder.parseSearchWord(
-    //   trimedSearchWord,
-    // );
     this.addOrSearchWord(keys, orWords);
     this.addAndSearchWord(keys, andWords);
   }
 
-  // addSearchWord(keys = [], searchWord = '') {
-  //   const trimedSearchWord = searchWord.trim();
-  //   if (!keys || keys.length < 1) return;
-  //   const { orWords, andWords } = ConditionBuilder.parseSearchWord(
-  //     trimedSearchWord,
-  //   );
-  //   this.addOrSearchWord(keys, orWords);
-  //   this.addAndSearchWord(keys, andWords);
-  // }
   addOrSearchWord(keys = [], words = new Set()) {
     if (!keys || keys.length < 1) return;
     const condition = {};
@@ -142,30 +128,27 @@ module.exports = class ConditionBuilder {
 
   buildSearch(keys = [], words = [], { type }) {
     const escapedWords = words.map(escapeStringRegexp);
-    console.log(escapedWords);
-    let reg = '';
-
     if (type === 'and') {
       // ref:https://qiita.com/n4o847/items/dbcd0b8af3781d221424
-      // reg = escapedWords.join('|');
-      reg = `${escapedWords.map((word) => `(?=.*${word})`).join('')}`;
+      return keys
+        .map((key) => {
+          return escapedWords.map((word) => {
+            const tmp = {};
+            const reg = `(?=.*${word})`;
+            tmp[key] = new RegExp(`${reg}`, 'i');
+            return tmp;
+          });
+        })
+        .flat();
     }
     if (type === 'or') {
-      reg = escapedWords.join('|');
+      const reg = escapedWords.join('|');
+      return keys.map((key) => {
+        const tmp = {};
+        tmp[key] = new RegExp(`${reg}`, 'i');
+        return tmp;
+      });
     }
-    return keys.map((key) => {
-      const tmp = {};
-      tmp[key] = new RegExp(`${reg}`, 'i');
-      return tmp;
-    });
+    return [];
   }
-
-  // buildSearchCondition(keys = [], word = '', option = {}) {
-  //   const escapedWord = escapeStringRegexp(word);
-  //   return keys.map((key) => {
-  //     const tmp = {};
-  //     tmp[key] = new RegExp(escapedWord, 'i');
-  //     return tmp;
-  //   });
-  // }
 };

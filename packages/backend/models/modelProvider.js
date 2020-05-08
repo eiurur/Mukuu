@@ -27,140 +27,79 @@ module.exports = class ModelProvider {
   }
 
   // preprocess: [{ model: 'User', in: ['screenName'], use: '_id', key: 'postedBy' }],
-  async andProcess(words) {
-    let conditions = [];
-    if (!this.queryOption.preprocess) {
-      return null;
-    }
-    console.log('--- preprocess --- ');
-    console.log(util.inspect(words, false, null));
-    if (words.size === 0) {
-      return null;
-    }
-    for (let process of this.queryOption.preprocess) {
-      if (!process.model) continue;
-      const { pattern, columns, key, identifier } = process;
-
-      const pWords = new Set();
-      if (words.size > 0) {
-        [...words].map((word) => {
-          const matches = [...word.matchAll(pattern.reg)];
-          for (let match of matches) {
-            const word = match[pattern.useIndex];
-            pWords.add(word);
-            const removeWord = match[pattern.removeIndex];
-            words.delete(removeWord);
-          }
-        });
-      }
-      console.log('columns', util.inspect(columns, false, null));
-      const builder = new ConditionBuilder();
-      builder.addAndSearchWord(columns, pWords);
-      if (builder.condition.length === 0) continue;
-      const q = { $and: builder.condition };
-      console.log(util.inspect(q, false, null));
-
-      const { model } = SchemeFactory.create(process.model);
-      const params = Object.assign({
-        model: model,
-        query: q,
-        // populates: this.populates,
-      });
-      const finder = new Finder(params);
-      const list = await finder.find();
-      const tmp = {};
-      tmp[key] = {
-        $in: list.map((item) => item[identifier]),
-      };
-      conditions.push(tmp);
-      console.log(conditions);
-    }
-    if (!conditions.length) {
-      return null;
-    }
-    return { $and: conditions };
-  }
-  async orProcess(words) {
-    let conditions = [];
-    if (!this.queryOption.preprocess) {
-      return null;
-    }
-    console.log('--- preprocess --- ');
-    console.log(util.inspect(words, false, null));
-    if (words.size === 0) {
-      return null;
-    }
-    for (let process of this.queryOption.preprocess) {
-      if (!process.model) continue;
-      const { pattern, columns, key, identifier } = process;
-
-      const pWords = new Set();
-      if (words.size > 0) {
-        [...words].map((word) => {
-          const matches = [...word.matchAll(pattern.reg)];
-          for (let match of matches) {
-            const word = match[pattern.useIndex];
-            pWords.add(word);
-            const removeWord = match[pattern.removeIndex];
-            words.delete(removeWord);
-          }
-        });
-      }
-      console.log('columns', util.inspect(columns, false, null));
-      const builder = new ConditionBuilder();
-      builder.addOrSearchWord(columns, pWords);
-      if (builder.condition.length === 0) continue;
-      const q = { $and: builder.condition };
-      console.log(util.inspect(q, false, null));
-
-      const { model } = SchemeFactory.create(process.model);
-      const params = Object.assign({
-        model: model,
-        query: q,
-        // populates: this.populates,
-      });
-      const finder = new Finder(params);
-      const list = await finder.find();
-      const tmp = {};
-      tmp[key] = {
-        $in: list.map((item) => item[identifier]),
-      };
-      conditions.push(tmp);
-      console.log(conditions);
-    }
-    if (!conditions.length) {
-      return null;
-    }
-    return { $or: conditions };
-  }
   async preprocess({ orWords, andWords }) {
     let conditions = [];
     if (!this.queryOption.preprocess) {
       return conditions;
     }
-    console.log(orWords, andWords);
-    const o = await this.orProcess(orWords);
-    const a = await this.andProcess(andWords);
-    console.log(o, a);
+    const o = await this.buildPreProcessCondition(orWords, {
+      operation: '$or',
+    });
+    const a = await this.buildPreProcessCondition(andWords, {
+      operation: '$and',
+    });
     if (o) conditions.push(o);
     if (a) conditions.push(a);
     return conditions;
   }
+  async buildPreProcessCondition(words, { operation }) {
+    let conditions = [];
+    if (!this.queryOption.preprocess) {
+      return null;
+    }
+    if (words.size === 0) {
+      return null;
+    }
+    for (let process of this.queryOption.preprocess) {
+      if (!process.model) continue;
+      const { pattern, columns, key, identifier } = process;
 
+      const pWords = new Set();
+      if (words.size > 0) {
+        [...words].map((word) => {
+          const matches = [...word.matchAll(pattern.reg)];
+          for (let match of matches) {
+            const word = match[pattern.useIndex];
+            pWords.add(word);
+            const removeWord = match[pattern.removeIndex];
+            words.delete(removeWord);
+          }
+        });
+      }
+      const builder = new ConditionBuilder();
+      builder.addAndSearchWord(columns, pWords);
+      if (builder.condition.length === 0) continue;
+      const q = { $and: builder.condition };
+
+      const { model } = SchemeFactory.create(process.model);
+      const params = Object.assign({
+        model: model,
+        query: q,
+      });
+      const finder = new Finder(params);
+      const list = await finder.find();
+      const tmp = {};
+      tmp[key] = {
+        $in: list.map((item) => item[identifier]),
+      };
+      conditions.push(tmp);
+      console.log(conditions);
+    }
+    if (!conditions.length) {
+      return null;
+    }
+    const condition = {};
+    condition[operation] = conditions;
+    return condition;
+  }
   async buildFinder(query = {}, searchOption = {}) {
     const { orWords, andWords } = ConditionBuilder.parseSearchWord(
       query.searchWord,
     );
     const extendConditions = await this.preprocess({ orWords, andWords });
-    console.log('--- after reject ---');
-    console.log('extendConditions', extendConditions);
-    console.log('orWords', orWords);
-    console.log('andWords', andWords);
-
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
-    // builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
     builder.addSearchWord(this.queryOption.searchWord, { orWords, andWords });
     const conditions = builder.condition;
     const q =
