@@ -48,7 +48,9 @@ module.exports = class ConditionBuilder {
   addIncludeWord(keys = [], searchWord = '') {
     const trimedSearchWord = searchWord.trim();
     if (!keys || keys.length < 1 || trimedSearchWord === '') return;
-    const { orWords, andWords } = this.parseSearchWord(trimedSearchWord);
+    const { orWords, andWords } = ConditionBuilder.parseSearchWord(
+      trimedSearchWord,
+    );
     const escapedWord = [...orWords, ...andWords]
       .map(escapeStringRegexp)
       .join('|');
@@ -60,43 +62,61 @@ module.exports = class ConditionBuilder {
     });
     this.condition.push(condition);
   }
-  addSearchWord(keys = [], searchWord = '') {
-    const trimedSearchWord = searchWord.trim();
-    if (!keys || keys.length < 1 || trimedSearchWord === '') return;
+  addSearchWord(keys = [], { orWords, andWords }) {
+    // const trimedSearchWord = searchWord.trim();
+    // if (!keys || keys.length < 1) return;
+    // const { orWords, andWords } = ConditionBuilder.parseSearchWord(
+    //   trimedSearchWord,
+    // );
+    this.addOrSearchWord(keys, orWords);
+    this.addAndSearchWord(keys, andWords);
+  }
 
-    const { orWords, andWords } = this.parseSearchWord(trimedSearchWord);
+  // addSearchWord(keys = [], searchWord = '') {
+  //   const trimedSearchWord = searchWord.trim();
+  //   if (!keys || keys.length < 1) return;
+  //   const { orWords, andWords } = ConditionBuilder.parseSearchWord(
+  //     trimedSearchWord,
+  //   );
+  //   this.addOrSearchWord(keys, orWords);
+  //   this.addAndSearchWord(keys, andWords);
+  // }
+  addOrSearchWord(keys = [], words = new Set()) {
+    if (!keys || keys.length < 1) return;
     const condition = {};
-    if (orWords.size > 0) {
-      // const orCondition = [...orWords].map((word) => {
-      //   return this.buildSearchCondition(keys, word);
-      // });
-      const orCondition = this.buildSearch(keys, [...orWords], {
+    if (words.size > 0) {
+      const orCondition = this.buildSearch(keys, [...words], {
         type: 'or',
       });
       condition.$or = orCondition;
     }
-    if (andWords.size > 0) {
-      // const andCondition = [...andWords].map((word) => {
-      //   return this.buildSearchCondition(keys, word);
-      // });
-      const andCondition = this.buildSearch(keys, [...andWords], {
+    if (condition.$or) {
+      this.condition.push(condition);
+    }
+  }
+  addAndSearchWord(keys = [], words = new Set()) {
+    if (!keys || keys.length < 1) return;
+    const condition = {};
+    if (words.size > 0) {
+      const andCondition = this.buildSearch(keys, [...words], {
         type: 'and',
       });
       condition.$and = andCondition;
     }
-    if (condition.$or || condition.$and) {
+    if (condition.$and) {
       this.condition.push(condition);
     }
   }
 
-  parseSearchWord(searchWord) {
+  static parseSearchWord(searchWord = '') {
     const orWords = new Set();
     const andWords = new Set();
     const words = searchWord.split(/\s+/);
     if (words && Array.isArray(words)) {
+      const escapedWords = words.map(escapeStringRegexp);
       let prev = '';
-      while (words.length > 0) {
-        const cur = words.shift();
+      while (escapedWords.length > 0) {
+        const cur = escapedWords.shift();
         if (prev.toLocaleLowerCase() === 'or') {
           if (cur !== '') {
             orWords.add(cur);
@@ -121,16 +141,17 @@ module.exports = class ConditionBuilder {
   }
 
   buildSearch(keys = [], words = [], { type }) {
-    const escaped = words.map(escapeStringRegexp);
-    console.log(escaped);
+    const escapedWords = words.map(escapeStringRegexp);
+    console.log(escapedWords);
     let reg = '';
 
     if (type === 'and') {
       // ref:https://qiita.com/n4o847/items/dbcd0b8af3781d221424
-      reg = `^${escaped.map((word) => `(?=.*${word})`).join('')}`;
+      // reg = escapedWords.join('|');
+      reg = `${escapedWords.map((word) => `(?=.*${word})`).join('')}`;
     }
     if (type === 'or') {
-      reg = escaped.join('|');
+      reg = escapedWords.join('|');
     }
     return keys.map((key) => {
       const tmp = {};
@@ -139,12 +160,12 @@ module.exports = class ConditionBuilder {
     });
   }
 
-  buildSearchCondition(keys = [], word = '', option = {}) {
-    const escapedWord = escapeStringRegexp(word);
-    return keys.map((key) => {
-      const tmp = {};
-      tmp[key] = new RegExp(escapedWord, 'i');
-      return tmp;
-    });
-  }
+  // buildSearchCondition(keys = [], word = '', option = {}) {
+  //   const escapedWord = escapeStringRegexp(word);
+  //   return keys.map((key) => {
+  //     const tmp = {};
+  //     tmp[key] = new RegExp(escapedWord, 'i');
+  //     return tmp;
+  //   });
+  // }
 };
