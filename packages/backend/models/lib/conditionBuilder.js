@@ -48,12 +48,8 @@ module.exports = class ConditionBuilder {
   addIncludeWord(keys = [], searchWord = '') {
     const trimedSearchWord = searchWord.trim();
     if (!keys || keys.length < 1 || trimedSearchWord === '') return;
-    // const { orWords, andWords } = this.parseSearchWord(trimedSearchWord);
-    // const escapedWord = [...orWords, ...andWords]
-    //   .map(escapeStringRegexp)
-    //   .join('|');
-    const escapedWord = trimedSearchWord
-      .split(/\s+/)
+    const { orWords, andWords } = this.parseSearchWord(trimedSearchWord);
+    const escapedWord = [...orWords, ...andWords]
       .map(escapeStringRegexp)
       .join('|');
     const condition = {};
@@ -67,29 +63,30 @@ module.exports = class ConditionBuilder {
   addSearchWord(keys = [], searchWord = '') {
     const trimedSearchWord = searchWord.trim();
     if (!keys || keys.length < 1 || trimedSearchWord === '') return;
-    const orWords = trimedSearchWord.split(/\s+/).map(escapeStringRegexp);
+
+    const { orWords, andWords } = this.parseSearchWord(trimedSearchWord);
     const condition = {};
-    if (orWords.length > 0) {
-      const orCondition = [...orWords].map((word) => {
-        return this.buildSearchCondition(keys, word);
+    if (orWords.size > 0) {
+      // const orCondition = [...orWords].map((word) => {
+      //   return this.buildSearchCondition(keys, word);
+      // });
+      const orCondition = this.buildSearch(keys, [...orWords], {
+        type: 'or',
       });
-      condition.$or = orCondition.flat();
+      condition.$or = orCondition;
     }
-    // const { orWords } = this.parseSearchWord(trimedSearchWord);
-    // const condition = {};
-    // if (orWords.size > 0) {
-    //   const orCondition = [...orWords].map((word) => {
-    //     return this.buildSearchCondition(keys, word);
-    //   });
-    //   condition.$or = orCondition.flat();
-    // }
-    // if (andWords.size > 0) {
-    //   const andCondition = [...andWords].map((word) => {
-    //     return this.buildSearchCondition(keys, word);
-    //   });
-    //   condition.$and = andCondition.flat();
-    // }
-    this.condition.push(condition);
+    if (andWords.size > 0) {
+      // const andCondition = [...andWords].map((word) => {
+      //   return this.buildSearchCondition(keys, word);
+      // });
+      const andCondition = this.buildSearch(keys, [...andWords], {
+        type: 'and',
+      });
+      condition.$and = andCondition;
+    }
+    if (condition.$or || condition.$and) {
+      this.condition.push(condition);
+    }
   }
 
   parseSearchWord(searchWord) {
@@ -123,7 +120,26 @@ module.exports = class ConditionBuilder {
     };
   }
 
-  buildSearchCondition(keys = [], word = '') {
+  buildSearch(keys = [], words = [], { type }) {
+    const escaped = words.map(escapeStringRegexp);
+    console.log(escaped);
+    let reg = '';
+
+    if (type === 'and') {
+      // ref:https://qiita.com/n4o847/items/dbcd0b8af3781d221424
+      reg = `^${escaped.map((word) => `(?=.*${word})`).join('')}`;
+    }
+    if (type === 'or') {
+      reg = escaped.join('|');
+    }
+    return keys.map((key) => {
+      const tmp = {};
+      tmp[key] = new RegExp(`${reg}`, 'i');
+      return tmp;
+    });
+  }
+
+  buildSearchCondition(keys = [], word = '', option = {}) {
     const escapedWord = escapeStringRegexp(word);
     return keys.map((key) => {
       const tmp = {};

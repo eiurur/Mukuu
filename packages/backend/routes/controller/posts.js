@@ -105,8 +105,8 @@ module.exports = class PostController {
               month: { $month: '$createdAt' },
               day: { $dayOfMonth: '$createdAt' },
             },
-            // postCount: { $last: '$postCount' },
-            // createdAtLatest: { $max: '$createdAt' },
+            postCount: { $last: '$postCount' },
+            createdAtLatest: { $max: '$createdAt' },
             count: {
               $sum: 1,
             },
@@ -119,16 +119,16 @@ module.exports = class PostController {
             count: 1,
           },
         });
-        // if (sort) {
-        //   query.push({
-        //     $sort: { createdAtLatest: -1 },
-        //   });
-        // } else {
-        //   query.push({
-        //     $sort: { count: -1 },
-        //   });
-        // }
-        // query.push({ $limit: 8 });
+        if (sort) {
+          query.push({
+            $sort: { createdAtLatest: -1 },
+          });
+        } else {
+          query.push({
+            $sort: { count: -1 },
+          });
+        }
+        query.push({ $limit: 8 });
         const posts = await postProvider.aggregate(query);
         return posts;
       })(req.params),

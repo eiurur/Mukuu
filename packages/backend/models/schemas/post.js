@@ -69,7 +69,17 @@ module.exports = {
     raws: ['_id', 'postedBy'],
     range: 'createdAt',
     preprocess: [
-      { model: 'User', in: ['screenName'], use: '_id', key: 'postedBy' },
+      {
+        model: 'User',
+        pattern: {
+          reg: /(@([0-9a-zA-Z_]+))/g,
+          useIndex: 2,
+          removeIndex: 1,
+        },
+        columns: ['screenName'],
+        identifier: '_id',
+        key: 'postedBy',
+      },
     ],
     searchWord: ['text'],
   },

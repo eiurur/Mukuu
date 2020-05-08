@@ -27,53 +27,148 @@ module.exports = class ModelProvider {
   }
 
   // preprocess: [{ model: 'User', in: ['screenName'], use: '_id', key: 'postedBy' }],
-  async preprocess(query = {}) {
+  async andProcess(words) {
+    let conditions = [];
+    if (!this.queryOption.preprocess) {
+      return null;
+    }
+    console.log('--- preprocess --- ');
+    console.log(util.inspect(words, false, null));
+    if (words.size === 0) {
+      return null;
+    }
+    for (let process of this.queryOption.preprocess) {
+      if (!process.model) continue;
+      const { pattern, columns, key, identifier } = process;
+
+      const pWords = new Set();
+      if (words.size > 0) {
+        [...words].map((word) => {
+          const matches = [...word.matchAll(pattern.reg)];
+          for (let match of matches) {
+            const word = match[pattern.useIndex];
+            pWords.add(word);
+            const removeWord = match[pattern.removeIndex];
+            words.delete(removeWord);
+          }
+        });
+      }
+      console.log('columns', util.inspect(columns, false, null));
+      const builder = new ConditionBuilder();
+      builder.addAndSearchWord(columns, pWords);
+      if (builder.condition.length === 0) continue;
+      const q = { $and: builder.condition };
+      console.log(util.inspect(q, false, null));
+
+      const { model } = SchemeFactory.create(process.model);
+      const params = Object.assign({
+        model: model,
+        query: q,
+        // populates: this.populates,
+      });
+      const finder = new Finder(params);
+      const list = await finder.find();
+      const tmp = {};
+      tmp[key] = {
+        $in: list.map((item) => item[identifier]),
+      };
+      conditions.push(tmp);
+      console.log(conditions);
+    }
+    if (!conditions.length) {
+      return null;
+    }
+    return { $and: conditions };
+  }
+  async orProcess(words) {
+    let conditions = [];
+    if (!this.queryOption.preprocess) {
+      return null;
+    }
+    console.log('--- preprocess --- ');
+    console.log(util.inspect(words, false, null));
+    if (words.size === 0) {
+      return null;
+    }
+    for (let process of this.queryOption.preprocess) {
+      if (!process.model) continue;
+      const { pattern, columns, key, identifier } = process;
+
+      const pWords = new Set();
+      if (words.size > 0) {
+        [...words].map((word) => {
+          const matches = [...word.matchAll(pattern.reg)];
+          for (let match of matches) {
+            const word = match[pattern.useIndex];
+            pWords.add(word);
+            const removeWord = match[pattern.removeIndex];
+            words.delete(removeWord);
+          }
+        });
+      }
+      console.log('columns', util.inspect(columns, false, null));
+      const builder = new ConditionBuilder();
+      builder.addOrSearchWord(columns, pWords);
+      if (builder.condition.length === 0) continue;
+      const q = { $and: builder.condition };
+      console.log(util.inspect(q, false, null));
+
+      const { model } = SchemeFactory.create(process.model);
+      const params = Object.assign({
+        model: model,
+        query: q,
+        // populates: this.populates,
+      });
+      const finder = new Finder(params);
+      const list = await finder.find();
+      const tmp = {};
+      tmp[key] = {
+        $in: list.map((item) => item[identifier]),
+      };
+      conditions.push(tmp);
+      console.log(conditions);
+    }
+    if (!conditions.length) {
+      return null;
+    }
+    return { $or: conditions };
+  }
+  async preprocess({ orWords, andWords }) {
     let conditions = [];
     if (!this.queryOption.preprocess) {
       return conditions;
     }
-    if (query.searchWord === undefined || query.searchWord === '') {
-      return conditions;
-    }
-
-    for (let process of this.queryOption.preprocess) {
-      if (process.model) {
-        const builder = new ConditionBuilder();
-        builder.addSearchWord(process.in, query.searchWord);
-        const q =
-          builder.condition.length === 0 ? {} : { $and: builder.condition };
-
-        const { model } = SchemeFactory.create(process.model);
-        const params = Object.assign({
-          model: model,
-          query: q,
-          // populates: this.populates,
-        });
-        const finder = new Finder(params);
-        const list = await finder.find();
-        const tmp = {};
-        tmp[process.key] = { $in: list.map((item) => item[process.use]) };
-        conditions.push(tmp);
-      }
-    }
+    console.log(orWords, andWords);
+    const o = await this.orProcess(orWords);
+    const a = await this.andProcess(andWords);
+    console.log(o, a);
+    if (o) conditions.push(o);
+    if (a) conditions.push(a);
     return conditions;
   }
 
   async buildFinder(query = {}, searchOption = {}) {
+    const { orWords, andWords } = ConditionBuilder.parseSearchWord(
+      query.searchWord,
+    );
+    const extendConditions = await this.preprocess({ orWords, andWords });
+    console.log('--- after reject ---');
+    console.log('extendConditions', extendConditions);
+    console.log('orWords', orWords);
+    console.log('andWords', andWords);
+
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
-    builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
-    const extendConditions = await this.preprocess(query);
-    const conditions = builder.condition.map((condition) => {
-      if (condition.$or) condition.$or = condition.$or.concat(extendConditions);
-      // if (condition.$and)
-      //   condition.$and = condition.$and.concat(extendConditions);
-      return condition;
-    });
-    const q = conditions.length === 0 ? {} : { $and: conditions };
+    // builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
+    builder.addSearchWord(this.queryOption.searchWord, { orWords, andWords });
+    const conditions = builder.condition;
+    const q =
+      conditions.length === 0 && extendConditions.length === 0
+        ? {}
+        : { $and: [...conditions, ...extendConditions] };
     this.logger.debug(JSON.stringify(q));
-    // console.log(util.inspect(q, false, null));
+    console.log('q: ', util.inspect(q, false, null));
 
     const params = Object.assign(
       {
@@ -88,20 +183,20 @@ module.exports = class ModelProvider {
   }
 
   aggregate(query = []) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} aggregate`);
+    this.logger.debug(`DB ${this.model.modelName} aggregate`);
     this.logger.debug('query  : ', JSON.stringify(query));
     return this.model.aggregate(query).exec();
   }
 
   async count(query = {}, searchOption = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} count`);
+    this.logger.debug(`DB ${this.model.modelName} count`);
     this.logger.debug('query  : ', JSON.stringify(query));
     const finder = await this.buildFinder(query, searchOption);
     return finder.count();
   }
 
   async find(query = {}, searchOption = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} find`);
+    this.logger.debug(`DB ${this.model.modelName} find`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('searchOption: ', searchOption);
     const finder = await this.buildFinder(query, searchOption);
@@ -109,7 +204,7 @@ module.exports = class ModelProvider {
   }
 
   findOne(query = {}, fields = {}, options = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} find`);
+    this.logger.debug(`DB ${this.model.modelName} find`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('fields : ', fields);
     this.logger.debug('options: ', options);
@@ -117,9 +212,7 @@ module.exports = class ModelProvider {
   }
 
   findByIdAndUpdate(_id, data, options) {
-    this.logger.debug(
-      `DBBaseProvider ${this.model.modelName} findByIdAndUpdate`,
-    );
+    this.logger.debug(`DB ${this.model.modelName} findByIdAndUpdate`);
     this.logger.debug('_id    : ', _id);
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);
@@ -128,9 +221,7 @@ module.exports = class ModelProvider {
   }
 
   findOneAndUpdate(query, data, options) {
-    this.logger.debug(
-      `DBBaseProvider ${this.model.modelName} findOneAndUpdate`,
-    );
+    this.logger.debug(`DB ${this.model.modelName} findOneAndUpdate`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);
@@ -138,7 +229,7 @@ module.exports = class ModelProvider {
   }
 
   update(query, data, options) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} update`);
+    this.logger.debug(`DB ${this.model.modelName} update`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);
@@ -146,7 +237,7 @@ module.exports = class ModelProvider {
   }
 
   remove(query, data, options) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} remove`);
+    this.logger.debug(`DB ${this.model.modelName} remove`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);

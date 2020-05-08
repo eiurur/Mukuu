@@ -58,6 +58,9 @@ export default {
     },
     current() {
       return Math.min(this.skip, this.total);
+    },
+    useSticky() {
+      return !this.searchOption.searchWord;
     }
   },
   watch: {
