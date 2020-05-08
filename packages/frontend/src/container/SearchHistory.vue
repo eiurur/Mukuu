@@ -8,7 +8,7 @@
             <span
               v-for="item in relatedHistory"
               :key="item._id"
-              @click="selectSearchWord(item.word)"
+              @click="selectSearchWord(item)"
               :title="item.word"
             >
               <span class="word">{{ item.word }}</span>
@@ -21,7 +21,7 @@
             <span
               v-for="item in todayHistory"
               :key="item._id"
-              @click="selectSearchWord(item.word)"
+              @click="selectSearchWord(item)"
               :title="item.word"
             >
               <span class="word">{{ item.word }}</span>
@@ -34,7 +34,7 @@
             <span
               v-for="item in weeklyHistory"
               :key="item._id"
-              @click="selectSearchWord(item.word)"
+              @click="selectSearchWord(item)"
               :title="item.word"
             >
               <span class="word">{{ item.word }}</span>
@@ -59,7 +59,20 @@
             <span
               v-for="item in mostHistory"
               :key="item._id"
-              @click="selectSearchWord(item.word)"
+              @click="selectSearchWord(item)"
+              :title="item.word"
+            >
+              <span class="word">{{ item.word }}</span>
+              <span class="postCount">{{ item.postCount }}</span>
+            </span>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="履歴" name="six">
+          <div class="words">
+            <span
+              v-for="item in selfHistory"
+              :key="item._id"
+              @click="selectSearchWord(item)"
               :title="item.word"
             >
               <span class="word">{{ item.word }}</span>
@@ -128,6 +141,11 @@ export default {
       mostHistory: []
     };
   },
+  computed: {
+    selfHistory() {
+      return this.$store.getters["searchHistory/searchWords"];
+    }
+  },
   methods: {
     async pourHistory() {
       const today = this.$dayjs().valueOf();
@@ -159,8 +177,10 @@ export default {
       const { data } = await history.aggregate("search", param);
       return data;
     },
-    selectSearchWord(text) {
-      this.$emit("selectSearchWord", text);
+    selectSearchWord({ word, postCount }) {
+      this.$emit("selectSearchWord", word);
+      this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
+      this.$store.dispatch("saveLocalStorage");
     },
     handlePolling() {
       if (document.visibilityState === "visible") {

@@ -20,7 +20,7 @@ module.exports = class HistoryController {
         newSH.word = normalizedWord;
         newSH.postCount = postCount;
         await newSH.save();
-        return { result: 'ok' };
+        return { word, postCount };
       })(req.params),
     );
   }

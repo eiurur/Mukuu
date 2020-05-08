@@ -18,6 +18,6 @@ export default {
   },
   async register(type, params) {
     const { data, request } = await axios.post(`${API_ROOT}/history/${type}`, params);
-    return { url: request.responseURL, count: data.count };
+    return { url: request.responseURL, data };
   }
 };

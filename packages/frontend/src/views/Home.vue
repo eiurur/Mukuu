@@ -196,10 +196,15 @@ export default {
       const { word } = this.randomWords.shift();
       this.selectSearchWord(word);
     },
-    registerHistory: debounce(e => {
+    async registerHistory(e) {
       if (!e.target.value) return;
-      history.register("search", { word: e.target.value });
-    }, 1000),
+      const { data } = await history.register("search", {
+        word: e.target.value
+      });
+      const { word, postCount } = data;
+      this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
+      this.$store.dispatch("saveLocalStorage");
+    },
     clear() {
       this.searchOption = {
         searchWord: "",
