@@ -28,7 +28,7 @@
         </el-menu-item>
       </el-menu>
     </aside>
-    <main>
+    <main v-cloak>
       <router-view />
     </main>
   </div>
