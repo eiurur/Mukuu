@@ -82,7 +82,7 @@ module.exports = class TweetCrawler {
   }
   async start(api, searchParam, { rejectPattern, isFinish }) {
     let maxId = 0;
-    logger.info('~~~ START TWEET CRAWLING ~~~');
+    logger.debug('~~~ START TWEET CRAWLING ~~~');
     while (1) {
       try {
         const searchOption = Object.assign(searchParam, {
@@ -94,7 +94,7 @@ module.exports = class TweetCrawler {
         const originalStatuses = statuses.filter(
           (tweet) => !tweet.retweeted_status,
         );
-        logger.info(originalStatuses.length);
+        logger.debug(originalStatuses.length);
         let updatedUserData = false;
         for (let tweet of originalStatuses) {
           tweet = this.expandUrl(tweet);
@@ -103,7 +103,7 @@ module.exports = class TweetCrawler {
             updatedUserData = true;
           }
           if (rejectPattern && rejectPattern(tweet.full_text.toLowerCase())) {
-            logger.info('REJECT:', tweet.full_text.toLowerCase());
+            logger.debug('REJECT:', tweet.full_text.toLowerCase());
             continue;
           }
           await this.save(tweet);
@@ -111,18 +111,18 @@ module.exports = class TweetCrawler {
         const tailTweet = statuses[statuses.length - 1];
         if (!tailTweet) return;
         maxId = this.decStrNum(tailTweet.id_str);
-        logger.info(tailTweet.id_str);
-        logger.info(maxId);
+        logger.debug(tailTweet.id_str);
+        logger.debug(maxId);
 
         await sleep(SEARCH_INTERVAL);
         if (statuses.length <= 0) return;
         if (isFinish && isFinish(tailTweet)) return;
       } catch (e) {
-        logger.info(e);
+        logger.debug(e);
         return;
       }
     }
-    logger.info('~~~ FINISH TWEET CRAWLING ~~~');
+    logger.debug('~~~ FINISH TWEET CRAWLING ~~~');
   }
   statuses(option) {
     return new Promise((resolve, reject) => {
@@ -156,7 +156,7 @@ module.exports = class TweetCrawler {
       },
       option,
     );
-    logger.info(param);
+    logger.debug(param);
     const { data } = await T.get('search/tweets', param);
     return data;
   }
@@ -212,7 +212,7 @@ module.exports = class TweetCrawler {
       });
     }
     if (tweet.extended_entities && tweet.extended_entities.urls) {
-      logger.info(tweet.extended_entities.urls);
+      logger.debug(tweet.extended_entities.urls);
       tweet.extended_entities.urls.map((urls) => {
         tweet.full_text = tweet.full_text.replace(urls.url, urls.expanded_url);
       });

@@ -20,7 +20,6 @@ module.exports = class PostController {
         console.time('posts:count');
         const count = await postProvider.count(query, searchOption);
         console.timeEnd('posts:count');
-
         return { count };
       })(req.params),
     );

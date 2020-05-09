@@ -24,6 +24,7 @@
     "dev:backend": "npm run dev --prefix ./packages/backend",
     "dev:frontend": "npm run dev --prefix ./packages/frontend",
     "start": "concurrently \"npm run start:backend\" \"npm run start:cron \"",
+    "start:prod": "npx cross-env NODE_ENV=production concurrently \"npm run start:backend\" \"npm run start:cron \"",
     "start:backend": "npm run start --prefix ./packages/backend",
     "start:frontend": "npm run start --prefix ./packages/frontend",
     "start:cron": "npm run start:cron --prefix ./packages/backend",
@@ -42,6 +43,7 @@
     "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../",
     "reject": "node ./packages/backend/tasks/database/removeUntargets",
     "crawl:user": "node ./packages/backend/tasks/crawler/tweet/userCrawling.js",
+    "crawl:user:prod": "npx cross-env NODE_ENV=production node ./packages/backend/tasks/crawler/tweet/userCrawling.js",
     "crawl:search": "node ./packages/backend/tasks/crawler/tweet/searchCrawling.js",
     "migrate:history": "node ./packages/backend/tasks/patch/migrateHistoryToSearchHistory"
   },
