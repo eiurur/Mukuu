@@ -8,7 +8,7 @@
             <Icon :user="user" :useUserDrawer="true"></Icon>
             <div class="names">
               <span>{{ user.name }}</span>
-              <span class="screen-name">{{ user.screenName }}</span>
+              <ScreenName :screenName="user.screenName"></ScreenName>
             </div>
             <WatchBtn
               :class="{ absolute: true }"
@@ -80,12 +80,6 @@
       flex-direction: column;
       display: flex;
       padding-left: 1rem;
-      .screen-name {
-        opacity: 0.5;
-        &:before {
-          content: "@";
-        }
-      }
     }
   }
   .description {
@@ -142,6 +136,7 @@
 <script>
 import mediumZoom from "medium-zoom";
 import Icon from "@/components/Icon.vue";
+import ScreenName from "@/components/ScreenName.vue";
 import UserDrawer from "@/container/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
@@ -165,6 +160,7 @@ export default {
     };
   },
   components: {
+    ScreenName,
     UserDrawer,
     Icon,
     Loader,
@@ -242,7 +238,9 @@ export default {
       return tweets
         .filter(p => p.entities && p.entities.media)
         .map(p => p.entities.media)
-        .map(media => media.map(m => `${m.media_url_https}?format=${format}&name=${name}`))
+        .map(media =>
+          media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
+        )
         .flat()
         .sort(() => Math.random() - Math.random())
         .slice(0, count);
@@ -264,7 +262,8 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
       );
     });
   }

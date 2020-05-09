@@ -44,7 +44,7 @@
             <Icon :user="user" :useUserDrawer="true"></Icon>
             <div class="names">
               <span>{{ user.name }}</span>
-              <span class="screen-name">{{ user.screenName }}</span>
+              <ScreenName :screenName="user.screenName"></ScreenName>
             </div>
             <WatchBtn
               :class="{ absolute: true }"
@@ -117,12 +117,6 @@
       flex-direction: column;
       display: flex;
       padding-left: 1rem;
-      .screen-name {
-        opacity: 0.5;
-        &:before {
-          content: "@";
-        }
-      }
     }
   }
   .description {
@@ -155,6 +149,7 @@
 <script>
 import mediumZoom from "medium-zoom";
 import Icon from "@/components/Icon.vue";
+import ScreenName from "@/components/ScreenName.vue";
 import UserDrawer from "@/container/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
@@ -181,6 +176,7 @@ export default {
     };
   },
   components: {
+    ScreenName,
     UserDrawer,
     Icon,
     Loader,

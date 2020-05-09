@@ -14,7 +14,7 @@
       <div class="text">
         <div>
           <span class="name">{{ user.name }}</span>
-          <span class="screen-name">{{ user.screenName }}</span>
+          <ScreenName :screenName="user.screenName"></ScreenName>
         </div>
         <div v-if="user.hostname">
           <i class="el-icon-link"></i>
@@ -71,10 +71,6 @@
 
     & .screen-name {
       padding-left: 0.5rem;
-      opacity: 0.5;
-      &:before {
-        content: "@";
-      }
     }
   }
   & i > * {
@@ -101,6 +97,7 @@
 import Post from "@/components/Post.vue";
 import Icon from "@/components/Icon.vue";
 import Loader from "@/components/Loader.vue";
+import ScreenName from "@/components/ScreenName.vue";
 import UserSearchLink from "@/components/links/UserSearchLink.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
 
@@ -110,6 +107,7 @@ export default {
     Post,
     Icon,
     Loader,
+    ScreenName,
     UserSearchLink,
     WatchBtn
   },

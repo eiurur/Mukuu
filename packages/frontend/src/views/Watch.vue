@@ -15,7 +15,7 @@
             <div class="profile">
               <div class="names">
                 <span class="name">{{ user.name }}</span>
-                <span class="screen-name">{{ user.screenName }}</span>
+                <ScreenName :screenName="user.screenName"></ScreenName>
               </div>
             </div>
             <WatchBtn :user="user"></WatchBtn>
@@ -82,17 +82,12 @@ section + section {
   & .names {
     display: flex;
     flex-direction: column;
-    & .screen-name {
-      opacity: 0.5;
-      &:before {
-        content: "@";
-      }
-    }
   }
 }
 </style>
 
 <script>
+import ScreenName from "@/components/ScreenName.vue";
 import UserDrawer from "@/container/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
@@ -120,6 +115,7 @@ export default {
     };
   },
   components: {
+    ScreenName,
     UserDrawer,
     Post,
     Loader,

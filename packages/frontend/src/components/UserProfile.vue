@@ -6,7 +6,7 @@
     <div class="profile">
       <div class="names">
         <span class="name">{{ post.postedBy.name }}</span>
-        <span class="screen-name">{{ post.postedBy.screenName }}</span>
+        <ScreenName :screenName="post.postedBy.screenName"></ScreenName>
       </div>
       <div class="createdAt">
         <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
@@ -50,12 +50,6 @@
   & .names {
     display: flex;
     flex-direction: column;
-    & .screen-name {
-      opacity: 0.5;
-      &::before {
-        content: "@";
-      }
-    }
     & .createdAt {
       a {
         color: #8899a6;
@@ -67,8 +61,13 @@
 </style>
 
 <script>
+import ScreenName from "@/components/ScreenName.vue";
+
 export default {
   name: "UserProfile",
+  components: {
+    ScreenName
+  },
   props: ["post", "useDrawer"],
   methods: {
     openUserDrawer() {

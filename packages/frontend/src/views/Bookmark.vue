@@ -29,56 +29,6 @@
 section + section {
   margin-top: 0.5rem;
 }
-.bookmarks {
-  margin-top: 1rem;
-  overflow: hidden;
-}
-.watch {
-  position: relative;
-  background: white;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-.watch + .watch {
-  margin-top: 1rem;
-}
-.user {
-  display: flex;
-  align-items: center;
-  .icon {
-    height: 48px;
-    width: 48px;
-    min-width: 48px;
-    max-height: 48px;
-    background: rgba(0, 0, 0, 0.12);
-    border-radius: 100%;
-    cursor: pointer;
-    img {
-      border-radius: 100%;
-    }
-  }
-}
-.profile {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 0.75rem;
-  font-size: 0.75rem;
-  line-height: 1.8;
-  & .names {
-    display: flex;
-    flex-direction: column;
-    & .screen-name {
-      opacity: 0.5;
-      &:before {
-        content: "@";
-      }
-    }
-  }
-}
 </style>
 
 <script>
