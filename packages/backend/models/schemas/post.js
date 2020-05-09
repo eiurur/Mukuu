@@ -58,6 +58,14 @@ PostSchema.index({
   text: 1,
   postedBy: 1,
 });
+PostSchema.index({
+  text: 1,
+  postedBy: 1,
+  createdAt: -1,
+  favoriteCount: -1,
+  retweetCount: -1,
+  totalCount: -1,
+});
 
 mongoose.model('Post', PostSchema);
 
