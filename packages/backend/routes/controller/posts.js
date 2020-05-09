@@ -17,7 +17,9 @@ module.exports = class PostController {
         if (to) query.to = to;
 
         const searchOption = {};
+        console.time('posts:count');
         const count = await postProvider.count(query, searchOption);
+        console.timeEnd('posts:count');
 
         return { count };
       })(req.params),
@@ -43,7 +45,9 @@ module.exports = class PostController {
         if (limit) searchOption.limit = limit;
         if (skip) searchOption.skip = skip;
         if (sort) searchOption.sort = sort;
+        console.time('posts:find');
         const posts = await postProvider.find(query, searchOption);
+        console.timeEnd('posts:find');
         return posts;
       })(req.params),
     );
