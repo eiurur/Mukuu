@@ -41,7 +41,11 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -65,7 +69,11 @@
           v-for="post in posts"
         ></Post>
 
-        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="tail"></TwitterSearchLink>
+        <TwitterSearchLink
+          :searchWord="searchOption.searchWord"
+          v-if="isLoadedLast"
+          class="tail"
+        ></TwitterSearchLink>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
@@ -154,7 +162,7 @@ export default {
       return !this.isCompletedLoading && this.isLoading;
     },
     isLoadedLast() {
-      return this.total !== 0 && this.total === this.current;
+      return !this.shouldShowLoader && this.total !== 0 && this.total === this.current;
     },
     current() {
       return Math.min(this.skip, this.total);
@@ -226,9 +234,7 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to
-            ? ""
-            : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to ? "" : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }

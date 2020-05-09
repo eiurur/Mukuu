@@ -5,8 +5,18 @@
         <p>サイト内で見つかりませんでした。</p>
       </template>
     </TwitterSearchLink>
-    <Post :post="post" :useDrawer="true" mediaType="flex" :key="post._id" v-for="post in posts"></Post>
-    <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="wrap"></TwitterSearchLink>
+    <Post
+      :post="post"
+      :useDrawer="true"
+      mediaType="flex"
+      :key="post._id"
+      v-for="post in posts"
+    ></Post>
+    <TwitterSearchLink
+      :searchWord="searchOption.searchWord"
+      v-if="isLoadedLast"
+      class="wrap"
+    ></TwitterSearchLink>
     <Loader :shouldShowLoader="shouldShowLoader"></Loader>
   </section>
 </template>
@@ -54,7 +64,7 @@ export default {
       return !this.isCompletedLoading && this.isLoading;
     },
     isLoadedLast() {
-      return this.total === this.current;
+      return !this.shouldShowLoader && this.total !== 0 && this.total === this.current;
     },
     current() {
       return Math.min(this.skip, this.total);
