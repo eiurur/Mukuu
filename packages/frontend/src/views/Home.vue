@@ -187,8 +187,7 @@ export default {
       this.isEmpty = false;
       this.skip = skip || 0;
       this.posts = [];
-      this.fetchCount();
-      this.load();
+      Promise.all([this.fetchCount(), this.load()]);
     }, 100).bind(this);
   },
   mounted() {
@@ -223,12 +222,12 @@ export default {
     },
     restoreSearchOptionFromQueryString() {
       const { searchWord, to, sort, skip } = this.$route.query;
+      this.skip = skip ? Number(skip) : 0;
       this.searchOption = {
         searchWord: searchWord || "",
         to: !to ? "" : this.$dayjs(to).format("YYYY-MM-DD"),
         sort: sort || "createdAtDesc"
       };
-      this.skip = skip ? Number(skip) : 0;
     },
     storeSearchOptionToQueryString() {
       this.$router.push({

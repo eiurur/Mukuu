@@ -29,7 +29,11 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -209,8 +213,7 @@ export default {
       this.isCompletedLoading = false;
       this.skip = skip || 0;
       this.users = [];
-      this.fetchCount();
-      this.load();
+      Promise.all([this.fetchCount(), this.load()]);
     }, 100).bind(this);
   },
   mounted() {
@@ -293,8 +296,7 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
   }

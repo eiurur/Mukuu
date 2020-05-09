@@ -89,8 +89,7 @@ export default {
       this.isEmpty = false;
       this.skip = skip || 0;
       this.posts = [];
-      this.fetchCount();
-      this.load();
+      Promise.all([this.fetchCount(), this.load()]);
     }, 500);
   },
   mounted() {
