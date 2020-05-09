@@ -7,7 +7,7 @@ const logger = require(path.join('..', 'logger'))('cron');
 
 const runProcess = async (filepath) => {
   const { stdout, stderr } = await execFileAsync('node', [filepath], {
-    maxBuffer: 1024 * 1024 * 100,
+    maxBuffer: 1024 * 1024 * 10,
     shell: true,
   });
   if (stderr) {
