@@ -55,17 +55,45 @@ PostSchema.index(
 );
 
 PostSchema.index({
-  text: 1,
-  postedBy: 1,
+  text: true,
+  createdAt: -1,
 });
 PostSchema.index({
-  text: 1,
-  postedBy: 1,
-  createdAt: -1,
+  text: true,
   favoriteCount: -1,
+});
+PostSchema.index({
+  text: true,
   retweetCount: -1,
+});
+PostSchema.index({
+  text: true,
   totalCount: -1,
 });
+PostSchema.index({
+  text: true,
+  postedBy: 1,
+  createdAt: -1,
+});
+PostSchema.index({
+  text: true,
+  postedBy: 1,
+  favoriteCount: -1,
+});
+PostSchema.index({
+  text: true,
+  postedBy: 1,
+  retweetCount: -1,
+});
+PostSchema.index({
+  text: true,
+  postedBy: 1,
+  totalCount: -1,
+});
+
+// const explain = require('mongoose-explain');
+// mongoose.set('debug', true);
+// PostSchema.plugin(explain);
 
 mongoose.model('Post', PostSchema);
 
