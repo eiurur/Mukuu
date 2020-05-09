@@ -72,7 +72,7 @@
             <span
               v-for="item in selfHistory"
               :key="item._id"
-              @click="selectSearchWord(item)"
+              @click="selectSearchWord(item, false)"
               :title="item.word"
             >
               <span class="word">{{ item.word }}</span>
@@ -177,10 +177,12 @@ export default {
       const { data } = await history.aggregate("search", param);
       return data;
     },
-    selectSearchWord({ word, postCount }) {
+    selectSearchWord({ word, postCount }, updating = true) {
       this.$emit("selectSearchWord", word);
-      this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
-      this.$store.dispatch("saveLocalStorage");
+      if (updating) {
+        this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
+        this.$store.dispatch("saveLocalStorage");
+      }
     },
     handlePolling() {
       if (document.visibilityState === "visible") {
