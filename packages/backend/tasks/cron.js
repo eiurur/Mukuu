@@ -48,7 +48,7 @@ const spawnProcess = (cmd, args = [], option = {}) => {
 
 const searchCrawlerJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 1,9,12,15,18,20,22 * * *',
+  cronTime: '0 0,12,19,23 * * *',
   onTick: async () => {
     logger.info('--- start search cron ---');
     const args = [
@@ -62,7 +62,7 @@ const searchCrawlerJob = new CronJob({
 });
 const userCrawlerJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '0 0,11,21 * * *',
+  cronTime: '0 3,21 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
     const args = [
@@ -76,7 +76,7 @@ const userCrawlerJob = new CronJob({
 });
 const removeJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '30 0,3,19,22 * * *',
+  cronTime: '30 12 * * *',
   onTick: async () => {
     logger.info('--- start remove cron ---');
     const args = [path.resolve(__dirname, 'database', 'removeUntargets')];
@@ -88,7 +88,7 @@ const removeJob = new CronJob({
 });
 const userJob = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '35 2,12,23 * * *',
+  cronTime: '35 12 * * *',
   onTick: async () => {
     logger.info('--- start user cron ---');
     const args = [path.resolve(__dirname, 'database', 'updateUserDatabase')];
