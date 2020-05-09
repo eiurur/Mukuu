@@ -51,7 +51,7 @@ module.exports = class ModelProvider {
         const finder = new Finder(params);
         const list = await finder.find();
         const tmp = {};
-        tmp[process.identifier] = {
+        tmp[process.key] = {
           $in: list.map((item) => item[process.identifier]),
         };
         conditions.push(tmp);
