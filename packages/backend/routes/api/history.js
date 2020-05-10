@@ -10,7 +10,7 @@ module.exports = (app) => {
     HistoryController.register,
   );
   app.get(
-    `/api/${API_VERSION}/history/:type/aggregate`,
+    `/api/${API_VERSION}/history/:type/aggregates`,
     [parameters.getParameters],
     HistoryController.aggregate,
   );

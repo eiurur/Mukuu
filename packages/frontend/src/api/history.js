@@ -5,7 +5,9 @@ const API_ROOT = `/api/${VERSION}`;
 
 export default {
   async aggregate(type, params) {
-    const { data, request } = await axios.get(`${API_ROOT}/history/${type}/aggregate`, {
+    // const { data, request } = await axios.get(`${API_ROOT}/history/${type}/aggregate`, {
+    // temp
+    const { data, request } = await axios.get(`${API_ROOT}/history/${type}/aggregates`, {
       params
     });
     return { url: request.responseURL, data };

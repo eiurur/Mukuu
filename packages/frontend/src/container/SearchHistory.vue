@@ -148,16 +148,16 @@ export default {
   },
   methods: {
     async pourHistory() {
-      const today = this.$dayjs().valueOf();
-      const yesterday = this.$dayjs()
-        .add(-1, "days")
-        .valueOf();
-      const lastWeek = this.$dayjs()
-        .add(-7, "days")
-        .valueOf();
-      const lastMonth = this.$dayjs()
-        .add(-30, "days")
-        .valueOf();
+      // const today = this.$dayjs().valueOf();
+      // const yesterday = this.$dayjs()
+      //   .add(-1, "days")
+      //   .valueOf();
+      // const lastWeek = this.$dayjs()
+      //   .add(-7, "days")
+      //   .valueOf();
+      // const lastMonth = this.$dayjs()
+      //   .add(-30, "days")
+      //   .valueOf();
       this.relatedHistory = await this.aggregate({ sort: { createdAt: -1 } });
       // this.todayHistory = await this.aggregate({
       //   from: yesterday,
