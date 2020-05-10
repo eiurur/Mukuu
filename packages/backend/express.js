@@ -19,7 +19,7 @@ module.exports = () => {
   app.use(bodyParser.json({ limit: '10mb' }));
   app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
   app.use(methodOverride());
-  app.use(compression({}));
+  app.use(compression({ level: 9 }));
   app.use(
     hostValidation({
       hosts: [
