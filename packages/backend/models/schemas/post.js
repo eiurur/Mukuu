@@ -18,7 +18,7 @@ const PostSchema = new Schema({
     unique: true,
     index: true,
   },
-  text: { type: String, index: true },
+  text: { type: String, index: 1 },
   entities: String,
   favoriteCount: { type: Number, default: 0, index: -1 },
   retweetCount: { type: Number, default: 0, index: -1 },
@@ -31,7 +31,7 @@ const PostSchema = new Schema({
   postedBy: {
     type: ObjectId,
     ref: 'User',
-    index: true,
+    index: 1,
   },
   createdAt: {
     type: Date,
@@ -54,7 +54,7 @@ PostSchema.index(
 );
 
 PostSchema.index({
-  text: true,
+  text: 1,
   postedBy: 1,
 });
 
