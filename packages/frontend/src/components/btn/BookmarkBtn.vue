@@ -1,20 +1,14 @@
 <template>
   <div class="bookmark">
     <span class="item add" v-if="!this.bookmark" @click="addBookmark">
-      <el-tooltip placement="top" effect="light">
-        <div slot="content">ブックマーク</div>
-        <span>
-          <i class="el-icon-collection-tag"></i>
-        </span>
-      </el-tooltip>
+      <span title="ブックマーク">
+        <i class="el-icon-collection-tag"></i>
+      </span>
     </span>
     <span class="item remove" v-if="this.bookmark" @click="removeBookmark">
-      <el-tooltip placement="top" effect="light">
-        <div slot="content">ブックマーク解除</div>
-        <span>
-          <i class="el-icon-collection-tag"></i>
-        </span>
-      </el-tooltip>
+      <span title="ブックマーク解除">
+        <i class="el-icon-collection-tag"></i>
+      </span>
     </span>
   </div>
 </template>

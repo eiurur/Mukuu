@@ -1,22 +1,16 @@
 <template>
   <div class="btn">
     <a class="item add" v-if="!this.watch" @click="addWatch">
-      <el-tooltip placement="top" effect="light">
-        <div slot="content">ウォッチリストに登録する</div>
-        <span>
-          <i class="el-icon-view"></i>
-          <span v-if="this.hasText">ウォッチ</span>
-        </span>
-      </el-tooltip>
+      <span title="ウォッチリストに登録する">
+        <i class="el-icon-view"></i>
+        <span v-if="this.hasText">ウォッチ</span>
+      </span>
     </a>
     <a class="item remove" v-if="this.watch" @click="removeWatch">
-      <el-tooltip placement="top" effect="light">
-        <div slot="content">ウォッチリストから削除する</div>
-        <span>
-          <i class="el-icon-view"></i>
-          <span v-if="this.hasText">ウォッチ中</span>
-        </span>
-      </el-tooltip>
+      <span title="ウォッチリストから削除する">
+        <i class="el-icon-view"></i>
+        <span v-if="this.hasText">ウォッチ中</span>
+      </span>
     </a>
   </div>
 </template>

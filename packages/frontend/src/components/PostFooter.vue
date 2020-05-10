@@ -8,26 +8,7 @@
         <span>{{ post.favoriteCount }}</span>
       </div>
     </div>
-    <div class="controls">
-      <div class="externalLinks">
-        <a
-          class="item"
-          v-for="link in externalLinks"
-          :key="link.url"
-          :href="link.url"
-          target="_blank"
-        >
-          <el-tooltip placement="top" effect="light">
-            <div slot="content">{{ link.url }}</div>
-            <span>
-              <i class="el-icon-link"></i>
-              {{ link.label }}
-            </span>
-          </el-tooltip>
-        </a>
-      </div>
-      <BookmarkBtn :post="post"></BookmarkBtn>
-    </div>
+    <PostFooterControl :post="post"></PostFooterControl>
   </div>
 </template>
 
@@ -37,13 +18,6 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-
-  .controls {
-    display: flex;
-    div + div {
-      padding-left: 1rem;
-    }
-  }
 
   & .item {
     display: block;
@@ -80,46 +54,15 @@
       }
     }
   }
-  & .externalLinks {
-    display: flex;
-    & > a + a {
-      margin-left: 1rem;
-    }
-  }
 }
 </style>
 
 <script>
-import BookmarkBtn from "@/components/btn/BookmarkBtn.vue";
-import { acceptedDomains } from "@mukuu/common/lib/constants";
+import PostFooterControl from "@/components/PostFooterControl.vue";
 
 export default {
   name: "PostFooter",
-  components: { BookmarkBtn },
-  props: ["post"],
-  methods: {},
-  computed: {
-    externalLinks: {
-      get() {
-        return this.post.text
-          .split(/\r\n|\n|\s/)
-          .filter(word => acceptedDomains.some(domain => word.indexOf(domain) !== -1))
-          .map(url => {
-            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
-            if (!match) return null;
-            return match[1];
-          })
-          .filter(url => !!url)
-          .map(url => {
-            const u = new URL(url);
-            return {
-              url: u.href,
-              hostname: u.hostname,
-              label: u.hostname.split(".")[0]
-            };
-          });
-      }
-    }
-  }
+  components: { PostFooterControl },
+  props: ["post"]
 };
 </script>
