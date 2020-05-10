@@ -39,7 +39,7 @@ article.post {
   padding: 1rem;
 
   & > div + div {
-    padding-top: 1rem;
+    margin-top: 0.5rem;
   }
   &:first-child {
     margin-top: 0;

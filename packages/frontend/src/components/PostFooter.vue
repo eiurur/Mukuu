@@ -18,6 +18,7 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-top: 0.5rem;
 
   & .item {
     display: block;
@@ -33,6 +34,7 @@
   }
   & .attributes {
     display: flex;
+    margin-top: 0.5rem;
 
     & > div + div {
       margin-left: 1rem;

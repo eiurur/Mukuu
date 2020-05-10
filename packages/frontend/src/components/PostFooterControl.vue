@@ -54,6 +54,7 @@ export default {
 <style lang="scss" scoped>
 .controls {
   display: flex;
+  margin-top: 0.5rem;
   div + div {
     padding-left: 1rem;
   }

@@ -52,7 +52,7 @@
 
 <style lang="scss" scoped>
 section + section {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .twitter-search-word.tail {

@@ -16,8 +16,8 @@
     </el-col>
     <el-col :span="12">
       <div v-for="result in results" :key="result.data.id_str">
-        <p>{{result.data.id_str}}</p>
-        <p>{{result.data.full_text}}</p>
+        <p>{{ result.data.id_str }}</p>
+        <p>{{ result.data.full_text }}</p>
       </div>
     </el-col>
   </el-row>
@@ -25,7 +25,7 @@
 
 <style lang="scss" scoped>
 section + section {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 </style>
 
