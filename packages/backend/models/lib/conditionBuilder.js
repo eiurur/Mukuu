@@ -126,18 +126,46 @@ module.exports = class ConditionBuilder {
     };
   }
 
+  // buildSearch(keys = [], words = [], { type }) {
+  //   const escapedWords = words.map(escapeStringRegexp);
+  //   return keys
+  //     .map((key) => {
+  //       return escapedWords.map((word) => {
+  //         const tmp = {};
+  //         tmp[key] = word;
+  //         return tmp;
+  //       });
+  //     })
+  //     .flat();
+  // }
+
   buildSearch(keys = [], words = [], { type }) {
     const escapedWords = words.map(escapeStringRegexp);
+    // if (type === 'and') {
+    //   // ref:https://qiita.com/n4o847/items/dbcd0b8af3781d221424
+    //   return keys
+    //     .map((key) => {
+    //       return escapedWords.map((word) => {
+    //         const tmp = {};
+    //         const reg = `(?=.*${word})`;
+    //         tmp[key] = new RegExp(`${reg}`, 'i');
+    //         return tmp;
+    //       });
+    //     })
+    //     .flat();
+    // }
     if (type === 'and') {
       // ref:https://qiita.com/n4o847/items/dbcd0b8af3781d221424
       return keys
         .map((key) => {
-          return escapedWords.map((word) => {
-            const tmp = {};
-            const reg = `(?=.*${word})`;
-            tmp[key] = new RegExp(`${reg}`, 'i');
-            return tmp;
+          const tmp = {};
+          let reg = '^';
+          escapedWords.map((word, i) => {
+            if (i === 0) reg += `(?=[\\s\\S]*${word})`;
+            else reg += `[\\s\\S]*${word}`;
           });
+          tmp[key] = new RegExp(`${reg}`, 'i');
+          return tmp;
         })
         .flat();
     }
