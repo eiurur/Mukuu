@@ -27,7 +27,7 @@ module.exports = () => {
         'localhost:8100',
         '127.0.0.1:9100',
         'localhost:9100',
-        'mukuu.herokuapp.com',
+        'mukuu*.herokuapp.com',
       ],
     }),
   );
