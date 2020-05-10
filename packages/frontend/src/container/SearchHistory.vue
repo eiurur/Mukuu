@@ -16,7 +16,7 @@
             </span>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="日" name="second">
+        <!-- <el-tab-pane label="日" name="second">
           <div class="words">
             <span
               v-for="item in todayHistory"
@@ -41,7 +41,7 @@
               <span class="postCount">{{ item.postCount }}</span>
             </span>
           </div>
-        </el-tab-pane>
+        </el-tab-pane>-->
         <!-- <el-tab-pane label="月" name="fourth">
           <div class="words">
             <span
@@ -159,18 +159,18 @@ export default {
         .add(-30, "days")
         .valueOf();
       this.relatedHistory = await this.aggregate({ sort: { createdAt: -1 } });
-      this.todayHistory = await this.aggregate({
-        from: yesterday,
-        to: today
-      });
-      this.weeklyHistory = await this.aggregate({
-        from: lastWeek,
-        to: today
-      });
-      this.monthlyHistory = await this.aggregate({
-        from: lastMonth,
-        to: today
-      });
+      // this.todayHistory = await this.aggregate({
+      //   from: yesterday,
+      //   to: today
+      // });
+      // this.weeklyHistory = await this.aggregate({
+      //   from: lastWeek,
+      //   to: today
+      // });
+      // this.monthlyHistory = await this.aggregate({
+      //   from: lastMonth,
+      //   to: today
+      // });
       this.mostHistory = await this.aggregate({});
     },
     async aggregate(param) {
@@ -180,7 +180,10 @@ export default {
     selectSearchWord({ word, postCount }, updating = true) {
       this.$emit("selectSearchWord", word);
       if (updating) {
-        this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
+        this.$store.dispatch("searchHistory/addSearchWord", {
+          word,
+          postCount
+        });
         this.$store.dispatch("saveLocalStorage");
       }
     },
@@ -195,7 +198,7 @@ export default {
     startPolling() {
       this.timerID = setInterval(async () => {
         await this.pourHistory();
-      }, 60 * 1000);
+      }, 3 * 60 * 1000);
     },
     stopPolling() {
       clearInterval(this.timerID);

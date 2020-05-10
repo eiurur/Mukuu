@@ -44,139 +44,15 @@ module.exports = class ConditionBuilder {
     this.condition.push(condition);
   }
 
-  // preprocess用(screenName)
-  addIncludeWord(keys = [], searchWord = '') {
-    const trimedSearchWord = searchWord.trim();
-    if (!keys || keys.length < 1 || trimedSearchWord === '') return;
-    const { orWords, andWords } = ConditionBuilder.parseSearchWord(
-      trimedSearchWord,
-    );
-    const escapedWord = [...orWords, ...andWords]
-      .map(escapeStringRegexp)
-      .join('|');
+  addSearchWord(keys = [], searchWord = '') {
+    if (!keys || keys.length < 1 || searchWord === '') return;
+    const escapedWord = escapeStringRegexp(searchWord);
     const condition = {};
     condition.$or = keys.map((key) => {
       const tmp = {};
-      tmp[key] = new RegExp(`(${escapedWord})`, 'i');
+      tmp[key] = new RegExp(escapedWord, 'i');
       return tmp;
     });
     this.condition.push(condition);
-  }
-  addSearchWord(keys = [], { orWords, andWords }) {
-    this.addOrSearchWord(keys, orWords);
-    this.addAndSearchWord(keys, andWords);
-  }
-
-  addOrSearchWord(keys = [], words = new Set()) {
-    if (!keys || keys.length < 1) return;
-    const condition = {};
-    if (words.size > 0) {
-      const orCondition = this.buildSearch(keys, [...words], {
-        type: 'or',
-      });
-      condition.$or = orCondition;
-    }
-    if (condition.$or) {
-      this.condition.push(condition);
-    }
-  }
-  addAndSearchWord(keys = [], words = new Set()) {
-    if (!keys || keys.length < 1) return;
-    const condition = {};
-    if (words.size > 0) {
-      const andCondition = this.buildSearch(keys, [...words], {
-        type: 'and',
-      });
-      condition.$and = andCondition;
-    }
-    if (condition.$and) {
-      this.condition.push(condition);
-    }
-  }
-
-  static parseSearchWord(searchWord = '') {
-    const orWords = new Set();
-    const andWords = new Set();
-    const words = searchWord.split(/\s+/);
-    if (words && Array.isArray(words)) {
-      const escapedWords = words.map(escapeStringRegexp);
-      let prev = '';
-      while (escapedWords.length > 0) {
-        const cur = escapedWords.shift();
-        if (prev.toLocaleLowerCase() === 'or') {
-          if (cur !== '') {
-            orWords.add(cur);
-          }
-        } else if (cur.toLocaleLowerCase() === 'or') {
-          if (prev !== '') {
-            andWords.delete(prev);
-            orWords.add(prev);
-          }
-        } else {
-          if (cur !== '') {
-            andWords.add(cur);
-          }
-        }
-        prev = cur;
-      }
-    }
-    return {
-      orWords,
-      andWords,
-    };
-  }
-
-  // buildSearch(keys = [], words = [], { type }) {
-  //   const escapedWords = words.map(escapeStringRegexp);
-  //   return keys
-  //     .map((key) => {
-  //       return escapedWords.map((word) => {
-  //         const tmp = {};
-  //         tmp[key] = word;
-  //         return tmp;
-  //       });
-  //     })
-  //     .flat();
-  // }
-
-  buildSearch(keys = [], words = [], { type }) {
-    const escapedWords = words.map(escapeStringRegexp);
-    // if (type === 'and') {
-    //   // ref:https://qiita.com/n4o847/items/dbcd0b8af3781d221424
-    //   return keys
-    //     .map((key) => {
-    //       return escapedWords.map((word) => {
-    //         const tmp = {};
-    //         const reg = `(?=.*${word})`;
-    //         tmp[key] = new RegExp(`${reg}`, 'i');
-    //         return tmp;
-    //       });
-    //     })
-    //     .flat();
-    // }
-    if (type === 'and') {
-      // ref:https://qiita.com/n4o847/items/dbcd0b8af3781d221424
-      return keys
-        .map((key) => {
-          const tmp = {};
-          let reg = '^';
-          escapedWords.map((word, i) => {
-            if (i === 0) reg += `(?=[\\s\\S]*${word})`;
-            else reg += `[\\s\\S]*${word}`;
-          });
-          tmp[key] = new RegExp(`${reg}`, 'i');
-          return tmp;
-        })
-        .flat();
-    }
-    if (type === 'or') {
-      const reg = escapedWords.join('|');
-      return keys.map((key) => {
-        const tmp = {};
-        tmp[key] = new RegExp(`${reg}`, 'i');
-        return tmp;
-      });
-    }
-    return [];
   }
 };

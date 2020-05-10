@@ -8,7 +8,7 @@ const ObjectId = Schema.ObjectId;
 // Schemaインタフェースを通してモデルの定義を行う
 // #
 const SearchHistorySchema = new Schema({
-  word: { type: String },
+  word: { type: String, index: true },
   postCount: { type: Number, default: 0 },
   createdAt: {
     type: Date,
