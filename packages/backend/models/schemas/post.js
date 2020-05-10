@@ -96,7 +96,6 @@ PostSchema.index({
 // });
 
 const explain = require('mongoose-explain');
-mongoose.set('debug', true);
 PostSchema.plugin(explain);
 
 mongoose.model('Post', PostSchema);
