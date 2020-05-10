@@ -1,5 +1,5 @@
 module.exports = class Finder {
-  constructor({ model, query, fields, limit, skip, sort, populates }) {
+  constructor({ model, query, fields, limit, skip, sort, populates, hint }) {
     this.model = model;
     this.query = query;
     this.fields = fields;
@@ -7,6 +7,7 @@ module.exports = class Finder {
     this.skip = Number(skip);
     this.sort = sort;
     this.populates = populates;
+    this.hint = hint;
   }
 
   buildQuery(query) {
@@ -24,6 +25,9 @@ module.exports = class Finder {
 
     if (this.populates) {
       query = this.buildPopulate(query);
+    }
+    if (this.hint) {
+      query = query.hint(this.hint);
     }
 
     return query;
@@ -118,7 +122,7 @@ module.exports = class Finder {
   count() {
     return new Promise((resolve, reject) => {
       this.buildQuery(
-        this.model.countDocuments(this.query, this.fields),
+        this.model.find(this.query, this.fields).count(),
       ).exec((err, result) => (err ? reject(err) : resolve(result)));
     });
   }

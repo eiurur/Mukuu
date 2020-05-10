@@ -18,6 +18,7 @@ module.exports = class ModelProvider {
     this.model = Schema.model;
     this.populates = Schema.populates;
     this.queryOption = Schema.queryOption;
+    this.hint = Schema.queryOption.hint;
     this.logger = require(path.join('..', 'logger'))();
     this.logger.level = Schema.logLevel || 'debug';
   }
@@ -112,6 +113,7 @@ module.exports = class ModelProvider {
         model: this.model,
         query: q,
         populates: this.populates,
+        hint: this.hint,
       },
       searchOption,
     );

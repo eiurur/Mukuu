@@ -95,8 +95,8 @@ PostSchema.index({
 //   totalCount: -1,
 // });
 
-const explain = require('mongoose-explain');
-PostSchema.plugin(explain);
+// const explain = require('mongoose-explain');
+// PostSchema.plugin(explain);
 
 mongoose.model('Post', PostSchema);
 
@@ -121,7 +121,7 @@ module.exports = {
       },
     ],
     searchWord: ['text'],
-    hint: { text: 1 },
+    hint: { text: 1, postedBy: 1 },
   },
   populates: ['postedBy'],
 };
