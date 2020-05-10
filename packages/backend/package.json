@@ -40,7 +40,6 @@
     "mongoose-explain": "^0.2.2",
     "mongoose-sequence": "^5.2.2",
     "morgan": "^1.10.0",
-    "node-twitter-api": "^1.8.0",
     "twit": "^2.2.11",
     "url-unshort": "^5.0.0",
     "util": "^0.12.2",

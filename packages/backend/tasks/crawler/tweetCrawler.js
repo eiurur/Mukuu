@@ -2,7 +2,6 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const Twit = require('twit');
-const TwitterAPI = require('node-twitter-api');
 const dayjs = require('dayjs');
 
 const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
@@ -15,11 +14,6 @@ const T = new Twit({
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token: process.env.TWITTER_ACCESS_TOKEN,
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-});
-const twitterAPI = new TwitterAPI({
-  consumerKey: process.env.TWITTER_CONSUMER_KEY,
-  consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callback: process.env.TWITTER_CALLBACK_URL,
 });
 
 const SEARCH_INTERVAL = 1000 * 2;
@@ -124,27 +118,17 @@ module.exports = class TweetCrawler {
     }
     logger.debug('~~~ FINISH TWEET CRAWLING ~~~');
   }
-  statuses(option) {
-    return new Promise((resolve, reject) => {
-      const param = Object.assign(
-        {
-          count: 200,
-          tweet_mode: 'extended',
-          include_entities: true,
-        },
-        option,
-      );
-      twitterAPI.getTimeline(
-        'user_timeline',
-        param,
-        process.env.TWITTER_ACCESS_TOKEN,
-        process.env.TWITTER_ACCESS_TOKEN_SECRET,
-        (error, data, response) => {
-          if (error) return reject(error);
-          return resolve({ statuses: data });
-        },
-      );
-    });
+  async statuses(option) {
+    const param = Object.assign(
+      {
+        count: 200,
+        tweet_mode: 'extended',
+        include_entities: true,
+      },
+      option,
+    );
+    const { data } = await T.get('statuses/user_timeline', param);
+    return { statuses: data };
   }
   async search(option) {
     const param = Object.assign(
