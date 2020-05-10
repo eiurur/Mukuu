@@ -15,8 +15,9 @@ module.exports = class UserController {
         if (searchWord) query.searchWord = searchWord;
 
         const searchOption = {};
+        console.time('users:count');
         const count = await userProvider.count(query, searchOption);
-
+        console.timeEnd('users:count');
         return { count };
       })(req.params),
     );
@@ -46,7 +47,9 @@ module.exports = class UserController {
         if (limit) searchOption.limit = limit;
         if (skip) searchOption.skip = skip;
         if (sort) searchOption.sort = sort;
+        console.time('users:find');
         const users = await userProvider.find(query, searchOption);
+        console.timeEnd('users:find');
 
         if (includePostNum && Number(includePostNum) > 0) {
           const postProvider = ModelProviderFactory.create('post');

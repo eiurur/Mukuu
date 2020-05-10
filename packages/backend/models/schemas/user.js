@@ -41,6 +41,12 @@ const UserSchema = new Schema({
   },
 });
 
+UserSchema.index({
+  name: 1,
+  screenName: 1,
+  description: 1,
+});
+
 mongoose.model('User', UserSchema);
 
 const User = mongoose.model('User');
@@ -51,6 +57,7 @@ module.exports = {
     raws: ['_id'],
     range: 'createdAt',
     searchWord: ['name', 'screenName', 'description'],
+    hint: { name: 1, screenName: 1, description: 1 },
   },
   populates: [],
 };
