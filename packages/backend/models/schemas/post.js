@@ -96,9 +96,9 @@ PostSchema.index({
 //   totalCount: -1,
 // });
 
-// const explain = require('mongoose-explain');
-// mongoose.set('debug', true);
-// PostSchema.plugin(explain);
+const explain = require('mongoose-explain');
+mongoose.set('debug', true);
+PostSchema.plugin(explain);
 
 mongoose.model('Post', PostSchema);
 
