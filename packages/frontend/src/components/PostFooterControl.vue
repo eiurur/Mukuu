@@ -1,17 +1,14 @@
 <template>
   <div class="controls">
     <div class="externalLinks">
-      <a
-        class="item"
+      <ExternalLinkBtn
         v-for="link in externalLinks"
         :key="link.url"
-        :href="link.url"
-        target="_blank"
-      >
-        <ExternalLinkBtn :link="link"></ExternalLinkBtn>
-      </a>
+        :link="link"
+        :useTooltip="true"
+      ></ExternalLinkBtn>
     </div>
-    <BookmarkBtn :post="post"></BookmarkBtn>
+    <BookmarkBtn :post="post" :useTooltip="true"></BookmarkBtn>
   </div>
 </template>
 
@@ -30,9 +27,13 @@ export default {
       get() {
         return this.post.text
           .split(/\r\n|\n|\s/)
-          .filter(word => acceptedDomains.some(domain => word.indexOf(domain) !== -1))
+          .filter(word =>
+            acceptedDomains.some(domain => word.indexOf(domain) !== -1)
+          )
           .map(url => {
-            const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
+            const match = url.match(
+              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
+            );
             if (!match) return null;
             return match[1];
           })
@@ -57,19 +58,6 @@ export default {
   margin-top: 0.5rem;
   div + div {
     padding-left: 1rem;
-  }
-
-  & .item {
-    display: block;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    border-radius: 4rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    & > span {
-      padding: 0rem 1rem;
-    }
   }
 }
 .externalLinks {

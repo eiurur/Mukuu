@@ -1,12 +1,24 @@
 <template>
   <div class="bookmark">
     <span class="item add" v-if="!this.bookmark" @click="addBookmark">
-      <span title="ブックマーク">
+      <el-tooltip placement="top" effect="light" v-if="useTooltip">
+        <div slot="content">ブックマーク</div>
+        <span>
+          <i class="el-icon-collection-tag"></i>
+        </span>
+      </el-tooltip>
+      <span title="ブックマーク" v-if="!useTooltip">
         <i class="el-icon-collection-tag"></i>
       </span>
     </span>
     <span class="item remove" v-if="this.bookmark" @click="removeBookmark">
-      <span title="ブックマーク解除">
+      <el-tooltip placement="top" effect="light" v-if="useTooltip">
+        <div slot="content">ブックマーク解除</div>
+        <span>
+          <i class="el-icon-collection-tag"></i>
+        </span>
+      </el-tooltip>
+      <span title="ブックマーク解除" v-if="!useTooltip">
         <i class="el-icon-collection-tag"></i>
       </span>
     </span>
@@ -41,7 +53,7 @@
 <script>
 export default {
   name: "BookmarkBtn",
-  props: ["post"],
+  props: ["post", "useTooltip"],
   computed: {
     bookmark: {
       get() {
