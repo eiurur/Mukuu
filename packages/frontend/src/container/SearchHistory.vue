@@ -3,82 +3,19 @@
     <div class="padding">
       <div class="title">検索ワード</div>
       <el-tabs v-model="activeName">
-        <el-tab-pane label="直近" name="first">
-          <div class="words">
-            <span
-              v-for="item in relatedHistory"
-              :key="item._id"
-              @click="selectSearchWord(item)"
-              :title="item.word"
-            >
-              <span class="word">{{ item.word }}</span>
-              <span class="postCount">{{ item.postCount }}</span>
-            </span>
-          </div>
+        <el-tab-pane v-for="tab in tabs" :key="tab.name" :label="tab.label" :name="tab.name">
+          <SearchWords
+            :history="tab.history"
+            :shouldUpdate="tab.shouldUpdate"
+            :passSearchWord="passSearchWord"
+          ></SearchWords>
         </el-tab-pane>
-        <!-- <el-tab-pane label="日" name="second">
-          <div class="words">
-            <span
-              v-for="item in todayHistory"
-              :key="item._id"
-              @click="selectSearchWord(item)"
-              :title="item.word"
-            >
-              <span class="word">{{ item.word }}</span>
-              <span class="postCount">{{ item.postCount }}</span>
-            </span>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="週" name="third">
-          <div class="words">
-            <span
-              v-for="item in weeklyHistory"
-              :key="item._id"
-              @click="selectSearchWord(item)"
-              :title="item.word"
-            >
-              <span class="word">{{ item.word }}</span>
-              <span class="postCount">{{ item.postCount }}</span>
-            </span>
-          </div>
-        </el-tab-pane>-->
-        <!-- <el-tab-pane label="月" name="fourth">
-          <div class="words">
-            <span
-              v-for="item in monthlyHistory"
-              :key="item._id"
-              @click="selectSearchWord(item.word)"
-            >
-              <span class="word">{{ item.word }}</span>
-              <span class="postCount">{{ item.postCount }}</span>
-            </span>
-          </div>
-        </el-tab-pane>-->
-        <el-tab-pane label="累計" name="five">
-          <div class="words">
-            <span
-              v-for="item in mostHistory"
-              :key="item._id"
-              @click="selectSearchWord(item)"
-              :title="item.word"
-            >
-              <span class="word">{{ item.word }}</span>
-              <span class="postCount">{{ item.postCount }}</span>
-            </span>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="履歴" name="six">
-          <div class="words">
-            <span
-              v-for="item in selfHistory"
-              :key="item._id"
-              @click="selectSearchWord(item, false)"
-              :title="item.word"
-            >
-              <span class="word">{{ item.word }}</span>
-              <span class="postCount">{{ item.postCount }}</span>
-            </span>
-          </div>
+        <el-tab-pane label="履歴" name="self">
+          <SearchWords
+            :history="selfHistory"
+            :shouldUpdate="false"
+            :passSearchWord="passSearchWord"
+          ></SearchWords>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -125,20 +62,74 @@
 }
 </style>
 <script>
+import SearchWords from "@/components/SearchWords.vue";
+
 import history from "../api/history";
 
 export default {
   name: "SearchHisotry",
-  props: ["word"],
+  props: ["word", "passSearchWord"],
+  components: { SearchWords },
   data() {
+    const today = this.$dayjs().valueOf();
+    const yesterday = this.$dayjs()
+      .add(-1, "days")
+      .valueOf();
+    const lastWeek = this.$dayjs()
+      .add(-7, "days")
+      .valueOf();
+    const lastMonth = this.$dayjs()
+      .add(-30, "days")
+      .valueOf();
     return {
       activeName: "first",
       timerID: null,
-      relatedHistory: [],
-      todayHistory: [],
-      weeklyHistory: [],
-      monthlyHistory: [],
-      mostHistory: []
+      tabs: [
+        {
+          name: "first",
+          label: "直近",
+          args: { sort: { createdAt: -1 } },
+          history: [],
+          shouldUpdate: true
+        },
+        {
+          name: "second",
+          label: "日",
+          args: {
+            from: yesterday,
+            to: today
+          },
+          history: [],
+          shouldUpdate: true
+        },
+        {
+          name: "third",
+          label: "週",
+          args: {
+            from: lastWeek,
+            to: today
+          },
+          history: [],
+          shouldUpdate: true
+        },
+        {
+          name: "fourth",
+          label: "月",
+          args: {
+            from: lastMonth,
+            to: today
+          },
+          history: [],
+          shouldUpdate: true
+        },
+        {
+          name: "five",
+          label: "累計",
+          args: {},
+          history: [],
+          shouldUpdate: true
+        }
+      ]
     };
   },
   computed: {
@@ -148,44 +139,15 @@ export default {
   },
   methods: {
     async pourHistory() {
-      // const today = this.$dayjs().valueOf();
-      // const yesterday = this.$dayjs()
-      //   .add(-1, "days")
-      //   .valueOf();
-      // const lastWeek = this.$dayjs()
-      //   .add(-7, "days")
-      //   .valueOf();
-      // const lastMonth = this.$dayjs()
-      //   .add(-30, "days")
-      //   .valueOf();
-      this.relatedHistory = await this.aggregate({ sort: { createdAt: -1 } });
-      // this.todayHistory = await this.aggregate({
-      //   from: yesterday,
-      //   to: today
-      // });
-      // this.weeklyHistory = await this.aggregate({
-      //   from: lastWeek,
-      //   to: today
-      // });
-      // this.monthlyHistory = await this.aggregate({
-      //   from: lastMonth,
-      //   to: today
-      // });
-      this.mostHistory = await this.aggregate({});
+      this.tabs.map(async tab => {
+        if (tab.args) {
+          tab.history = await this.aggregate(tab.args);
+        }
+      });
     },
     async aggregate(param) {
       const { data } = await history.aggregate("search", param);
       return data;
-    },
-    selectSearchWord({ word, postCount }, updating = true) {
-      this.$emit("selectSearchWord", word);
-      if (updating) {
-        this.$store.dispatch("searchHistory/addSearchWord", {
-          word,
-          postCount
-        });
-        this.$store.dispatch("saveLocalStorage");
-      }
     },
     handlePolling() {
       if (document.visibilityState === "visible") {
