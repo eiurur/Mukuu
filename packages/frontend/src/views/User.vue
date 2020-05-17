@@ -14,7 +14,6 @@
               :class="{ absolute: true }"
               :user="user"
               :hasText="true"
-              :useTooltip="true"
               :style="{ top: 0, right: 0 }"
             ></WatchBtn>
           </div>

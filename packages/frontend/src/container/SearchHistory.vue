@@ -78,9 +78,9 @@ export default {
     const lastWeek = this.$dayjs()
       .add(-7, "days")
       .valueOf();
-    const lastMonth = this.$dayjs()
-      .add(-30, "days")
-      .valueOf();
+    // const lastMonth = this.$dayjs()
+    //   .add(-30, "days")
+    //   .valueOf();
     return {
       activeName: "first",
       timerID: null,
@@ -112,16 +112,16 @@ export default {
           history: [],
           shouldUpdate: true
         },
-        {
-          name: "fourth",
-          label: "月",
-          args: {
-            from: lastMonth,
-            to: today
-          },
-          history: [],
-          shouldUpdate: true
-        },
+        // {
+        //   name: "fourth",
+        //   label: "月",
+        //   args: {
+        //     from: lastMonth,
+        //     to: today
+        //   },
+        //   history: [],
+        //   shouldUpdate: true
+        // },
         {
           name: "five",
           label: "累計",

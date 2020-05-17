@@ -51,9 +51,16 @@
 </style>
 
 <script>
+import { config } from "@/config";
+
 export default {
   name: "BookmarkBtn",
-  props: ["post", "useTooltip"],
+  props: ["post"],
+  data() {
+    return {
+      useTooltip: config.useTooltip
+    };
+  },
   computed: {
     bookmark: {
       get() {

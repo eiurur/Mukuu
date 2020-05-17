@@ -8,7 +8,6 @@
       <WatchBtn
         :class="{ absolute: true }"
         :hasText="true"
-        :useTooltip="true"
         :user="user"
         :style="{ top: 250 + 'px', right: 1 + 'rem' }"
       ></WatchBtn>

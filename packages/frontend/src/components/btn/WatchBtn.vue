@@ -62,9 +62,16 @@ div.btn {
 </style>
 
 <script>
+import { config } from "@/config";
+
 export default {
   name: "WatchBtn",
-  props: ["user", "hasText", "useTooltip"],
+  props: ["user", "hasText"],
+  data() {
+    return {
+      useTooltip: config.useTooltip
+    };
+  },
   computed: {
     watch: {
       get() {

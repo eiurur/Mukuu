@@ -15,9 +15,16 @@
 </template>
 
 <script>
+import { config } from "@/config";
+
 export default {
   name: "ExternalLinkBtn",
-  props: ["link", "useTooltip"]
+  props: ["link"],
+  data() {
+    return {
+      useTooltip: config.useTooltip
+    };
+  }
 };
 </script>
 
