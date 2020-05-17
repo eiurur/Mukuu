@@ -5,9 +5,7 @@
       :class="{ sticky: useSticky }"
       v-if="post.shouldShowDivider"
     >
-      <div class="el-divider__text is-center">
-        {{ post.createdAt }}
-      </div>
+      <div class="el-divider__text is-center">{{ post.createdAt }}</div>
     </div>
 
     <div class="post-container" v-if="hasExternalLink">
@@ -16,8 +14,8 @@
           <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
           <div class="text" v-html="$activateLink(post.text)"></div>
         </div>
-        <GridMediaList v-if="isGrid" :media="post.entities.media"></GridMediaList>
-        <FlexMediaList v-if="isFlex" :media="post.entities.media"></FlexMediaList>
+        <GridMediaList v-if="$mq == 'sm' || isGrid" :media="post.entities.media"></GridMediaList>
+        <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
         <PostFooter :post="post"></PostFooter>
       </article>
     </div>

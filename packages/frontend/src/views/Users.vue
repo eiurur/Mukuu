@@ -73,16 +73,6 @@
             </div>
           </div>
           <FlexMediaList :media="user.medias" class="media-list"></FlexMediaList>
-          <!-- <div v-if="user.medias" class="images">
-            <img
-              :key="media.media_url_https"
-              v-for="media in user.medias"
-              v-lazy="media"
-              class="original"
-              :class="imageWidthStyle(user.medias)"
-              data-zoomable
-            />
-          </div>-->
         </article>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
