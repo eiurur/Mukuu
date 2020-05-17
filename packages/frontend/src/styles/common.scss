@@ -310,10 +310,19 @@ img[lazy='loaded']:after {
   .el-row {
     height: calc(100vh - 5rem);
   }
-  .el-menu--horizontal > .el-menu-item {
-    height: 48px;
-    line-height: 48px;
-    font-size: 1rem;
+  .el-menu--horizontal {
+    justify-content: space-around;
+    display: flex;
+    & > .el-menu-item {
+      height: 48px;
+      line-height: 48px;
+      font-size: 1rem;
+      flex: 1;
+      text-align: center;
+      & > span {
+        display: none;
+      }
+    }
   }
   .el-menu-item {
     padding: 0 1rem;
