@@ -13,9 +13,6 @@
 </template>
 
 <style lang="scss" scoped>
-.media-list-container {
-  height: 320px;
-}
 .media-list {
   display: grid;
   height: 100%;

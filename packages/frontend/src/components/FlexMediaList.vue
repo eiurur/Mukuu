@@ -14,9 +14,6 @@
 </template>
 
 <style lang="scss" scoped>
-.media-list-container {
-  height: 320px;
-}
 .media-list {
   display: flex;
   height: 100%;
@@ -81,7 +78,8 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
       );
     });
   }

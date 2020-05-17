@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="4">
+    <el-col :span="4" class="hidden-smartphone hidden-tablet">
       <div>
         <el-form ref="form" :model="searchOption">
           <el-form-item>
@@ -87,7 +87,7 @@
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
-    <el-col :span="8">
+    <el-col :span="8" class="hidden-smartphone hidden-tablet">
       <UserDrawer></UserDrawer>
     </el-col>
   </el-row>

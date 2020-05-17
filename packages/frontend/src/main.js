@@ -8,6 +8,7 @@ import VueMq from "vue-mq";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import locale from "element-ui/lib/locale/lang/ja";
+// import "element-ui/lib/theme-chalk/display.css";
 import { errorImageBase64 } from "@mukuu/common/lib/constants";
 
 import App from "./App.vue";
