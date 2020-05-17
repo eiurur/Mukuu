@@ -72,7 +72,9 @@
               <span class="suffix">フォロワー</span>
             </div>
           </div>
-          <FlexMediaList :media="user.medias" class="media-list"></FlexMediaList>
+          <!-- <FlexMediaList :media="use.medias" class="media-list"></FlexMediaList> -->
+          <GridMediaList v-if="$mq == 'sm'" :media="user.medias"></GridMediaList>
+          <FlexMediaList v-else :media="user.medias" class="media-list"></FlexMediaList>
         </article>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
@@ -144,6 +146,7 @@ import UserDrawer from "@/container/UserDrawer.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import FlexMediaList from "@/components/FlexMediaList.vue";
+import GridMediaList from "@/components/GridMediaList.vue";
 import Spons from "@/components/sponsor/Spons.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
 import { debounce } from "../plugins/util";
@@ -172,6 +175,7 @@ export default {
     Loader,
     Counter,
     FlexMediaList,
+    GridMediaList,
     Spons,
     WatchBtn
   },
