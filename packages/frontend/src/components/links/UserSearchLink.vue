@@ -15,7 +15,7 @@
   border-radius: 1rem;
   padding: 0 1rem;
   &:hover {
-    background: #daecff;
+    background: #edf4fb;
   }
 
   i + span,
