@@ -295,6 +295,23 @@ img[lazy='loaded']:after {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+  .el-aside {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .profile {
+    .counts {
+      & > div {
+        flex-grow: 1;
+        text-align: center;
+      }
+      .suffix {
+        display: block;
+      }
+    }
+  }
 }
 @media screen and (max-width: 959px) {
   .hidden-tablet {
