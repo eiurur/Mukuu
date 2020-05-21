@@ -11,6 +11,13 @@
 
 <style lang="scss" scoped>
 .user-search-word {
+  transition: background 0.3s;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  &:hover {
+    background: #daecff;
+  }
+
   i + span,
   span + i {
     margin-left: 0.5rem;

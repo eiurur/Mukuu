@@ -75,6 +75,9 @@
           <!-- <FlexMediaList :media="use.medias" class="media-list"></FlexMediaList> -->
           <GridMediaList v-if="$mq == 'sm'" :media="user.medias"></GridMediaList>
           <FlexMediaList v-else :media="user.medias" class="media-list"></FlexMediaList>
+          <div>
+            <UserSearchLink :user="user"></UserSearchLink>
+          </div>
         </article>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
@@ -148,6 +151,7 @@ import Counter from "@/components/Counter.vue";
 import FlexMediaList from "@/components/FlexMediaList.vue";
 import GridMediaList from "@/components/GridMediaList.vue";
 import Spons from "@/components/sponsor/Spons.vue";
+import UserSearchLink from "@/components/links/UserSearchLink.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
 import { debounce } from "../plugins/util";
 import user from "../api/user";
@@ -177,6 +181,7 @@ export default {
     FlexMediaList,
     GridMediaList,
     Spons,
+    UserSearchLink,
     WatchBtn
   },
   computed: {
