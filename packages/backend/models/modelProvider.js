@@ -61,13 +61,13 @@ module.exports = class ModelProvider {
   }
 
   aggregate(query = []) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} aggregate`);
+    this.logger.debug(`DB ${this.model.modelName} aggregate`);
     this.logger.debug('query  : ', JSON.stringify(query));
     return this.model.aggregate(query).exec();
   }
 
   async count(query = {}, searchOption = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} count`);
+    this.logger.debug(`DB ${this.model.modelName} count`);
     this.logger.debug('query  : ', JSON.stringify(query));
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
@@ -95,7 +95,7 @@ module.exports = class ModelProvider {
   }
 
   async find(query = {}, searchOption = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} find`);
+    this.logger.debug(`DB ${this.model.modelName} find`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('searchOption: ', searchOption);
 
@@ -124,7 +124,7 @@ module.exports = class ModelProvider {
   }
 
   findOne(query = {}, fields = {}, options = {}) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} find`);
+    this.logger.debug(`DB ${this.model.modelName} find`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('fields : ', fields);
     this.logger.debug('options: ', options);
@@ -132,9 +132,7 @@ module.exports = class ModelProvider {
   }
 
   findByIdAndUpdate(_id, data, options) {
-    this.logger.debug(
-      `DBBaseProvider ${this.model.modelName} findByIdAndUpdate`,
-    );
+    this.logger.debug(`DB ${this.model.modelName} findByIdAndUpdate`);
     this.logger.debug('_id    : ', _id);
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);
@@ -143,9 +141,7 @@ module.exports = class ModelProvider {
   }
 
   findOneAndUpdate(query, data, options) {
-    this.logger.debug(
-      `DBBaseProvider ${this.model.modelName} findOneAndUpdate`,
-    );
+    this.logger.debug(`DB ${this.model.modelName} findOneAndUpdate`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);
@@ -153,7 +149,7 @@ module.exports = class ModelProvider {
   }
 
   update(query, data, options) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} update`);
+    this.logger.debug(`DB ${this.model.modelName} update`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);
@@ -161,7 +157,7 @@ module.exports = class ModelProvider {
   }
 
   remove(query, data, options) {
-    this.logger.debug(`DBBaseProvider ${this.model.modelName} remove`);
+    this.logger.debug(`DB ${this.model.modelName} remove`);
     this.logger.debug('query  : ', JSON.stringify(query));
     this.logger.debug('data   : ', data);
     this.logger.debug('options: ', options);
