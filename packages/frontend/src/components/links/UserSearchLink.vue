@@ -1,16 +1,14 @@
 <template>
-  <div class="user-search-word">
-    <div class="center">
-      <a :href="this.twitterSearchLink" target="_blank">
-        <i class="el-icon-link"></i>
-        <span>Twitterで検索する</span>
-      </a>
-    </div>
-  </div>
+  <a class="user-search-word" :href="this.twitterSearchLink" target="_blank">
+    <i class="el-icon-link"></i>
+    <span>Twitterで検索する</span>
+  </a>
 </template>
 
 <style lang="scss" scoped>
 .user-search-word {
+  display: block;
+  text-align: center;
   transition: background 0.3s;
   border-radius: 1rem;
   padding: 0 1rem;
