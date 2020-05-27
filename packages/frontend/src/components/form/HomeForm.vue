@@ -52,7 +52,9 @@ export default {
         const { data } = await history.random("search", { limit: 50 });
         this.randomWords = data;
       }
-      const { word } = this.randomWords.shift();
+      const { word, postCount } = this.randomWords.shift();
+      this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
+      this.$store.dispatch("saveLocalStorage");
       this.searchOption.searchWord = word;
     },
     async registerHistory(e) {
