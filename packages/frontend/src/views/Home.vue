@@ -8,7 +8,11 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -17,23 +21,29 @@
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
-        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty" class="wrap">
-          >
-          <template v-slot:caption>
-            <p>サイト内で見つかりませんでした。</p>
-          </template>
-        </TwitterSearchLink>
-        <Post
-          :post="post"
-          :useDrawer="true"
-          :useSticky="useSticky"
-          mediaType="flex"
-          :key="post._id"
-          v-for="post in posts"
-        ></Post>
+        <pull-to :top-load-method="refresh">
+          <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty" class="wrap">
+            >
+            <template v-slot:caption>
+              <p>サイト内で見つかりませんでした。</p>
+            </template>
+          </TwitterSearchLink>
+          <Post
+            :post="post"
+            :useDrawer="true"
+            :useSticky="useSticky"
+            mediaType="flex"
+            :key="post._id"
+            v-for="post in posts"
+          ></Post>
 
-        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="tail"></TwitterSearchLink>
-        <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+          <TwitterSearchLink
+            :searchWord="searchOption.searchWord"
+            v-if="isLoadedLast"
+            class="tail"
+          ></TwitterSearchLink>
+          <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+        </pull-to>
       </section>
     </el-col>
     <el-col :span="8" class="hidden-smartphone hidden-tablet">
@@ -67,6 +77,8 @@ section + section {
 </style>
 
 <script>
+import PullTo from "vue-pull-to";
+
 import SearchHistory from "@/container/SearchHistory.vue";
 import UserDrawer from "@/container/UserDrawer.vue";
 
@@ -103,6 +115,7 @@ export default {
     };
   },
   components: {
+    PullTo,
     Counter,
     Loader,
     HomeForm,
@@ -121,11 +134,7 @@ export default {
       return !this.isCompletedLoading && this.isLoading;
     },
     isLoadedLast() {
-      return (
-        !this.shouldShowLoader &&
-        this.total !== 0 &&
-        this.total === this.current
-      );
+      return !this.shouldShowLoader && this.total !== 0 && this.total === this.current;
     },
     current() {
       return Math.min(this.skip, this.total);
@@ -158,6 +167,10 @@ export default {
     this.fetchCount();
   },
   methods: {
+    async refresh(loaded) {
+      await this.search({ skip: 0 });
+      loaded("done");
+    },
     clear() {
       this.searchOption = {
         searchWord: "",
@@ -179,9 +192,7 @@ export default {
       this.$router.push({
         query: {
           searchWord: this.searchOption.searchWord || "",
-          to: !this.searchOption.to
-            ? ""
-            : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          to: !this.searchOption.to ? "" : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }
