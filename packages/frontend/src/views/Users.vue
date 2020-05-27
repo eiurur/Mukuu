@@ -43,7 +43,7 @@
           <div class="identity">
             <Icon :user="user" :useUserDrawer="true"></Icon>
             <div class="names">
-              <span>{{ user.name }}</span>
+              <span class="name">{{ user.name }}</span>
               <ScreenName :screenName="user.screenName"></ScreenName>
             </div>
             <WatchBtn
@@ -112,6 +112,12 @@
       flex-direction: column;
       display: flex;
       padding-left: 1rem;
+      overflow: hidden;
+      & .name {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
   }
   .description {

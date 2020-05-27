@@ -8,9 +8,9 @@
         <span class="name">{{ post.postedBy.name }}</span>
         <ScreenName :screenName="post.postedBy.screenName"></ScreenName>
       </div>
-      <div class="createdAt">
-        <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
-      </div>
+    </div>
+    <div class="createdAt">
+      <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
     </div>
   </div>
 </template>
@@ -19,6 +19,8 @@
 .user {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  overflow: hidden;
   .icon {
     height: 48px;
     width: 48px;
@@ -31,25 +33,36 @@
       border-radius: 100%;
     }
   }
-  & .createdAt a {
-    color: #bbb;
-    &:hover {
-      color: #179afc;
+  & .createdAt {
+    white-space: nowrap;
+    & a {
+      color: #bbb;
+      &:hover {
+        color: #179afc;
+      }
     }
   }
-}
-.profile {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 1rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  & .names {
+  .profile {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    & .names {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      & .name {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
     & .createdAt {
       a {
         color: #8899a6;

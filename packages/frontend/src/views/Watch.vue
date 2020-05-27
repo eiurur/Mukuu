@@ -69,19 +69,30 @@ section + section {
       border-radius: 100%;
     }
   }
-}
-.profile {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 0.75rem;
-  font-size: 0.75rem;
-  line-height: 1.8;
-  & .names {
+  .profile {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1.8;
+    overflow: hidden;
+    & .names {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      & .name {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+  .btn {
+    flex-shrink: 0;
   }
 }
 </style>

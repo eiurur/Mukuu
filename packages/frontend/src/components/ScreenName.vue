@@ -5,7 +5,9 @@
 <style lang="scss" scoped>
 .screen-name {
   opacity: 0.5;
-  // padding-left: 0.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>
 
