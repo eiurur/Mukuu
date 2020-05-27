@@ -1,5 +1,5 @@
 <template>
-  <span class="screen-name">@{{screenName}}</span>
+  <span class="screen-name">@{{ screenName }}</span>
 </template>
 
 <style lang="scss" scoped>

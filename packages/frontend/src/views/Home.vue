@@ -21,29 +21,27 @@
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
-        <pull-to :top-load-method="refresh">
-          <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty" class="wrap">
-            >
-            <template v-slot:caption>
-              <p>サイト内で見つかりませんでした。</p>
-            </template>
-          </TwitterSearchLink>
-          <Post
-            :post="post"
-            :useDrawer="true"
-            :useSticky="useSticky"
-            mediaType="flex"
-            :key="post._id"
-            v-for="post in posts"
-          ></Post>
+        <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isEmpty" class="wrap">
+          >
+          <template v-slot:caption>
+            <p>サイト内で見つかりませんでした。</p>
+          </template>
+        </TwitterSearchLink>
+        <Post
+          :post="post"
+          :useDrawer="true"
+          :useSticky="useSticky"
+          mediaType="flex"
+          :key="post._id"
+          v-for="post in posts"
+        ></Post>
 
-          <TwitterSearchLink
-            :searchWord="searchOption.searchWord"
-            v-if="isLoadedLast"
-            class="tail"
-          ></TwitterSearchLink>
-          <Loader :shouldShowLoader="shouldShowLoader"></Loader>
-        </pull-to>
+        <TwitterSearchLink
+          :searchWord="searchOption.searchWord"
+          v-if="isLoadedLast"
+          class="tail"
+        ></TwitterSearchLink>
+        <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
     <el-col :span="8" class="hidden-smartphone hidden-tablet">
@@ -77,8 +75,6 @@ section + section {
 </style>
 
 <script>
-import PullTo from "vue-pull-to";
-
 import SearchHistory from "@/container/SearchHistory.vue";
 import UserDrawer from "@/container/UserDrawer.vue";
 
@@ -115,7 +111,6 @@ export default {
     };
   },
   components: {
-    PullTo,
     Counter,
     Loader,
     HomeForm,
@@ -167,10 +162,6 @@ export default {
     this.fetchCount();
   },
   methods: {
-    async refresh(loaded) {
-      await this.search({ skip: 0 });
-      loaded("done");
-    },
     clear() {
       this.searchOption = {
         searchWord: "",

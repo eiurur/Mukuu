@@ -3,7 +3,11 @@
     <el-col :span="4" class="hidden-smartphone hidden-tablet">
       <el-form :inline="true" @submit.native.prevent size="mini" class="right-side">
         <el-form-item>
-          <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+          <Counter
+            :current="current"
+            :total="total"
+            @changeCurrentNumber="changeCurrentNumber"
+          ></Counter>
         </el-form-item>
       </el-form>
       <section class="infinite-list">
@@ -25,7 +29,13 @@
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
-        <Post :post="post" :useDrawer="true" mediaType="flex" :key="post._id" v-for="post in posts"></Post>
+        <Post
+          :post="post"
+          :useDrawer="true"
+          mediaType="flex"
+          :key="post._id"
+          v-for="post in posts"
+        ></Post>
         <div class="center" v-if="isEmptyWatches">ウォッチリストに登録がありません。</div>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
