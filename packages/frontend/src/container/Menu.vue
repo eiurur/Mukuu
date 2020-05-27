@@ -24,13 +24,20 @@
       <i class="el-icon-info"></i>
       <span slot="title">About</span>
     </el-menu-item>
+    <el-menu-item>
+      <TweetBtn></TweetBtn>
+    </el-menu-item>
   </el-menu>
 </template>
 
 <script>
+import TweetBtn from "@/components/btn/TweetBtn.vue";
+
 export default {
   name: "Menu",
-
+  components: {
+    TweetBtn
+  },
   data() {
     return {
       activeIndex: ""

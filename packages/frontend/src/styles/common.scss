@@ -238,7 +238,7 @@ img[lazy='loaded']:after {
 }
 .el-divider--horizontal {
   margin: 1.5rem 0;
-  z-index: 100;
+  z-index: 1000;
   &.sticky {
     top: 1.5rem;
     position: sticky;
@@ -265,6 +265,21 @@ img[lazy='loaded']:after {
 }
 .history .el-tabs__item {
   padding: 0 16px;
+}
+.el-menu {
+  height: 100%;
+}
+.el-menu-item:last-of-type {
+  position: absolute;
+  cursor: initial;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  &:hover,
+  &:focus {
+    background: none;
+  }
 }
 
 /* ------ cel-heatmap ------ */
@@ -315,6 +330,9 @@ img[lazy='loaded']:after {
   .media-list-container {
     height: 240px;
   }
+  .twitter-share-button {
+    display: none;
+  }
 }
 @media screen and (max-width: 959px) {
   #app {
@@ -349,6 +367,15 @@ img[lazy='loaded']:after {
       }
       .suffix {
         display: block;
+      }
+    }
+  }
+  .identity {
+    .icon {
+      width: 48px;
+      height: 48px;
+      img {
+        width: 48px;
       }
     }
   }
