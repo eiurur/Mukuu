@@ -333,6 +333,9 @@ img[lazy='loaded']:after {
   .twitter-share-button {
     display: none;
   }
+  .el-menu-item:last-of-type {
+    display: none;
+  }
 }
 @media screen and (max-width: 959px) {
   #app {
