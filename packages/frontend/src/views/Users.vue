@@ -125,9 +125,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: 500;
-    display: table;
     width: 100%;
-    table-layout: fixed;
   }
   .counts {
     font: bold;
