@@ -28,8 +28,8 @@
 
 <style lang="scss" scoped>
 .icon {
-  width: 48px;
-  height: 48px;
+  // width: 48px;
+  // height: 48px;
   background: #ccc;
   border-radius: 100%;
 
@@ -37,8 +37,8 @@
     cursor: pointer;
   }
   & > div {
-    height: 48px;
-    width: 48px;
+    // height: 48px;
+    // width: 48px;
   }
   & a {
     height: 100%;
