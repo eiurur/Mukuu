@@ -115,6 +115,9 @@ img[lazy='loaded']:after {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
 }
 .shadow {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);

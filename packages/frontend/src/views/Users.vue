@@ -121,13 +121,7 @@
     }
   }
   .description {
-    display: table;
-    table-layout: fixed;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     font-weight: 500;
-    width: 100%;
   }
   .counts {
     font: bold;

@@ -6,8 +6,8 @@
       :title="item.word"
       @click="selectSearchWord(item)"
     >
-      <span class="word">{{ item.word }}</span>
-      <span class="postCount">{{ item.postCount }}</span>
+      <span class="oneline-text">{{ item.word }}</span>
+      <span class="post-count">{{ item.postCount }}</span>
     </span>
   </div>
 </template>
@@ -32,15 +32,13 @@
   & + span {
     margin-top: 0.5rem;
   }
-  .word {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
   &:hover {
     background: white;
     border: 1px solid #eee;
   }
+}
+.post-count {
+  margin-left: 0.5rem;
 }
 </style>
 <script>
