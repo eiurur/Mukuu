@@ -25,6 +25,12 @@ export default {
           title: "カスタムオーダーメイド3D2＋ GP―02"
         },
         {
+          link: "https://amzn.to/3gO7fqz",
+          src: "https://pbs.twimg.com/media/EcqVg49UwAAQLDY?format=jpg&name=large",
+          alt: "カスタムオーダーメイド3D2+ GP-01Fb",
+          title: "カスタムオーダーメイド3D2+ GP-01Fb"
+        },
+        {
           link:
             "https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fmono%2Fpcgame%2F-%2Fdetail%2F%3D%2Fcid%3D708apc13139%2F&af_id=ujv4gaydzt1z-002&ch=toolbar&ch_id=link",
           src: "https://pics.dmm.co.jp/mono/game/708apc13139/708apc13139pl.jpg",
