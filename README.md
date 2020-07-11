@@ -36,7 +36,7 @@ vim packages/backend/.env
 
 ```ini
 PORT=9100
-MONGODB_URI=mongodb://127.0.0.1/Mukuu
+DB_URI=mongodb://127.0.0.1/Mukuu
 APP_NAME=Mukuu
 TWITTER_CONSUMER_KEY=<YOUR_KEY> <- change here
 TWITTER_CONSUMER_SECRET=<YOUR_SECRET> <- change here
