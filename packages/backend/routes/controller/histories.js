@@ -69,7 +69,7 @@ module.exports = class HistoryController {
             $sort: { count: -1 },
           });
         }
-        query.push({ $limit: 8 });
+        query.push({ $limit: 10 });
         const histories = await shProvider.aggregate(query);
         return histories;
       })(req.params),

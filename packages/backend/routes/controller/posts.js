@@ -131,7 +131,7 @@ module.exports = class PostController {
             $sort: { count: -1 },
           });
         }
-        query.push({ $limit: 8 });
+        query.push({ $limit: 10 });
         const posts = await postProvider.aggregate(query);
         return posts;
       })(req.params),
