@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import bookmark from "./modules/bookmark";
 import drawer from "./modules/drawer";
+import modal from "./modules/modal";
 import searchHistory from "./modules/searchHistory";
 import watch from "./modules/watch";
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     bookmark,
     drawer,
+    modal,
     searchHistory,
     watch
   },

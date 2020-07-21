@@ -1,0 +1,52 @@
+<template>
+  <el-dialog title width="50vw" height="50vh" top="5vh" :visible.sync="isOpen">
+    <div class="about scrollable">
+      <section class>
+        <h1>このサイトについて</h1>
+        <section>
+          <p>
+            Mukuu は
+            <a href="http://com3d2.jp/" target="_blank">カスタムオーダーメイド3D2(COM3D2)</a>のMODの検索を効率化するためのサイトです。
+          </p>
+          <p>気になったMODの製作者様の過去作品を辿る手段が煩雑だった問題を解消するために作りました。</p>
+        </section>
+        <h1>外部リンク</h1>
+        <section>
+          <p>
+            更新通知/要望対応/不具合報告など:
+            <a href="https://twitter.com/fsns_" target="_blank">Twitter</a>
+          </p>
+          <p>
+            ソースコード:
+            <a href="https://github.com/eiurur/Mukuu" target="_blank">GitHub</a>
+          </p>
+        </section>
+      </section>
+    </div>
+  </el-dialog>
+</template>
+
+<style lang="scss" scoped>
+.about {
+  & section {
+    padding-bottom: 1rem;
+  }
+}
+</style>
+
+<script>
+export default {
+  name: "About",
+  props: ["isModalOpen"],
+  computed: {
+    isOpen: {
+      get() {
+        return this.$store.getters["modal/getAbout"];
+      },
+      set() {
+        this.$store.dispatch("modal/updateAbout");
+      }
+    }
+  }
+};
+</script>

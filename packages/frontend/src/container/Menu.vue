@@ -20,7 +20,7 @@
       <i class="el-icon-collection-tag"></i>
       <span slot="title">Bukuma</span>
     </el-menu-item>
-    <el-menu-item index="about">
+    <el-menu-item @click="updateAboutModal">
       <i class="el-icon-info"></i>
       <span slot="title">About</span>
     </el-menu-item>
@@ -45,6 +45,11 @@ export default {
   },
   mounted() {
     this.activeIndex = this.$route.name;
+  },
+  methods: {
+    updateAboutModal() {
+      this.$store.dispatch("modal/updateAbout");
+    }
   }
 };
 </script>

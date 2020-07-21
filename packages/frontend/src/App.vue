@@ -6,16 +6,19 @@
     <main v-cloak>
       <router-view />
     </main>
+    <About></About>
   </div>
 </template>
 
 <script>
 import Menu from "@/container/Menu.vue";
+import About from "@/components/About.vue";
 
 export default {
   name: "App",
   components: {
-    Menu
+    Menu,
+    About
   }
 };
 </script>
