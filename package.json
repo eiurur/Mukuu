@@ -40,7 +40,7 @@
     "postinstall": "npm run bootstrap && npm run build",
     "clean:dep": "rm -rf node_modules/ && rm -rf ./packages/frontend/node_modules/ && rm -rf ./packages/backend/node_modules",
     "update:dep": "cd ./packages/frontend && npx ncu -u && cd ../../ && cd ./packages/backend && npx ncu -u && cd ../../",
-    "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../",
+    "update:audit": "lerna-audit",
     "reject": "node ./packages/backend/tasks/database/removeUntargets",
     "crawl:user": "node ./packages/backend/tasks/crawler/tweet/userCrawling.js",
     "crawl:user:prod": "npx cross-env NODE_ENV=production node ./packages/backend/tasks/crawler/tweet/userCrawling.js",
@@ -55,5 +55,8 @@
     "chalk": "^3.0.0",
     "concurrently": "^5.1.0",
     "lerna": "^3.20.2"
+  },
+  "devDependencies": {
+    "lerna-audit": "^1.2.0"
   }
 }

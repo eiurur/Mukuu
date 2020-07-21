@@ -1,10 +1,11 @@
 {
   "name": "@mukuu/common",
   "version": "0.0.0",
-  "description": "> TODO: description",
+  "description": "",
   "author": "eiurur <eiurur789@gmail.com>",
+  "private": true,
   "homepage": "https://github.com/eiurur/Mukuu#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "lib/common.js",
   "directories": {
     "lib": "lib",
