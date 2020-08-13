@@ -27,28 +27,28 @@ export default {
       get() {
         return this.post.text
           .split(/\r\n|\n|\s/)
-          .filter(word =>
-            acceptedDomains.some(domain => word.indexOf(domain) !== -1)
+          .filter((word) =>
+            acceptedDomains.some((domain) => word.indexOf(domain) !== -1)
           )
-          .map(url => {
+          .map((url) => {
             const match = url.match(
-              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/
+              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=#!]*))/
             );
             if (!match) return null;
             return match[1];
           })
-          .filter(url => !!url)
-          .map(url => {
+          .filter((url) => !!url)
+          .map((url) => {
             const u = new URL(url);
             return {
               url: u.href,
               hostname: u.hostname,
-              label: u.hostname.split(".")[0]
+              label: u.hostname.split(".")[0],
             };
           });
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

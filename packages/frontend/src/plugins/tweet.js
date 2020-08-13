@@ -4,7 +4,7 @@ const activateLink = t => {
   if (!t) return "";
   return t
     .replace(
-      /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/g,
+      /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=#!]*))/g,
       '<a href="$1" target="_blank">$1</a>'
     )
     .replace(/(^|\s)(@|＠)(\w+)/g, '$1<a href="http://www.twitter.com/$3" target="_blank">@$3</a>')
