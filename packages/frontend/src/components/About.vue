@@ -1,17 +1,14 @@
 <template>
-  <el-dialog title width="50vw" height="50vh" top="5vh" :visible.sync="isOpen">
+  <el-dialog title :visible.sync="isOpen">
     <div class="about scrollable">
       <section class>
         <h1>このサイトについて</h1>
         <section>
           <p>
             Mukuu は
-            <a href="http://com3d2.jp/" target="_blank">カスタムオーダーメイド3D2(COM3D2)</a
-            >のMODの検索を効率化するためのサイトです。
+            <a href="http://com3d2.jp/" target="_blank">カスタムオーダーメイド3D2(COM3D2)</a>のMODの検索を効率化するためのサイトです。
           </p>
-          <p>
-            気になったMODの製作者様の過去作品を辿る手段が煩雑だった問題を解消するために作りました。
-          </p>
+          <p>気になったMODの製作者様の過去作品を辿る手段が煩雑だった問題を解消するために作りました。</p>
           <p>
             収集および表示対象は ux.getuploader.com / drive.google.com / mega.nz
             のいずれかを含むツイートとなっています。
@@ -52,8 +49,8 @@ export default {
       },
       set() {
         this.$store.dispatch("modal/updateAbout");
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

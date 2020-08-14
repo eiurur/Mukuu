@@ -286,6 +286,17 @@ img[lazy='loaded']:after {
   }
 }
 
+.el-dialog__wrapper {
+  padding: 0 1rem;
+}
+.el-dialog {
+  margin-top: 0 !important;
+  top: 50%;
+  width: 720px;
+  max-width: 100%;
+  transform: translateY(-50%);
+}
+
 /* ------ cel-heatmap ------ */
 .cal-heatmap-container rect:hover {
   stroke-width: 1 !important;
