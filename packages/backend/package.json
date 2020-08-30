@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@mukuu/common": "^0.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "bunyan": "^1.8.14",
     "compression": "^1.7.4",
@@ -26,7 +26,7 @@
     "crypto": "1.0.1",
     "csrf": "^3.1.0",
     "csurf": "^1.11.0",
-    "dayjs": "^1.8.33",
+    "dayjs": "^1.8.34",
     "dotenv": "^8.2.0",
     "error-handler": "^1.0.0",
     "escape-string-regexp": "^4.0.0",
@@ -36,7 +36,7 @@
     "host-validation": "^2.0.1",
     "log4js": "^6.3.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.9.29",
+    "mongoose": "^5.10.2",
     "mongoose-explain": "^0.2.2",
     "mongoose-sequence": "^5.2.2",
     "morgan": "^1.10.0",
@@ -46,8 +46,8 @@
     "yakaa": "^1.0.1"
   },
   "devDependencies": {
-    "ava": "^3.11.1",
-    "eslint": "^7.6.0",
+    "ava": "^3.12.1",
+    "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-friendly-formatter": "^4.0.1",

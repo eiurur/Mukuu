@@ -14,12 +14,12 @@
   },
   "dependencies": {
     "@mukuu/common": "^0.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "core-js": "^3.6.5",
-    "dayjs": "^1.8.33",
+    "dayjs": "^1.8.34",
     "element-ui": "^2.13.2",
     "medium-zoom": "^1.0.6",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-analytics": "^5.22.1",
     "vue-calendar-heatmap": "^0.8.4",
     "vue-fragment": "git+https://github.com/grainrigi/vue-fragment#master",
@@ -29,19 +29,19 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.3",
-    "@vue/cli-plugin-e2e-cypress": "^4.5.3",
-    "@vue/cli-plugin-eslint": "^4.5.3",
-    "@vue/cli-plugin-router": "^4.5.3",
-    "@vue/cli-plugin-vuex": "^4.5.3",
-    "@vue/cli-service": "^4.5.3",
+    "@vue/cli-plugin-babel": "^4.5.4",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.4",
+    "@vue/cli-plugin-eslint": "^4.5.4",
+    "@vue/cli-plugin-router": "^4.5.4",
+    "@vue/cli-plugin-vuex": "^4.5.4",
+    "@vue/cli-service": "^4.5.4",
     "@vue/eslint-config-airbnb": "^5.1.0",
     "babel-eslint": "^10.1.0",
-    "compression-webpack-plugin": "^4.0.1",
-    "eslint": "^7.6.0",
+    "compression-webpack-plugin": "^5.0.1",
+    "eslint": "^7.7.0",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.3",
-    "vue-template-compiler": "^2.6.11"
+    "sass-loader": "^10.0.1",
+    "vue-template-compiler": "^2.6.12"
   }
 }
