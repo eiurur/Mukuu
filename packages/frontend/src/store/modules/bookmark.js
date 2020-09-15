@@ -9,7 +9,7 @@ const getters = {
   history: state => state.history || [],
   find: state => id => state.bookmarks.find(bookmark => bookmark.id === id),
   unearth: state => id => {
-    if (state.history) return null;
+    if (!state.history) return null;
     return state.history.find(item => item.bookmarks.find(bookmark => bookmark.id === id));
   }
 };
