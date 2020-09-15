@@ -5,11 +5,13 @@ const state = {
   history: []
 };
 const getters = {
-  bookmarks: state => state.bookmarks,
-  history: state => state.history,
+  bookmarks: state => state.bookmarks || [],
+  history: state => state.history || [],
   find: state => id => state.bookmarks.find(bookmark => bookmark.id === id),
-  unearth: state => id =>
-    state.history.find(item => item.bookmarks.find(bookmark => bookmark.id === id))
+  unearth: state => id => {
+    if (state.history) return null;
+    return state.history.find(item => item.bookmarks.find(bookmark => bookmark.id === id));
+  }
 };
 const actions = {
   // async initialize({ commit }, value) {},
@@ -44,6 +46,7 @@ const mutations = {
     state.bookmarks = state.bookmarks.filter(bookmark => bookmark.id !== payload.id);
   },
   REMOVE_BOOKMARK_FROM_HISTORY(state, payload) {
+    if (!state.history) state.history = [];
     state.history = state.history.map(item => ({
       ...item,
       bookmarks: item.bookmarks.filter(bookmark => bookmark.id !== payload.id)
@@ -64,6 +67,7 @@ const mutations = {
     ];
   },
   REMOVE_HISTORY(state, payload) {
+    if (!state.history) state.history = [];
     state.history = state.history.filter(item => item.id !== payload.id);
   }
 };
