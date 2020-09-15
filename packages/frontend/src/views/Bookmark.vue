@@ -29,16 +29,14 @@
           </el-form-item>
         </el-form>
       </div>
-      <div>
+      <div class="infinite-list">
         <BookmarkHistory
           :history="history"
           :passSelection="passSelection"
           :passClosen="passClosen"
         ></BookmarkHistory>
       </div>
-      <div class="sb">
-        <Spons></Spons>
-      </div>
+      <SponsWide></SponsWide>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -70,7 +68,7 @@ import UserDrawer from "@/container/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
-import Spons from "@/components/sponsor/Spons.vue";
+import SponsWide from "@/components/sponsor/SponsWide.vue";
 import BookmarkHistory from "@/components/BookmarkHistory.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
@@ -94,7 +92,7 @@ export default {
     Loader,
     Counter,
     BookmarkHistory,
-    Spons
+    SponsWide
   },
   computed: {
     canLoad() {
@@ -117,6 +115,12 @@ export default {
     },
     canRestore() {
       return this.hasBookmarks && this.isSelectedHistory;
+    },
+    urls() {
+      return this.bookmarks
+        .map(bookmark => parseToExternalLinks(bookmark.text))
+        .flat()
+        .map(link => link.url);
     }
   },
   watch: {
@@ -160,7 +164,6 @@ export default {
     },
     updateHistory() {
       const history = this.$store.getters["bookmark/history"];
-      console.log(history);
       this.history = history.map(item => ({
         _id: item.id,
         word: this.$dayjs(item.createdAt).format("YYYY/MM/DD HH:mm"),
@@ -223,12 +226,8 @@ export default {
       }
     },
     openLinks() {
-      const urls = this.bookmarks
-        .map(bookmark => parseToExternalLinks(bookmark.text))
-        .flat()
-        .map(link => link.url);
-      if (window.confirm(`${urls.length} つのタグを新しく開きます。よろしいでしょうか？`)) {
-        urls.map(url => window.open(url, "_blank"));
+      if (window.confirm(`${this.urls.length} つのタグを新しく開きます。よろしいでしょうか？`)) {
+        this.urls.map(url => window.open(url, "_blank"));
       }
     }
   }
