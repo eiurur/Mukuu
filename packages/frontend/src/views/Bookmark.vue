@@ -2,11 +2,18 @@
   <el-row :gutter="20">
     <el-col :span="4" class="hidden-smartphone hidden-tablet">
       <div>
-        <el-form :inline="true" @submit.native.prevent size="mini" class="right-side">
+        <el-form :inline="true" @submit.native.prevent size="mini" class="between el-form--inline">
+          <el-form-item>
+            <el-button icon="el-icon-link" @click="openLinks">{{total}} 件のDLリンクを開く</el-button>
+          </el-form-item>
           <el-form-item>
             <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
           </el-form-item>
         </el-form>
+        <!-- <el-form>
+          <el-button icon="el-icon-folder-checked" @click="archive">アーカイブ</el-button>
+          <el-button icon="el-icon-folder-opened" @click="restore"></el-button>
+        </el-form>-->
       </div>
       <div class="sb">
         <Spons></Spons>
@@ -37,6 +44,7 @@ import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import Spons from "@/components/sponsor/Spons.vue";
+import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
   name: "bookmark",
@@ -48,7 +56,7 @@ export default {
       posts: [],
       isLoading: false,
       isCompletedLoading: false,
-      isEmptyWatches: false
+      isEmptyWatches: false,
     };
   },
   components: {
@@ -56,7 +64,7 @@ export default {
     Post,
     Loader,
     Counter,
-    Spons
+    Spons,
   },
   computed: {
     canLoad() {
@@ -67,15 +75,15 @@ export default {
     },
     current() {
       return Math.min(this.skip, this.total);
-    }
+    },
   },
   watch: {
     searchOption: {
       handler() {
         this.search();
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   created() {
     this.search = ({ skip } = {}) => {
@@ -89,7 +97,7 @@ export default {
     this.bookmarks = this.$store.getters["bookmark/bookmarks"];
     if (Array.isArray(this.bookmarks)) {
       this.bookmarks = Array.from(this.bookmarks).reverse();
-      this.bookmarks = this.bookmarks.map(bookmark => {
+      this.bookmarks = this.bookmarks.map((bookmark) => {
         bookmark.shouldShowDivider = false;
         return bookmark;
       });
@@ -128,7 +136,20 @@ export default {
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
       this.$store.dispatch("saveLocalStorage");
-    }
-  }
+    },
+    openLinks() {
+      const urls = this.bookmarks
+        .map((bookmark) => parseToExternalLinks(bookmark.text))
+        .flat()
+        .map((link) => link.url);
+      if (
+        window.confirm(
+          `${urls.length} 個のタグを新しく開きます。よろしいでしょうか？`
+        )
+      ) {
+        urls.map((url) => window.open(url, "_blank"));
+      }
+    },
+  },
 };
 </script>
