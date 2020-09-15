@@ -12,6 +12,7 @@ module.exports = {
     "eol-last": 0,
     "function-paren-newline": 0,
     "no-shadow": 0,
+    "no-alert": 0,
     quotes: 0,
     "no-param-reassign": 0,
     "no-return-assign": 0,
