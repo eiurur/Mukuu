@@ -36,7 +36,9 @@
           :passClosen="passClosen"
         ></BookmarkHistory>
       </div>
-      <SponsWide></SponsWide>
+      <div class="sb">
+        <SponsWide></SponsWide>
+      </div>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
