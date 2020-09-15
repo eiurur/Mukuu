@@ -1,6 +1,6 @@
 <template>
   <div class="bookmark">
-    <span class="item add" v-if="!this.bookmark" @click="addBookmark">
+    <span class="item add" v-if="this.canAddBookmark" @click="addBookmark">
       <el-tooltip placement="top" effect="light" v-if="useTooltip">
         <div slot="content">ブックマーク</div>
         <span>
@@ -11,7 +11,18 @@
         <i class="el-icon-collection-tag"></i>
       </span>
     </span>
-    <span class="item remove" v-if="this.bookmark" @click="removeBookmark">
+    <span class="item remove" v-if="this.isRemovingBookmark" @click="removeBookmark">
+      <el-tooltip placement="top" effect="light" v-if="useTooltip">
+        <div slot="content">ブックマーク解除</div>
+        <span>
+          <i class="el-icon-collection-tag"></i>
+        </span>
+      </el-tooltip>
+      <span title="ブックマーク解除" v-if="!useTooltip">
+        <i class="el-icon-collection-tag"></i>
+      </span>
+    </span>
+    <span class="item history" v-if="this.isRemovingHistory" @click="removeHistory">
       <el-tooltip placement="top" effect="light" v-if="useTooltip">
         <div slot="content">ブックマーク解除</div>
         <span>
@@ -43,6 +54,11 @@
       border: 1px solid #1c84e8;
       color: white;
     }
+    &.history {
+      background: #e8801c;
+      border: 1px solid #e8801c;
+      color: white;
+    }
     & > span {
       padding: 0rem 1rem;
     }
@@ -68,6 +84,22 @@ export default {
         const bookmark = this.$store.getters["bookmark/find"](id);
         return !!bookmark;
       }
+    },
+    history: {
+      get() {
+        const id = this.post.idStr;
+        const history = this.$store.getters["bookmark/unearth"](id);
+        return !!history;
+      }
+    },
+    canAddBookmark() {
+      return !this.bookmark && !this.history;
+    },
+    isRemovingBookmark() {
+      return this.bookmark && !this.history;
+    },
+    isRemovingHistory() {
+      return !this.bookmark && this.history;
     }
   },
   methods: {
@@ -77,6 +109,10 @@ export default {
     },
     removeBookmark() {
       this.$store.dispatch("bookmark/removeBookmark", this.post);
+      this.$store.dispatch("saveLocalStorage");
+    },
+    removeHistory() {
+      this.$store.dispatch("bookmark/removeBookmarkFromHistory", this.post);
       this.$store.dispatch("saveLocalStorage");
     }
   }
