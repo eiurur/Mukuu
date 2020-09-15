@@ -36,9 +36,7 @@
           :passClosen="passClosen"
         ></BookmarkHistory>
       </div>
-      <div class="sb">
-        <Spons></Spons>
-      </div>
+      <SponsWide></SponsWide>
     </el-col>
     <el-col :span="12">
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
@@ -70,7 +68,7 @@ import UserDrawer from "@/container/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
-import Spons from "@/components/sponsor/Spons.vue";
+import SponsWide from "@/components/sponsor/SponsWide.vue";
 import BookmarkHistory from "@/components/BookmarkHistory.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
@@ -94,7 +92,7 @@ export default {
     Loader,
     Counter,
     BookmarkHistory,
-    Spons
+    SponsWide
   },
   computed: {
     canLoad() {
