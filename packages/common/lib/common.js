@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = common;
+module.exports = common();
 
 function common() {
-    // TODO
+  return {};
 }

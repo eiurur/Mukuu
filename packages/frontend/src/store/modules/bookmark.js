@@ -1,8 +1,12 @@
+import { createUID } from "@/plugins/util";
+
 const state = {
-  bookmarks: []
+  bookmarks: [],
+  history: []
 };
 const getters = {
   bookmarks: state => state.bookmarks,
+  history: state => state.history,
   find: state => id => state.bookmarks.find(bookmark => bookmark.id === id)
 };
 const actions = {
@@ -14,6 +18,14 @@ const actions = {
   removeBookmark({ commit }, value) {
     const payload = { ...value, ...{ id: value.idStr } };
     commit("REMOVE_BOOKMARK", payload);
+  },
+  addHistory({ commit }) {
+    commit("ADD_HISTORY");
+    commit("CLEAR_BOOKMARK");
+  },
+  removeHistory({ commit }, value) {
+    const payload = { ...value };
+    commit("REMOVE_HISTORY", payload);
   }
 };
 const mutations = {
@@ -27,6 +39,20 @@ const mutations = {
   },
   CLEAR_BOOKMARK(state) {
     state.bookmarks = [];
+  },
+  ADD_HISTORY(state) {
+    if (!state.history) state.history = [];
+    state.history = [
+      {
+        id: createUID(),
+        createdAt: new Date(),
+        bookmarks: [...state.bookmarks]
+      },
+      ...state.history
+    ];
+  },
+  REMOVE_HISTORY(state, payload) {
+    state.history = state.history.filter(item => item.id !== payload.id);
   }
 };
 export default {

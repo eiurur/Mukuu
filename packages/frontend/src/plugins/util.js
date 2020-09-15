@@ -8,3 +8,18 @@ export function debounce(fn, interval) {
     }, interval);
   };
 }
+
+export function createUID(
+  size = 32,
+  base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+) {
+  const len = base.length;
+  const buf = [];
+  let i = 0;
+
+  while (i < size) {
+    buf.push(base[Math.floor(Math.random() * len)]);
+    i += 1;
+  }
+  return buf.join("");
+}
