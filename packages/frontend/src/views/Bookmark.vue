@@ -2,12 +2,12 @@
   <el-row :gutter="20">
     <el-col :span="4" class="hidden-smartphone hidden-tablet">
       <div>
-        <el-form :inline="true" @submit.native.prevent size="mini" class="between el-form--inline">
-          <el-form-item>
-            <el-button icon="el-icon-link" @click="openLinks" :disabled="!isShownBookmarks"
-              >{{ total }} 件のDLリンクを開く</el-button
-            >
-          </el-form-item>
+        <el-form
+          :inline="true"
+          @submit.native.prevent
+          size="small"
+          class="right-side el-form--inline"
+        >
           <el-form-item>
             <Counter
               :current="current"
@@ -16,15 +16,36 @@
             ></Counter>
           </el-form-item>
         </el-form>
-        <el-form :inline="true" @submit.native.prevent size="mini" class="el-form--inline">
+        <el-form
+          :inline="true"
+          @submit.native.prevent
+          size="small"
+          class="right-side el-form--inline"
+        >
           <el-form-item>
-            <el-button icon="el-icon-folder-checked" @click="archive" :disabled="!canArchive"
-              >アーカイブ</el-button
+            <el-button icon="el-icon-link" @click="openLinks" :disabled="!isShownBookmarks"
+              >{{ total }} 件のDLリンクを開く</el-button
+            >
+          </el-form-item>
+        </el-form>
+        <el-form
+          :inline="true"
+          @submit.native.prevent
+          size="small"
+          class="right-side el-form--inline"
+        >
+          <el-form-item>
+            <el-button
+              type="warning"
+              icon="el-icon-folder-checked"
+              @click="archive"
+              :disabled="!canArchive"
+              >アーカイブする</el-button
             >
           </el-form-item>
           <el-form-item>
             <el-button icon="el-icon-folder-opened" @click="restore" :disabled="!canRestore"
-              >復元</el-button
+              >表示を戻す</el-button
             >
           </el-form-item>
         </el-form>
@@ -62,6 +83,11 @@
 <style lang="scss" scoped>
 section + section {
   margin-top: 0.5rem;
+}
+.title {
+  font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
+  color: #606266;
+  line-height: 40px;
 }
 </style>
 

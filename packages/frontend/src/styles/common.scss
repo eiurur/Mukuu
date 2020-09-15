@@ -182,6 +182,7 @@ img[lazy='loaded']:after {
 .right-side {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   & .el-form-item:last-of-type {
     margin-right: 0;
   }
