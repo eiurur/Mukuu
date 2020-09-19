@@ -13,20 +13,22 @@ export default {
     return {
       links: [
         {
-          link:
-            "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013149.html",
-          src:
-            "//img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013149_img_main.jpg",
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013149.html",
+          src: "//img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013149_img_main.jpg",
           alt: "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）",
-          title:
-            "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）"
+          title: "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）"
         },
         {
           link: "https://amzn.to/3gO7fqz",
-          src:
-            "https://pbs.twimg.com/media/EcqVg49UYAARu-P?format=jpg&name=large",
+          src: "https://pbs.twimg.com/media/EcqVg49UYAARu-P?format=jpg&name=large",
           alt: "カスタムオーダーメイド3D2+ GP-01Fb",
           title: "カスタムオーダーメイド3D2+ GP-01Fb"
+        },
+        {
+          link: "https://amzn.to/35QsVQM",
+          src: "https://pbs.twimg.com/media/EiSFht2VoAInBcO?format=jpg&name=medium",
+          alt: "カスタムオーダーメイド3D2+ GP-01&GP-02",
+          title: "カスタムオーダーメイド3D2+ GP-01&GP-02"
         }
       ]
     };
