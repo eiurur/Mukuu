@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import User from "../views/User.vue";
 import Users from "../views/Users.vue";
 import Watch from "../views/Watch.vue";
 import Bookmark from "../views/Bookmark.vue";
@@ -14,11 +13,6 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
-  },
-  {
-    path: "/user/@:screenName",
-    name: "user",
-    component: User
   },
   {
     path: "/users",
