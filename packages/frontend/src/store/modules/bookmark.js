@@ -2,15 +2,15 @@ import { createUID } from "@/plugins/util";
 
 const state = {
   bookmarks: [],
-  history: []
+  archives: []
 };
 const getters = {
   bookmarks: state => state.bookmarks || [],
-  history: state => state.history || [],
+  archives: state => state.archives || [],
   find: state => id => state.bookmarks.find(bookmark => bookmark.id === id),
   unearth: state => id => {
-    if (!state.history) return null;
-    return state.history.find(item => item.bookmarks.find(bookmark => bookmark.id === id));
+    if (!state.archives) return null;
+    return state.archives.find(item => item.bookmarks.find(bookmark => bookmark.id === id));
   }
 };
 const actions = {
@@ -23,15 +23,15 @@ const actions = {
     const payload = { ...value, ...{ id: value.idStr } };
     commit("REMOVE_BOOKMARK", payload);
   },
-  removeBookmarkFromHistory({ commit }, value) {
+  removeBookmarkFromArchive({ commit }, value) {
     const payload = { ...value, ...{ id: value.idStr } };
     commit("REMOVE_BOOKMARK_FROM_HISTORY", payload);
   },
-  addHistory({ commit }) {
+  addArchive({ commit }) {
     commit("ADD_HISTORY");
     commit("CLEAR_BOOKMARK");
   },
-  removeHistory({ commit }, value) {
+  removeArchive({ commit }, value) {
     const payload = { ...value };
     commit("REMOVE_HISTORY", payload);
   }
@@ -46,8 +46,8 @@ const mutations = {
     state.bookmarks = state.bookmarks.filter(bookmark => bookmark.id !== payload.id);
   },
   REMOVE_BOOKMARK_FROM_HISTORY(state, payload) {
-    if (!state.history) state.history = [];
-    state.history = state.history.map(item => ({
+    if (!state.archives) state.archives = [];
+    state.archives = state.archives.map(item => ({
       ...item,
       bookmarks: item.bookmarks.filter(bookmark => bookmark.id !== payload.id)
     }));
@@ -56,19 +56,19 @@ const mutations = {
     state.bookmarks = [];
   },
   ADD_HISTORY(state) {
-    if (!state.history) state.history = [];
-    state.history = [
+    if (!state.archives) state.archives = [];
+    state.archives = [
       {
         id: createUID(),
         createdAt: new Date(),
         bookmarks: [...state.bookmarks]
       },
-      ...state.history
+      ...state.archives
     ];
   },
   REMOVE_HISTORY(state, payload) {
-    if (!state.history) state.history = [];
-    state.history = state.history.filter(item => item.id !== payload.id);
+    if (!state.archives) state.archives = [];
+    state.archives = state.archives.filter(item => item.id !== payload.id);
   }
 };
 export default {

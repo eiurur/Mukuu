@@ -22,7 +22,7 @@
         <i class="el-icon-collection-tag"></i>
       </span>
     </span>
-    <span class="item history" v-if="this.isRemovingHistory" @click="removeHistory">
+    <span class="item archive" v-if="this.isRemovingArchive" @click="removeArchive">
       <el-tooltip placement="top" effect="light" v-if="useTooltip">
         <div slot="content">ブックマーク解除</div>
         <span>
@@ -54,7 +54,7 @@
       border: 1px solid #1c84e8;
       color: white;
     }
-    &.history {
+    &.archive {
       background: #e8801c;
       border: 1px solid #e8801c;
       color: white;
@@ -85,21 +85,21 @@ export default {
         return !!bookmark;
       }
     },
-    history: {
+    archive: {
       get() {
         const id = this.post.idStr;
-        const history = this.$store.getters["bookmark/unearth"](id);
-        return !!history;
+        const archive = this.$store.getters["bookmark/unearth"](id);
+        return !!archive;
       }
     },
     canAddBookmark() {
-      return !this.bookmark && !this.history;
+      return !this.bookmark && !this.archive;
     },
     isRemovingBookmark() {
-      return this.bookmark && !this.history;
+      return this.bookmark && !this.archive;
     },
-    isRemovingHistory() {
-      return !this.bookmark && this.history;
+    isRemovingArchive() {
+      return !this.bookmark && this.archive;
     }
   },
   methods: {
@@ -111,8 +111,8 @@ export default {
       this.$store.dispatch("bookmark/removeBookmark", this.post);
       this.$store.dispatch("saveLocalStorage");
     },
-    removeHistory() {
-      this.$store.dispatch("bookmark/removeBookmarkFromHistory", this.post);
+    removeArchive() {
+      this.$store.dispatch("bookmark/removeBookmarkFromArchive", this.post);
       this.$store.dispatch("saveLocalStorage");
     }
   }
