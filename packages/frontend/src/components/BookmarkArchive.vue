@@ -1,6 +1,6 @@
 <template>
   <div class="items">
-    <span class="row" v-for="item in history" :key="item._id">
+    <span class="row" v-for="item in archives" :key="item._id">
       <span class="prefix" v-if="passClosen">
         <i class="el-icon-close" @click="close(item)"></i>
       </span>
@@ -69,8 +69,8 @@
 </style>
 <script>
 export default {
-  name: "BookmarkHistory",
-  props: ["history", "shouldUpdate", "passSelection", "passClosen"],
+  name: "BookmarkArchive",
+  props: ["archives", "shouldUpdate", "passSelection", "passClosen"],
   methods: {
     select(item) {
       this.passSelection(item);

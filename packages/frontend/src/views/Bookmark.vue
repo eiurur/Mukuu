@@ -51,11 +51,11 @@
         </el-form>
       </div>
       <div>
-        <BookmarkHistory
-          :history="history"
+        <BookmarkArchive
+          :archives="archives"
           :passSelection="passSelection"
           :passClosen="passClosen"
-        ></BookmarkHistory>
+        ></BookmarkArchive>
       </div>
       <div class="sb">
         <SponsWide></SponsWide>
@@ -97,7 +97,7 @@ import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import SponsWide from "@/components/sponsor/SponsWide.vue";
-import BookmarkHistory from "@/components/BookmarkHistory.vue";
+import BookmarkArchive from "@/components/BookmarkArchive.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
@@ -111,7 +111,7 @@ export default {
       isLoading: false,
       isCompletedLoading: false,
       isEmptyWatches: false,
-      isSelectedHistory: false
+      isSelectedArchive: false
     };
   },
   components: {
@@ -119,7 +119,7 @@ export default {
     Post,
     Loader,
     Counter,
-    BookmarkHistory,
+    BookmarkArchive,
     SponsWide
   },
   computed: {
@@ -139,10 +139,10 @@ export default {
       return this.$store.getters["bookmark/bookmarks"].length > 0;
     },
     canArchive() {
-      return this.hasBookmarks && !this.isSelectedHistory;
+      return this.hasBookmarks && !this.isSelectedArchive;
     },
     canRestore() {
-      return this.hasBookmarks && this.isSelectedHistory;
+      return this.hasBookmarks && this.isSelectedArchive;
     }
   },
   watch: {
@@ -184,9 +184,9 @@ export default {
         });
       }
     },
-    updateHistory() {
-      const history = this.$store.getters["bookmark/history"];
-      this.history = history.map(item => ({
+    updateArchives() {
+      const archives = this.$store.getters["bookmark/archives"];
+      this.archives = archives.map(item => ({
         _id: item.id,
         word: this.$dayjs(item.createdAt).format("YYYY/MM/DD HH:mm"),
         count: item.bookmarks.length
@@ -194,8 +194,8 @@ export default {
     },
     initialize() {
       this.updateBookmarks();
-      this.updateHistory();
-      this.isSelectedHistory = false;
+      this.updateArchives();
+      this.isSelectedArchive = false;
     },
     async load() {
       this.isLoading = true;
@@ -222,7 +222,7 @@ export default {
       this.$store.dispatch("saveLocalStorage");
     },
     archive() {
-      this.$store.dispatch("bookmark/addHistory");
+      this.$store.dispatch("bookmark/addArchive");
       this.$store.dispatch("saveLocalStorage");
       this.initialize();
       this.search();
@@ -232,18 +232,18 @@ export default {
       this.search();
     },
     passSelection(item) {
-      this.isSelectedHistory = true;
-      const history = this.$store.getters["bookmark/history"];
-      const selected = history.find(e => e.id === item._id);
+      this.isSelectedArchive = true;
+      const archives = this.$store.getters["bookmark/archives"];
+      const selected = archives.find(e => e.id === item._id);
       this.bookmarks = selected ? selected.bookmarks : [];
       this.search();
     },
     passClosen(item) {
       if (window.confirm(`「${item.word}」 のブックマークを削除してもよろしいでしょうか？`)) {
         const payload = { id: item._id };
-        this.$store.dispatch("bookmark/removeHistory", payload);
+        this.$store.dispatch("bookmark/removeArchive", payload);
         this.$store.dispatch("saveLocalStorage");
-        this.updateHistory();
+        this.updateArchives();
         this.$forceUpdate(); // FIXME: del
       }
     },
