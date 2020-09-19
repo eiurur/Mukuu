@@ -15,7 +15,7 @@
 <script>
 import BookmarkBtn from "@/components/btn/BookmarkBtn.vue";
 import ExternalLinkBtn from "@/components/btn/ExternalLinkBtn.vue";
-import { acceptedDomains } from "@mukuu/common/lib/constants";
+import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
   name: "PostFooterControl",
@@ -25,30 +25,10 @@ export default {
   computed: {
     externalLinks: {
       get() {
-        return this.post.text
-          .split(/\r\n|\n|\s/)
-          .filter((word) =>
-            acceptedDomains.some((domain) => word.indexOf(domain) !== -1)
-          )
-          .map((url) => {
-            const match = url.match(
-              /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=#!]*))/
-            );
-            if (!match) return null;
-            return match[1];
-          })
-          .filter((url) => !!url)
-          .map((url) => {
-            const u = new URL(url);
-            return {
-              url: u.href,
-              hostname: u.hostname,
-              label: u.hostname.split(".")[0],
-            };
-          });
-      },
-    },
-  },
+        return parseToExternalLinks(this.post.text);
+      }
+    }
+  }
 };
 </script>
 
