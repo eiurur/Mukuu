@@ -1,5 +1,5 @@
 <template>
-  <div class="icon clickable">
+  <div class="icon clickable" :style="style">
     <div v-if="useTwitterPage">
       <a :href="`https://twitter.com/${user.screenName}`" target="_blank">
         <img
@@ -56,17 +56,22 @@ export default {
   props: {
     user: Object,
     useTwitterPage: Boolean,
-    useUserDrawer: Boolean
+    useUserDrawer: Boolean,
+    size: Number
   },
   computed: {
     icon: {
       get() {
         if (!this.user) return this.user;
         const { profileImageUrl } = this.user;
-        return profileImageUrl
-          ? profileImageUrl.replace("_normal", "_bigger")
-          : "";
+        return profileImageUrl ? profileImageUrl.replace("_normal", "_bigger") : "";
       }
+    },
+    style() {
+      return {
+        width: `${this.size}px`,
+        height: `${this.size}px`
+      };
     }
   },
   methods: {
