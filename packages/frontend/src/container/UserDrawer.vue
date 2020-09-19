@@ -20,7 +20,7 @@
           <i class="el-icon-link"></i>
           <a :href="user.url" target="_blank">{{ user.hostname }}</a>
         </div>
-        <div v-html="$activateLink(user.description)"></div>
+        <div class="description" v-html="$activateLink(user.description)"></div>
       </div>
       <div class="footer">
         <div class="counts">
@@ -35,7 +35,13 @@
       </div>
     </section>
     <section v-infinite-scroll="loadPost" infinite-scroll-disabled="isDisableLoading">
-      <Post :post="post" :useDrawer="false" mediaType="grid" :key="post._id" v-for="post in posts"></Post>
+      <Post
+        :post="post"
+        :useDrawer="false"
+        mediaType="grid"
+        :key="post._id"
+        v-for="post in posts"
+      ></Post>
       <Loader :shouldShowLoader="shouldShowLoader"></Loader>
     </section>
   </section>
@@ -64,6 +70,7 @@
   }
   & .text {
     word-break: break-word;
+    white-space: pre-wrap;
     background: white;
     padding: 0.5rem 1rem;
     padding-top: 3rem;
@@ -72,6 +79,9 @@
     & .screen-name {
       padding-left: 0.5rem;
     }
+  }
+  & .description {
+    white-space: pre-wrap;
   }
   & i > * {
     padding-left: 0.5rem;

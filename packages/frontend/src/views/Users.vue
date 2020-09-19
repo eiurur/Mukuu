@@ -29,7 +29,11 @@
             <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
           </el-form-item>
           <el-form-item>
-            <Counter :current="current" :total="total" @changeCurrentNumber="changeCurrentNumber"></Counter>
+            <Counter
+              :current="current"
+              :total="total"
+              @changeCurrentNumber="changeCurrentNumber"
+            ></Counter>
           </el-form-item>
         </el-form>
       </div>
@@ -41,7 +45,7 @@
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
         <article class="profile" v-for="user in users" :key="user._id">
           <div class="identity">
-            <Icon :user="user" :useUserDrawer="true"></Icon>
+            <Icon :user="user" :useUserDrawer="true" :size="73"></Icon>
             <div class="names">
               <span class="name">{{ user.name }}</span>
               <ScreenName :screenName="user.screenName"></ScreenName>
@@ -96,7 +100,6 @@
   display: flex;
   flex-direction: column;
   background: white;
-  background: white;
   border-radius: 0.25rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   padding: 1rem;
@@ -121,6 +124,7 @@
     }
   }
   .description {
+    white-space: pre-wrap;
     font-weight: 500;
   }
   .counts {
@@ -291,8 +295,7 @@ export default {
       images.map(
         img =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
   }
