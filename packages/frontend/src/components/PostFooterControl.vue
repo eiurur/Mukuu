@@ -26,15 +26,16 @@ export default {
     externalLinks: {
       get() {
         return parseToExternalLinks(this.post.text);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .controls {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 0.5rem;
   div + div {
     padding-left: 1rem;
