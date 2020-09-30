@@ -23,7 +23,10 @@
           class="right-side el-form--inline"
         >
           <el-form-item>
-            <el-button icon="el-icon-link" @click="openLinks" :disabled="!isShownBookmarks"
+            <el-button
+              icon="el-icon-link"
+              @click="openLinks"
+              :disabled="!isShownBookmarks"
               >{{ total }} 件のDLリンクを開く</el-button
             >
           </el-form-item>
@@ -44,7 +47,10 @@
             >
           </el-form-item>
           <el-form-item>
-            <el-button icon="el-icon-folder-opened" @click="restore" :disabled="!canRestore"
+            <el-button
+              icon="el-icon-folder-opened"
+              @click="restore"
+              :disabled="!canRestore"
               >表示を戻す</el-button
             >
           </el-form-item>
@@ -62,7 +68,11 @@
       </div>
     </el-col>
     <el-col :span="12">
-      <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
+      <section
+        class="infinite-list"
+        v-infinite-scroll="load"
+        infinite-scroll-disabled="canLoad"
+      >
         <Post
           :post="post"
           :useDrawer="true"
@@ -70,7 +80,9 @@
           :key="post._id"
           v-for="post in posts"
         ></Post>
-        <div class="center" v-if="isEmptyWatches">ブックマークに登録がありません。</div>
+        <div class="center" v-if="isEmptyWatches">
+          ブックマークに登録がありません。
+        </div>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
@@ -111,7 +123,7 @@ export default {
       isLoading: false,
       isCompletedLoading: false,
       isEmptyWatches: false,
-      isSelectedArchive: false
+      isSelectedArchive: false,
     };
   },
   components: {
@@ -120,7 +132,7 @@ export default {
     Loader,
     Counter,
     BookmarkArchive,
-    SponsWide
+    SponsWide,
   },
   computed: {
     canLoad() {
@@ -143,15 +155,15 @@ export default {
     },
     canRestore() {
       return this.hasBookmarks && this.isSelectedArchive;
-    }
+    },
   },
   watch: {
     searchOption: {
       handler() {
         this.search();
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   created() {
     this.search = ({ skip } = {}) => {
@@ -178,7 +190,7 @@ export default {
       this.bookmarks = this.$store.getters["bookmark/bookmarks"];
       if (Array.isArray(this.bookmarks)) {
         this.bookmarks = Array.from(this.bookmarks).reverse();
-        this.bookmarks = this.bookmarks.map(bookmark => {
+        this.bookmarks = this.bookmarks.map((bookmark) => {
           bookmark.shouldShowDivider = false;
           return bookmark;
         });
@@ -186,10 +198,10 @@ export default {
     },
     updateArchives() {
       const archives = this.$store.getters["bookmark/archives"];
-      this.archives = archives.map(item => ({
+      this.archives = archives.map((item) => ({
         _id: item.id,
         word: this.$dayjs(item.createdAt).format("YYYY/MM/DD HH:mm"),
-        count: item.bookmarks.length
+        count: item.bookmarks.length,
       }));
     },
     initialize() {
@@ -214,6 +226,14 @@ export default {
       this.posts = [...this.posts, ...data];
       this.skip += this.limit;
       this.isLoading = false;
+
+      const url = [
+        window.location.href,
+        new URLSearchParams({ skip: this.skip }).toString(),
+      ].join("?");
+      this.$ga.page({
+        location: url,
+      });
     },
     openUserDrawer(postedBy) {
       if (!postedBy) return;
@@ -234,12 +254,16 @@ export default {
     passSelection(item) {
       this.isSelectedArchive = true;
       const archives = this.$store.getters["bookmark/archives"];
-      const selected = archives.find(e => e.id === item._id);
+      const selected = archives.find((e) => e.id === item._id);
       this.bookmarks = selected ? selected.bookmarks : [];
       this.search();
     },
     passClosen(item) {
-      if (window.confirm(`「${item.word}」 のブックマークを削除してもよろしいでしょうか？`)) {
+      if (
+        window.confirm(
+          `「${item.word}」 のブックマークを削除してもよろしいでしょうか？`
+        )
+      ) {
         const payload = { id: item._id };
         this.$store.dispatch("bookmark/removeArchive", payload);
         this.$store.dispatch("saveLocalStorage");
@@ -249,13 +273,17 @@ export default {
     },
     openLinks() {
       const urls = this.bookmarks
-        .map(bookmark => parseToExternalLinks(bookmark.text))
+        .map((bookmark) => parseToExternalLinks(bookmark.text))
         .flat()
-        .map(link => link.url);
-      if (window.confirm(`${urls.length} つのタグを新しく開きます。よろしいでしょうか？`)) {
-        urls.map(url => window.open(url, "_blank"));
+        .map((link) => link.url);
+      if (
+        window.confirm(
+          `${urls.length} つのタグを新しく開きます。よろしいでしょうか？`
+        )
+      ) {
+        urls.map((url) => window.open(url, "_blank"));
       }
-    }
-  }
+    },
+  },
 };
 </script>
