@@ -16,17 +16,36 @@
               <template slot="prefix">
                 <i class="el-icon-sort prefix-icon"></i>
               </template>
-              <el-option label="登録日時が新しい順" value="createdAtDesc"></el-option>
-              <el-option label="登録日時が古い順" value="createdAtAsc"></el-option>
-              <el-option label="フォロワーが多い順" value="followersCountDesc"></el-option>
-              <el-option label="投稿数が多い順" value="postCountDesc"></el-option>
+              <el-option
+                label="登録日時が新しい順"
+                value="createdAtDesc"
+              ></el-option>
+              <el-option
+                label="登録日時が古い順"
+                value="createdAtAsc"
+              ></el-option>
+              <el-option
+                label="フォロワーが多い順"
+                value="followersCountDesc"
+              ></el-option>
+              <el-option
+                label="投稿数が多い順"
+                value="postCountDesc"
+              ></el-option>
               <!-- <el-option label="人気順" value="PopularDesc"></el-option> -->
             </el-select>
           </el-form-item>
         </el-form>
-        <el-form :inline="true" @submit.native.prevent size="mini" class="between">
+        <el-form
+          :inline="true"
+          @submit.native.prevent
+          size="mini"
+          class="between"
+        >
           <el-form-item>
-            <el-button type="danger" icon="el-icon-refresh" @click="clear">クリア</el-button>
+            <el-button type="danger" icon="el-icon-refresh" @click="clear"
+              >クリア</el-button
+            >
           </el-form-item>
           <el-form-item>
             <Counter
@@ -42,7 +61,11 @@
       </div>
     </el-col>
     <el-col :span="12">
-      <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
+      <section
+        class="infinite-list"
+        v-infinite-scroll="load"
+        infinite-scroll-disabled="canLoad"
+      >
         <article class="profile" v-for="user in users" :key="user._id">
           <div class="identity">
             <Icon :user="user" :useUserDrawer="true" :size="73"></Icon>
@@ -57,7 +80,10 @@
               :style="{ right: 0 }"
             ></WatchBtn>
           </div>
-          <div class="description" v-html="$activateLink(user.description)"></div>
+          <div
+            class="description"
+            v-html="$activateLink(user.description)"
+          ></div>
           <div class="counts">
             <div>
               {{ user.postCount }}
@@ -77,8 +103,15 @@
             </div>
           </div>
           <!-- <FlexMediaList :media="use.medias" class="media-list"></FlexMediaList> -->
-          <GridMediaList v-if="$mq == 'sm'" :media="user.medias"></GridMediaList>
-          <FlexMediaList v-else :media="user.medias" class="media-list"></FlexMediaList>
+          <GridMediaList
+            v-if="$mq == 'sm'"
+            :media="user.medias"
+          ></GridMediaList>
+          <FlexMediaList
+            v-else
+            :media="user.medias"
+            class="media-list"
+          ></FlexMediaList>
           <div>
             <UserSearchLink :user="user"></UserSearchLink>
           </div>
@@ -125,6 +158,7 @@
   }
   .description {
     white-space: pre-wrap;
+    flex-wrap: wrap;
     font-weight: 500;
   }
   .counts {
@@ -172,8 +206,8 @@ export default {
       isCompletedLoading: false,
       searchOption: {
         searchWord: "",
-        sort: "postCountDesc"
-      }
+        sort: "postCountDesc",
+      },
     };
   },
   components: {
@@ -186,7 +220,7 @@ export default {
     GridMediaList,
     Spons,
     UserSearchLink,
-    WatchBtn
+    WatchBtn,
   },
   computed: {
     canLoad() {
@@ -197,15 +231,15 @@ export default {
     },
     current() {
       return Math.min(this.skip, this.total);
-    }
+    },
   },
   watch: {
     searchOption: {
       handler() {
         this.search({ skip: 0 });
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   created() {
     this.search = debounce(({ skip } = {}) => {
@@ -225,7 +259,7 @@ export default {
     clear() {
       this.searchOption = {
         searchWord: "",
-        sort: "postCountDesc"
+        sort: "postCountDesc",
       };
       this.skip = 0;
     },
@@ -237,23 +271,23 @@ export default {
       this.isLoading = true;
       const { data, url } = await user.fetch({
         ...{ limit: this.limit, skip: this.skip, includePostNum: 4 },
-        ...this.searchOption
+        ...this.searchOption,
       });
       if (data.length < 1) {
         this.isLoading = false;
         this.isCompletedLoading = true;
         return;
       }
-      const expandedUsers = data.map(p => {
+      const expandedUsers = data.map((p) => {
         const ret = p;
-        ret.posts = p.posts.map(post => {
+        ret.posts = p.posts.map((post) => {
           if (post.entities) post.entities = JSON.parse(post.entities);
           return post;
         });
         ret.medias = this.takeMedias(ret.posts, {
           format: "jpg",
           name: "medium",
-          count: 4
+          count: 4,
         });
         if (p.entities) ret.entities = JSON.parse(p.entities);
         return ret;
@@ -262,14 +296,14 @@ export default {
       this.skip += this.limit;
       this.isLoading = false;
       this.$ga.page({
-        location: url
+        location: url,
       });
     },
     takeMedias(tweets, { count = 4 } = {}) {
       return (
         tweets
-          .filter(p => p.entities && p.entities.media)
-          .map(p => p.entities.media)
+          .filter((p) => p.entities && p.entities.media)
+          .map((p) => p.entities.media)
           // .map(media =>
           //   media.map(m => `${m.media_url_https}?format=${format}&name=${name}`)
           // )
@@ -283,9 +317,9 @@ export default {
       return {
         w33p: medias.length === 3,
         w50p: medias.length === 2,
-        w100p: medias.length === 1
+        w100p: medias.length === 1,
       };
-    }
+    },
   },
   updated() {
     this.$nextTick(() => {
@@ -293,11 +327,12 @@ export default {
         document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
       images.map(
-        img =>
+        (img) =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") &&
+            mediumZoom(img, { background: "#000" }))
       );
     });
-  }
+  },
 };
 </script>

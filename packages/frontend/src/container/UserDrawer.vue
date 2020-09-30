@@ -34,7 +34,10 @@
         </div>
       </div>
     </section>
-    <section v-infinite-scroll="loadPost" infinite-scroll-disabled="isDisableLoading">
+    <section
+      v-infinite-scroll="loadPost"
+      infinite-scroll-disabled="isDisableLoading"
+    >
       <Post
         :post="post"
         :useDrawer="false"
@@ -82,6 +85,7 @@
   }
   & .description {
     white-space: pre-wrap;
+    flex-wrap: wrap;
   }
   & i > * {
     padding-left: 0.5rem;
@@ -119,7 +123,7 @@ export default {
     Loader,
     ScreenName,
     UserSearchLink,
-    WatchBtn
+    WatchBtn,
   },
   props: ["postedBy"],
   computed: {
@@ -130,14 +134,14 @@ export default {
         const { url } = user;
         const hostname = url ? new URL(url).hostname : "";
         return Object.assign(user, {
-          hostname
+          hostname,
         });
-      }
+      },
     },
     posts: {
       get() {
         return this.$store.getters["drawer/getPosts"];
-      }
+      },
     },
     isDisableLoading: {
       get() {
@@ -145,7 +149,7 @@ export default {
           this.$store.getters["drawer/isCompletedLoading"] ||
           this.$store.getters["drawer/isLoading"]
         );
-      }
+      },
     },
     shouldShowLoader: {
       get() {
@@ -153,19 +157,19 @@ export default {
           !this.$store.getters["drawer/isCompletedLoading"] &&
           this.$store.getters["drawer/isLoading"]
         );
-      }
-    }
+      },
+    },
   },
   watch: {
     // この関数は question が変わるごとに実行されます。
     postedBy() {
       this.$refs.scrollable.scrollTop = 0;
-    }
+    },
   },
   methods: {
     async loadPost() {
       await this.$store.dispatch("drawer/loadPost");
-    }
-  }
+    },
+  },
 };
 </script>
