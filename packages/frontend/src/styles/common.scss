@@ -391,10 +391,10 @@ img[lazy='loaded']:after {
   }
   .identity {
     .icon {
-      width: 48px;
-      height: 48px;
+      width: 48px !important;
+      height: 48px !important;
       img {
-        width: 48px;
+        width: 48px !important;
       }
     }
   }
