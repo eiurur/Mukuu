@@ -47,6 +47,7 @@ const mapper = {
       favoriteCount: tweet.favorite_count,
       retweetCount: tweet.retweet_count,
       totalCount: tweet.favorite_count + tweet.retweet_count,
+      // replied: replied ? JSON.stringify(replied) : '',
       selfRegister: !!tweet.selfRegister,
       postedBy: postedBy,
       createdAt: dayjs(tweet.created_at.replace('+0000', '')).valueOf(),
@@ -66,6 +67,7 @@ module.exports = class TweetCrawler {
       isFinish: isFinish,
     });
   }
+
   async traverseSearch(searchParam) {
     await this.start('search', searchParam, {
       rejectPattern: (text) =>
@@ -74,6 +76,7 @@ module.exports = class TweetCrawler {
         acceptedDomains.every((domain) => text.indexOf(domain) === -1),
     });
   }
+
   async start(api, searchParam, { rejectPattern, isFinish }) {
     let maxId = 0;
     logger.debug('~~~ START TWEET CRAWLING ~~~');
@@ -83,8 +86,10 @@ module.exports = class TweetCrawler {
           max_id: maxId,
         });
         if (!searchParam.max_id) delete searchParam.max_id;
+
         const { statuses, search_metadata } = await this[api](searchOption);
         if (!statuses) return;
+
         const originalStatuses = statuses.filter(
           (tweet) => !tweet.retweeted_status,
         );
@@ -118,6 +123,7 @@ module.exports = class TweetCrawler {
     }
     logger.debug('~~~ FINISH TWEET CRAWLING ~~~');
   }
+
   async statuses(option) {
     const param = Object.assign(
       {
@@ -130,6 +136,7 @@ module.exports = class TweetCrawler {
     const { data } = await T.get('statuses/user_timeline', param);
     return { statuses: data };
   }
+
   async search(option) {
     const param = Object.assign(
       {
@@ -144,7 +151,8 @@ module.exports = class TweetCrawler {
     const { data } = await T.get('search/tweets', param);
     return data;
   }
-  async status(tweetId, option = {}, extendData = {}) {
+
+  async status(tweetId, option = {}) {
     const param = Object.assign(
       {
         result_type: 'mixed',
@@ -155,15 +163,14 @@ module.exports = class TweetCrawler {
       option,
     );
     const { data } = await T.get(`statuses/show/${tweetId}`, param);
-    let tweet = this.expandUrl(data);
-    tweet = Object.assign(tweet, extendData);
-    this.save(tweet);
     return data;
   }
+
   async save(tweet) {
     const dbUser = await this.saveUser(tweet);
     await this.savePost(tweet, dbUser);
   }
+
   async saveUser(tweet) {
     const userProvider = ModelProviderFactory.create('user');
     const user = {
@@ -178,8 +185,10 @@ module.exports = class TweetCrawler {
     );
     return dbUser;
   }
+
   async savePost(tweet, dbUser) {
     const postProvider = ModelProviderFactory.create('post');
+    // const replied = await this.fetchReplied(tweet.id_str);
     const post = {
       query: { idStr: tweet.id_str },
       data: mapper.post(tweet, dbUser._id),
@@ -187,6 +196,19 @@ module.exports = class TweetCrawler {
     };
     await postProvider.findOneAndUpdate(post.query, post.data, post.options);
   }
+
+  async fetchReplied(tweetId) {
+    try {
+      const repley = await this.status(tweetId);
+      const repliedId = repley && repley.in_reply_to_status_id_str;
+      if (!repliedId) return null;
+      const replied = await this.status(repliedId);
+      return replied;
+    } catch (e) {
+      return null;
+    }
+  }
+
   expandUrl(tweet) {
     if (!tweet) return tweet;
 

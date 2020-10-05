@@ -84,12 +84,11 @@ module.exports = class PostController {
           )[1];
         } catch (_) {}
         const crawler = new TweetCrawler();
-        const result = await crawler.status(
-          tweetID,
-          {},
-          { selfRegister: true },
-        );
-        return result;
+        let tweet = await crawler.status(tweetID, {});
+        tweet = this.expandUrl(tweet);
+        tweet = Object.assign(tweet, { selfRegister: true });
+        await crawler.save(tweet);
+        return tweet;
       })(req.params),
     );
   }
