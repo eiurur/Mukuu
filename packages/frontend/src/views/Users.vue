@@ -160,6 +160,7 @@
     white-space: pre-wrap;
     flex-wrap: wrap;
     font-weight: 500;
+    width: 100%;
   }
   .counts {
     font: bold;
