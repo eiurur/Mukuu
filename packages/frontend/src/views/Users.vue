@@ -80,10 +80,11 @@
               :style="{ right: 0 }"
             ></WatchBtn>
           </div>
-          <div
-            class="description"
-            v-html="$activateLink(user.description)"
-          ></div>
+          <div class="description">
+            <div
+              v-html="$activateLink(user.description)"
+            ></div>
+          </div>
           <div class="counts">
             <div>
               {{ user.postCount }}
@@ -157,9 +158,16 @@
     }
   }
   .description {
-    white-space: break-spaces;
-    flex-wrap: wrap;
-    font-weight: 500;
+      white-space: pre-wrap;
+      word-break: break-all;
+      word-wrap: break-word;
+      min-width: 100%;
+      width: 100%;
+      & > div {
+        font-weight: 500;
+        min-width: 100%;
+        width: 100%;
+      }
   }
   .counts {
     font: bold;
