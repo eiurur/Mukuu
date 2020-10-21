@@ -157,8 +157,7 @@
     }
   }
   .description {
-    display: flex;
-    white-space: pre-wrap;
+    white-space: break-spaces;
     flex-wrap: wrap;
     font-weight: 500;
   }
