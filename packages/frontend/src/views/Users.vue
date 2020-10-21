@@ -158,16 +158,9 @@
     }
   }
   .description {
-      white-space: pre-wrap;
-      word-break: break-all;
-      word-wrap: break-word;
-      min-width: 100%;
-      width: 100%;
-      & > div {
-        font-weight: 500;
-        min-width: 100%;
-        width: 100%;
-      }
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-weight: 500;
   }
   .counts {
     font: bold;
