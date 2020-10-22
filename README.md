@@ -34,7 +34,7 @@ cd Mukuu
 2. Change enviroment variables.
 
 ```bash
-mv packages/backend/.env.sample packages/backend/.env
+cp packages/backend/.env.sample packages/backend/.env
 vim packages/backend/.env
 ```
 
@@ -51,14 +51,36 @@ TWITTER_ACCESS_TOKEN_SECRET=<YOUR_TOKEN_SCRENT> <- change here
 TWITTER_CALLBACK_URL=<YOUR_CAKLLBACK> <- change here
 ```
 
-3. install and launch
+3. install and setup
 
 ```bash
 npm install
 npm run bootstrap
 ```
 
-4. Go to `http://127.0.0.1:8100`
+4. launch
+
+```
+npm run dev
+```
+
+5. Go to `http://127.0.0.1:8100`
+
+# Data Setup
+
+### Overall
+
+```
+npm run crawl:search
+```
+
+### By User
+
+```
+npm run crawl:user
+```
+
+# Other commands
 
 ### Development Start
 
