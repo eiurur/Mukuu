@@ -1,6 +1,7 @@
 const { seaquencer } = require('../../lib/seaquencer');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const TweetCrawler = require('../../tasks/crawler/tweetCrawler');
+const { expandUrlOfTweet } = require('../../lib/utils');
 
 module.exports = class PostController {
   static count(req, res) {
@@ -85,7 +86,7 @@ module.exports = class PostController {
         } catch (_) {}
         const crawler = new TweetCrawler();
         let tweet = await crawler.status(tweetID, {});
-        tweet = this.expandUrl(tweet);
+        tweet = expandUrlOfTweet(tweet);
         tweet = Object.assign(tweet, { selfRegister: true });
         await crawler.save(tweet);
         return tweet;

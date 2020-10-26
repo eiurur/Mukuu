@@ -5,7 +5,7 @@ const Twit = require('twit');
 const dayjs = require('dayjs');
 
 const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
-const { sleep } = require('../../lib/utils');
+const { sleep, expandUrlOfTweet } = require('../../lib/utils');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const logger = require(path.join('..', '..', 'logger'))('cron');
 
@@ -96,7 +96,7 @@ module.exports = class TweetCrawler {
         logger.debug(originalStatuses.length);
         let updatedUserData = false;
         for (let tweet of originalStatuses) {
-          tweet = this.expandUrl(tweet);
+          tweet = expandUrlOfTweet(tweet);
           if (!updatedUserData) {
             await this.saveUser(tweet);
             updatedUserData = true;
@@ -207,46 +207,6 @@ module.exports = class TweetCrawler {
     } catch (e) {
       return null;
     }
-  }
-
-  expandUrl(tweet) {
-    if (!tweet) return tweet;
-
-    if (tweet.entities && tweet.entities.urls) {
-      tweet.entities.urls.map((urls) => {
-        tweet.full_text = tweet.full_text.replace(urls.url, urls.expanded_url);
-      });
-    }
-    if (tweet.extended_entities && tweet.extended_entities.urls) {
-      logger.debug(tweet.extended_entities.urls);
-      tweet.extended_entities.urls.map((urls) => {
-        tweet.full_text = tweet.full_text.replace(urls.url, urls.expanded_url);
-      });
-    }
-    if (tweet.user && tweet.user.entities) {
-      if (
-        tweet.user.description &&
-        tweet.user.entities.description &&
-        tweet.user.entities.description.urls
-      ) {
-        tweet.user.entities.description.urls.map((urls) => {
-          tweet.user.description = tweet.user.description.replace(
-            urls.url,
-            urls.expanded_url,
-          );
-        });
-      }
-      if (
-        tweet.user.url &&
-        tweet.user.entities.url &&
-        tweet.user.entities.url.urls
-      ) {
-        tweet.user.entities.url.urls.map((urls) => {
-          tweet.user.url = tweet.user.url.replace(urls.url, urls.expanded_url);
-        });
-      }
-    }
-    return tweet;
   }
 
   decStrNum(n) {
