@@ -56,15 +56,15 @@ export default {
   methods: {
     onInputMode() {
       this.isInputMode = true;
+      this.skip = this.current;
       this.$nextTick(() => this.$refs.inputSkip.focus());
     },
     changeCurrentNumber({ target }) {
-      this.skip = "";
       this.isInputMode = false;
       const { value } = target;
       if (value === "" || value === undefined) return;
       const number = Number(value);
-      if (Number.isNaN(number) || value < 0 || this.total - 1 < value) return;
+      if (number === this.current || Number.isNaN(number) || value < 0 || this.total - 1 < value) return;
       this.$emit("changeCurrentNumber", number);
     }
   }
