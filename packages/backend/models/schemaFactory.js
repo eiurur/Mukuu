@@ -1,10 +1,10 @@
-const { History, SearchHistory, User, Post } = require('./schemas');
+const { DenyPost, SearchHistory, User, Post } = require('./schemas');
 
 module.exports = class SchemaFactory {
   static create(name) {
     switch (name.toLowerCase()) {
-      case 'history':
-        return History;
+      case 'denypost':
+        return DenyPost;
       case 'searchhistory':
         return SearchHistory;
       case 'user':

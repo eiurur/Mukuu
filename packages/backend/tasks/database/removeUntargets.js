@@ -12,6 +12,14 @@ const logger = require(path.join('..', '..', 'logger'))('cron');
       text: pattern.rejectedWords,
     };
     await postProvider.remove(query);
+
+    const denyPostProvider = ModelProviderFactory.create('denypost');
+    const denyPosts = await denyPostProvider.find();
+    if (denyPosts.length === 0) return;
+    const denyPostQuery = {
+      idStr: new RegExp(`(${denyPosts.map((post) => post.idStr).join('|')})`),
+    };
+    await postProvider.remove(denyPostQuery);
   } catch (e) {
     logger.info(e);
   }
