@@ -14,7 +14,10 @@
           <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
           <div class="text" v-html="$activateLink(post.text)"></div>
         </div>
-        <GridMediaList v-if="$mq == 'sm' || isGrid" :media="post.entities.media"></GridMediaList>
+        <GridMediaList
+          v-if="$mq == 'sm' || isGrid"
+          :media="post.entities.media"
+        ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
         <PostFooter :post="post"></PostFooter>
       </article>
@@ -76,22 +79,22 @@ export default {
   components: { FlexMediaList, GridMediaList, PostFooter, UserProfile },
   props: {
     post: {
-      type: Object
+      type: Object,
     },
     prePost: {
-      type: Object
+      type: Object,
     },
     mediaType: {
-      type: String
+      type: String,
     },
     useDrawer: {
       type: Boolean,
-      default: false
+      default: false,
     },
     useSticky: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     openUserDrawer(postedBy) {
@@ -99,24 +102,24 @@ export default {
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
       this.$store.dispatch("saveLocalStorage");
-    }
+    },
   },
   computed: {
     isGrid: {
       get() {
         return this.mediaType === "grid";
-      }
+      },
     },
     isFlex: {
       get() {
         return this.mediaType === "flex";
-      }
+      },
     },
     hasExternalLink: {
       get() {
         return parseToExternalLinks(this.post.text).length > 0;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

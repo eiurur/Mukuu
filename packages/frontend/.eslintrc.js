@@ -26,7 +26,9 @@ module.exports = {
     "unexpected-character-in-unquoted-attribute-value": 0,
     "import/named": 0,
     "import/prefer-default-export": 0,
-    "no-undef": 0
+    "no-undef": 0,
+    "vue/custom-event-name-casing": 0,
+    "vue/no-mutating-props": 0
   },
   parserOptions: {
     parser: "babel-eslint"
