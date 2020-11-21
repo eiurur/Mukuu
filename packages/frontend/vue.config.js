@@ -4,10 +4,10 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://127.0.0.1:9100/"
+        target: "http://0.0.0.0:9100/"
       }
     },
-    host: "127.0.0.1",
+    host: "0.0.0.0",
     port: 8100
   },
   chainWebpack(config) {

@@ -23,9 +23,11 @@ module.exports = () => {
   app.use(
     hostValidation({
       hosts: [
+        '0.0.0.0:8100',
         '127.0.0.1:8100',
         'localhost:8100',
-        '127.0.0.1:9100',
+        '0.0.0.0:9100',
+        'localhost:9100',
         'localhost:9100',
         'mukuu.herokuapp.com',
         'mukuu-staging.herokuapp.com',
