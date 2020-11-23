@@ -14,7 +14,6 @@ const getters = {
   }
 };
 const actions = {
-  // async initialize({ commit }, value) {},
   addBookmark({ commit }, value) {
     const payload = { ...value, ...{ id: value.idStr } };
     commit("ADD_BOOKMARK", payload);
