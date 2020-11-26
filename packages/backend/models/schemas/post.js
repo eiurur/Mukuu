@@ -96,7 +96,18 @@ module.exports = {
   populates: [
     'postedBy',
     'quotedStatuses',
-    { path: 'quotedStatuses', populate: { path: 'quotedStatuses' } },
     { path: 'quotedStatuses', populate: { path: 'postedBy' } },
+    {
+      path: 'quotedStatuses',
+      populate: { path: 'quotedStatuses', populate: { path: 'postedBy' } },
+    },
+    // {
+    //   recursive: 3,
+    //   path: 'quotedStatuses',
+    //   keys:  [
+    //     'quotedStatuses',
+    //     'postedBy'
+    //   ]
+    // },
   ],
 };

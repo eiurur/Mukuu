@@ -93,7 +93,19 @@ module.exports = class Finder {
         populate instanceof Object &&
         populate.constructor === Object
       ) {
-        query = query.populate(populate);
+        if (populate.recursive) {
+          // const root = {}
+          // [...Array(populate.recursive).keys()].forEach((i) => {
+          //   populate.keys.forEach(key => {
+          //     root
+          //   })
+          //   populate.items.forEach((item) => {
+          //     query = query.populate(item);
+          //   });
+          // });
+        } else {
+          query = query.populate(populate);
+        }
       }
     });
     return query;

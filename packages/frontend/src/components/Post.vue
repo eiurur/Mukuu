@@ -19,12 +19,15 @@
           :media="post.entities.media"
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
+        <div v-if="post.quotedStatuses[0]">
         <Post
-        v-if="post.quotedStatuses[0]"
+        v-for="quote in post.quotedStatuses"
         mediaType="grid"
         :useDrawer="true"
         :isQuoted="true"
-        :post="post.quotedStatuses[0]"></Post>
+        :key="quote._id"
+        :post="quote"></Post>
+        </div>
         <PostFooter :post="post" :isQuoted="isQuoted"></PostFooter>
       </article>
     </div>

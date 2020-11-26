@@ -25,7 +25,7 @@ module.exports = {
         dlLink.indexOf('ux.getuploader.com') !== -1 &&
         dlLink.indexOf('/download/') === -1
       ) {
-        return;
+        continue;
       }
       const postQuery = { searchWord: dlLink };
       const postSearchOption = {
@@ -34,7 +34,6 @@ module.exports = {
       const [oldest] = await postProvider.find(postQuery, postSearchOption);
       if (oldest && post.idStr !== oldest.idStr) {
         quotedStatuses.push(oldest);
-        break;
       }
     }
     if (!quotedStatuses.length) return;
