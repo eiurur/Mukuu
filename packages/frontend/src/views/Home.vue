@@ -86,6 +86,7 @@ import SponsWide from "@/components/sponsor/SponsWide.vue";
 // import Heatmap from "@/components/Heatmap.vue";
 import TwitterSearchLink from "@/components/links/TwitterSearchLink.vue";
 
+import { expandRecusively } from "@/plugins/post";
 import { debounce } from "../plugins/util";
 import post from "../api/post";
 
@@ -217,12 +218,8 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
-      const expandedPosts = data.map((p, i) => {
-        const ret = p;
-        if (p.entities) ret.entities = JSON.parse(p.entities);
-        this.addDividingFlag(i, data);
-        return ret;
-      });
+      data.map((p, i) => this.addDividingFlag(i, data));
+      const expandedPosts = data.map(p => expandRecusively(p));
       this.posts = [...this.posts, ...expandedPosts];
       this.storeSearchOptionToQueryString();
       this.skip += this.limit;

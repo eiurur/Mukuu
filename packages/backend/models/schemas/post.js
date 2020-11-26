@@ -23,6 +23,13 @@ const PostSchema = new Schema({
   favoriteCount: { type: Number, default: 0, index: -1 },
   retweetCount: { type: Number, default: 0, index: -1 },
   totalCount: { type: Number, default: 0, index: -1 },
+  quotedStatuses: [
+    {
+      type: ObjectId,
+      ref: 'Post',
+    },
+  ],
+  // replied: String,
   selfRegister: {
     type: Boolean,
     default: false,
@@ -58,43 +65,6 @@ PostSchema.index({
   postedBy: 1,
 });
 
-// PostSchema.index({
-//   text: true,
-//   createdAt: -1,
-// });
-// PostSchema.index({
-//   text: true,
-//   favoriteCount: -1,
-// });
-// PostSchema.index({
-//   text: true,
-//   retweetCount: -1,
-// });
-// PostSchema.index({
-//   text: true,
-//   totalCount: -1,
-// });
-// PostSchema.index({
-//   text: true,
-//   postedBy: 1,
-//   createdAt: -1,
-// });
-// PostSchema.index({
-//   text: true,
-//   postedBy: 1,
-//   favoriteCount: -1,
-// });
-// PostSchema.index({
-//   text: true,
-//   postedBy: 1,
-//   retweetCount: -1,
-// });
-// PostSchema.index({
-//   text: true,
-//   postedBy: 1,
-//   totalCount: -1,
-// });
-
 // const explain = require('mongoose-explain');
 // PostSchema.plugin(explain);
 
@@ -123,5 +93,10 @@ module.exports = {
     searchWord: ['text'],
     hint: { text: 1, postedBy: 1 },
   },
-  populates: ['postedBy'],
+  populates: [
+    'postedBy',
+    'quotedStatuses',
+    { path: 'quotedStatuses', populate: { path: 'quotedStatuses' } },
+    { path: 'quotedStatuses', populate: { path: 'postedBy' } },
+  ],
 };

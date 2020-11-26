@@ -1,4 +1,5 @@
 import { page } from "vue-analytics";
+import { expandRecusively } from "@/plugins/post";
 import post from "../../api/post";
 import user from "../../api/user";
 
@@ -50,11 +51,7 @@ const actions = {
       commit("SET_LOADING_COMPLETE_STATUS", true);
       return;
     }
-    const expandedPosts = data.map(p => {
-      const ret = p;
-      if (p.entities) ret.entities = JSON.parse(p.entities);
-      return ret;
-    });
+    const expandedPosts = data.map(p => expandRecusively(p));
     const posts = [...state.posts, ...expandedPosts];
     page({
       location: url

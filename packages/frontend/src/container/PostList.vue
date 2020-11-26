@@ -112,12 +112,8 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
-      const expandedPosts = data.map((p, i) => {
-        const ret = p;
-        if (p.entities) ret.entities = JSON.parse(p.entities);
-        this.addDividingFlag(i, data);
-        return ret;
-      });
+      data.map((p, i) => this.addDividingFlag(i, data));
+      const expandedPosts = data.map(p => this.expandRecusively(p));
       this.posts = [...this.posts, ...expandedPosts];
       this.storeSearchOptionToQueryString();
       this.skip += this.limit;
@@ -125,6 +121,11 @@ export default {
       this.$ga.page({
         location: url
       });
+    },
+    expandRecusively(post) {
+      if (post.entities) post.entities = JSON.parse(post.entities);
+      if (post.quotedStatuses) post.quotedStatuses = post.quotedStatuses.map(s => this.expandRecusively(s));
+      return post;
     },
     addDividingFlag(index, posts) {
       if (!["createdAtAsc", "createdAtDesc"].includes(this.searchOption.sort)) {

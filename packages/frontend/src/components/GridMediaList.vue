@@ -26,7 +26,8 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
-    object-position: top;
+    object-position: center;
+    // object-position: top;
     max-width: 100%;
     padding: 0;
   }

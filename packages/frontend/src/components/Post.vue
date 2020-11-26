@@ -9,7 +9,7 @@
     </div>
 
     <div class="post-container" v-if="hasExternalLink">
-      <article class="post">
+      <article class="post" :class="{quoted: isQuoted}">
         <div class="text-container">
           <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
           <div class="text" v-html="$activateLink(post.text)"></div>
@@ -19,7 +19,13 @@
           :media="post.entities.media"
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
-        <PostFooter :post="post"></PostFooter>
+        <Post
+        v-if="post.quotedStatuses[0]"
+        mediaType="grid"
+        :useDrawer="true"
+        :isQuoted="true"
+        :post="post.quotedStatuses[0]"></Post>
+        <PostFooter :post="post" :isQuoted="isQuoted"></PostFooter>
       </article>
     </div>
   </fragment>
@@ -42,13 +48,20 @@ article.post {
   & > div + div {
     margin-top: 0.5rem;
   }
+
+  .quoted {
+    box-shadow: none;
+    border: 1px solid rgb(196, 207, 214);
+    border-radius: 1rem;
+    margin: 0.5rem 0;
+  }
+
   &:first-child {
     margin-top: 0;
   }
   &:last-child {
     margin-bottom: 0;
   }
-
   .text-container {
     .text {
       word-break: break-word;
@@ -92,6 +105,10 @@ export default {
       default: false,
     },
     useSticky: {
+      type: Boolean,
+      default: false,
+    },
+    isQuoted: {
       type: Boolean,
       default: false,
     },

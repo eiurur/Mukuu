@@ -114,6 +114,7 @@ import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
+import { expandRecusively } from "@/plugins/post";
 import post from "../api/post";
 
 export default {
@@ -205,12 +206,8 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
-      const expandedPosts = data.map((p, i) => {
-        const ret = p;
-        if (p.entities) ret.entities = JSON.parse(p.entities);
-        this.addDividingFlag(i, data);
-        return ret;
-      });
+      data.map((p, i) => this.addDividingFlag(i, data));
+      const expandedPosts = data.map(p => expandRecusively(p));
       this.posts = [...this.posts, ...expandedPosts];
       this.skip += this.limit;
       this.isLoading = false;

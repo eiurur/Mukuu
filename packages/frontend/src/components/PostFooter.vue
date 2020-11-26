@@ -1,10 +1,10 @@
 <template>
   <div class="footer">
     <div class="attributes">
-      <div class="item retweet">
+      <div class="item retweet" v-if="shouldShown">
         <span>{{ post.retweetCount }}</span>
       </div>
-      <div class="item favorite">
+      <div class="item favorite" v-if="shouldShown">
         <span>{{ post.favoriteCount }}</span>
       </div>
     </div>
@@ -65,6 +65,19 @@ import PostFooterControl from "@/components/PostFooterControl.vue";
 export default {
   name: "PostFooter",
   components: { PostFooterControl },
-  props: ["post"]
+  props: {
+    post: {
+      type: Object,
+    },
+    isQuoted: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    shouldShown() {
+      return !this.isQuoted;
+    }
+  }
 };
 </script>
