@@ -4,7 +4,7 @@ const activateLink = t => {
   if (!t) return "";
   return t
     .replace(
-      /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=#!]*))/g,
+      /(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=#!+]*))/g,
       '<a href="$1" target="_blank">$1</a>'
     )
     .replace(/(^|\s)(@|＠)(\w+)/g, '$1<a href="http://www.twitter.com/$3" target="_blank">@$3</a>')
@@ -19,7 +19,7 @@ const parseToExternalLinks = text => {
     .split(/\r\n|\n|\s/)
     .filter(word => acceptedDomains.some(domain => word.indexOf(domain) !== -1))
     .map(url => {
-      const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=]*))/);
+      const match = url.match(/(https?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-./?%&=#!+]*))/);
       if (!match) return null;
       return match[1];
     });
