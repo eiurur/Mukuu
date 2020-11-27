@@ -19,7 +19,13 @@
           :media="post.entities.media"
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
-        <div v-if="post.quotedStatuses[0]">
+        <Post
+        v-if="post.quotedStatuses[0]"
+        mediaType="grid"
+        :useDrawer="true"
+        :isQuoted="true"
+        :post="post.quotedStatuses[0]"></Post>
+        <!-- <div v-if="post.quotedStatuses[0]">
         <Post
         v-for="quote in post.quotedStatuses"
         mediaType="grid"
@@ -27,8 +33,8 @@
         :isQuoted="true"
         :key="quote._id"
         :post="quote"></Post>
-        </div>
-        <PostFooter :post="post" :isQuoted="isQuoted"></PostFooter>
+        </div> -->
+        <PostFooter :class="{shrink: isQuoted}" :post="post" :isQuoted="isQuoted"></PostFooter>
       </article>
     </div>
   </fragment>
@@ -57,6 +63,20 @@ article.post {
     border: 1px solid rgb(196, 207, 214);
     border-radius: 1rem;
     margin: 0.5rem 0;
+    .shrink {
+      opacity: 0.1;
+      // overflow: hidden;
+      // margin-top: 0;
+      // max-height: 0;
+      transition: all ease .25s;
+    }
+    &:hover {
+      .shrink {
+        opacity: 1;
+        // margin-top: 0.5rem;
+        // max-height: 240px;
+      }
+    }
   }
 
   &:first-child {

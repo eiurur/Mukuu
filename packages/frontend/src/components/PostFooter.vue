@@ -1,10 +1,10 @@
 <template>
   <div class="footer">
     <div class="attributes">
-      <div class="item retweet" v-if="shouldShown">
+      <div class="item retweet">
         <span>{{ post.retweetCount }}</span>
       </div>
-      <div class="item favorite" v-if="shouldShown">
+      <div class="item favorite">
         <span>{{ post.favoriteCount }}</span>
       </div>
     </div>
@@ -74,10 +74,5 @@ export default {
       default: false,
     },
   },
-  computed: {
-    shouldShown() {
-      return !this.isQuoted;
-    }
-  }
 };
 </script>
