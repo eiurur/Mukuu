@@ -48,7 +48,8 @@
       }
     }
     & .favorite {
-      background: rgba(232, 28, 79, 0.8);
+      // background: rgba(232, 28, 79, 0.8);
+      background:rgba(243,68,112,0.8);
       & > span:after {
         content: "likes";
         font-size: 60%;
