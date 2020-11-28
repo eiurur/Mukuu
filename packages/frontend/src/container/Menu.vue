@@ -20,6 +20,10 @@
       <i class="el-icon-collection-tag"></i>
       <span slot="title">Bukuma</span>
     </el-menu-item>
+    <el-menu-item @click="updateConfigModal">
+      <i class="el-icon-setting"></i>
+      <span slot="title">Config</span>
+    </el-menu-item>
     <el-menu-item @click="updateAboutModal">
       <i class="el-icon-info"></i>
       <span slot="title">About</span>
@@ -49,6 +53,9 @@ export default {
   methods: {
     updateAboutModal() {
       this.$store.dispatch("modal/updateAbout");
+    },
+    updateConfigModal() {
+      this.$store.dispatch("modal/updateConfig");
     }
   }
 };

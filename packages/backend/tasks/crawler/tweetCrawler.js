@@ -6,7 +6,7 @@ const dayjs = require('dayjs');
 
 const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
 const { sleep, expandUrlOfTweet } = require('../../lib/utils');
-const { addQuoteStatus } = require('../util');
+const { addQuoteStatus, addReplyStatus } = require('../util');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const logger = require(path.join('..', '..', 'logger'))('cron');
 
@@ -172,18 +172,19 @@ module.exports = class TweetCrawler {
     return data;
   }
 
-  async save(tweet) {
-    const dbUser = await this.saveUser(tweet);
-    const post = await this.savePost(tweet, dbUser);
-    await addQuoteStatus(post);
-  }
-
   async findDenyPost(tweet) {
     const denyPostProvider = ModelProviderFactory.create('denypost');
     const ex = await denyPostProvider.findOne({
       query: { idStr: tweet.id_str },
     });
     return !!ex;
+  }
+
+  async save(tweet) {
+    const dbUser = await this.saveUser(tweet);
+    const post = await this.savePost(tweet, dbUser);
+    await addQuoteStatus(post);
+    await addReplyStatus(post);
   }
 
   async saveUser(tweet) {

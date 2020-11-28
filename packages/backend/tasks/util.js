@@ -2,6 +2,22 @@ const ModelProviderFactory = require('../models/modelProviderFactory');
 const { acceptedDomains } = require('@mukuu/common/lib/constants');
 
 module.exports = {
+  addReplyStatus: async (post) => {
+    if (!post) return;
+    post.isReply = post.text.startsWith('@');
+    const entity = {
+      query: { idStr: post.idStr },
+      data: post,
+      options: { new: true, upsert: true },
+    };
+    const postProvider = ModelProviderFactory.create('post');
+    const dbPost = await postProvider.findOneAndUpdate(
+      entity.query,
+      entity.data,
+      entity.options,
+    );
+    return dbPost;
+  },
   addQuoteStatus: async (post) => {
     if (!post) return;
     // if (post.quotedStatus) return;

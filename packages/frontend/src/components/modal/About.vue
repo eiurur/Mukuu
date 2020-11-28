@@ -41,7 +41,6 @@
 <script>
 export default {
   name: "About",
-  props: ["isModalOpen"],
   computed: {
     isOpen: {
       get() {

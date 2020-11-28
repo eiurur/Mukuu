@@ -7,18 +7,21 @@
       <router-view />
     </main>
     <About></About>
+    <Config></Config>
   </div>
 </template>
 
 <script>
 import Menu from "@/container/Menu.vue";
-import About from "@/components/About.vue";
+import About from "@/components/modal/About.vue";
+import Config from "@/components/modal/Config.vue";
 
 export default {
   name: "App",
   components: {
     Menu,
-    About
+    About,
+    Config
   }
 };
 </script>

@@ -159,9 +159,14 @@ export default {
         );
       },
     },
+    shouldHideReply() {
+      return !this.$store.getters["config/shouldHideReply"];
+    },
   },
   watch: {
-    // この関数は question が変わるごとに実行されます。
+    async shouldHideReply() {
+      await this.$store.dispatch("drawer/initialize", this.user);
+    },
     postedBy() {
       this.$refs.scrollable.scrollTop = 0;
     },

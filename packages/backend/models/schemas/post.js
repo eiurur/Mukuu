@@ -30,6 +30,10 @@ const PostSchema = new Schema({
     },
   ],
   // replied: String,
+  isReply: {
+    type: Boolean,
+    default: false,
+  },
   selfRegister: {
     type: Boolean,
     default: false,
@@ -75,7 +79,7 @@ const Post = mongoose.model('Post');
 module.exports = {
   model: Post,
   queryOption: {
-    raws: ['_id', 'postedBy'],
+    raws: ['_id', 'postedBy', 'isReply'],
     range: 'createdAt',
     preprocess: [
       {
@@ -94,8 +98,10 @@ module.exports = {
     hint: { text: 1, postedBy: 1 },
   },
   populates: [
+    // 1階層まで
     'postedBy',
     'quotedStatuses',
+    // 2階層まで
     { path: 'quotedStatuses', populate: { path: 'postedBy' } },
     {
       path: 'quotedStatuses',

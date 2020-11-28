@@ -38,12 +38,17 @@ const actions = {
     const { data } = await user.fetch({ postedBy: value });
     commit("SET_USER", data);
   },
-  async loadPost({ commit, state }) {
+  async loadPost({ commit, state, rootState }) {
     commit("SET_LOADING_STATUS", true);
     if (!state.user || !state.user._id) return;
+
+    const column = {};
+    column.postedBy = state.user._id;
+    if (rootState.config.shouldHideReply) column.isReply = false;
+
     const { data, url } = await post.fetch({
       ...{ limit: state.limit, skip: state.skip },
-      ...{ column: { postedBy: state.user._id } },
+      ...{ column },
       ...state.searchOption
     });
     if (data.length < 1) {

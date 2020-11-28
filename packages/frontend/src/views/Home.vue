@@ -105,7 +105,6 @@ export default {
       searchOption: {
         searchWord: "",
         sort: "createdAtDesc",
-        // from: "",
         to: ""
       },
       registerTimerID: null
@@ -138,9 +137,23 @@ export default {
     useSticky() {
       return true;
       //      return !this.searchOption.searchWord;
+    },
+    shouldHideReply() {
+      return !this.$store.getters["config/shouldHideReply"];
+    },
+    column() {
+      const ret = { column: {} };
+      if (!this.shouldHideReply) ret.column.isReply = false;
+      if (!Object.keys(ret.column).length) return {};
+      return ret;
     }
   },
   watch: {
+    shouldHideReply() {
+      if (this.canWatchSearchOption) {
+        this.search({});
+      }
+    },
     searchOption: {
       handler() {
         if (this.canWatchSearchOption) {
@@ -167,8 +180,8 @@ export default {
     clear() {
       this.searchOption = {
         searchWord: "",
+        to: "",
         sort: "createdAtDesc",
-        to: ""
       };
       this.skip = 0;
     },
@@ -178,7 +191,7 @@ export default {
       this.searchOption = {
         searchWord: searchWord || "",
         to: !to ? "" : this.$dayjs(to).format("YYYY-MM-DD"),
-        sort: sort || "createdAtDesc"
+        sort: sort || "createdAtDesc",
       };
     },
     storeSearchOptionToQueryString() {
@@ -201,14 +214,18 @@ export default {
       this.search({ skip });
     },
     async fetchCount() {
-      const { count } = await post.fetchCount({ ...this.searchOption });
+      const { count } = await post.fetchCount({
+        ...this.column,
+        ...this.searchOption
+      });
       this.total = count;
     },
     async load() {
       this.isLoading = true;
       const { data, url } = await post.fetch({
         ...{ limit: this.limit, skip: this.skip },
-        ...this.searchOption
+        ...this.column,
+        ...this.searchOption,
       });
       this.canWatchSearchOption = true;
       if (data.length < 1) {

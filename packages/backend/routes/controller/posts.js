@@ -58,15 +58,16 @@ module.exports = class PostController {
       req,
       res,
       (async ({ data }) => {
-        const { screenName, count, limit, skip } = data;
+        const { screenName, column, count, limit, skip } = data;
 
         const userProvider = ModelProviderFactory.create('user');
         const user = await userProvider.findOne({ screenName });
         if (!user) return {};
         const postProvider = ModelProviderFactory.create('post');
-        const posts = await postProvider.find({
-          postedBy: user._id,
-        });
+        const query = {};
+        query.postedBy = user._id;
+        if (column) query.column = column;
+        const posts = await postProvider.find(query);
         return posts;
       })(req.params),
     );

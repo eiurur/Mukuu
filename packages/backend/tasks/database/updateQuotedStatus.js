@@ -5,7 +5,7 @@ const { addQuoteStatus } = require('../util');
 
 (async () => {
   try {
-    logger.info('UPDATE QUOTES');
+    logger.info('UPDATE REPLY');
 
     const postProvider = ModelProviderFactory.create('post');
     const query = {};

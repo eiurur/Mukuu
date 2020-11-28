@@ -1,11 +1,11 @@
 <template>
   <fragment>
     <div
-      class="el-divider el-divider--horizontal"
+      class="mukuu el-divider el-divider--horizontal"
       :class="{ sticky: useSticky }"
       v-if="post.shouldShowDivider"
     >
-      <div class="el-divider__text is-center">{{ post.createdAt }}</div>
+      <div class="mukuu el-divider__text is-center">{{ post.createdAt }}</div>
     </div>
 
     <div class="post-container" v-if="hasExternalLink">

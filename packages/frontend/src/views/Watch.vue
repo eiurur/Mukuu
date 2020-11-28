@@ -158,9 +158,21 @@ export default {
     useSticky() {
       return true;
       //      return !this.searchOption.searchWord;
+    },
+    shouldHideReply() {
+      return !this.$store.getters["config/shouldHideReply"];
+    },
+    column() {
+      const column = {};
+      column.postedBy = this.watches.map(user => user._id);
+      if (!this.shouldHideReply) column.isReply = false;
+      return column;
     }
   },
   watch: {
+    shouldHideReply() {
+      this.search({});
+    },
     searchOption: {
       handler() {
         this.search();
@@ -188,8 +200,9 @@ export default {
     },
     async fetchCount() {
       if (!this.watches.length) return;
+
       const { count } = await post.fetchCount({
-        ...{ column: { postedBy: this.watches.map(user => user._id) } },
+        ...{ column: this.column },
         ...this.searchOption
       });
       this.total = count;
@@ -203,7 +216,7 @@ export default {
       }
       const { data, url } = await post.fetch({
         ...{ limit: this.limit, skip: this.skip },
-        ...{ column: { postedBy: this.watches.map(user => user._id) } },
+        ...{ column: this.column },
         ...this.searchOption
       });
       if (data.length < 1) {
