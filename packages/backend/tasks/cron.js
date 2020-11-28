@@ -101,7 +101,7 @@ const userJob = new CronJob({
 
 const addReplyProperty = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '15 2 29 11 *',
+  cronTime: '50 4 29 11 *',
   onTick: async () => {
     logger.info('--- start addReplyProperty cron ---');
     const args = [path.resolve(__dirname, 'database', 'updateReplyStatus')];
@@ -113,7 +113,7 @@ const addReplyProperty = new CronJob({
 });
 const addQuoteProerty = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '00 2 29 11 *',
+  cronTime: '35 2 29 11 *',
   onTick: async () => {
     logger.info('--- start addQuoteProerty cron ---');
     const args = [path.resolve(__dirname, 'database', 'updateQuotedStatus')];
