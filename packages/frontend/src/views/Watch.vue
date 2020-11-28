@@ -31,6 +31,7 @@
       <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
         <Post
           :post="post"
+          :useSticky="useSticky"
           :useDrawer="true"
           mediaType="flex"
           :key="post._id"
@@ -114,7 +115,7 @@ import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
-import { expandRecusively } from "@/plugins/post";
+import { addDividingFlag, expandRecusively } from "@/plugins/post";
 import post from "../api/post";
 
 export default {
@@ -153,6 +154,10 @@ export default {
     },
     current() {
       return Math.min(this.skip, this.total);
+    },
+    useSticky() {
+      return true;
+      //      return !this.searchOption.searchWord;
     }
   },
   watch: {
@@ -206,36 +211,19 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
-      data.map((p, i) => this.addDividingFlag(i, data));
       const expandedPosts = data.map(p => expandRecusively(p));
+      expandedPosts.map((p, i) => addDividingFlag({
+        current: expandedPosts[i],
+        pre: i > 0 ? expandedPosts[i - 1] : null,
+        tail: this.posts.length > 0 ? this.posts[this.posts.length - 1] : null,
+        sort: this.searchOption.sort
+      }));
       this.posts = [...this.posts, ...expandedPosts];
       this.skip += this.limit;
       this.isLoading = false;
       this.$ga.page({
         location: url
       });
-    },
-    addDividingFlag(index, posts) {
-      if (!["createdAtAsc", "createdAtDesc"].includes(this.searchOption.sort)) {
-        return;
-      }
-      const current = posts[index];
-      if (index === 0) {
-        if (this.posts.length === 0) {
-          current.shouldShowDivider = true;
-          return;
-        }
-        const preInAll = this.posts[this.posts.length - 1];
-        if (preInAll.createdAt !== current.createdAt) {
-          current.shouldShowDivider = true;
-          return;
-        }
-        return;
-      }
-      const pre = posts[index - 1];
-      if (pre.createdAt !== current.createdAt) {
-        current.shouldShowDivider = true;
-      }
     },
     openUserDrawer(postedBy) {
       if (!postedBy) return;

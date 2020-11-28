@@ -58,23 +58,18 @@ article.post {
     margin-top: 0.5rem;
   }
 
-  .quoted {
+  &.quoted {
     box-shadow: none;
     border: 1px solid rgb(196, 207, 214);
     border-radius: 1rem;
     margin: 0.5rem 0;
     .shrink {
       opacity: 0.1;
-      // overflow: hidden;
-      // margin-top: 0;
-      // max-height: 0;
       transition: all ease .25s;
     }
     &:hover {
       .shrink {
         opacity: 1;
-        // margin-top: 0.5rem;
-        // max-height: 240px;
       }
     }
   }

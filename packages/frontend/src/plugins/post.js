@@ -14,3 +14,23 @@ export function expandRecusively(post) {
   }
   return post;
 }
+
+export function addDividingFlag({ current, pre, tail, sort }) {
+  if (!["createdAtAsc", "createdAtDesc"].includes(sort)) {
+    return;
+  }
+  if (!pre) {
+    if (!tail) {
+      current.shouldShowDivider = true;
+      return;
+    }
+    if (tail.createdAt !== current.createdAt) {
+      current.shouldShowDivider = true;
+      return;
+    }
+    return;
+  }
+  if (pre.createdAt !== current.createdAt) {
+    current.shouldShowDivider = true;
+  }
+}

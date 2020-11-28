@@ -86,7 +86,7 @@ import SponsWide from "@/components/sponsor/SponsWide.vue";
 // import Heatmap from "@/components/Heatmap.vue";
 import TwitterSearchLink from "@/components/links/TwitterSearchLink.vue";
 
-import { expandRecusively } from "@/plugins/post";
+import { addDividingFlag, expandRecusively } from "@/plugins/post";
 import { debounce } from "../plugins/util";
 import post from "../api/post";
 
@@ -136,7 +136,8 @@ export default {
       return Math.min(this.skip, this.total);
     },
     useSticky() {
-      return !this.searchOption.searchWord;
+      return true;
+      //      return !this.searchOption.searchWord;
     }
   },
   watch: {
@@ -218,8 +219,13 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
-      data.map((p, i) => this.addDividingFlag(i, data));
       const expandedPosts = data.map(p => expandRecusively(p));
+      expandedPosts.map((p, i) => addDividingFlag({
+        current: expandedPosts[i],
+        pre: i > 0 ? expandedPosts[i - 1] : null,
+        tail: this.posts.length > 0 ? this.posts[this.posts.length - 1] : null,
+        sort: this.searchOption.sort
+      }));
       this.posts = [...this.posts, ...expandedPosts];
       this.storeSearchOptionToQueryString();
       this.skip += this.limit;
@@ -228,28 +234,6 @@ export default {
         location: url
       });
     },
-    addDividingFlag(index, posts) {
-      if (!["createdAtAsc", "createdAtDesc"].includes(this.searchOption.sort)) {
-        return;
-      }
-      const current = posts[index];
-      if (index === 0) {
-        if (this.posts.length === 0) {
-          current.shouldShowDivider = true;
-          return;
-        }
-        const preInAll = this.posts[this.posts.length - 1];
-        if (preInAll.createdAt !== current.createdAt) {
-          current.shouldShowDivider = true;
-          return;
-        }
-        return;
-      }
-      const pre = posts[index - 1];
-      if (pre.createdAt !== current.createdAt) {
-        current.shouldShowDivider = true;
-      }
-    }
   }
 };
 </script>
