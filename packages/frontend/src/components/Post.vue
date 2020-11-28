@@ -20,12 +20,12 @@
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
         <Post
-        v-if="post.quotedStatuses[0]"
+        v-if="post.quotedStatuses && post.quotedStatuses[0]"
         mediaType="grid"
         :useDrawer="true"
         :isQuoted="true"
         :post="post.quotedStatuses[0]"></Post>
-        <!-- <div v-if="post.quotedStatuses[0]">
+        <!-- <div v-if="post.quotedStatuses && post.quotedStatuses[0]">
         <Post
         v-for="quote in post.quotedStatuses"
         mediaType="grid"

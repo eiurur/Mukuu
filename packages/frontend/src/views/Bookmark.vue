@@ -76,6 +76,7 @@
         <Post
           :post="post"
           :useDrawer="true"
+          :useSticky="false"
           mediaType="flex"
           :key="post._id"
           v-for="post in posts"
