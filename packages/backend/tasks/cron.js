@@ -74,18 +74,18 @@ const userCrawlerJob = new CronJob({
   start: true,
   timeZone: 'Asia/Tokyo',
 });
-// const removeJob = new CronJob({
-//   // cronTime: '* * * * *',
-//   cronTime: '30 12 * * *',
-//   onTick: async () => {
-//     logger.info('--- start remove cron ---');
-//     const args = [path.resolve(__dirname, 'database', 'removeUntargets')];
-//     const stdout = await spawnProcess('node', args);
-//     logger.info('--- finish remove cron ---');
-//   },
-//   start: true,
-//   timeZone: 'Asia/Tokyo',
-// });
+const removeJob = new CronJob({
+  // cronTime: '* * * * *',
+  cronTime: '30 12 * * *',
+  onTick: async () => {
+    logger.info('--- start remove cron ---');
+    const args = [path.resolve(__dirname, 'database', 'removeUntargets')];
+    const stdout = await spawnProcess('node', args);
+    logger.info('--- finish remove cron ---');
+  },
+  start: true,
+  timeZone: 'Asia/Tokyo',
+});
 const userJob = new CronJob({
   // cronTime: '* * * * *',
   cronTime: '35 12 * * *',
@@ -99,7 +99,34 @@ const userJob = new CronJob({
   timeZone: 'Asia/Tokyo',
 });
 
+const addReplyProperty = new CronJob({
+  // cronTime: '* * * * *',
+  cronTime: '15 3 29 11 *',
+  onTick: async () => {
+    logger.info('--- start addReplyProperty cron ---');
+    const args = [path.resolve(__dirname, 'database', 'updateReplyStatus')];
+    const stdout = await spawnProcess('node', args);
+    logger.info('--- finish addReplyProperty cron ---');
+  },
+  start: true,
+  timeZone: 'Asia/Tokyo',
+});
+const addQuoteProerty = new CronJob({
+  // cronTime: '* * * * *',
+  cronTime: '15 2 29 11 *',
+  onTick: async () => {
+    logger.info('--- start addQuoteProerty cron ---');
+    const args = [path.resolve(__dirname, 'database', 'updateQuotedStatus')];
+    const stdout = await spawnProcess('node', args);
+    logger.info('--- finish addQuoteProerty cron ---');
+  },
+  start: true,
+  timeZone: 'Asia/Tokyo',
+});
+
 searchCrawlerJob.start();
 userCrawlerJob.start();
-// removeJob.start();
+removeJob.start();
 userJob.start();
+addReplyProperty.start();
+addQuoteProerty.start();
