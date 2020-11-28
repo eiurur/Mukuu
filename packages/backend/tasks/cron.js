@@ -7,7 +7,7 @@ const logger = require(path.join('..', 'logger'))('cron');
 
 const runProcess = async (filepath) => {
   const { stdout, stderr } = await execFileAsync('node', [filepath], {
-    maxBuffer: 1024 * 1024 * 10,
+    maxBuffer: 1024 * 1024 * 10 * 10,
     shell: true,
   });
   if (stderr) {
@@ -101,7 +101,7 @@ const userJob = new CronJob({
 
 const addReplyProperty = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '50 4 29 11 *',
+  cronTime: '35 5 29 11 *',
   onTick: async () => {
     logger.info('--- start addReplyProperty cron ---');
     const args = [path.resolve(__dirname, 'database', 'updateReplyStatus')];
@@ -113,7 +113,7 @@ const addReplyProperty = new CronJob({
 });
 const addQuoteProerty = new CronJob({
   // cronTime: '* * * * *',
-  cronTime: '35 2 29 11 *',
+  cronTime: '30 5 29 11 *',
   onTick: async () => {
     logger.info('--- start addQuoteProerty cron ---');
     const args = [path.resolve(__dirname, 'database', 'updateQuotedStatus')];

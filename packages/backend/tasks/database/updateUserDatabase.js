@@ -27,7 +27,7 @@ const logger = require(path.join('..', '..', 'logger'))('cron');
         entity.data,
         entity.options,
       );
-      logger.info('update  : ', JSON.stringify(dbUser));
+      // logger.info('update  : ', JSON.stringify(dbUser));
     }
   } catch (e) {
     logger.info(e);

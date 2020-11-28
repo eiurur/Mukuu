@@ -13,9 +13,9 @@ const { addQuoteStatus } = require('../util');
     const posts = await postProvider.find(query, searchOption);
     for (const post of posts) {
       const dbPost = await addQuoteStatus(post);
-      if (dbPost) {
-        logger.info('update  : ', JSON.stringify(dbPost));
-      }
+      // if (dbPost) {
+      //   logger.info('update  : ', JSON.stringify(dbPost));
+      // }
     }
   } catch (e) {
     logger.info(e);
