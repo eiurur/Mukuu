@@ -7,7 +7,7 @@ const logger = require(path.join('..', 'logger'))('cron');
 
 const runProcess = async (filepath) => {
   const { stdout, stderr } = await execFileAsync('node', [filepath], {
-    maxBuffer: 1024 * 1024 * 10 * 10,
+    maxBuffer: 1024 * 1024 * 10 * 100,
     shell: true,
   });
   if (stderr) {
@@ -23,6 +23,7 @@ const spawnProcess = (cmd, args = [], option = {}) => {
     const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
     let stdoutChunks = [];
     let stderrChunks = [];
+
     const child = spawn(normalizedCmd, normalizedArgs);
     child.stdout.on('data', (data) => {
       stdoutChunks = stdoutChunks.concat(data);
@@ -98,35 +99,17 @@ const userJob = new CronJob({
   start: true,
   timeZone: 'Asia/Tokyo',
 });
-
-const addReplyProperty = new CronJob({
-  // cronTime: '* * * * *',
-  cronTime: '35 5 29 11 *',
-  onTick: async () => {
-    logger.info('--- start addReplyProperty cron ---');
-    const args = [path.resolve(__dirname, 'database', 'updateReplyStatus')];
-    const stdout = await spawnProcess('node', args);
-    logger.info('--- finish addReplyProperty cron ---');
-  },
-  start: true,
-  timeZone: 'Asia/Tokyo',
-});
-const addQuoteProerty = new CronJob({
-  // cronTime: '* * * * *',
-  cronTime: '30 5 29 11 *',
-  onTick: async () => {
-    logger.info('--- start addQuoteProerty cron ---');
-    const args = [path.resolve(__dirname, 'database', 'updateQuotedStatus')];
-    const stdout = await spawnProcess('node', args);
-    logger.info('--- finish addQuoteProerty cron ---');
-  },
-  start: true,
-  timeZone: 'Asia/Tokyo',
-});
-
 searchCrawlerJob.start();
 userCrawlerJob.start();
 removeJob.start();
 userJob.start();
-addReplyProperty.start();
-addQuoteProerty.start();
+
+// cronだと動かない
+(async () => {
+  const args = [path.resolve(__dirname, 'database', 'updateReplyStatus')];
+  const stdout = await spawnProcess('node', args);
+})();
+(async () => {
+  const args = [path.resolve(__dirname, 'database', 'updateQuotedStatus')];
+  const stdout = await spawnProcess('node', args);
+})();

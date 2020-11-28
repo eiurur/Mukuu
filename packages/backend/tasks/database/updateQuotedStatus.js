@@ -5,13 +5,14 @@ const { addQuoteStatus } = require('../util');
 
 (async () => {
   try {
-    logger.info('UPDATE REPLY');
+    logger.info('UPDATE QUOTED STATUS');
 
     const postProvider = ModelProviderFactory.create('post');
     const query = {};
     const searchOption = {};
     const posts = await postProvider.find(query, searchOption);
     for (const post of posts) {
+      console.log('QUOTED: ', post._id);
       const dbPost = await addQuoteStatus(post);
       // if (dbPost) {
       //   logger.info('update  : ', JSON.stringify(dbPost));
