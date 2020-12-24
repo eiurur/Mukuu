@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@mukuu/common": "^0.0.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "core-js": "^3.7.0",
     "dayjs": "^1.9.6",
     "element-ui": "^2.14.1",
