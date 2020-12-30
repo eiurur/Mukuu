@@ -57,6 +57,7 @@
   margin-bottom: 1rem;
   border-radius: 1rem;
   position: relative;
+  contain: content;
   & .text > div + div {
     padding-top: 0.5rem;
   }
@@ -132,7 +133,12 @@ export default {
         const user = this.$store.getters["drawer/getUser"];
         if (!user) return user;
         const { url } = user;
-        const hostname = url ? new URL(url).hostname : "";
+        let hostname = '';
+        try {
+          hostname = url ? new URL(url).hostname : ""; // NOTE: github-issue:#60
+        } catch (e) {
+          //
+        }
         return Object.assign(user, {
           hostname,
         });
