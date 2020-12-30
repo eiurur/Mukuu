@@ -39,7 +39,7 @@
     "preinstall": "npm cache clean -f",
     "postinstall": "npm run bootstrap && npm run build",
     "clean:dep": "rm -rf node_modules/ && rm -rf ./packages/frontend/node_modules/ && rm -rf ./packages/backend/node_modules",
-    "update:dep": "cd ./packages/frontend && npx ncu -u && cd ../../ && cd ./packages/backend && npx ncu -u && cd ../../",
+    "update:dep": "cd ./packages/frontend && ncu -u && cd ../../ && cd ./packages/backend && ncu -u && cd ../../",
     "update:audit": "lerna-audit",
     "reject": "node ./packages/backend/tasks/database/removeUntargets",
     "crawl:user": "node ./packages/backend/tasks/crawler/tweet/userCrawling.js",
@@ -57,6 +57,7 @@
     "lerna": "^3.22.1"
   },
   "devDependencies": {
-    "lerna-audit": "^1.2.0"
+    "lerna-audit": "^1.2.0",
+    "npm-check-updates": "^10.2.5"
   }
 }
