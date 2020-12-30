@@ -42,6 +42,7 @@
 
 <style lang="scss" scoped>
 .post-container {
+  contain: content;
   & + .post-container {
     margin-top: 1rem;
   }

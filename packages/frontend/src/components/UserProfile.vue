@@ -21,6 +21,7 @@
   flex-direction: row;
   align-items: center;
   overflow: hidden;
+  contain: content;
   .icon {
     height: 48px;
     width: 48px;
@@ -53,6 +54,7 @@
     padding-left: 1rem;
     font-size: 1rem;
     line-height: 1.5;
+    contain: content;
     & .names {
       display: flex;
       flex-direction: column;

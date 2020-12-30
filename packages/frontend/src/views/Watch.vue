@@ -90,6 +90,7 @@ section + section {
     padding-left: 0.75rem;
     font-size: 0.75rem;
     line-height: 1.8;
+    contain: content;
     overflow: hidden;
     & .names {
       display: flex;
