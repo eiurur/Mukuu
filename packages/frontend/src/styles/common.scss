@@ -289,19 +289,6 @@ img[lazy='loaded']:after {
   }
 }
 
-.el-pagination {
-  li.number,
-  .btn-prev,
-  .btn-quickprev,
-  .btn-next,
-  .btn-quicknext {
-    min-width: 36px !important;
-    min-height: 36px !important;
-    vertical-align: middle !important;
-    line-height: 36px !important;
-  }
-}
-
 .el-dialog__wrapper {
   padding: 0 1rem;
 }
@@ -333,6 +320,20 @@ img[lazy='loaded']:after {
   opacity: 1;
 }
 
+@media only screen and (min-width: 1080px) {
+  .el-pagination {
+    li.number,
+    .btn-prev,
+    .btn-quickprev,
+    .btn-next,
+    .btn-quicknext {
+      min-width: 36px !important;
+      min-height: 36px !important;
+      vertical-align: middle !important;
+      line-height: 36px !important;
+    }
+  }
+}
 @media only screen and (max-width: 1080px) {
   #app {
     display: flex;
