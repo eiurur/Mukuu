@@ -76,7 +76,8 @@ export default {
   props: {
     searchOption: Object,
     passPagination: Function,
-    limit: Number
+    limit: Number,
+    preSkip: Number
   },
   data() {
     return {
@@ -97,9 +98,6 @@ export default {
     TwitterSearchLink
   },
   computed: {
-    canLoad() {
-      return this.isCompletedLoading || this.isLoading;
-    },
     shouldShowLoader() {
       return !this.isCompletedLoading && this.isLoading;
     },
@@ -142,16 +140,16 @@ export default {
     }
   },
   mounted() {
-    this.search({});
+    this.search({ skip: this.preSkip });
   },
   created() {
-    this.search = debounce(({ skip }) => {
+    this.search = debounce(async ({ skip }) => {
       this.isCompletedLoading = false;
       this.isEmpty = false;
       this.skip = skip || 0;
-      this.currentPage = 1;
       this.posts = [];
-      Promise.all([this.fetchCount(), this.load({ skip: this.skip })]);
+      await Promise.all([this.fetchCount(), this.load({ skip: this.skip })]);
+      this.currentPage = Math.max(1, Math.ceil(this.skip / this.limit)); // NOTE: totalがセットされていないと代入してもViewに反映されない
     }, 100).bind(this);
   },
   methods: {
@@ -171,7 +169,6 @@ export default {
         ...this.searchOption
       });
       this.total = count;
-      console.log(count);
       this.passPagination({ current: this.current, total: this.total });
     },
     async load({ skip }) {
@@ -198,6 +195,7 @@ export default {
         sort: this.searchOption.sort
       }));
       this.posts = expandedPosts;
+      this.skip = skip;
       this.storeSearchOptionToQueryString();
       this.skip = skip + this.limit;
       this.isLoading = false;
@@ -210,14 +208,12 @@ export default {
       this.search({ skip });
     },
     handleSizeChange(number) {
-      console.log("handleSizeChange:", number);
       this.posts = [];
       this.currentPage = number;
       this.load({ skip: (number - 1) * this.limit });
       this.scrollToTop();
     },
     handleCurrentChange(number) {
-      console.log("handleCurrentChange:", number);
       this.posts = [];
       this.currentPage = number;
       this.load({ skip: (number - 1) * this.limit });

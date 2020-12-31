@@ -1,7 +1,7 @@
 <template>
   <section class="postlist-container infinite-list">
-    <InfinitePostList ref="postList" v-if="!shouldUsePagination" :limit="5" :searchOption="searchOption" :passPagination="passPagination"></InfinitePostList>
-    <PaginatePostList ref="postList" v-if="shouldUsePagination" :limit="20" :searchOption="searchOption" :passPagination="passPagination"></PaginatePostList>
+    <InfinitePostList ref="postList" v-if="!shouldUsePagination" :limit="5" :preSkip="preSkip" :searchOption="searchOption" :passPagination="passPagination"></InfinitePostList>
+    <PaginatePostList ref="postList" v-if="shouldUsePagination" :limit="20" :preSkip="preSkip" :searchOption="searchOption" :passPagination="passPagination"></PaginatePostList>
   </section>
 </template>
 
@@ -17,7 +17,7 @@ import PaginatePostList from "@/container/PaginatePostList.vue";
 
 export default {
   name: "PostList",
-  props: ["searchOption", "passPagination"],
+  props: ["searchOption", "preSkip", "passPagination"],
   components: {
     InfinitePostList,
     PaginatePostList,

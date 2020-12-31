@@ -59,7 +59,8 @@ export default {
   props: {
     searchOption: Object,
     passPagination: Function,
-    limit: Number
+    limit: Number,
+    preSkip: Number
   },
   data() {
     return {
@@ -125,7 +126,7 @@ export default {
   },
   mounted() {
     this.isLoading = true;
-    this.search({});
+    this.search({ skip: this.preSkip });
   },
   created() {
     this.search = debounce(({ skip }) => {
@@ -153,7 +154,6 @@ export default {
         ...this.searchOption
       });
       this.total = count;
-      console.log(count);
       this.passPagination({ current: this.current, total: this.total });
     },
     async load() {
@@ -187,15 +187,6 @@ export default {
         location: url
       });
       this.passPagination({ current: this.current, total: this.total });
-    },
-    changeCurrentNumber(skip) {
-      this.search({ skip });
-    },
-    handleSizeChange(number) {
-      console.log("handleSizeChange:", number);
-    },
-    handleCurrentChange(number) {
-      console.log("handleCurrentChange:", number);
     },
   }
 };

@@ -20,7 +20,7 @@
       <SponsWide></SponsWide>
     </el-col>
     <el-col :span="12">
-      <PostList ref="postList" :searchOption="searchOption" :passPagination="passPagination"></PostList>
+      <PostList ref="postList" :searchOption="searchOption" :preSkip="preSkip" :passPagination="passPagination"></PostList>
     </el-col>
     <el-col :span="8" class="hidden-smartphone hidden-tablet">
       <UserDrawer></UserDrawer>
@@ -67,17 +67,12 @@ export default {
     return {
       current: 0,
       total: 0,
-      posts: [],
-      isLoading: false,
-      isEmpty: false,
-      isCompletedLoading: false,
-      canWatchSearchOption: false,
+      preSkip: 0,
       searchOption: {
         searchWord: "",
         sort: "createdAtDesc",
         to: ""
       },
-      registerTimerID: null
     };
   },
   components: {
@@ -88,7 +83,7 @@ export default {
     PostList,
     UserDrawer
   },
-  mounted() {
+  created() {
     this.restoreSearchOptionFromQueryString();
   },
   methods: {
@@ -98,11 +93,11 @@ export default {
         to: "",
         sort: "createdAtDesc",
       };
-      this.skip = 0;
+      this.preSkip = 0;
     },
     restoreSearchOptionFromQueryString() {
       const { searchWord, to, sort, skip } = this.$route.query;
-      this.skip = skip ? Number(skip) : 0;
+      this.preSkip = skip ? Number(skip) : 0;
       this.searchOption = {
         searchWord: searchWord || "",
         to: !to ? "" : this.$dayjs(to).format("YYYY-MM-DD"),
