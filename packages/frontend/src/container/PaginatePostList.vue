@@ -17,6 +17,7 @@
     <Loader :shouldShowLoader="shouldShowLoader"></Loader>
     <div class="pagination-container">
       <el-pagination
+        v-show="!shouldShowLoader"
         background
         layout="prev, pager, next"
         @size-change="handleSizeChange"
