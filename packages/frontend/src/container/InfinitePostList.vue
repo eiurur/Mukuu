@@ -19,13 +19,19 @@
 </template>
 
 <style lang="scss" scoped>
-.container {
-  height: 100%;
-}
 section + section {
   margin-top: 0.5rem;
 }
-
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100%;
+}
+.twitter-search-word {
+  display: flex;
+  flex: 1;
+}
 .twitter-search-word.tail {
   display: flex;
   padding: 0.25rem 1rem;
