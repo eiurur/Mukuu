@@ -1,11 +1,13 @@
 const state = {
   shouldHideReply: false,
-  shouldHideNoImage: false
+  shouldHideNoImage: false,
+  shouldUsePagination: false,
 };
 
 const getters = {
   shouldHideReply: state => state.shouldHideReply,
-  shouldHideNoImage: state => state.shouldHideNoImage
+  shouldHideNoImage: state => state.shouldHideNoImage,
+  shouldUsePagination: state => state.shouldUsePagination,
 };
 
 const actions = {
@@ -14,6 +16,9 @@ const actions = {
   },
   updateHideNoImage({ commit }) {
     commit("UPDATE_HIDE_NO_IMAGE_STATUS");
+  },
+  updatePaginationStatus({ commit }) {
+    commit("UPDATE_PAGINATION_STATUS");
   }
 };
 const mutations = {
@@ -22,6 +27,9 @@ const mutations = {
   },
   UPDATE_HIDE_NO_IMAGE_STATUS(state) {
     state.shouldHideNoImage = !state.shouldHideNoImage;
+  },
+  UPDATE_PAGINATION_STATUS(state) {
+    state.shouldUsePagination = !state.shouldUsePagination;
   }
 };
 export default {
