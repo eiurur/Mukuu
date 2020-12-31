@@ -289,6 +289,19 @@ img[lazy='loaded']:after {
   }
 }
 
+.el-pagination {
+  li.number,
+  .btn-prev,
+  .btn-quickprev,
+  .btn-next,
+  .btn-quicknext {
+    min-width: 36px !important;
+    min-height: 36px !important;
+    vertical-align: middle !important;
+    line-height: 36px !important;
+  }
+}
+
 .el-dialog__wrapper {
   padding: 0 1rem;
 }
