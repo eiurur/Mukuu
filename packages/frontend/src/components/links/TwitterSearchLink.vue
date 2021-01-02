@@ -18,6 +18,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex: 1;
     height: 100%;
     p {
       color: black;
@@ -30,6 +31,21 @@
     justify-content: center;
   }
   &.tail {
+    display: flex;
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid #d5d8db;
+    background: #eee;
+    cursor: pointer;
+    word-break: break-word;
+    transition: all 0.3s ease;
+    font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
+    width: 100%;
+    margin: 1rem 0;
+    &:hover {
+      background: white;
+      border: 1px solid #eee;
+    }
     & .link {
       width: 100%;
       a {
