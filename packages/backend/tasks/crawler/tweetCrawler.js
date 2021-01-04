@@ -107,6 +107,11 @@ module.exports = class TweetCrawler {
             logger.debug('REJECT becasue denied post:', tweet.id_str);
             continue;
           }
+          const isDeniedUser = await this.findDenyUser(tweet);
+          if (isDeniedUser) {
+            logger.debug('REJECT becasue denied user:', tweet.user.id_str);
+            continue;
+          }
           if (rejectPattern && rejectPattern(tweet.full_text.toLowerCase())) {
             logger.debug('REJECT:', tweet.full_text.toLowerCase());
             continue;
@@ -176,6 +181,14 @@ module.exports = class TweetCrawler {
     const denyPostProvider = ModelProviderFactory.create('denypost');
     const ex = await denyPostProvider.findOne({
       query: { idStr: tweet.id_str },
+    });
+    return !!ex;
+  }
+
+  async findDenyUser(tweet) {
+    const denyUserProvider = ModelProviderFactory.create('denyuser');
+    const ex = await denyUserProvider.findOne({
+      query: { idStr: tweet.user.id_str },
     });
     return !!ex;
   }
