@@ -2,8 +2,8 @@ const path = require('path');
 const { spawnProcess, makeJob } = require('./util');
 
 const SCHEDULES = {
-  SEARCH_CRAWLER: '0 3,21 * * *',
-  USER_CRAWLER: '0 0,6,19,23 * * *',
+  SEARCH_CRAWLER: '0 5,21 * * *',
+  USER_CRAWLER: '0 6,19,23 * * *',
   REMOVE_POSTS: '30 11 * * *',
   UPDATE_USER_DATABASE: '35 11 * * *',
 };
