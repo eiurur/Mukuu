@@ -180,7 +180,7 @@ module.exports = class TweetCrawler {
   async findDenyPost(tweet) {
     const denyPostProvider = ModelProviderFactory.create('denypost');
     const ex = await denyPostProvider.findOne({
-      query: { idStr: tweet.id_str },
+      idStr: tweet.id_str 
     });
     return !!ex;
   }
@@ -188,7 +188,7 @@ module.exports = class TweetCrawler {
   async findDenyUser(tweet) {
     const denyUserProvider = ModelProviderFactory.create('denyuser');
     const ex = await denyUserProvider.findOne({
-      query: { idStr: tweet.user.id_str },
+      idStr: tweet.user.id_str
     });
     return !!ex;
   }
