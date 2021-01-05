@@ -1,3 +1,10 @@
+const path = require('path')
+const CronJob = require('cron').CronJob;
+const { promisify } = require('util');
+const { execFile, spawn } = require('child_process');
+const execFileAsync = promisify(execFile);
+const logger = require(path.join('..', 'logger'))('cron');
+
 const ModelProviderFactory = require('../models/modelProviderFactory');
 const { acceptedDomains } = require('@mukuu/common/lib/constants');
 
@@ -14,7 +21,7 @@ module.exports = {
     const dbPost = await postProvider.findOneAndUpdate(
       entity.query,
       entity.data,
-      entity.options,
+      entity.options
     );
     return dbPost;
   },
@@ -29,7 +36,7 @@ module.exports = {
     if (!urls || !urls.length) return;
 
     const matchedDlLinks = urls.filter((m) =>
-      acceptedDomains.some((domain) => m[0].indexOf(domain) !== -1),
+      acceptedDomains.some((domain) => m[0].indexOf(domain) !== -1)
     );
     if (!matchedDlLinks.length) return;
 
@@ -64,7 +71,59 @@ module.exports = {
     const dbPost = await postProvider.findOneAndUpdate(
       entity.query,
       entity.data,
-      entity.options,
+      entity.options
     );
+  },
+  runProcess: async (filepath) => {
+    const { stdout, stderr } = await execFileAsync('node', [filepath], {
+      maxBuffer: 1024 * 1024 * 10 * 100,
+      shell: true,
+    });
+    if (stderr) {
+      logger.info(stderr);
+    }
+    logger.info(stdout);
+    return stdout;
+  },
+  spawnProcess: (cmd, args = [], option = {}) => {
+    return new Promise((resolve, reject) => {
+      const normalizedCmd = cmd.replace(/\\/g, '/');
+      const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
+      let stdoutChunks = [];
+      let stderrChunks = [];
+
+      const child = spawn(normalizedCmd, normalizedArgs);
+      child.stdout.on('data', (data) => {
+        stdoutChunks = stdoutChunks.concat(data);
+      });
+      child.stdout.on('end', () => {
+        const stdoutContent = Buffer.concat(stdoutChunks).toString();
+        logger.info('stdout chars:', stdoutContent.length);
+        logger.info(stdoutContent);
+        return resolve(stdoutContent);
+      });
+
+      child.stderr.on('data', (data) => {
+        stderrChunks = stderrChunks.concat(data);
+      });
+      child.stderr.on('end', () => {
+        const stderrContent = Buffer.concat(stderrChunks).toString();
+        logger.info('stderr chars:', stderrContent.length);
+        logger.info(stderrContent);
+        return reject(stderrContent);
+      });
+    });
+  },
+  makeJob: ({ jobName, cronTime, args }) => {
+    return new CronJob({
+      cronTime,
+      onTick: async () => {
+        logger.info(`--- start ${jobName} cron ---`);
+        const stdout = await this.spawnProcess('node', args);
+        logger.info(`--- finish ${jobName} cron ---`);
+      },
+      start: true,
+      timeZone: 'Asia/Tokyo',
+    });
   },
 };
