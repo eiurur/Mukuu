@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 const CronJob = require('cron').CronJob;
 const { promisify } = require('util');
 const { execFile, spawn } = require('child_process');
@@ -7,6 +7,36 @@ const logger = require(path.join('..', 'logger'))('cron');
 
 const ModelProviderFactory = require('../models/modelProviderFactory');
 const { acceptedDomains } = require('@mukuu/common/lib/constants');
+
+const spawnProcess = (cmd, args = [], option = {}) => {
+  return new Promise((resolve, reject) => {
+    const normalizedCmd = cmd.replace(/\\/g, '/');
+    const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
+    let stdoutChunks = [];
+    let stderrChunks = [];
+
+    const child = spawn(normalizedCmd, normalizedArgs);
+    child.stdout.on('data', (data) => {
+      stdoutChunks = stdoutChunks.concat(data);
+    });
+    child.stdout.on('end', () => {
+      const stdoutContent = Buffer.concat(stdoutChunks).toString();
+      logger.info('stdout chars:', stdoutContent.length);
+      logger.info(stdoutContent);
+      return resolve(stdoutContent);
+    });
+
+    child.stderr.on('data', (data) => {
+      stderrChunks = stderrChunks.concat(data);
+    });
+    child.stderr.on('end', () => {
+      const stderrContent = Buffer.concat(stderrChunks).toString();
+      logger.info('stderr chars:', stderrContent.length);
+      logger.info(stderrContent);
+      return reject(stderrContent);
+    });
+  });
+};
 
 module.exports = {
   addReplyStatus: async (post) => {
@@ -85,41 +115,13 @@ module.exports = {
     logger.info(stdout);
     return stdout;
   },
-  spawnProcess: (cmd, args = [], option = {}) => {
-    return new Promise((resolve, reject) => {
-      const normalizedCmd = cmd.replace(/\\/g, '/');
-      const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
-      let stdoutChunks = [];
-      let stderrChunks = [];
-
-      const child = spawn(normalizedCmd, normalizedArgs);
-      child.stdout.on('data', (data) => {
-        stdoutChunks = stdoutChunks.concat(data);
-      });
-      child.stdout.on('end', () => {
-        const stdoutContent = Buffer.concat(stdoutChunks).toString();
-        logger.info('stdout chars:', stdoutContent.length);
-        logger.info(stdoutContent);
-        return resolve(stdoutContent);
-      });
-
-      child.stderr.on('data', (data) => {
-        stderrChunks = stderrChunks.concat(data);
-      });
-      child.stderr.on('end', () => {
-        const stderrContent = Buffer.concat(stderrChunks).toString();
-        logger.info('stderr chars:', stderrContent.length);
-        logger.info(stderrContent);
-        return reject(stderrContent);
-      });
-    });
-  },
+  spawnProcess,
   makeJob: ({ jobName, cronTime, args }) => {
     return new CronJob({
       cronTime,
       onTick: async () => {
         logger.info(`--- start ${jobName} cron ---`);
-        const stdout = await this.spawnProcess('node', args);
+        const stdout = await spawnProcess('node', args);
         logger.info(`--- finish ${jobName} cron ---`);
       },
       start: true,
