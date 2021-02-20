@@ -114,7 +114,6 @@ export default {
     },
     video() {
       const videos = this.media[0].video_info.variants;
-      console.log(videos);
       const mp4VideoHasHighestSize = videos
         .filter((video) => video.bitrate)
         .sort((a, b) => b.bitrate - a.bitrate)[0];
@@ -138,7 +137,6 @@ export default {
             !img.classList.contains("medium-zoom-image") &&
             mediumZoom(img, { background: "#000" }))
       );
-
       this.onScroll();
     });
   }

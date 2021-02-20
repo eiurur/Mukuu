@@ -110,7 +110,6 @@ export default {
     },
     video() {
       const videos = this.media[0].video_info.variants;
-      console.log(videos);
       const mp4VideoHasHighestSize = videos
         .filter((video) => video.bitrate)
         .sort((a, b) => b.bitrate - a.bitrate)[0];
