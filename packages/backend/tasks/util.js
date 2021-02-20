@@ -1,5 +1,6 @@
 const path = require('path');
 const CronJob = require('cron').CronJob;
+const getUrls = require('get-urls');
 const { promisify } = require('util');
 const { execFile, spawn } = require('child_process');
 const execFileAsync = promisify(execFile);
@@ -60,7 +61,7 @@ module.exports = {
     // if (post.quotedStatus) return;
 
     const entities = JSON.parse(post.entities);
-    if (entities.media && entities.media.length) return;
+    if (entities.media && entities.media.length) return; // 本ツイートのメディアの表示を優先する
 
     const urls = [...post.text.matchAll(/(https?:\/\/\S+)/g)];
     if (!urls || !urls.length) return;
@@ -86,6 +87,9 @@ module.exports = {
       };
       const [oldest] = await postProvider.find(postQuery, postSearchOption);
       if (oldest && post.idStr !== oldest.idStr) {
+        const urls = getUrls(oldest.text);
+        const isExactMatch = Array.from(urls).includes(dlLink);
+        if (!isExactMatch) continue;
         quotedStatuses.push(oldest);
       }
     }
