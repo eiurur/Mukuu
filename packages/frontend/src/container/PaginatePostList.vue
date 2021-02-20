@@ -136,7 +136,7 @@ export default {
       this.posts = [];
       await Promise.all([this.fetchCount(), this.load({ skip: this.skip })]);
       this.currentPage = Math.max(1, Math.ceil(this.skip / this.limit)); // NOTE: totalがセットされていないと代入してもViewに反映されない
-    }, 100).bind(this);
+    }, 200).bind(this);
   },
   methods: {
     storeSearchOptionToQueryString() {
