@@ -134,11 +134,50 @@ export default {
             "キャラクターパック 甘々デレデレでご主人様を信仰している妹系幼馴染",
         },
         {
+          link: "https://dl.s-court.me/item.php?iid=252",
+          src:
+            "https://pbs.twimg.com/media/Euser58VkAENyTg?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパックEX ド変態ドM",
+          title:
+            "キャラクターパック ド変態ドM",
+        },
+        {
+          link: "https://dl.s-court.me/item.php?iid=253",
+          src:
+            "https://pbs.twimg.com/media/EusesYbUYAMf8gY?format=jpg&name=large",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパックEX 腹黒",
+          title:
+            "キャラクターパック 腹黒",
+        },
+        {
+          link: "https://dl.s-court.me/item.php?iid=174",
+          src:
+            "https://pbs.twimg.com/media/EusfK3NUcAID0ER?format=jpg&name=large",
+          alt: "COM3D2 カラオケパックVR",
+          title: "COM3D2 カラオケパックVR",
+        },
+        {
+          link: "https://dl.s-court.me/item.php?iid=192",
+          src:
+            "https://pbs.twimg.com/media/EusfM_LVgAI1nwo?format=jpg&name=large",
+          alt: "COM3D2 カラオケパックVR VOL.2",
+          title: "COM3D2 カラオケパックVR VOL.2",
+        },
+        {
           link: "https://dl.s-court.me/item.php?iid=225",
           src:
             "https://pbs.twimg.com/media/EV0oltdUEAAPiGa?format=jpg&name=large",
           alt: "COM3D2 カラオケパックVR VOL.3",
           title: "COM3D2 カラオケパックVR VOL.3",
+        },
+        {
+          link: "https://dl.s-court.me/item.php?iid=230",
+          src:
+            "https://pbs.twimg.com/media/Euse4bFUcAIgrr8?format=jpg&name=large",
+          alt: "COM3D2 カラオケパックVR VOL.4",
+          title: "COM3D2 カラオケパックVR VOL.4",
         },
         {
           link: "https://amzn.to/35QsVQM",

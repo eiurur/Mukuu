@@ -29,7 +29,21 @@ export default {
           src: "https://pbs.twimg.com/media/EiSFht2VoAInBcO?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2+ GP-01&GP-02",
           title: "カスタムオーダーメイド3D2+ GP-01&GP-02"
-        }
+        },
+        {
+          link: "https://amzn.to/2ZzlHfx",
+          src:
+            "https://pbs.twimg.com/media/Eusd1WIVEAEjYxd?format=jpg&name=large",
+          alt: "CM3D2 ACTパック",
+          title: "CM3D2 ACTパック",
+        },
+        {
+          link: "https://amzn.to/3pImS6R",
+          src:
+            "https://pbs.twimg.com/media/EusgdKeUUAEuNj3?format=jpg&name=medium",
+          alt: "CM3D2 カラオケパックVR",
+          title: "CM3D2 カラオケパックVR",
+        },
       ]
     };
   },
