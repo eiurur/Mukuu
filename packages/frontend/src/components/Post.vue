@@ -19,12 +19,7 @@
           :media="post.entities.media"
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
-        <Post
-        v-if="useServiceQuote"
-        mediaType="grid"
-        :useDrawer="true"
-        :isQuoted="true"
-        :post="post.quotedStatuses[0]"></Post>
+        <QuotedStatus :post="post" v-if="useServiceQuote"></QuotedStatus>
         <QuotedTweet :post="post" v-if="useOfficialQuote"></QuotedTweet>
         <!-- <div v-if="useServiceQuote">
           <Post
@@ -106,11 +101,12 @@ import GridMediaList from "@/components/GridMediaList.vue";
 import PostFooter from "@/components/PostFooter.vue";
 import UserProfile from "@/components/UserProfile.vue";
 import QuotedTweet from "@/components/QuotedTweet.vue";
+import QuotedStatus from "@/components/QuotedStatus.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
   name: "Post",
-  components: { FlexMediaList, GridMediaList, PostFooter, QuotedTweet, UserProfile },
+  components: { FlexMediaList, GridMediaList, PostFooter, QuotedTweet, QuotedStatus, UserProfile },
   props: {
     post: {
       type: Object,
