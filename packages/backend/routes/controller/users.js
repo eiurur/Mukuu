@@ -76,7 +76,6 @@ module.exports = class UserController {
       req,
       res,
       (async ({ twitterId }) => {
-        console.log(twitterId)
         const userProvider = ModelProviderFactory.create('user');
         const user = await userProvider.findOne({ idStr: twitterId });
         return user || {};

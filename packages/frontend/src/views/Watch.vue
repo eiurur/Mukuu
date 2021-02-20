@@ -245,7 +245,6 @@ export default {
       if (!postedBy._id) {
         const { data } = await user.fetchByTwitterId(postedBy.idStr);
         if (!data) {
-          console.log(data);
           this.$message.error("ユーザ情報がありません");
           return;
         }

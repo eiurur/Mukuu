@@ -16,7 +16,6 @@ const logger = require(path.join('..', '..', 'logger'))('update_replied');
     logger.info('update replied : ', posts.length);
     for (const post of posts) {
       const replied = await crawler.fetchReplied(post.idStr);
-      console.log(post.idStr, replied);
       if (!replied) continue;
       const entity = {
         query: { idStr: post.idStr },
