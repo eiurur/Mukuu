@@ -44,7 +44,7 @@ Vue.use(VueLazyload, {
 Vue.use(VueMq, {
   breakpoints: {
     // default breakpoints - customize this
-    sm: 1080,
+    sm: 1280,
     md: 1920,
     lg: Infinity
   },

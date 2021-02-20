@@ -334,7 +334,7 @@ img[lazy='loaded']:after {
     }
   }
 }
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 1280px) {
   #app {
     display: flex;
     flex-direction: column;
@@ -369,20 +369,30 @@ img[lazy='loaded']:after {
     display: none;
   }
 }
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 960px) {
   #app {
     display: flex;
-    flex-direction: column-reverse;
-  }
-  .hidden-tablet {
-    display: none;
+    flex-direction: column;
   }
   .el-row {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+  .quoted {
+    .quote {
+      img {
+        width: 96px !important;
+        height: 96px !important;
+      }
+    }
+  
+  }
 }
 @media screen and (max-width: 559px) {
+  #app {
+    display: flex;
+    flex-direction: column-reverse;
+  }
   .hidden-smartphone {
     display: none;
   }
