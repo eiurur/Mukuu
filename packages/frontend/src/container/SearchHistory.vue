@@ -1,6 +1,6 @@
 <template>
   <section class="history infinite-list">
-    <div class="padding">
+    <div class="padding margin">
       <div class="title">検索ワード</div>
       <el-tabs v-model="activeName">
         <el-tab-pane v-for="tab in tabs" :key="tab.name" :label="tab.label" :name="tab.name">
@@ -25,6 +25,9 @@
 <style lang="scss" scoped>
 .history {
   margin-left: 0.5rem;
+  .margin {
+    margin-bottom: .5rem;
+  }
   .title {
     font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
     color: #606266;
