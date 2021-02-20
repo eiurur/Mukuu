@@ -44,6 +44,13 @@ export default {
           alt: "CM3D2 カラオケパックVR",
           title: "CM3D2 カラオケパックVR",
         },
+        {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013971.html",
+          src:
+            "//img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013971_img_main.jpg",
+          alt: "カスタムオーダーメイド3D2 GP-01＆GP-02＆GP-01 Fb（本体+アペンド）",
+          title: "カスタムオーダーメイド3D2 GP-01＆GP-02＆GP-01 Fb（本体+アペンド）",
+        }
       ]
     };
   },
