@@ -113,6 +113,7 @@
             v-else
             :media="user.medias"
             :useImageOnly="true"
+            :useFixedWidth="true"
             class="media-list"
           ></FlexMediaList>
           <div>

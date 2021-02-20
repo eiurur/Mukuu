@@ -17,7 +17,7 @@
         v-for="item in media"
         v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
         class="original"
-        :class="imageWidthStyle"
+        :class="[imageWidthStyle, imageWidth]"
         data-zoomable
       />
     </div>
@@ -32,20 +32,19 @@
     width: auto;
     object-fit: cover;
     object-position: top;
-    // height: 320px;
-    max-width: 25%;
+      max-width: 25%;
     &:first-of-type {
       border-radius: 0.5rem 0 0 0.5rem / 0.5rem 0 0 0.5rem;
     }
     &:last-of-type {
       border-radius: 0 0.5rem 0.5rem 0 / 0 0.5rem 0.5rem 0;
     }
+    &.fixedWidth {
+      width: 25%;
+    }
   }
   video {
-    // height: 100%;
-    // width: 100%;
     max-width: 100%;
-    // padding: 0;
   }
 
   & > img + img {
@@ -76,7 +75,7 @@ import mediumZoom from "medium-zoom";
 
 export default {
   name: "FlexMediaList",
-  props: ["media", "useImageOnly"],
+  props: ["media", "useImageOnly", "useFixedWidth"],
   methods: {
     onScroll() {
       if (!this.useVideo) return;
@@ -104,6 +103,10 @@ export default {
           w100p: this.media.length === 1
         };
       }
+    },
+    imageWidth() {
+      if (this.useFixedWidth) return { fixedWidth: true };
+      return { maxWidth: true };
     },
     video() {
       const videos = this.media[0].video_info.variants;
