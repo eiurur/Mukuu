@@ -136,7 +136,7 @@ export default {
   },
   computed: {
     useOfficialQuote() {
-      return !!this.post.quoted;
+      return !this.isQuoted && !!this.post.quoted;
     },
     useServiceQuote() {
       if (this.useOfficialQuote) return false;
