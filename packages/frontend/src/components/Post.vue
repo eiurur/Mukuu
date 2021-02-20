@@ -20,11 +20,12 @@
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
         <Post
-        v-if="post.quotedStatuses && post.quotedStatuses[0]"
+        v-if="!post.quoted && post.quotedStatuses && post.quotedStatuses[0]"
         mediaType="grid"
         :useDrawer="true"
         :isQuoted="true"
         :post="post.quotedStatuses[0]"></Post>
+        <QuotedTweet :post="post" v-if="post.quoted"></QuotedTweet>
         <!-- <div v-if="post.quotedStatuses && post.quotedStatuses[0]">
         <Post
         v-for="quote in post.quotedStatuses"
@@ -104,11 +105,12 @@ import FlexMediaList from "@/components/FlexMediaList.vue";
 import GridMediaList from "@/components/GridMediaList.vue";
 import PostFooter from "@/components/PostFooter.vue";
 import UserProfile from "@/components/UserProfile.vue";
+import QuotedTweet from "@/components/QuotedTweet.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
   name: "Post",
-  components: { FlexMediaList, GridMediaList, PostFooter, UserProfile },
+  components: { FlexMediaList, GridMediaList, PostFooter, QuotedTweet, UserProfile },
   props: {
     post: {
       type: Object,
@@ -130,14 +132,6 @@ export default {
     isQuoted: {
       type: Boolean,
       default: false,
-    },
-  },
-  methods: {
-    openUserDrawer(postedBy) {
-      if (!postedBy || !this.useDrawer) return;
-      const payload = { ...postedBy };
-      this.$store.dispatch("drawer/initialize", payload);
-      this.$store.dispatch("saveLocalStorage");
     },
   },
   computed: {

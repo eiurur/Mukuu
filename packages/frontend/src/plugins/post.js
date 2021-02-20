@@ -9,7 +9,7 @@ export function normalize(post) {
 export function expandRecusively(post) {
   post = normalize(post);
   if (post.entities) post.entities = JSON.parse(post.entities);
-  if (post.quotedStatuses) {
+  if (post.quotedStatuses && post.quotedStatuses.length) {
     post.quotedStatuses = post.quotedStatuses.map(s => expandRecusively(s));
   }
   return post;

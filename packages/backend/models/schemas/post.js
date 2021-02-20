@@ -23,12 +23,13 @@ const PostSchema = new Schema({
   favoriteCount: { type: Number, default: 0, index: -1 },
   retweetCount: { type: Number, default: 0, index: -1 },
   totalCount: { type: Number, default: 0, index: -1 },
-  quotedStatuses: [
+  quotedStatuses: [ // 引用ツイート(サイト内)
     {
       type: ObjectId,
       ref: 'Post',
     },
   ],
+  quoted: String, // 引用ツイート(raw_json), 
   // replied: String,
   isReply: {
     type: Boolean,

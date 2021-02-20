@@ -6,6 +6,8 @@ const { execFile, spawn } = require('child_process');
 const execFileAsync = promisify(execFile);
 const logger = require(path.join('..', 'logger'))('cron');
 
+const { expandUrlOfTweet } = require('../lib/utils');
+const TweetCrawler = require('./crawler/tweetCrawler');
 const ModelProviderFactory = require('../models/modelProviderFactory');
 const { acceptedDomains } = require('@mukuu/common/lib/constants');
 
@@ -59,46 +61,65 @@ module.exports = {
   addQuoteStatus: async (post) => {
     if (!post) return;
     // if (post.quotedStatus) return;
-
-    const entities = JSON.parse(post.entities);
-    if (entities.media && entities.media.length) return; // 本ツイートのメディアの表示を優先する
+    // const entities = JSON.parse(post.entities);
+    // if (entities.media && entities.media.length) return; // 本ツイートのメディアの表示を優先する
 
     const urls = [...post.text.matchAll(/(https?:\/\/\S+)/g)];
     if (!urls || !urls.length) return;
 
+    const postProvider = ModelProviderFactory.create('post');
+
+    // Tweet Link
+    let quoted = ''
+    if(post) {
+      const quotedTweetIdMatches  = urls.map(m => m[0].match(/^https:\/\/twitter.com\/.+\/status\/(\d+)/)).filter(id => !!id)
+      if(quotedTweetIdMatches.length) {
+        const quotedTweetIdMatch = quotedTweetIdMatches[0]
+        const quotedTweetId = quotedTweetIdMatch[1]
+        const crawler = new TweetCrawler()
+        try {
+          quoted = await crawler.status(quotedTweetId)
+          qutoed = expandUrlOfTweet(quoted)
+        }
+        catch(err) {
+          console.log(err)
+        }
+      }
+    }
+
+    // DL Link
+    const quotedStatuses = [];
     const matchedDlLinks = urls.filter((m) =>
       acceptedDomains.some((domain) => m[0].indexOf(domain) !== -1)
     );
-    if (!matchedDlLinks.length) return;
-
-    const postProvider = ModelProviderFactory.create('post');
-
-    const quotedStatuses = [];
-    for ([dlLink] of matchedDlLinks) {
-      if (
-        dlLink.indexOf('ux.getuploader.com') !== -1 &&
-        dlLink.indexOf('/download/') === -1
-      ) {
-        continue;
-      }
-      const postQuery = { searchWord: dlLink };
-      const postSearchOption = {
-        sort: 'createdAtAsc',
-      };
-      const [oldest] = await postProvider.find(postQuery, postSearchOption);
-      if (oldest && post.idStr !== oldest.idStr) {
-        const urls = getUrls(oldest.text);
-        const isExactMatch = Array.from(urls).includes(dlLink);
-        if (!isExactMatch) continue;
-        quotedStatuses.push(oldest);
+    if (matchedDlLinks.length) {
+      for ([dlLink] of matchedDlLinks) {
+        if (
+          dlLink.indexOf('ux.getuploader.com') !== -1 &&
+          dlLink.indexOf('/download/') === -1
+        ) {
+          continue;
+        }
+        const postQuery = { searchWord: dlLink };
+        const postSearchOption = {
+          sort: 'createdAtAsc',
+        };
+        const [oldest] = await postProvider.find(postQuery, postSearchOption);
+        if (oldest && post.idStr !== oldest.idStr) {
+          const urls = getUrls(oldest.text);
+          const isExactMatch = Array.from(urls).includes(dlLink);
+          if (!isExactMatch) continue;
+          quotedStatuses.push(oldest);
+        }
       }
     }
-    if (!quotedStatuses.length) return;
+    if (!quoted && !quotedStatuses.length) return;
 
     const entity = {
       query: { idStr: post.idStr },
       data: Object.assign(post, {
         quotedStatuses: quotedStatuses.map((post) => post._id),
+        quoted: JSON.stringify(quoted)
       }),
       options: { new: true, upsert: true },
     };

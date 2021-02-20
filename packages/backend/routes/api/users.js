@@ -10,11 +10,10 @@ module.exports = app => {
     UserController.count,
   );
   app.get(
-    `/api/${API_VERSION}/users/:screenName`,
+    `/api/${API_VERSION}/users/:twitterId`,
     [parameters.getParameters, logging.log],
-    UserController.getByScreenName,
+    UserController.getByTwitterId,
   );
-
   app.get(
     `/api/${API_VERSION}/users`,
     [parameters.getParameters, logging.log],

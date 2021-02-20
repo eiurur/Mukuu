@@ -118,6 +118,7 @@ import Counter from "@/components/Counter.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
 import { addDividingFlag, expandRecusively } from "@/plugins/post";
 import post from "../api/post";
+import user from "../api/user";
 
 export default {
   name: "watch",
@@ -239,8 +240,17 @@ export default {
         location: url
       });
     },
-    openUserDrawer(postedBy) {
+    async openUserDrawer(postedBy) {
       if (!postedBy) return;
+      if (!postedBy._id) {
+        const { data } = await user.fetchByTwitterId(postedBy.idStr);
+        if (!data) {
+          console.log(data);
+          this.$message.error("ユーザ情報がありません");
+          return;
+        }
+        postedBy._id = data._id;
+      }
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
       this.$store.dispatch("saveLocalStorage");

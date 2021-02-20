@@ -10,6 +10,10 @@ export default {
     });
     return { url: request.responseURL, data };
   },
+  async fetchByTwitterId(twitterId) {
+    const { data, request } = await axios.get(`${API_ROOT}/users/${twitterId}`);
+    return { url: request.responseURL, data };
+  },
   async fetchCount(params) {
     const { data, request } = await axios.get(`${API_ROOT}/users/count`, {
       params,

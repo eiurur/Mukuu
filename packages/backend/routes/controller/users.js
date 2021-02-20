@@ -71,13 +71,14 @@ module.exports = class UserController {
     );
   }
 
-  static getByScreenName(req, res) {
+  static getByTwitterId(req, res) {
     seaquencer(
       req,
       res,
-      (async ({ screenName }) => {
+      (async ({ twitterId }) => {
+        console.log(twitterId)
         const userProvider = ModelProviderFactory.create('user');
-        const user = await userProvider.findOne({ screenName });
+        const user = await userProvider.findOne({ idStr: twitterId });
         return user || {};
       })(req.params),
     );
