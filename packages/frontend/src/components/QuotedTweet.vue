@@ -23,6 +23,7 @@ export default {
     postedBy() {
       const tweet = JSON.parse(this.post.quoted);
       const { user } = tweet;
+      if (!user) return {};
       return {
         idStr: user.id_str,
         name: user.name,
@@ -44,6 +45,7 @@ export default {
     },
     quotedStatus() {
       const tweet = JSON.parse(this.post.quoted);
+      if (!tweet) return {};
       const post = {
         idStr: tweet.id_str,
         text: tweet.full_text,

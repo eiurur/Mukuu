@@ -26,15 +26,15 @@
         :isQuoted="true"
         :post="post.quotedStatuses[0]"></Post>
         <QuotedTweet :post="post" v-if="post.quoted"></QuotedTweet>
-        <!-- <div v-if="post.quotedStatuses && post.quotedStatuses[0]">
-        <Post
-        v-for="quote in post.quotedStatuses"
-        mediaType="grid"
-        :useDrawer="true"
-        :isQuoted="true"
-        :key="quote._id"
-        :post="quote"></Post>
-        </div> -->
+        <div v-if="!post.quoted && post.quotedStatuses && post.quotedStatuses[0]">
+          <Post
+          v-for="quote in post.quotedStatuses"
+          mediaType="grid"
+          :useDrawer="true"
+          :isQuoted="true"
+          :key="quote._id"
+          :post="quote"></Post>
+        </div>
         <PostFooter :class="{shrink: isQuoted}" :post="post" :isQuoted="isQuoted"></PostFooter>
       </article>
     </div>

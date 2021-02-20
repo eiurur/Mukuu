@@ -1,5 +1,5 @@
 <template>
-  <div class="quote-container">
+  <div class="quote-container" v-if="post.text">
     <article class="post" :class="{quoted: isQuoted}">
       <div class="text-container">
         <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
@@ -117,12 +117,12 @@ export default {
   },
   computed: {
     media() {
+      if (!this.post.entities) return null;
       if (!this.post.entities.media) return null;
       return this.post.entities.media[0].media_url_https;
     },
     hasExternalLink: {
       get() {
-        console.log(parseToExternalLinks(this.post.text));
         return parseToExternalLinks(this.post.text).length > 0;
       },
     },
