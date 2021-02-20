@@ -119,7 +119,7 @@ module.exports = {
       query: { idStr: post.idStr },
       data: Object.assign(post, {
         quotedStatuses: quotedStatuses.map((post) => post._id),
-        quoted: JSON.stringify(quoted),
+        quoted: quoted ? JSON.stringify(quoted) : "", // JSON.stringify("")だと""""になる
       }),
       options: { new: true, upsert: true },
     };
