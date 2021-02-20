@@ -87,6 +87,7 @@
   & .description {
     white-space: pre-wrap;
     flex-wrap: wrap;
+    font-weight: 500;
   }
   & i > * {
     padding-left: 0.5rem;

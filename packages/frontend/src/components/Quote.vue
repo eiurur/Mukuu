@@ -30,6 +30,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 1rem;
+  font-weight: 500;
   img {
     object-fit: cover;
     width: 120px;
