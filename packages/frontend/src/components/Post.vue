@@ -20,13 +20,13 @@
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
         <Post
-        v-if="!post.quoted && post.quotedStatuses && post.quotedStatuses[0]"
+        v-if="useServiceQuote"
         mediaType="grid"
         :useDrawer="true"
         :isQuoted="true"
         :post="post.quotedStatuses[0]"></Post>
-        <QuotedTweet :post="post" v-if="post.quoted"></QuotedTweet>
-        <div v-if="!post.quoted && post.quotedStatuses && post.quotedStatuses[0]">
+        <QuotedTweet :post="post" v-if="useOfficialQuote"></QuotedTweet>
+        <!-- <div v-if="useServiceQuote">
           <Post
           v-for="quote in post.quotedStatuses"
           mediaType="grid"
@@ -34,7 +34,7 @@
           :isQuoted="true"
           :key="quote._id"
           :post="quote"></Post>
-        </div>
+        </div> -->
         <PostFooter :class="{shrink: isQuoted}" :post="post" :isQuoted="isQuoted"></PostFooter>
       </article>
     </div>
@@ -135,6 +135,13 @@ export default {
     },
   },
   computed: {
+    useOfficialQuote() {
+      return !!this.post.quoted;
+    },
+    useServiceQuote() {
+      if (this.useOfficialQuote) return false;
+      return this.post.quotedStatuses && this.post.quotedStatuses[0];
+    },
     isGrid: {
       get() {
         return this.mediaType === "grid";
