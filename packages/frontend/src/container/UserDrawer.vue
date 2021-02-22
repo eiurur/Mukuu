@@ -12,7 +12,7 @@
         :style="{ top: 250 + 'px', right: 1 + 'rem' }"
       ></WatchBtn>
       <div class="text">
-        <div>
+        <div class="names">
           <span class="name">{{ user.name }}</span>
           <ScreenName :screenName="user.screenName"></ScreenName>
         </div>
@@ -79,9 +79,8 @@
     padding: 0.5rem 1rem;
     padding-top: 3rem;
     font-size: 1rem;
-
     & .screen-name {
-      padding-left: 0.5rem;
+      padding-left: 0.25rem;
     }
   }
   & .description {

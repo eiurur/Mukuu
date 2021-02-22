@@ -10,6 +10,7 @@
 
     <div class="post-container" v-if="hasExternalLink">
       <article class="post" :class="{quoted: isQuoted}">
+        <InReply :post="post" :useDrawer="useDrawer" v-if="post.inReply"></InReply>
         <div class="text-container">
           <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
           <div class="text" v-html="$activateLink(post.text)"></div>
@@ -100,13 +101,14 @@ import FlexMediaList from "@/components/FlexMediaList.vue";
 import GridMediaList from "@/components/GridMediaList.vue";
 import PostFooter from "@/components/PostFooter.vue";
 import UserProfile from "@/components/UserProfile.vue";
+import InReply from "@/components/InReply.vue";
 import QuotedTweet from "@/components/QuotedTweet.vue";
 import QuotedStatus from "@/components/QuotedStatus.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
   name: "Post",
-  components: { FlexMediaList, GridMediaList, PostFooter, QuotedTweet, QuotedStatus, UserProfile },
+  components: { FlexMediaList, GridMediaList, PostFooter, InReply, QuotedTweet, QuotedStatus, UserProfile },
   props: {
     post: {
       type: Object,

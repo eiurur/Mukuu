@@ -1,8 +1,6 @@
 <template>
   <div class="user">
-    <div class="icon" @click="openUserDrawer()">
-      <img v-lazy="post.postedBy.profileImageUrl" onerror="this.style.display = 'none'" />
-    </div>
+    <PostIcon :post="post" :useDrawer="useDrawer"></PostIcon>
     <div class="profile">
       <div class="names">
         <span class="name">{{ post.postedBy.name }}</span>
@@ -59,6 +57,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      font-weight: 500;
       & .name {
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -77,11 +76,13 @@
 
 <script>
 import ScreenName from "@/components/ScreenName.vue";
+import PostIcon from "@/components/PostIcon.vue";
 import user from "@/api/user";
 
 export default {
   name: "UserProfile",
   components: {
+    PostIcon,
     ScreenName
   },
   props: ["post", "useDrawer"],
