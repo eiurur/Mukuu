@@ -120,7 +120,7 @@ export default {
       this.skip = skip || 0;
       this.posts = [];
       Promise.all([this.fetchCount(), this.load()]);
-    }, 200).bind(this);
+    }, 150).bind(this);
   },
   methods: {
     storeSearchOptionToQueryString() {
