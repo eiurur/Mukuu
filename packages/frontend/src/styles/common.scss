@@ -380,9 +380,12 @@ img[lazy='loaded']:after {
   }
   .quoted {
     .quote {
+      flex-direction: column  !important;
       img {
-        width: 96px !important;
-        height: 96px !important;
+        width: 100% !important;
+        height: 160px !important;
+        margin-bottom: 1rem !important;
+        margin-right: 0 !important;
       }
     }
   
