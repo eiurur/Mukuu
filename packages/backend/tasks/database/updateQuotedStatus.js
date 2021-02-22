@@ -1,7 +1,7 @@
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const path = require('path');
 const logger = require(path.join('..', '..', 'logger'))('cron');
-const { addQuoteStatus } = require('../util');
+const { addQuoteStatus, addInReply } = require('../util');
 
 (async () => {
   try {
@@ -12,10 +12,8 @@ const { addQuoteStatus } = require('../util');
     const searchOption = {};
     const posts = await postProvider.find(query, searchOption);
     for (const post of posts) {
-      const dbPost = await addQuoteStatus(post);
-      // if (dbPost) {
-      //   logger.info('update  : ', JSON.stringify(dbPost));
-      // }
+      await addQuoteStatus(post);
+      await addInReply(post);
     }
   } catch (e) {
     logger.info(e);

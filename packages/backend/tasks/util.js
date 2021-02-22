@@ -6,7 +6,7 @@ const { execFile, spawn } = require('child_process');
 const execFileAsync = promisify(execFile);
 const logger = require(path.join('..', 'logger'))('cron');
 
-const { expandUrlOfTweet } = require('../lib/utils');
+const { expandUrlOfTweet, sleep } = require('../lib/utils');
 const TweetClient = require("./twitterClient")
 const ModelProviderFactory = require('../models/modelProviderFactory');
 const { acceptedDomains } = require('@mukuu/common/lib/constants');
@@ -57,6 +57,39 @@ module.exports = {
       entity.options
     );
     return dbPost;
+  },
+  addInReply: async (post, rawTweet) => {
+    if(!post) return
+    if(!rawTweet) {
+      try {
+        await sleep(1000);
+        rawTweet = await TweetClient.status(post.idStr)
+      }
+      catch(e){
+        return
+      }
+    }
+    if(rawTweet.in_reply_to_user_id_str !== rawTweet.user.id_str) return
+    const postProvider = ModelProviderFactory.create('post');
+    try {
+      let inReply = await TweetClient.status(rawTweet.in_reply_to_status_id_str);
+      inReply = expandUrlOfTweet(inReply);
+      const entity = {
+        query: { idStr: post.idStr },
+        data: Object.assign(post, {
+          inReply: inReply ? JSON.stringify(inReply) : "", // JSON.stringify("")だと""""になる
+        }),
+        options: { new: true, upsert: true },
+      };
+      await postProvider.findOneAndUpdate(
+        entity.query,
+        entity.data,
+        entity.options
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
   },
   addQuoteStatus: async (post) => {
     if (!post) return;

@@ -30,7 +30,7 @@ const PostSchema = new Schema({
     },
   ],
   quoted: String, // 引用ツイート(raw_json), 
-  // replied: String,
+  inReply: String,
   isReply: {
     type: Boolean,
     default: false,
