@@ -44,11 +44,12 @@ Vue.use(VueLazyload, {
 Vue.use(VueMq, {
   breakpoints: {
     // default breakpoints - customize this
-    sm: 1280,
-    md: 1920,
-    lg: Infinity
+    sm: 640,
+    md: 1280,
+    lg: 1920,
+    xl: Infinity
   },
-  defaultBreakpoint: "md" // customize this for SSR
+  defaultBreakpoint: "lg" // customize this for SSR
 });
 
 Vue.prototype.$activateLink = activateLink;

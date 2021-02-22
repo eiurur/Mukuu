@@ -25,6 +25,7 @@
         :hide-on-single-page="true"
         :current-page="currentPage"
         :page-size="20"
+        :pager-count="pagerCount"
         :total="total">
       </el-pagination>
     </div>
@@ -108,6 +109,11 @@ export default {
     },
     shouldUsePagination() {
       return this.$store.getters["config/shouldUsePagination"];
+    },
+    pagerCount() {
+      if (this.$mq === "sm") return 3;
+      if (this.$mq === "md") return 5;
+      return 7;
     }
   },
   watch: {

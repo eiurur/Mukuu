@@ -2,7 +2,7 @@
   <el-menu
     :router="true"
     :default-active="activeIndex"
-    :mode="$mq == 'sm' ? 'horizontal' : 'vertical'"
+    :mode="$mq == 'md' || $mq == 'sm'  ? 'horizontal' : 'vertical'"
   >
     <el-menu-item index="home" :route="{ name: 'home' }">
       <i class="el-icon-s-home"></i>
