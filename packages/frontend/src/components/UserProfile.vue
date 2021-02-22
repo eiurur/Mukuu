@@ -20,18 +20,6 @@
   align-items: center;
   overflow: hidden;
   contain: content;
-  .icon {
-    height: 48px;
-    width: 48px;
-    min-width: 48px;
-    max-height: 48px;
-    background: rgba(0, 0, 0, 0.12);
-    border-radius: 100%;
-    cursor: pointer;
-    img {
-      border-radius: 100%;
-    }
-  }
   & .createdAt {
     white-space: nowrap;
     & a {
@@ -64,12 +52,6 @@
         overflow: hidden;
       }
     }
-    & .createdAt {
-      a {
-        color: #8899a6;
-      }
-      cursor: pointer;
-    }
   }
 }
 </style>
@@ -77,7 +59,6 @@
 <script>
 import ScreenName from "@/components/ScreenName.vue";
 import PostIcon from "@/components/PostIcon.vue";
-import user from "@/api/user";
 
 export default {
   name: "UserProfile",
@@ -85,25 +66,6 @@ export default {
     PostIcon,
     ScreenName
   },
-  props: ["post", "useDrawer"],
-  methods: {
-    async openUserDrawer() {
-      const { postedBy } = this.post;
-
-      if (!postedBy || !this.useDrawer) return;
-      if (!postedBy._id) {
-        const { data } = await user.fetchByTwitterId(postedBy.idStr);
-        if (!data || !data._id) {
-          this.$message.error("ユーザ情報がありません");
-          return;
-        }
-        postedBy._id = data._id;
-        postedBy.postCount = data.postCount;
-      }
-      const payload = { ...postedBy };
-      this.$store.dispatch("drawer/initialize", payload);
-      this.$store.dispatch("saveLocalStorage");
-    }
-  }
+  props: ["post", "useDrawer"]
 };
 </script>
