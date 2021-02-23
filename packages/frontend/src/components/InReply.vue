@@ -19,7 +19,7 @@
         </div>
         <div class="main">
           <img
-            v-lazy="`${media}?format=jpg&name=medium`"
+            v-lazy="`${imageSrc}?format=jpg&name=medium`"
             class="original"
             data-zoomable
           />
@@ -163,8 +163,11 @@ export default {
     media() {
       const tweet = JSON.parse(this.post.inReply);
       if (!tweet.entities) return null;
-      if (!tweet.entities.media) return null;
-      return tweet.entities.media[0].media_url_https;
+      return tweet.entities.media;
+    },
+    imageSrc() {
+      if (!this.media) return null;
+      return this.media[0].media_url_https;
     },
     hasExternalLink: {
       get() {
