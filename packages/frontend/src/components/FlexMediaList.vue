@@ -1,16 +1,7 @@
 <template>
   <div v-if="media" class="media-list-container">
     <div class="media-list">
-      <video
-        v-if="useVideo"
-        ref="video"
-        autoplay
-        controls
-        loop
-        muted
-        :src="video"
-        class="original"
-      ></video>
+      <Video :media="media" v-if="useVideo" :isGrid="false"></Video>
       <img
         v-show="!useVideo"
         :key="item.id_str"
@@ -43,10 +34,6 @@
       width: 25%;
     }
   }
-  video {
-    max-width: 100%;
-  }
-
   & > img + img {
     padding-left: 0.25rem;
   }
@@ -72,25 +59,13 @@
 
 <script>
 import mediumZoom from "medium-zoom";
+import Video from "@/components/Video.vue";
 
 export default {
   name: "FlexMediaList",
   props: ["media", "useImageOnly", "useFixedWidth"],
-  methods: {
-    onScroll() {
-      if (!this.useVideo) return;
-      // Prevent error: TypeError: Failed to execute 'observe' on 'IntersectionObserver': parameter 1 is not of type 'Element'." vue refs
-      setTimeout(() => {
-        this.observer = new IntersectionObserver((entries) => {
-          if (entries[0].intersectionRatio <= 0) {
-            this.$refs.video.pause();
-          } else {
-            this.$refs.video.play();
-          }
-        });
-        this.observer.observe(this.$refs.video);
-      }, 100);
-    },
+  components: {
+    Video
   },
   computed: {
     imageWidthStyle: {
@@ -107,14 +82,6 @@ export default {
     imageWidth() {
       if (this.useFixedWidth) return { fixedWidth: true };
       return { maxWidth: true };
-    },
-    video() {
-      const videos = this.media[0].video_info.variants;
-      const mp4VideoHasHighestSize = videos
-        .filter((video) => video.bitrate)
-        .sort((a, b) => b.bitrate - a.bitrate)[0];
-      const videoUrl = mp4VideoHasHighestSize.url;
-      return videoUrl;
     },
     useVideo() {
       if (!this.media) return false;
@@ -133,7 +100,6 @@ export default {
             !img.classList.contains("medium-zoom-image") &&
             mediumZoom(img, { background: "#000" }))
       );
-      this.onScroll();
     });
   }
 };

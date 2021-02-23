@@ -1,15 +1,7 @@
 <template>
   <div v-if="media" class="media-list-container">
     <div class="media-list" :class="imageNumStyle">
-      <video
-        v-if="useVideo"
-        ref="video"
-        autoplay
-        controls
-        loop
-        muted
-        :src="video"
-      ></video>
+      <Video :media="media" v-if="useVideo" :isGrid="true"></Video>
       <img
         v-show="!useVideo"
         :key="item.id_str"
@@ -40,12 +32,6 @@
     // object-position: top;
     max-width: 100%;
     padding: 0;
-  }
-  & video {
-    // height: 100%;
-    width: 100%;
-    max-width: 100%;
-    // padding: 0;
   }
   &.v {
     display: flex;
@@ -80,25 +66,13 @@
 
 <script>
 import mediumZoom from "medium-zoom";
+import Video from "@/components/Video.vue";
 
 export default {
   name: "GridMediaList",
   props: ["media", "useImageOnly"],
-  methods: {
-    onScroll() {
-      if (!this.useVideo) return;
-      // Prevent error: TypeError: Failed to execute 'observe' on 'IntersectionObserver': parameter 1 is not of type 'Element'." vue refs
-      setTimeout(() => {
-        this.observer = new IntersectionObserver((entries) => {
-          if (entries[0].intersectionRatio <= 0) {
-            this.$refs.video.pause();
-          } else {
-            this.$refs.video.play();
-          }
-        });
-        this.observer.observe(this.$refs.video);
-      }, 100);
-    },
+  components: {
+    Video
   },
   computed: {
     imageNumStyle: {
@@ -111,14 +85,6 @@ export default {
           n1: this.media.length === 1
         };
       }
-    },
-    video() {
-      const videos = this.media[0].video_info.variants;
-      const mp4VideoHasHighestSize = videos
-        .filter((video) => video.bitrate)
-        .sort((a, b) => b.bitrate - a.bitrate)[0];
-      const videoUrl = mp4VideoHasHighestSize.url;
-      return videoUrl;
     },
     useVideo() {
       if (!this.media) return false;
@@ -137,7 +103,6 @@ export default {
             !img.classList.contains("medium-zoom-image") &&
             mediumZoom(img, { background: "#000" }))
       );
-      this.onScroll();
     });
   }
 };
