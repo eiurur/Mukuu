@@ -105,7 +105,6 @@
   .text {
     font-size: .8rem;
     word-break: break-word;
-    white-space: pre-wrap;
     width: 100%;
   }
 }
