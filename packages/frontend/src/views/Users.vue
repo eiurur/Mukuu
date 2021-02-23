@@ -105,7 +105,7 @@
           </div>
           <!-- <FlexMediaList :media="use.medias" class="media-list"></FlexMediaList> -->
           <GridMediaList
-            v-if="$mq == 'sm'"
+            v-if="$mq == 'md'"
             :useImageOnly="true"
             :media="user.medias"
           ></GridMediaList>

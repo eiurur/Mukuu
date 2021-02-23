@@ -16,7 +16,7 @@
           <div class="text" v-html="$activateLink(post.text)"></div>
         </div>
         <GridMediaList
-          v-if="$mq == 'sm' || isGrid"
+          v-if="$mq == 'md' || isGrid"
           :media="post.entities.media"
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
