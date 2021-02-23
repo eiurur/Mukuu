@@ -4,7 +4,7 @@
       <div class="text-container">
         <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
       </div>
-      <div class="quote">
+      <div class="quote" :class="gridStyle">
         <img
           v-if="media"
           v-lazy="`${media}?format=jpg&name=medium`"
@@ -32,6 +32,17 @@
   flex-direction: row;
   margin-top: 1rem;
   font-weight: 500;
+  &.grid {
+    flex-direction: column-reverse  !important;
+    .text {
+      margin-bottom: 1rem !important;
+    }
+    img {
+      width: 100% !important;
+      height: 160px !important;
+      margin-right: 0 !important;
+    }
+  }
   img {
     object-fit: cover;
     width: 120px;
@@ -117,6 +128,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isGrid: {
+      type: Boolean,
+      default: false,
+    }
   },
   computed: {
     media() {
@@ -129,6 +144,10 @@ export default {
         return parseToExternalLinks(this.post.text).length > 0;
       },
     },
+    gridStyle() {
+      if (!this.isGrid) return {};
+      return { grid: true };
+    }
   },
   mounted() {
     this.$nextTick(() => {

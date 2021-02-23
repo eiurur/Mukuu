@@ -5,7 +5,7 @@
         <PostIcon :post="post" :useDrawer="useDrawer"></PostIcon>
         <div class="reply-connection"></div>
       </div>
-      <div class="reply">
+      <div class="reply" :class="gridStyle">
         <div class="header">
           <div class="profile">
             <div class="names">
@@ -19,6 +19,7 @@
         </div>
         <div class="main">
           <img
+            v-if="imageSrc"
             v-lazy="`${imageSrc}?format=jpg&name=medium`"
             class="original"
             data-zoomable
@@ -61,9 +62,23 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   background: white;
   width: 100%;
+  &.grid {
+    .main {
+      flex-direction: column-reverse ;
+      .text {
+        margin-bottom: 1rem;
+      }
+      img {
+        width: 100%;
+        height: 200px;
+        margin-right: 0;
+      }
+    }
+
+  }
   .header {
     display: flex;
     flex-direction: row;
@@ -92,7 +107,7 @@
     flex-direction: row;
     width: 100%;
     padding-top: 1rem;
-    margin-left: 1rem;
+    padding-left: 1rem;
     font-weight: 500;
   }
   img {
@@ -119,7 +134,7 @@ import { expandRecusively } from "@/plugins/post";
 export default {
   name: "InReply",
   components: { PostIcon, ScreenName },
-  props: ["post", "useDrawer"],
+  props: ["post", "useDrawer", "isGrid"],
   computed: {
     postedBy() {
       const tweet = JSON.parse(this.post.inReply);
@@ -174,6 +189,10 @@ export default {
         return parseToExternalLinks(this.post.text).length > 0;
       },
     },
+    gridStyle() {
+      if (!this.isGrid) return {};
+      return { grid: true };
+    }
   },
   mounted() {
     this.$nextTick(() => {

@@ -10,7 +10,7 @@
 
     <div class="post-container" v-if="hasExternalLink">
       <article class="post" :class="{quoted: isQuoted}">
-        <InReply :post="post" :useDrawer="useDrawer" v-if="post.inReply"></InReply>
+        <InReply :post="post" :useDrawer="useDrawer" v-if="post.inReply" :isGrid="isGrid"></InReply>
         <div class="text-container">
           <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
           <div class="text" v-html="$activateLink(post.text)"></div>
@@ -20,8 +20,8 @@
           :media="post.entities.media"
         ></GridMediaList>
         <FlexMediaList v-else :media="post.entities.media"></FlexMediaList>
-        <QuotedStatus :post="post" v-if="useServiceQuote"></QuotedStatus>
-        <QuotedTweet :post="post" v-if="useOfficialQuote"></QuotedTweet>
+        <QuotedStatus :post="post" v-if="useServiceQuote" :isGrid="isGrid"></QuotedStatus>
+        <QuotedTweet :post="post" v-if="useOfficialQuote" :isGrid="isGrid"></QuotedTweet>
         <!-- <div v-if="useServiceQuote">
           <Post
           v-for="quote in post.quotedStatuses"

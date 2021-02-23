@@ -3,6 +3,7 @@
     mediaType="grid"
     :useDrawer="true"
     :isQuoted="true"
+    :isGrid="isGrid"
     :post="quotedStatus"></Quote>
 </template>
 
@@ -17,7 +18,7 @@ export default {
   components: {
     Quote,
   },
-  props: ["post"],
+  props: ["post", "isGrid"],
   computed: {
     quotedStatus() {
       return this.post.quotedStatuses[0];
