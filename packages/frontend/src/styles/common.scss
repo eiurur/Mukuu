@@ -378,13 +378,28 @@ img[lazy='loaded']:after {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-  .quoted {
-    .quote {
-      flex-direction: column  !important;
+  .reply {
+    .main {
+      flex-direction: column-reverse  !important;
+      .text {
+        margin-bottom: 1rem !important;
+      }
       img {
         width: 100% !important;
         height: 160px !important;
+        margin-right: 0 !important;
+      }
+    }
+  }
+  .quoted {
+    .quote {
+      flex-direction: column-reverse  !important;
+      .text {
         margin-bottom: 1rem !important;
+      }
+      img {
+        width: 100% !important;
+        height: 160px !important;
         margin-right: 0 !important;
       }
     }
