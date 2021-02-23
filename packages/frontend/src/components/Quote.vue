@@ -6,6 +6,7 @@
       </div>
       <div class="quote">
         <img
+          v-if="media"
           v-lazy="`${media}?format=jpg&name=medium`"
           class="original"
           data-zoomable
