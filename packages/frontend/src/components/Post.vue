@@ -82,7 +82,7 @@ article.post {
     .text {
       word-break: break-word;
       white-space: pre-wrap;
-      font-size: 1rem;
+      font-size: .9rem;
       font-weight: 500;
     }
 
