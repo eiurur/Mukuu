@@ -1,5 +1,5 @@
 <template>
-  <section class="infinite-list" ref="scrollable" v-if="user">
+  <section class="infinite-list drawer" ref="scrollable" v-if="user">
     <section class="profile">
       <div :style="{ background: `#${user.profileBackgroundColor}` }">
         <img v-lazy="`${user.profileBannerUrl}/web`" class="banner" />
@@ -35,6 +35,7 @@
       </div>
     </section>
     <section
+      class="inifinite-scroll-container"
       v-infinite-scroll="loadPost"
       infinite-scroll-disabled="isDisableLoading"
     >
@@ -51,11 +52,13 @@
 </template>
 
 <style lang="scss" scoped>
+.inifinite-scroll-container {
+  padding-top: 1rem;
+}
 .profile {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
+  border-radius: .5rem;
   position: relative;
   contain: content;
   & .text > div + div {
