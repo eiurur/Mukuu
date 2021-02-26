@@ -36,7 +36,7 @@ export default {
         {
           link: "https://amzn.to/3gO7fqz",
           src:
-            "https://pbs.twimg.com/media/EcqVg49UwAAQLDY?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EcqVg49UwAAQLDY?format=jpg&name=small",
           alt: "カスタムオーダーメイド3D2+ GP-01Fb",
           title: "カスタムオーダーメイド3D2+ GP-01Fb",
         },
@@ -86,7 +86,7 @@ export default {
         {
           link: "https://amzn.to/3fnXfnQ",
           src:
-            "https://pbs.twimg.com/media/EViiA8UU4AA77RU?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EViiA8UU4AA77RU?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 病的な程一途な大和撫子",
           title: "キャラクターパック 病的な程一途な大和撫子",
@@ -94,7 +94,7 @@ export default {
         {
           link: "https://amzn.to/3edXJLO",
           src:
-            "https://pbs.twimg.com/media/EViiA84U8AYLnrH?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EViiA84U8AYLnrH?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 母性的なお姉ちゃん",
           title: "キャラクターパック 母性的なお姉ちゃん",
@@ -102,7 +102,7 @@ export default {
         {
           link: "https://amzn.to/3iRmAIT",
           src:
-            "https://pbs.twimg.com/media/EViiA9aUMAEbSrV?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EViiA9aUMAEbSrV?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック M心を刺激する、ドS女王様",
           title: "キャラクターパック M心を刺激する、ドS女王様",
@@ -111,7 +111,7 @@ export default {
         {
           link: "https://amzn.to/38JQBWq",
           src:
-            "https://pbs.twimg.com/media/EVihLFcUYAULk9m?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EVihLFcUYAULk9m?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 警戒心の強い無愛想",
           title: "キャラクターパック 警戒心の強い無愛想",
@@ -119,7 +119,7 @@ export default {
         {
           link: "https://amzn.to/3elFpjY",
           src:
-            "https://pbs.twimg.com/media/EVihLFcUEAAqp_d?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EVihLFcUEAAqp_d?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 高飛車で生意気なお嬢様",
           title: "キャラクターパック 高飛車で生意気なお嬢様",
@@ -127,7 +127,7 @@ export default {
         {
           link: "https://dl.s-court.me/item.php?iid=212",
           src:
-            "https://pbs.twimg.com/media/EVihLFYUYAEthym?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EVihLFYUYAEthym?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパック 甘々デレデレでご主人様を信仰している妹系幼馴染",
           title:
@@ -136,7 +136,7 @@ export default {
         {
           link: "https://dl.s-court.me/item.php?iid=252",
           src:
-            "https://pbs.twimg.com/media/Euser58VkAENyTg?format=jpg&name=large",
+            "https://pbs.twimg.com/media/Euser58VkAENyTg?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパックEX ド変態ドM",
           title:
@@ -145,7 +145,7 @@ export default {
         {
           link: "https://dl.s-court.me/item.php?iid=253",
           src:
-            "https://pbs.twimg.com/media/EusesYbUYAMf8gY?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EusesYbUYAMf8gY?format=jpg&name=small",
           alt:
             "カスタムオーダーメイド3D2 キャラクターパックEX 腹黒",
           title:
@@ -154,35 +154,35 @@ export default {
         {
           link: "https://dl.s-court.me/item.php?iid=174",
           src:
-            "https://pbs.twimg.com/media/EusfK3NUcAID0ER?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EusfK3NUcAID0ER?format=jpg&name=small",
           alt: "COM3D2 カラオケパックVR",
           title: "COM3D2 カラオケパックVR",
         },
         {
           link: "https://dl.s-court.me/item.php?iid=192",
           src:
-            "https://pbs.twimg.com/media/EusfM_LVgAI1nwo?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EusfM_LVgAI1nwo?format=jpg&name=small",
           alt: "COM3D2 カラオケパックVR VOL.2",
           title: "COM3D2 カラオケパックVR VOL.2",
         },
         {
           link: "https://dl.s-court.me/item.php?iid=225",
           src:
-            "https://pbs.twimg.com/media/EV0oltdUEAAPiGa?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EV0oltdUEAAPiGa?format=jpg&name=small",
           alt: "COM3D2 カラオケパックVR VOL.3",
           title: "COM3D2 カラオケパックVR VOL.3",
         },
         {
           link: "https://dl.s-court.me/item.php?iid=230",
           src:
-            "https://pbs.twimg.com/media/Euse4bFUcAIgrr8?format=jpg&name=large",
+            "https://pbs.twimg.com/media/Euse4bFUcAIgrr8?format=jpg&name=small",
           alt: "COM3D2 カラオケパックVR VOL.4",
           title: "COM3D2 カラオケパックVR VOL.4",
         },
         {
           link: "https://amzn.to/35QsVQM",
           src:
-            "https://pbs.twimg.com/media/EivwctDUYAEU5nq?format=jpg&name=large",
+            "https://pbs.twimg.com/media/EivwctDUYAEU5nq?format=jpg&name=small",
           alt: "カスタムオーダーメイド3D2+ GP-01&GP-02",
           title: "カスタムオーダーメイド3D2+ GP-01&GP-02",
         },

@@ -20,7 +20,7 @@ export default {
         },
         {
           link: "https://amzn.to/3gO7fqz",
-          src: "https://pbs.twimg.com/media/EcqVg49UYAARu-P?format=jpg&name=large",
+          src: "https://pbs.twimg.com/media/EcqVg49UYAARu-P?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2+ GP-01Fb",
           title: "カスタムオーダーメイド3D2+ GP-01Fb"
         },
@@ -33,7 +33,7 @@ export default {
         {
           link: "https://amzn.to/2ZzlHfx",
           src:
-            "https://pbs.twimg.com/media/Eusd1WIVEAEjYxd?format=jpg&name=large",
+            "https://pbs.twimg.com/media/Eusd1WIVEAEjYxd?format=jpg&name=medium",
           alt: "CM3D2 ACTパック",
           title: "CM3D2 ACTパック",
         },
