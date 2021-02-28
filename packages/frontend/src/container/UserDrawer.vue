@@ -2,7 +2,10 @@
   <section class="infinite-list drawer" ref="scrollable" v-if="user">
     <section class="profile">
       <div :style="{ background: `#${user.profileBackgroundColor}` }">
-        <img v-lazy="`${user.profileBannerUrl}/web`" class="banner" />
+        <img
+          v-lazy="`${user.profileBannerUrl}/web`"
+          :alt="`${user.profileBannerUrl}/web`"
+          class="banner" />
       </div>
       <Icon class="icon" :user="user" :useTwitterPage="true"></Icon>
       <WatchBtn
@@ -18,7 +21,7 @@
         </div>
         <div v-if="user.hostname">
           <i class="el-icon-link"></i>
-          <a :href="user.url" target="_blank">{{ user.hostname }}</a>
+          <a :href="user.url" target="_blank" rel="noreferrer">{{ user.hostname }}</a>
         </div>
         <div class="description" v-html="$activateLink(user.description)"></div>
       </div>

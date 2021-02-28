@@ -1,9 +1,10 @@
 <template>
   <div class="icon clickable" :style="style">
     <div v-if="useTwitterPage">
-      <a :href="`https://twitter.com/${user.screenName}`" target="_blank">
+      <a :href="`https://twitter.com/${user.screenName}`" target="_blank" rel="noreferrer">
         <img
           :src="icon"
+          :alt="icon"
           onload="this.style.display = 'inline-block'"
           onerror="this.style.display = 'none'"
         />
@@ -12,6 +13,7 @@
     <div v-else-if="useUserDrawer" @click="openUserDrawer">
       <img
         :src="icon"
+        :alt="icon"
         onload="this.style.display = 'inline-block'"
         onerror="this.style.display = 'none'"
       />
@@ -19,6 +21,7 @@
     <div v-else>
       <img
         :src="icon"
+        :alt="icon"
         onload="this.style.display = 'inline-block'"
         onerror="this.style.display = 'none'"
       />

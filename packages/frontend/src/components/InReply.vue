@@ -14,13 +14,14 @@
             </div>
           </div>
           <div class="createdAt">
-            <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
+            <a :href="post.sourceUrl" target="_blank" rel="noreferrer">{{ post.createdAt }}</a>
           </div>
         </div>
         <div class="main">
           <img
             v-if="imageSrc"
             v-lazy="`${imageSrc}?format=jpg&name=medium`"
+            :alt="`${imageSrc}?format=jpg&name=medium`"
             class="original"
             data-zoomable
           />

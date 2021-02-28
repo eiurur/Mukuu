@@ -3,12 +3,13 @@
     <div class="media-list">
       <Video :media="media" v-if="useVideo" :isGrid="false"></Video>
       <img
-        v-show="!useVideo"
         :key="item.id_str"
         v-for="item in media"
+        v-show="!useVideo"
         v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
-        class="original"
+        :alt="`${item.media_url_https}?format=jpg&name=medium`"
         :class="[imageWidthStyle, imageWidth]"
+        class="original"
         data-zoomable
       />
     </div>
