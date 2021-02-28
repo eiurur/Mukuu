@@ -1,5 +1,5 @@
 <template>
-  <a class="item" :href="link.url" target="_blank">
+  <a class="item" :href="link.url" target="_blank" rel="noreferrer">
     <el-tooltip placement="top" effect="light" v-if="useTooltip">
       <div slot="content">{{ link.url }}</div>
       <span>

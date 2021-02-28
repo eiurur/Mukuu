@@ -2,7 +2,7 @@
   <div class="twitter-search-word">
     <slot name="caption"></slot>
     <div class="link">
-      <a :href="this.twitterSearchLink" target="_blank">
+      <a :href="this.twitterSearchLink" target="_blank" rel="noreferrer">
         <i class="el-icon-link"></i>
         <span>Twitterで検索する</span>
       </a>

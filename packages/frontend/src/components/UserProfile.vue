@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="createdAt">
-      <a :href="post.sourceUrl" target="_blank">{{ post.createdAt }}</a>
+      <a :href="post.sourceUrl" target="_blank" rel="noreferrer">{{ post.createdAt }}</a>
     </div>
   </div>
 </template>

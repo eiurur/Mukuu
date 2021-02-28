@@ -1,5 +1,5 @@
 <template>
-  <a class="user-search-word" :href="this.twitterSearchLink" target="_blank">
+  <a class="user-search-word" :href="this.twitterSearchLink" target="_blank" rel="noreferrer">
     <i class="el-icon-link"></i>
     <span>Twitterで検索する</span>
   </a>

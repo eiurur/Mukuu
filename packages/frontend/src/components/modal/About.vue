@@ -6,7 +6,7 @@
         <section>
           <p>
             Mukuu は
-            <a href="http://com3d2.jp/" target="_blank">カスタムオーダーメイド3D2(COM3D2)</a>のMODの検索を効率化するためのサイトです。
+            <a href="http://com3d2.jp/" target="_blank" rel="noreferrer">カスタムオーダーメイド3D2(COM3D2)</a>のMODの検索を効率化するためのサイトです。
           </p>
           <p>気になったMODの製作者様の過去作品を辿る手段が煩雑だった問題を解消するために作りました。</p>
           <p>
@@ -18,11 +18,11 @@
         <section>
           <p>
             更新通知/要望対応/不具合報告など:
-            <a href="https://twitter.com/fsns_" target="_blank">Twitter</a>
+            <a href="https://twitter.com/fsns_" target="_blank" rel="noreferrer">Twitter</a>
           </p>
           <p>
             ソースコード:
-            <a href="https://github.com/eiurur/Mukuu" target="_blank">GitHub</a>
+            <a href="https://github.com/eiurur/Mukuu" target="_blank" rel="noreferrer">GitHub</a>
           </p>
         </section>
       </section>
