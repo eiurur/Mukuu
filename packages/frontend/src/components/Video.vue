@@ -25,7 +25,6 @@ export default {
   props: ["media", "isGrid"],
   methods: {
     onScroll() {
-      if (!this.useVideo) return;
       // Prevent error: TypeError: Failed to execute 'observe' on 'IntersectionObserver': parameter 1 is not of type 'Element'." vue refs
       setTimeout(() => {
         this.observer = new IntersectionObserver((entries) => {
@@ -54,9 +53,7 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      this.onScroll();
-    });
+    this.onScroll();
   }
 };
 </script>
