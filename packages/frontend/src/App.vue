@@ -32,4 +32,7 @@ main {
   width: 100%;
   padding: 0.5rem;
 }
+main img {
+  content-visibility: auto;
+}
 </style>
