@@ -6,7 +6,7 @@
         <section>
           <p>
             Mukuu は
-            <a href="http://com3d2.jp/" target="_blank" rel="noreferrer">カスタムオーダーメイド3D2(COM3D2)</a>のMODの検索を効率化するためのサイトです。
+            <BlankLink href="http://com3d2.jp/" text="カスタムオーダーメイド3D2(COM3D2)"></BlankLink>のMODの検索を効率化するためのサイトです。
           </p>
           <p>気になったMODの製作者様の過去作品を辿る手段が煩雑だった問題を解消するために作りました。</p>
           <p>
@@ -18,11 +18,11 @@
         <section>
           <p>
             更新通知/要望対応/不具合報告など:
-            <a href="https://twitter.com/fsns_" target="_blank" rel="noreferrer">Twitter</a>
+            <BlankLink href="https://twitter.com/fsns_" text="Twitter"></BlankLink>
           </p>
           <p>
             ソースコード:
-            <a href="https://github.com/eiurur/Mukuu" target="_blank" rel="noreferrer">GitHub</a>
+            <BlankLink href="https://github.com/eiurur/Mukuu" text="GitHub"></BlankLink>
           </p>
         </section>
       </section>
@@ -39,8 +39,11 @@
 </style>
 
 <script>
+import BlankLink from "@/components/BlankLink.vue";
+
 export default {
   name: "About",
+  components: { BlankLink, },
   computed: {
     isOpen: {
       get() {

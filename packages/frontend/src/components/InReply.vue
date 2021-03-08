@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class="createdAt">
-            <a :href="post.sourceUrl" target="_blank" rel="noreferrer">{{ post.createdAt }}</a>
+            <BlankLink :href="post.sourceUrl" :text="post.createdAt"></BlankLink>
           </div>
         </div>
         <div class="main">
@@ -129,6 +129,7 @@
 import mediumZoom from "medium-zoom";
 import ScreenName from "@/components/ScreenName.vue";
 import PostIcon from "@/components/PostIcon.vue";
+import BlankLink from "@/components/BlankLink.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 import { expandRecusively } from "@/plugins/post";
 
@@ -136,7 +137,7 @@ const mapper = require('@mukuu/common/lib/mapper');
 
 export default {
   name: "InReply",
-  components: { PostIcon, ScreenName },
+  components: { BlankLink, PostIcon, ScreenName },
   props: ["post", "useDrawer", "isGrid"],
   computed: {
     postedBy() {

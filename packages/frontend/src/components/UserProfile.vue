@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="createdAt">
-      <a :href="post.sourceUrl" target="_blank" rel="noreferrer">{{ post.createdAt }}</a>
+      <BlankLink :href="post.sourceUrl" :text="post.createdAt"></BlankLink>
     </div>
   </div>
 </template>
@@ -57,12 +57,14 @@
 </style>
 
 <script>
+import BlankLink from "@/components/BlankLink.vue";
 import ScreenName from "@/components/ScreenName.vue";
 import PostIcon from "@/components/PostIcon.vue";
 
 export default {
   name: "UserProfile",
   components: {
+    BlankLink,
     PostIcon,
     ScreenName
   },

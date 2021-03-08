@@ -21,7 +21,7 @@
         </div>
         <div v-if="user.hostname">
           <i class="el-icon-link"></i>
-          <a :href="user.url" target="_blank" rel="noreferrer">{{ user.hostname }}</a>
+          <BlankLink :href="user.url" :text="user.hostname"></BlankLink>
         </div>
         <div class="description" v-html="$activateLink(user.description)"></div>
       </div>
@@ -121,6 +121,7 @@ import Loader from "@/components/Loader.vue";
 import ScreenName from "@/components/ScreenName.vue";
 import UserSearchLink from "@/components/links/UserSearchLink.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
+import BlankLink from '../components/BlankLink.vue';
 
 export default {
   name: "UserDrawer",
@@ -131,6 +132,7 @@ export default {
     ScreenName,
     UserSearchLink,
     WatchBtn,
+    BlankLink,
   },
   props: ["postedBy"],
   computed: {
