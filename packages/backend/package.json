@@ -36,7 +36,7 @@
     "host-validation": "^2.0.1",
     "log4js": "^6.3.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.11.19",
+    "mongoose": "^5.12.2",
     "mongoose-explain": "^0.2.2",
     "mongoose-sequence": "^5.3.1",
     "morgan": "^1.10.0",
