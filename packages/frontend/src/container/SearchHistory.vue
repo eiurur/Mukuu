@@ -71,47 +71,47 @@ export default {
   props: ["word", "passSearchWord"],
   components: { SearchWords },
   data() {
-    const today = this.$dayjs().valueOf();
-    const yesterday = this.$dayjs()
-      .add(-1, "days")
-      .valueOf();
-    const lastWeek = this.$dayjs()
-      .add(-7, "days")
-      .valueOf();
+    // const today = this.$dayjs().valueOf();
+    // const yesterday = this.$dayjs()
+    //   .add(-1, "days")
+    //   .valueOf();
+    // const lastWeek = this.$dayjs()
+    //   .add(-7, "days")
+    //   .valueOf();
     // const lastMonth = this.$dayjs()
     //   .add(-30, "days")
     //   .valueOf();
     return {
-      activeName: "first",
+      activeName: "self",
       timerID: null,
       tabs: [
-        {
-          name: "first",
-          label: "直近",
-          args: { sort: { createdAt: -1 } },
-          history: [],
-          shouldUpdate: true
-        },
-        {
-          name: "second",
-          label: "日",
-          args: {
-            from: yesterday,
-            to: today
-          },
-          history: [],
-          shouldUpdate: true
-        },
-        {
-          name: "third",
-          label: "週",
-          args: {
-            from: lastWeek,
-            to: today
-          },
-          history: [],
-          shouldUpdate: true
-        },
+        // {
+        //   name: "first",
+        //   label: "直近",
+        //   args: { sort: { createdAt: -1 } },
+        //   history: [],
+        //   shouldUpdate: true
+        // },
+        // {
+        //   name: "second",
+        //   label: "日",
+        //   args: {
+        //     from: yesterday,
+        //     to: today
+        //   },
+        //   history: [],
+        //   shouldUpdate: true
+        // },
+        // {
+        //   name: "third",
+        //   label: "週",
+        //   args: {
+        //     from: lastWeek,
+        //     to: today
+        //   },
+        //   history: [],
+        //   shouldUpdate: true
+        // },
         // {
         //   name: "fourth",
         //   label: "月",
@@ -122,13 +122,13 @@ export default {
         //   history: [],
         //   shouldUpdate: true
         // },
-        {
-          name: "five",
-          label: "累計",
-          args: {},
-          history: [],
-          shouldUpdate: true
-        }
+        // {
+        //   name: "five",
+        //   label: "累計",
+        //   args: {},
+        //   history: [],
+        //   shouldUpdate: true
+        // }
       ]
     };
   },
