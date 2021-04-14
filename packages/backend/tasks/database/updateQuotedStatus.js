@@ -8,12 +8,19 @@ const { addQuoteStatus, addInReply } = require('../util');
     logger.info('UPDATE QUOTED STATUS');
 
     const postProvider = ModelProviderFactory.create('post');
-    const query = {};
-    const searchOption = {};
-    const posts = await postProvider.find(query, searchOption);
-    for (const post of posts) {
-      await addQuoteStatus(post);
-      await addInReply(post);
+    let limit = 20;
+    let skip = 0;
+    while (true) {
+      const query = {};
+      const searchOption = { limit: limit, skip: skip };
+      const posts = await postProvider.find(query, searchOption);
+      console.log(posts.length);
+      if (!posts || posts.length <= 0) break;
+      for (const post of posts) {
+        await addQuoteStatus(post);
+        await addInReply(post);
+      }
+      skip += limit;
     }
   } catch (e) {
     logger.info(e);

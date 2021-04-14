@@ -8,14 +8,17 @@ const { addReplyStatus } = require('../util');
     logger.info('UPDATE REPLY');
 
     const postProvider = ModelProviderFactory.create('post');
-    const query = {};
-    const searchOption = {};
-    const posts = await postProvider.find(query, searchOption);
-    for (const post of posts) {
-      const dbPost = await addReplyStatus(post);
-      // if (dbPost) {
-      //   logger.info('update  : ', JSON.stringify(dbPost));
-      // }
+    let limit = 20;
+    let skip = 0;
+    while (true) {
+      const query = {};
+      const searchOption = { limit: limit, skip: skip };
+      const posts = await postProvider.find(query, searchOption);
+      if (!posts || posts.length <= 0) break;
+      for (const post of posts) {
+        const dbPost = await addReplyStatus(post);
+      }
+      skip += limit;
     }
   } catch (e) {
     logger.info(e);
