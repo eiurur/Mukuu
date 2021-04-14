@@ -122,13 +122,13 @@ export default {
         //   history: [],
         //   shouldUpdate: true
         // },
-        // {
-        //   name: "five",
-        //   label: "累計",
-        //   args: {},
-        //   history: [],
-        //   shouldUpdate: true
-        // }
+        {
+          name: "five",
+          label: "累計",
+          args: {},
+          history: [],
+          shouldUpdate: true
+        }
       ]
     };
   },
