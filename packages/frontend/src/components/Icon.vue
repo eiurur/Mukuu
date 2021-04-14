@@ -31,10 +31,10 @@
 
 <style lang="scss" scoped>
 .icon {
-  // width: 48px;
-  // height: 48px;
-  background: #ccc;
+  background: #e0e0e0;
   border-radius: 100%;
+  width: 73px;
+  height: 73px;
 
   &.clickable {
     cursor: pointer;
