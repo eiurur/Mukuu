@@ -133,26 +133,26 @@ module.exports = class ModelProvider {
 
   findByIdAndUpdate(_id, data, options) {
     this.logger.debug(`DB ${this.model.modelName} findByIdAndUpdate`);
-    this.logger.debug('_id    : ', _id);
-    this.logger.debug('data   : ', data);
-    this.logger.debug('options: ', options);
+    // this.logger.debug('_id    : ', _id);
+    // this.logger.debug('data   : ', data);
+    // this.logger.debug('options: ', options);
     console.time(`${this.model.modelName} findByIdAndUpdate`);
     return this.model.findByIdAndUpdate(_id, data, options);
   }
 
   findOneAndUpdate(query, data, options) {
     this.logger.debug(`DB ${this.model.modelName} findOneAndUpdate`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    this.logger.debug('data   : ', data);
-    this.logger.debug('options: ', options);
+    // this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('data   : ', data);
+    // this.logger.debug('options: ', options);
     return this.model.findOneAndUpdate(query, data, options);
   }
 
   update(query, data, options) {
     this.logger.debug(`DB ${this.model.modelName} update`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    this.logger.debug('data   : ', data);
-    this.logger.debug('options: ', options);
+    // this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('data   : ', data);
+    // this.logger.debug('options: ', options);
     return this.model.update(query, data, options);
   }
 
