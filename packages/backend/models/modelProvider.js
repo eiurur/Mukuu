@@ -5,6 +5,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const { ConditionBuilder, Finder } = require('./lib');
 const SchemeFactory = require('./schemaFactory');
 
+mongoose.set('useCreateIndex', true)
 const uri = process.env.DB_URI;
 const db = mongoose.connect(uri, {
   useUnifiedTopology: true,
