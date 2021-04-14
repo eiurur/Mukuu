@@ -4,8 +4,8 @@ const { spawnProcess, makeJob } = require('./util');
 const SCHEDULES = {
   SEARCH_CRAWLER: '0 5,21 * * *',
   USER_CRAWLER: '0 6,19,23 * * *',
-  REMOVE_POSTS: '30 11 * * *',
-  UPDATE_USER_DATABASE: '35 11 * * *',
+  REMOVE_POSTS: '30 4 * * *',
+  UPDATE_USER_DATABASE: '35 5 * * *',
 };
 
 [
