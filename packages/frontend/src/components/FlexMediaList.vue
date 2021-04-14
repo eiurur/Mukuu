@@ -20,7 +20,6 @@
 .media-list {
   display: flex;
   height: 100%;
-  width: 100%;
   img {
     width: auto;
     object-fit: cover;
