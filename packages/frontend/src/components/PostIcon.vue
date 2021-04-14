@@ -1,6 +1,6 @@
 <template>
   <div class="icon" @click="openUserDrawer()">
-    <img v-lazy="post.postedBy.profileImageUrl" :alt="post.postedBy.profileImageUrl" onerror="this.style.display = 'none'" />
+    <img v-lazy="post.postedBy.profileImageUrl" alt="img" onerror="this.style.display = 'none'" />
   </div>
 </template>
 

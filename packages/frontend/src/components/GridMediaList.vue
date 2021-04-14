@@ -7,8 +7,8 @@
         :key="item.id_str"
         v-for="item in media"
         v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
-        :alt="`${item.media_url_https}?format=jpg&name=medium`"
         class="original"
+        alt="img"
         data-zoomable
       />
     </div>

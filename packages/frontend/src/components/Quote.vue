@@ -8,8 +8,8 @@
         <img
           v-if="media"
           v-lazy="`${media}?format=jpg&name=medium`"
-          :alt="`${media}?format=jpg&name=medium`"
           class="original"
+          alt="img"
           data-zoomable
         />
         <div class="text" v-html="$activateLink(post.text)"></div>

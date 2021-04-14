@@ -7,9 +7,9 @@
         v-for="item in media"
         v-show="!useVideo"
         v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
-        :alt="`${item.media_url_https}?format=jpg&name=medium`"
         :class="[imageWidthStyle, imageWidth]"
         class="original"
+        alt="img"
         data-zoomable
       />
     </div>
@@ -25,7 +25,7 @@
     width: auto;
     object-fit: cover;
     object-position: top;
-      max-width: 25%;
+    max-width: 25%;
     &:first-of-type {
       border-radius: 0.5rem 0 0 0.5rem / 0.5rem 0 0 0.5rem;
     }
