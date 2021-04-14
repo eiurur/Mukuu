@@ -15,7 +15,6 @@ const CRAWL_RANGE_DAYS_MS = 3 * ONE_DAY_MS;
   try {
     const userProvider = ModelProviderFactory.create('user');
     const user = await userProvider.find({});
-    logger.info(user.length, user[0]);
     if (user.length === 0) return;
     const userIdList = user.map((u) => u.idStr);
     for (const userId of userIdList) {
@@ -29,14 +28,6 @@ const CRAWL_RANGE_DAYS_MS = 3 * ONE_DAY_MS;
           const tweetedAt = dayjs(
             tweet.created_at.replace('+0000', ''),
           ).valueOf();
-          logger.info('isFinish');
-          logger.info(currentAt);
-          logger.info(tweetedAt);
-          logger.info(CRAWL_RANGE_DAYS_MS);
-          logger.info(
-            currentAt - tweetedAt,
-            currentAt - tweetedAt > CRAWL_RANGE_DAYS_MS,
-          );
           return currentAt - tweetedAt > CRAWL_RANGE_DAYS_MS;
         };
         await crawler.traverseStatuses(searchOption, isFinish);

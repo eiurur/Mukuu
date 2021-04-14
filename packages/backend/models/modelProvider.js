@@ -62,13 +62,13 @@ module.exports = class ModelProvider {
 
   aggregate(query = []) {
     this.logger.debug(`DB ${this.model.modelName} aggregate`);
-    this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('query  : ', JSON.stringify(query));
     return this.model.aggregate(query).exec();
   }
 
   async count(query = {}, searchOption = {}) {
     this.logger.debug(`DB ${this.model.modelName} count`);
-    this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('query  : ', JSON.stringify(query));
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
@@ -80,7 +80,7 @@ module.exports = class ModelProvider {
       return condition;
     });
     const q = conditions.length === 0 ? {} : { $and: conditions };
-    this.logger.debug(JSON.stringify(q));
+    // this.logger.debug(JSON.stringify(q));
 
     const params = Object.assign(
       {
@@ -96,8 +96,8 @@ module.exports = class ModelProvider {
 
   async find(query = {}, searchOption = {}) {
     this.logger.debug(`DB ${this.model.modelName} find`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    this.logger.debug('searchOption: ', searchOption);
+    // this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('searchOption: ', searchOption);
 
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
@@ -109,7 +109,7 @@ module.exports = class ModelProvider {
       return condition;
     });
     const q = conditions.length === 0 ? {} : { $and: conditions };
-    this.logger.debug(JSON.stringify(q));
+    // this.logger.debug(JSON.stringify(q));
 
     const params = Object.assign(
       {
@@ -125,9 +125,9 @@ module.exports = class ModelProvider {
 
   findOne(query = {}, fields = {}, options = {}) {
     this.logger.debug(`DB ${this.model.modelName} find`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    this.logger.debug('fields : ', fields);
-    this.logger.debug('options: ', options);
+    // this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('fields : ', fields);
+    // this.logger.debug('options: ', options);
     return this.model.findOne(query, fields, options);
   }
 
