@@ -15,7 +15,7 @@
   "dependencies": {
     "@mukuu/common": "^0.0.0",
     "axios": "^0.21.1",
-    "core-js": "^3.10.1",
+    "core-js": "^3.11.1",
     "dayjs": "^1.10.4",
     "element-ui": "^2.15.1",
     "medium-zoom": "^1.0.6",
@@ -38,10 +38,10 @@
     "@vue/eslint-config-airbnb": "^5.3.0",
     "babel-eslint": "^10.1.0",
     "compression-webpack-plugin": "^7.1.2",
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
     "eslint-plugin-vue": "^7.9.0",
-    "node-sass": "^5.0.0",
-    "sass-loader": "10.1.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "10.0.4",
     "vue-template-compiler": "^2.6.12"
   }
 }
