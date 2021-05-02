@@ -38,7 +38,7 @@
     "publish": "lerna publish",
     "preinstall": "npm cache clean -f",
     "postinstall": "npm run bootstrap && npm run build",
-    "clean:dep": "rm -rf node_modules/ && rm -rf ./packages/frontend/node_modules/ && rm -rf ./packages/backend/node_modules",
+    "clean:dep": "rm -rf node_modules/ && rm package-lock.json && rm -rf ./packages/frontend/node_modules/ && rm ./packages/frontend/package-lock.json && rm -rf ./packages/backend/node_modules && rm ./packages/backend/package-lock.json",
     "update:dep": "cd ./packages/frontend && ncu -u && cd ../../ && cd ./packages/backend && ncu -u && cd ../../",
     "update:audit": "lerna-audit",
     "reject": "node ./packages/backend/tasks/database/removeUntargets",
