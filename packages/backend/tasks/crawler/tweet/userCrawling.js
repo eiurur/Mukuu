@@ -12,7 +12,6 @@ const CRAWL_INTERVAL_MS = 1000 * 2;
   try {
     const userProvider = ModelProviderFactory.create('user');
     const user = await userProvider.find({});
-    logger.info(user.length, user[0]);
     if (user.length === 0) return;
     const userIdList = user.map((u) => u.idStr);
     for (const userId of userIdList) {

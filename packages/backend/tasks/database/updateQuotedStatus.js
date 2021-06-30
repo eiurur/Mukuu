@@ -14,7 +14,6 @@ const { addQuoteStatus, addInReply } = require('../util');
       const query = {};
       const searchOption = { limit: limit, skip: skip };
       const posts = await postProvider.find(query, searchOption);
-      console.log(posts.length);
       if (!posts || posts.length <= 0) break;
       for (const post of posts) {
         await addQuoteStatus(post);
