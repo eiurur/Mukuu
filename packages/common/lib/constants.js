@@ -4,7 +4,7 @@ module.exports = {
     rejectedWords: /(Twitterを使っています|【定期】|KOIKATU|KOIKATSU|コイカツ|koika2|ハニーセレクト|HoneySelect|スカイリム|skyrim|\[ダウンロード\] | ダウンロード \|)/,
     // rejectedWords: /(^@.+|コイカツ|koika2|ハニーセレクト|HoneySelect|スカイリム|skyrim|\[ダウンロード\] )/,
   },
-  acceptedDomains: ['ux.getuploader.com', 'drive.google.com', 'mega.nz'],
+  acceptedDomains: ['ux.getuploader.com', 'drive.google.com', 'mega.nz', 'github.com'],
   acceptedHashtags: [
     '#COM3D2',
     '#CM3D2',
