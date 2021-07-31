@@ -13,9 +13,7 @@
       <section class="infinite-list">
         <div class="watch" :key="user._id" v-for="user in watches">
           <div class="user">
-            <div class="icon" @click="openUserDrawer(user)">
-              <img v-lazy="user.profileImageUrl" :alt="user.profileImageUrl"  onerror="this.style.display = 'none'" />
-            </div>
+            <WatchingUserIcon :user="user"></WatchingUserIcon>
             <div class="profile">
               <div class="names">
                 <span class="name">{{ user.name }}</span>
@@ -117,9 +115,9 @@ import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
+import WatchingUserIcon from "@/components/WatchingUserIcon.vue";
 import { addDividingFlag, expandRecusively } from "@/plugins/post";
 import post from "../api/post";
-import user from "../api/user";
 
 export default {
   name: "watch",
@@ -146,7 +144,8 @@ export default {
     Post,
     Loader,
     Counter,
-    WatchBtn
+    WatchBtn,
+    WatchingUserIcon
   },
   computed: {
     canLoad() {
@@ -196,21 +195,11 @@ export default {
   },
   mounted() {
     this.fetchCount();
-    this.updateUsers();
+    // this.updateUsers();
   },
   methods: {
     changeCurrentNumber(skip) {
       this.search({ skip });
-    },
-    async updateUsers() {
-      if (!this.watches.length) return;
-      await Promise.all(this.watches.map(async item => {
-        const { data } = await user.fetchByTwitterId(item.idStr);
-        if (!data || !Object.keys(data).length) return false;
-        this.$store.dispatch("watch/updateWatch", data);
-        return true;
-      }));
-      this.$store.dispatch("saveLocalStorage");
     },
     async fetchCount() {
       if (!this.watches.length) return;
@@ -252,20 +241,6 @@ export default {
         location: url
       });
     },
-    async openUserDrawer(postedBy) {
-      if (!postedBy) return;
-      if (!postedBy._id) {
-        const { data } = await user.fetchByTwitterId(postedBy.idStr);
-        if (!data) {
-          this.$message.error("ユーザ情報がありません");
-          return;
-        }
-        postedBy._id = data._id;
-      }
-      const payload = { ...postedBy };
-      this.$store.dispatch("drawer/initialize", payload);
-      this.$store.dispatch("saveLocalStorage");
-    }
   }
 };
 </script>
