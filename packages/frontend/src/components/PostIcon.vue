@@ -13,6 +13,7 @@
   background: rgba(0, 0, 0, 0.12);
   border-radius: 100%;
   cursor: pointer;
+  overflow: hidden;
   img {
     border-radius: 100%;
   }

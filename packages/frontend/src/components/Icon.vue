@@ -35,6 +35,7 @@
   border-radius: 100%;
   width: 73px;
   height: 73px;
+  overflow: hidden;
 
   &.clickable {
     cursor: pointer;

@@ -72,6 +72,7 @@
     top: calc(240px - 40px);
     left: 1rem;
     box-shadow: 0 0 0 4px white;
+    overflow: hidden;
   }
   & .banner {
     object-fit: cover;
