@@ -195,10 +195,21 @@ export default {
   },
   mounted() {
     this.fetchCount();
+    this.updateUsers();
   },
   methods: {
     changeCurrentNumber(skip) {
       this.search({ skip });
+    },
+    async updateUsers() {
+      if (!this.watches.length) return;
+      await Promise.all(this.watches.map(async item => {
+        const { data } = await user.fetchByTwitterId(item.idStr);
+        if (!data || !Object.keys(data).length) return false;
+        this.$store.dispatch("watch/updateWatch", data);
+        return true;
+      }));
+      this.$store.dispatch("saveLocalStorage");
     },
     async fetchCount() {
       if (!this.watches.length) return;

@@ -11,6 +11,10 @@ const actions = {
     const payload = { ...value, ...{ id: value.idStr } };
     commit("ADD_WATCH", payload);
   },
+  updateWatch({ commit }, value) {
+    const payload = { ...value, ...{ id: value.idStr } };
+    commit("UPDATE_WATCH", payload);
+  },
   removeWatch({ commit }, value) {
     const payload = { ...value, ...{ id: value.idStr } };
     commit("REMOVE_WATCH", payload);
@@ -22,6 +26,13 @@ const mutations = {
     state.watches = [payload, ...state.watches].filter(
       (b1, i, watches) => watches.findIndex(b2 => b1.id === b2.id) === i
     );
+  },
+  UPDATE_WATCH(state, payload) {
+    state.watches = state.watches.map(watch => {
+      if (payload.id !== watch.id) return watch;
+      watch = payload;
+      return watch;
+    });
   },
   REMOVE_WATCH(state, payload) {
     state.watches = state.watches.filter(watch => watch.id !== payload.id);
