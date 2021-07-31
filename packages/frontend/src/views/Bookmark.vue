@@ -255,7 +255,7 @@ export default {
       this.isSelectedArchive = true;
       const archives = this.$store.getters["bookmark/archives"];
       const selected = archives.find(e => e.id === item._id);
-      this.bookmarks = selected ? selected.bookmarks : [];
+      this.bookmarks = selected ? selected.bookmarks.reverse() : [];
       this.updateLinks();
       this.search();
     },
