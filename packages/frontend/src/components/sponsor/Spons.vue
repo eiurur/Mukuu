@@ -31,6 +31,43 @@ export default {
           title: "カスタムオーダーメイド3D2+ GP-01&GP-02"
         },
         {
+          link: "https://amzn.to/3elFpjY",
+          src: "https://pbs.twimg.com/media/E7oz8n9UcAYBChk?format=jpg&name=medium",
+          alt: "カスタムオーダーメイド3D2 キャラクターパック 高飛車で生意気なお嬢様",
+          title: "キャラクターパック 高飛車で生意気なお嬢様"
+        },
+        {
+          link: "https://amzn.to/3fiGyfj",
+          src: "https://pbs.twimg.com/media/E7oz8npVgAgsVkh?format=jpg&name=medium",
+          alt:
+            "カスタムオーダーメイド3D2 キャラクターパック 甘々デレデレでご主人様を信仰している妹系幼馴染",
+          title: "キャラクターパック 甘々デレデレでご主人様を信仰している妹系幼馴染"
+        },
+        {
+          link: "https://amzn.to/3zY0V9M",
+          src: "https://pbs.twimg.com/media/E7oz6tYVoAAhRW7?format=jpg&name=medium",
+          alt: "カスタムオーダーメイド3D2 キャラクターパックEX ド変態ドM",
+          title: "キャラクターパック ド変態ドM"
+        },
+        {
+          link: "https://amzn.to/2UZYzIB",
+          src: "https://pbs.twimg.com/media/E7oz6t0VkAAKdEP?format=jpg&name=medium",
+          alt: "カスタムオーダーメイド3D2 キャラクターパックEX 腹黒",
+          title: "キャラクターパック 腹黒"
+        },
+        {
+          link: "https://amzn.to/3lhIFnm",
+          src: "https://pbs.twimg.com/media/E7ozf7WVUAYyNJ1?format=jpg&name=medium",
+          alt: "カスタムオーダーメイド3D2 キャラクターパックEX 気さくでちょっとエッチなお姉さん",
+          title: "キャラクターパック 気さくでちょっとエッチなお姉さん"
+        },
+        {
+          link: "https://amzn.to/3igI1Vo",
+          src: "https://pbs.twimg.com/media/E7ozV4IVcAgkD2V?format=jpg&name=medium",
+          alt: "カスタムオーダーメイド3D2 キャラクターパックEX 生真面目で甘え下手な淑女",
+          title: "キャラクターパック 生真面目で甘え下手な淑女"
+        },
+        {
           link: "https://amzn.to/2ZzlHfx",
           src:
             "https://pbs.twimg.com/media/Eusd1WIVEAEjYxd?format=jpg&name=medium",
