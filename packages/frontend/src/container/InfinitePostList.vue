@@ -131,7 +131,7 @@ export default {
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }
-      });
+      }).catch(() => {});
     },
     async fetchCount() {
       const { count } = await post.fetchCount({
