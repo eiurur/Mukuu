@@ -5,13 +5,14 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const { ConditionBuilder, Finder } = require('./lib');
 const SchemeFactory = require('./schemaFactory');
 
-mongoose.set('useCreateIndex', true)
 const uri = process.env.DB_URI;
-const db = mongoose.connect(uri, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useFindAndModify: false,
-});
+const db = mongoose.connect(
+  uri,
+  async(err)=>{
+      if(err) throw err;
+      console.log("conncted to db")
+  }
+)
 
 module.exports = class ModelProvider {
   constructor(Schema) {
