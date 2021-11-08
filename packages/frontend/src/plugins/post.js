@@ -7,10 +7,11 @@ export function normalize(post) {
   return post;
 }
 export function expandRecusively(post) {
+  if (!post.postedBy) return null;
   post = normalize(post);
   if (post.entities) post.entities = JSON.parse(post.entities);
   if (post.quotedStatuses && post.quotedStatuses.length) {
-    post.quotedStatuses = post.quotedStatuses.map(s => expandRecusively(s));
+    post.quotedStatuses = post.quotedStatuses.map(s => expandRecusively(s)).filter(s => !!s);
   }
   return post;
 }
