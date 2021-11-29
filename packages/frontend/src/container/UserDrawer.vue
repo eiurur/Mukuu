@@ -41,6 +41,7 @@
       class="inifinite-scroll-container"
       v-infinite-scroll="loadPost"
       infinite-scroll-disabled="isDisableLoading"
+      infinite-scroll-distance="200"
     >
       <Post
         :post="post"
