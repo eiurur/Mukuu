@@ -19,7 +19,7 @@ export default {
           title: "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）"
         },
         {
-          link: "https://amzn.to/3gO7fqz",
+          link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ013970.html",
           src: "https://pbs.twimg.com/media/EcqVg49UYAARu-P?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2+ GP-01Fb",
           title: "カスタムオーダーメイド3D2+ GP-01Fb"
@@ -29,6 +29,24 @@ export default {
           src: "https://pbs.twimg.com/media/EiSFht2VoAInBcO?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2+ GP-01&GP-02",
           title: "カスタムオーダーメイド3D2+ GP-01&GP-02"
+        },
+        {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ014813.html",
+          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ015000/VJ014813_img_main.webp",
+          alt: "カスタムオーダーメイド3D2 キャラクターパック 無口で甘えたがりな文学少女",
+          title: "キャラクターパック 無口で甘えたがりな文学少女"
+        },
+        {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ014875.html",
+          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ015000/VJ014875_img_main.webp",
+          alt: "カスタムオーダーメイド3D2 キャラクターパック 天然サディスティックな小悪魔",
+          title: "キャラクターパック 天然サディスティックな小悪魔"
+        },
+        {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ014943.html",
+          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ015000/VJ014943_img_main.webp",
+          alt: "カスタムオーダーメイド3D2 キャラクターパック 色気のあるおしとやかなお姉さん",
+          title: "キャラクターパック 色気のあるおしとやかなお姉さん"
         },
         {
           link: "https://amzn.to/3elFpjY",
