@@ -6,6 +6,7 @@ const SCHEDULES = {
   USER_CRAWLER: '0 6,19,23 * * *',
   REMOVE_POSTS: '30 4 * * *',
   UPDATE_USER_DATABASE: '35 5 * * *',
+  UPDATE_HISTORY_CACHE: '0 0 * * *',
 };
 
 [
@@ -28,6 +29,11 @@ const SCHEDULES = {
     jobName: 'update',
     cronTime: SCHEDULES.UPDATE_USER_DATABASE,
     args: [path.resolve(__dirname, 'database', 'updateUserDatabase')],
+  },
+  {
+    jobName: 'history',
+    cronTime: SCHEDULES.UPDATE_HISTORY_CACHE,
+    args: [path.resolve(__dirname, 'database', 'updateHistoryCache')],
   },
 ]
   .map(({ jobName, cronTime, args }) => makeJob({ jobName, cronTime, args }))

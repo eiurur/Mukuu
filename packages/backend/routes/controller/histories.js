@@ -29,7 +29,12 @@ module.exports = class HistoryController {
     seaquencer(
       req,
       res,
-      (async ({ sort, from, to }) => {
+      (async ({ cacheKey, sort, from, to }) => {
+        if(cacheKey) {
+          const shcProvider = ModelProviderFactory.create('searchHistoryCache');
+          const data = await shcProvider.findRaw({cacheKey});
+          return JSON.parse(data[0].histories);
+        }
         const shProvider = ModelProviderFactory.create('searchHistory');
         const query = [];
         const match = { createdAt: {} };
@@ -75,6 +80,7 @@ module.exports = class HistoryController {
       })(req.params)
     );
   }
+  
   static random(req, res) {
     seaquencer(
       req,

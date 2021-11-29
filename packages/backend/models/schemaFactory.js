@@ -1,4 +1,4 @@
-const { DenyPost, DenyUser, SearchHistory, User, Post } = require('./schemas');
+const { DenyPost, DenyUser, SearchHistory, User, Post, SearchHistoryCache } = require('./schemas');
 
 module.exports = class SchemaFactory {
   static create(name) {
@@ -9,6 +9,8 @@ module.exports = class SchemaFactory {
         return DenyUser;
       case 'searchhistory':
         return SearchHistory;
+        case 'searchhistorycache':
+          return SearchHistoryCache;
       case 'user':
         return User;
       case 'post':

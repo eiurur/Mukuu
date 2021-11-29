@@ -88,13 +88,14 @@ export default {
         {
           name: "first",
           label: "直近",
-          args: { sort: { createdAt: -1 } },
+          args: { sort: { createdAtLatest: -1 } },
           history: [],
           shouldUpdate: true
         },
         {
           name: "second",
           label: "日",
+          cacheKey: "day",
           args: {
             from: yesterday,
             to: today
@@ -105,6 +106,7 @@ export default {
         {
           name: "third",
           label: "週",
+          cacheKey: "week",
           args: {
             from: lastWeek,
             to: today
@@ -115,6 +117,7 @@ export default {
         // {
         //   name: "fourth",
         //   label: "月",
+        //   cacheKey: "month",
         //   args: {
         //     from: lastMonth,
         //     to: today
@@ -125,6 +128,7 @@ export default {
         {
           name: "five",
           label: "累計",
+          cacheKey: "total",
           args: {},
           history: [],
           shouldUpdate: true
@@ -140,7 +144,9 @@ export default {
   methods: {
     async pourHistory() {
       this.tabs.map(async tab => {
-        if (tab.args) {
+        if (tab.cacheKey) {
+          tab.history = await this.aggregate({ cacheKey: tab.cacheKey });
+        } else if (tab.args) {
           tab.history = await this.aggregate(tab.args);
         }
       });
