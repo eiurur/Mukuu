@@ -51,7 +51,6 @@ export default {
     async searchRandom() {
       if (this.loading) return;
       this.loading = true;
-      console.log(this.randomWords.length);
       if (this.randomWords.length === 0) {
         const { data } = await history.random("search", { limit: 1 });
         this.randomWords = data;
