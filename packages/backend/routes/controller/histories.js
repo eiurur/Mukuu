@@ -86,16 +86,13 @@ module.exports = class HistoryController {
       req,
       res,
       (async ({ sort, limit }) => {
-        // console.log(limit);
         const shProvider = ModelProviderFactory.create('searchHistory');
-        // const max = await shProvider.count();
-        const max = 500000;
+        const query = { postCount: { $gte: 5 } };
+        const max = await shProvider.count(query);
         const min = Math.floor(max / 1000);
         const skip = Math.floor(Math.random() * (max + 1 - min)) + min;
-        const query = { postCount: { $gte: 5 } };
-        const searchOption = { limit, skip, sort: {postCount: -1} };
+        const searchOption = { limit: Number(limit), skip, sort: {postCount: -1} }; 
         const history = await shProvider.findRaw(query, {}, searchOption);
-        // console.log(history);
         return history;
       })(req.params)
     );

@@ -127,9 +127,9 @@ module.exports = class ModelProvider {
 
   findRaw(query = {}, fields = {}, options = {}) {
     this.logger.debug(`DB ${this.model.modelName} find`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    this.logger.debug('fields : ', fields);
-    this.logger.debug('options: ', options);
+    // this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('fields : ', fields);
+    // this.logger.debug('options: ', options);
     return this.model.find(query, fields, options);
   }
 

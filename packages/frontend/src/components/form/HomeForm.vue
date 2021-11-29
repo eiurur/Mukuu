@@ -8,7 +8,7 @@
         @blur="registerHistory"
         v-model="searchOption.searchWord"
       >
-        <el-button slot="append" icon="el-icon-magic-stick" @click="searchRandom"></el-button>
+        <el-button slot="append" icon="el-icon-magic-stick" @click="searchRandom"  :loading="loading" ></el-button>
       </el-input>
     </el-form-item>
     <el-form-item>
@@ -43,19 +43,24 @@ export default {
   props: ["searchOption"],
   data() {
     return {
-      randomWords: []
+      randomWords: [],
+      loading: false
     };
   },
   methods: {
     async searchRandom() {
+      if (this.loading) return;
+      this.loading = true;
+      console.log(this.randomWords.length);
       if (this.randomWords.length === 0) {
-        const { data } = await history.random("search", { limit: 3 });
+        const { data } = await history.random("search", { limit: 1 });
         this.randomWords = data;
       }
       const { word, postCount } = this.randomWords.shift();
+      this.searchOption.searchWord = word;
       this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
       this.$store.dispatch("saveLocalStorage");
-      this.searchOption.searchWord = word;
+      this.loading = false;
     },
     async registerHistory(e) {
       if (!e.target.value) return;
