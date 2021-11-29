@@ -21,7 +21,7 @@ module.exports = class HistoryController {
         newSH.postCount = postCount;
         await newSH.save();
         return { word, postCount };
-      })(req.params),
+      })(req.params)
     );
   }
 
@@ -72,7 +72,7 @@ module.exports = class HistoryController {
         query.push({ $limit: 10 });
         const histories = await shProvider.aggregate(query);
         return histories;
-      })(req.params),
+      })(req.params)
     );
   }
   static random(req, res) {
@@ -80,16 +80,18 @@ module.exports = class HistoryController {
       req,
       res,
       (async ({ sort, limit }) => {
+        // console.log(limit);
         const shProvider = ModelProviderFactory.create('searchHistory');
-        const query = [];
-        query.push({
-          $match: { postCount: { $gte: 1 } },
-        });
-        const size = Number(limit || 1);
-        query.push({ $sample: { size } });
-        const history = await shProvider.aggregate(query);
+        // const max = await shProvider.count();
+        const max = 500000;
+        const min = Math.floor(max / 1000);
+        const skip = Math.floor(Math.random() * (max + 1 - min)) + min;
+        const query = { postCount: { $gte: 5 } };
+        const searchOption = { limit, skip, sort: {postCount: -1} };
+        const history = await shProvider.findRaw(query, {}, searchOption);
+        // console.log(history);
         return history;
-      })(req.params),
+      })(req.params)
     );
   }
 };

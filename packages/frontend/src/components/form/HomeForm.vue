@@ -49,7 +49,7 @@ export default {
   methods: {
     async searchRandom() {
       if (this.randomWords.length === 0) {
-        const { data } = await history.random("search", { limit: 50 });
+        const { data } = await history.random("search", { limit: 3 });
         this.randomWords = data;
       }
       const { word, postCount } = this.randomWords.shift();

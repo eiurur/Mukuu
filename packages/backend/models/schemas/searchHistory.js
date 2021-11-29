@@ -9,7 +9,7 @@ const ObjectId = Schema.ObjectId;
 // #
 const SearchHistorySchema = new Schema({
   word: { type: String, index: true },
-  postCount: { type: Number, default: 0 },
+  postCount: { type: Number, default: 0, index: -1 },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -125,6 +125,14 @@ module.exports = class ModelProvider {
     return finder.find();
   }
 
+  findRaw(query = {}, fields = {}, options = {}) {
+    this.logger.debug(`DB ${this.model.modelName} find`);
+    this.logger.debug('query  : ', JSON.stringify(query));
+    this.logger.debug('fields : ', fields);
+    this.logger.debug('options: ', options);
+    return this.model.find(query, fields, options);
+  }
+
   findOne(query = {}, fields = {}, options = {}) {
     this.logger.debug(`DB ${this.model.modelName} find`);
     // this.logger.debug('query  : ', JSON.stringify(query));
@@ -160,9 +168,9 @@ module.exports = class ModelProvider {
 
   remove(query, data, options) {
     this.logger.debug(`DB ${this.model.modelName} remove`);
-    this.logger.debug('query  : ', JSON.stringify(query));
-    this.logger.debug('data   : ', data);
-    this.logger.debug('options: ', options);
+    // this.logger.debug('query  : ', JSON.stringify(query));
+    // this.logger.debug('data   : ', data);
+    // this.logger.debug('options: ', options);
     return this.model.remove(query);
   }
 };
