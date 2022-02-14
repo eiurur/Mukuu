@@ -43,19 +43,22 @@ export default {
   props: ["searchOption"],
   data() {
     return {
-      randomWords: [],
       loading: false
     };
   },
   methods: {
+    async fetchWord() {
+      const { data } = await history.random("search", { limit: 1 });
+      if (data && data.length) {
+        return data[0];
+      }
+      const ret = await this.fetchWord();
+      return ret;
+    },
     async searchRandom() {
       if (this.loading) return;
       this.loading = true;
-      if (this.randomWords.length === 0) {
-        const { data } = await history.random("search", { limit: 1 });
-        this.randomWords = data;
-      }
-      const { word, postCount } = this.randomWords.shift();
+      const { word, postCount } = await this.fetchWord();
       this.searchOption.searchWord = word;
       this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
       this.$store.dispatch("saveLocalStorage");
