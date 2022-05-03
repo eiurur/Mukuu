@@ -23,28 +23,21 @@
     "cron": "^1.8.2",
     "cross-env": "^7.0.3",
     "crypto": "1.0.1",
-    "csrf": "^3.1.0",
-    "csurf": "^1.11.0",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "error-handler": "^1.0.0",
     "escape-string-regexp": "4.0.0",
     "express": "~4.17.1",
-    "express-error-handler": "^1.1.0",
     "file-stream-rotator": "^0.5.7",
     "get-urls": "^10.0.0",
     "host-validation": "^2.0.1",
     "log4js": "^6.4.0",
     "method-override": "^3.0.0",
-    "mongoose": "^6.0.12",
-    "mongoose-explain": "^0.2.2",
+    "mongoose": "^6.3.2",
     "mongoose-sequence": "^5.3.1",
     "morgan": "^1.10.0",
-    "newrelic": "^8.3.0",
     "twit": "^2.2.11",
-    "url-unshort": "^5.0.0",
-    "util": "^0.12.4",
-    "yakaa": "^1.0.1"
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "ava": "^3.15.0",
@@ -60,7 +53,7 @@
     "nodemon": "^2.0.12"
   },
   "engines": {
-    "node": ">= 12.0.0",
+    "node": ">= 14.0.0",
     "npm": ">= 5.0.0"
   }
 }

@@ -1,4 +1,3 @@
-const util = require('util');
 const crypto = require('crypto');
 
 const sleep = (msec) => new Promise((resolve) => setTimeout(resolve, msec));
