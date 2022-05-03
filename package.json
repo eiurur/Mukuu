@@ -53,7 +53,7 @@
   "name": "mukuu",
   "dependencies": {
     "chalk": "^4.1.2",
-    "concurrently": "^6.2.1",
+    "concurrently": "^6.2.2",
     "lerna": "^4.0.0"
   },
   "devDependencies": {
