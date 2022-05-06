@@ -4,6 +4,14 @@
 	"description": "",
 	"author": "eiurur <eiurur789@gmail.com>",
 	"private": true,
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "start:cron": "cross-env NODE_ENV=production node tasks/cron.js",
+    "start:crawl": "cross-env NODE_ENV=production node tasks/tweet/tweetCrawling.js",
+    "dev": "nodemon app.js",
+    "test": "ava -v -T=2m -C test/*.spec.js",
+    "test:watch": "ava -v -w -T=2m -C test/*.spec.js"
+  },
   "dependencies": {
     "@mukuu/common": "^0.0.0",
     "axios": "^0.21.4",
