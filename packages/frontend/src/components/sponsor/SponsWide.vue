@@ -13,14 +13,20 @@ export default {
     return {
       links: [
         {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ015030.html",
+          src: "https://pbs.twimg.com/media/FSG5VHdakAAKEqd?format=jpg&name=small",
+          alt: "CR EditSystem 1.1",
+          title: "CR EditSystem 1.1"
+        },
+        {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013149.html",
-          src: "https://pics.dmm.co.jp/digital/pcgame/shall_0106/shall_0106pl.jpg",
+          src: "https://pbs.twimg.com/media/FSG4cenaMAAFIj8?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）",
           title: "カスタムオーダーメイド3D2＋ GP―02 16キャラクター対応版（DL版）"
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ013150.html",
-          src: "https://pics.dmm.co.jp/digital/pcgame/shall_0105/shall_0105pl.jpg",
+          src: "https://pbs.twimg.com/media/FSG4cenaMAAFIj8?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2＋ GP―02",
           title: "カスタムオーダーメイド3D2＋ GP―02"
         },
@@ -31,39 +37,39 @@ export default {
           title: "カスタムオーダーメイド3D2+ GP-01Fb"
         },
         {
-          link: "https://amzn.to/2C0Faxz",
-          src: "https://pics.dmm.co.jp/mono/game/708apc13139/708apc13139pl.jpg",
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ015167.html",
+          src: "https://pbs.twimg.com/media/FSG3P69akAwhoUj?format=jpg",
           alt: "カスタムオーダーメイド3D2 キャラクターパック 小動物系ふわふわ妹",
           title: "キャラクターパック 小動物系ふわふわ妹"
         },
         {
           link: "https://amzn.to/327u5oV",
-          src: "https://pics.dmm.co.jp/mono/game/708kiss098/708kiss098pl.jpg",
+          src: "https://pbs.twimg.com/media/FSG4dNAaUAAA9wW?format=jpg&name=medium",
           alt:
             "カスタムオーダーメイド3D2＆カスタムメイド3D2 キャラクターパック 健康的でスポーティなボクっ娘",
           title: "キャラクターパック 健康的でスポーティなボクっ娘"
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ014813.html",
-          src: "https://pics.dmm.co.jp/mono/game/708kiss105/708kiss105pl.jpg",
+          src: "https://pbs.twimg.com/media/FSG5KW7akAAnjcp?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2 キャラクターパック 無口で甘えたがりな文学少女",
           title: "キャラクターパック 無口で甘えたがりな文学少女"
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ014875.html",
-          src: "https://pics.dmm.co.jp/mono/game/708kiss108/708kiss108pl.jpg",
+          src: "https://pbs.twimg.com/media/FSG4cfVaMAAbt61?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2 キャラクターパック 天然サディスティックな小悪魔",
           title: "キャラクターパック 天然サディスティックな小悪魔"
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ014943.html",
-          src: "https://pics.dmm.co.jp/mono/game/708kiss109/708kiss109pl.jpg",
+          src: "https://pbs.twimg.com/media/FSG4PdhacAAqtag?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2 キャラクターパック 色気のあるおしとやかなお姉さん",
           title: "キャラクターパック 色気のあるおしとやかなお姉さん"
         },
         {
-          link: "https://amzn.to/327kBtX",
-          src: "https://pics.dmm.co.jp/mono/game/708kiss110/708kiss110pl.jpg",
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ015096.html",
+          src: "https://pbs.twimg.com/media/FSG4Pd3akAEPump?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2 キャラクターパック 大人の余裕を持つ、頼れるメイド秘書",
           title: "キャラクターパック 大人の余裕を持つ、頼れるメイド秘書"
         },
