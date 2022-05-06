@@ -14,7 +14,7 @@ export default {
       links: [
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ015030.html",
-          src: "https://pbs.twimg.com/media/FSG5VHdakAAKEqd?format=jpg&name=small",
+          src: "https://pbs.twimg.com/media/FSG9qh7aIAAsjXo?format=jpg&name=medium",
           alt: "CR EditSystem 1.1",
           title: "CR EditSystem 1.1"
         },
