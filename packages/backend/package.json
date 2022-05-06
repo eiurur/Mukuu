@@ -37,7 +37,6 @@
     "log4js": "^6.4.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.12",
-    "mongoose-explain": "^0.2.2",
     "mongoose-sequence": "^5.3.1",
     "morgan": "^1.10.0",
     "newrelic": "^8.3.0",
