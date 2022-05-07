@@ -48,13 +48,13 @@
     "migrate:history": "node ./packages/backend/tasks/patch/migrateHistoryToSearchHistory"
   },
   "engines": {
-    "node": "16.x"
+    "node": "14.x"
   },
   "name": "mukuu",
   "dependencies": {
     "chalk": "^4.1.2",
     "concurrently": "^6.5.1",
-    "lerna": "^4.0.0",
+    "lerna": "^3.22.1",
     "minimist": "^1.2.6"
   },
   "devDependencies": {
