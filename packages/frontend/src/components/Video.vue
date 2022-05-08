@@ -20,11 +20,14 @@ video {
 </style>
 
 <script>
+import mobile from "is-mobile";
+
 export default {
   name: "Video",
   props: ["media", "isGrid"],
   methods: {
     onScroll() {
+      if (mobile()) return;
       // Prevent error: TypeError: Failed to execute 'observe' on 'IntersectionObserver': parameter 1 is not of type 'Element'." vue refs
       setTimeout(() => {
         this.observer = new IntersectionObserver((entries) => {
