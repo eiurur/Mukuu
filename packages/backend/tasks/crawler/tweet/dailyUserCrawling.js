@@ -37,7 +37,7 @@ const CRAWL_RANGE_DAYS_MS = 3 * ONE_DAY_MS;
     }
     await sleep(CRAWL_INTERVAL_MS);
   } catch (e) {
-    logger.info('SiteCrawler error: ', e);
+    logger.info(e);
     return;
   }
 })();
