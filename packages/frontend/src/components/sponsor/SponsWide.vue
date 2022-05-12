@@ -38,7 +38,7 @@ export default {
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ015167.html",
-          src: "https://pbs.twimg.com/media/FSG3P69akAwhoUj?format=jpg",
+          src: "https://pbs.twimg.com/media/FSfTQn7VIAELLSr?format=jpg&name=medium",
           alt: "カスタムオーダーメイド3D2 キャラクターパック 小動物系ふわふわ妹",
           title: "キャラクターパック 小動物系ふわふわ妹"
         },
