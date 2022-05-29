@@ -54,10 +54,6 @@ module.exports = class TweetCrawler {
         let updatedUserData = false;
         for (let tweet of originalStatuses) {
           tweet = expandUrlOfTweet(tweet);
-          if (!updatedUserData) {
-            await this.saveUser(tweet);
-            updatedUserData = true;
-          }
           const isDeniedPost = await this.findDenyPost(tweet);
           if (isDeniedPost) {
             logger.debug('REJECT becasue denied post:', tweet.id_str);
@@ -71,6 +67,10 @@ module.exports = class TweetCrawler {
           if (rejectPattern && rejectPattern(tweet.full_text.toLowerCase())) {
             logger.debug('REJECT:', tweet.full_text.toLowerCase());
             continue;
+          }
+          if (!updatedUserData) {
+            await this.saveUser(tweet);
+            updatedUserData = true;
           }
           await this.save(tweet);
         }
