@@ -129,7 +129,7 @@ module.exports = class PostController {
           });
         } else {
           query.push({
-            $sort: { count: -1 },
+            $sort: { count: -1, _id: -1 },
           });
         }
         query.push({ $limit: 10 });

@@ -42,7 +42,7 @@ const aggregateAndUpsert = async (cacheKey, {sort, from, to}) => {
     });
   } else {
     query.push({
-      $sort: { count: -1 },
+      $sort: { count: -1, _id: -1 },
     });
   }
   query.push({ $limit: 10 });

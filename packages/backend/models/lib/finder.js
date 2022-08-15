@@ -8,18 +8,22 @@ module.exports = class Finder {
     this.sort = sort;
     this.populates = populates;
   }
+  // REF: https://stackoverflow.com/questions/66172034/mongoose-sort-breaks-skip-limit
+  _allowNumberSort(sort) {
+    return Object.assign({}, sort, { _id: -1 });
+  },
 
   buildQuery(query) {
+    if (this.sort) {
+      query = this.buildSort(query);
+    }
+
     if (!isNaN(this.limit)) {
       query = query.limit(this.limit);
     }
 
     if (!isNaN(this.skip)) {
       query = query.skip(this.skip);
-    }
-
-    if (this.sort) {
-      query = this.buildSort(query);
     }
 
     if (this.populates) {
@@ -32,51 +36,51 @@ module.exports = class Finder {
   buildSort(query) {
     switch (this.sort) {
       case 'updatedAtAsc': {
-        query.sort({ updatedAt: 'asc' });
+        query.sort(this._allowNumberSort({ updatedAt: 'asc' }));
         break;
       }
       case 'updatedAtDesc': {
-        query.sort({ updatedAt: 'desc' });
+        query.sort(this._allowNumberSort({ updatedAt: 'desc' }));
         break;
       }
       case 'createdAtAsc': {
-        query.sort({ createdAt: 'asc' });
+        query.sort(this._allowNumberSort({ createdAt: 'asc' }));
         break;
       }
       case 'createdAtDesc': {
-        query.sort({ createdAt: 'desc' });
+        query.sort(this._allowNumberSort({ createdAt: 'desc' }));
         break;
       }
       case 'retweetCountDesc': {
-        query.sort({ retweetCount: 'desc' });
+        query.sort(this._allowNumberSort({ retweetCount: 'desc' }));
         break;
       }
       case 'favoriteCountDesc': {
-        query.sort({ favoriteCount: 'desc' });
+        query.sort(this._allowNumberSort({ favoriteCount: 'desc' }));
         break;
       }
       case 'totalCountDesc': {
-        query.sort({ totalCount: 'desc' });
+        query.sort(this._allowNumberSort({ totalCount: 'desc' }));
         break;
       }
       case 'postCountDesc': {
-        query.sort({ postCount: 'desc' });
+        query.sort(this._allowNumberSort({ postCount: 'desc' }));
         break;
       }
       case 'followersCountDesc': {
-        query.sort({ followersCount: 'desc' });
+        query.sort(this._allowNumberSort({ followersCount: 'desc' }));
         break;
       }
       case 'friendsCountDesc': {
-        query.sort({ friendsCount: 'desc' });
+        query.sort(this._allowNumberSort({ friendsCount: 'desc' }));
         break;
       }
       case 'countDesc': {
-        query.sort({ count: 'desc' });
+        query.sort(this._allowNumberSort({ count: 'desc' }));
         break;
       }
       default: {
-        query.sort({ createdAt: 'desc' });
+        query.sort(this._allowNumberSort({ createdAt: 'desc' }));
         break;
       }
     }
