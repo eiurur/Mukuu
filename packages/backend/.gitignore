@@ -10,6 +10,7 @@ logs/**
 # local env files
 .env.local
 .env.*.local
+.env.prod
 
 # Log files
 npm-debug.log*
