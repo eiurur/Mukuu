@@ -36,3 +36,4 @@ yarn-error.log*
 _temp/**
 mukuu/
 packages/backend/newrelic_agent.log
+backup/**
