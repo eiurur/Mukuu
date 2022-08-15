@@ -33,7 +33,9 @@ module.exports = class HistoryController {
         if(cacheKey) {
           const shcProvider = ModelProviderFactory.create('searchHistoryCache');
           const data = await shcProvider.findRaw({cacheKey});
-          return JSON.parse(data[0].histories);
+          if(data.length) {
+            return JSON.parse(data[0].histories);
+          }
         }
         const shProvider = ModelProviderFactory.create('searchHistory');
         const query = [];
