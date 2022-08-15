@@ -11,7 +11,7 @@ module.exports = class Finder {
   // REF: https://stackoverflow.com/questions/66172034/mongoose-sort-breaks-skip-limit
   _allowNumberSort(sort) {
     return Object.assign({}, sort, { _id: -1 });
-  },
+  }
 
   buildQuery(query) {
     if (this.sort) {
