@@ -32,7 +32,7 @@ module.exports = () => {
         'mukuu.herokuapp.com',
         'mukuu-staging.herokuapp.com',
       ],
-    }),
+    })
   );
 
   if (env === 'development') {

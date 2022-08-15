@@ -1,8 +1,5 @@
 module.exports = {
   root: true,
-  env: {
-    node: true
-  },
   extends: ["plugin:vue/essential", "@vue/airbnb"],
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
@@ -16,7 +13,7 @@ module.exports = {
     quotes: 0,
     "no-param-reassign": 0,
     "no-return-assign": 0,
-    "max-len": ["error", { code: 200 }],
+    "max-len": 0,
     "no-underscore-dangle": 0,
     "operator-linebreak": 0,
     "object-curly-newline": 0,
@@ -31,6 +28,5 @@ module.exports = {
     "vue/no-mutating-props": 0
   },
   parserOptions: {
-    parser: "babel-eslint"
   }
 };

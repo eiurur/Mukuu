@@ -41,7 +41,8 @@
     "compression-webpack-plugin": "^9.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.18.0",
-		"sass": "^1.49.7",
+    "prelude-ls": "^1.2.1",
+    "sass": "^1.49.7",
     "sass-loader": "10.0.4",
     "vue-template-compiler": "^2.6.14"
   }

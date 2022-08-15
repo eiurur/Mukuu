@@ -8,6 +8,7 @@ module.exports = class Finder {
     this.sort = sort;
     this.populates = populates;
   }
+
   // REF: https://stackoverflow.com/questions/66172034/mongoose-sort-breaks-skip-limit
   _allowNumberSort(sort) {
     return Object.assign({}, sort, { _id: -1 });
@@ -117,25 +118,25 @@ module.exports = class Finder {
 
   findOne() {
     return new Promise((resolve, reject) => {
-      this.buildQuery(
-        this.model.findOne(this.query, this.fields),
-      ).exec((err, result) => (err ? reject(err) : resolve(result)));
+      this.buildQuery(this.model.findOne(this.query, this.fields)).exec(
+        (err, result) => (err ? reject(err) : resolve(result))
+      );
     });
   }
 
   find() {
     return new Promise((resolve, reject) => {
-      this.buildQuery(
-        this.model.find(this.query, this.fields),
-      ).exec((err, result) => (err ? reject(err) : resolve(result)));
+      this.buildQuery(this.model.find(this.query, this.fields)).exec(
+        (err, result) => (err ? reject(err) : resolve(result))
+      );
     });
   }
 
   count() {
     return new Promise((resolve, reject) => {
-      this.buildQuery(
-        this.model.countDocuments(this.query, this.fields),
-      ).exec((err, result) => (err ? reject(err) : resolve(result)));
+      this.buildQuery(this.model.countDocuments(this.query, this.fields)).exec(
+        (err, result) => (err ? reject(err) : resolve(result))
+      );
     });
   }
 };

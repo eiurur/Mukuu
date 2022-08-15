@@ -61,7 +61,7 @@ export default {
     user: Object,
     useTwitterPage: Boolean,
     useUserDrawer: Boolean,
-    size: Number
+    size: Number,
   },
   computed: {
     icon: {
@@ -69,14 +69,14 @@ export default {
         if (!this.user) return this.user;
         const { profileImageUrl } = this.user;
         return profileImageUrl ? profileImageUrl.replace("_normal", "_bigger") : "";
-      }
+      },
     },
     style() {
       return {
         width: `${this.size}px`,
-        height: `${this.size}px`
+        height: `${this.size}px`,
       };
-    }
+    },
   },
   methods: {
     openUserDrawer() {
@@ -84,7 +84,7 @@ export default {
       const payload = { ...this.user };
       this.$store.dispatch("drawer/initialize", payload);
       this.$store.dispatch("saveLocalStorage");
-    }
-  }
+    },
+  },
 };
 </script>

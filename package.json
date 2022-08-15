@@ -56,6 +56,16 @@
     "minimist": "^1.2.6"
   },
   "devDependencies": {
-    "npm-check-updates": "^11.8.5"
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-import-resolver-webpack": "^0.13.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "npm-check-updates": "^11.8.5",
+    "prelude-ls": "^1.2.1"
   }
 }

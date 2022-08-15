@@ -21,8 +21,8 @@ export default {
   components: {
     Menu,
     About,
-    Config
-  }
+    Config,
+  },
 };
 </script>
 <style lang="scss">
