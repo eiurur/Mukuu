@@ -14,9 +14,6 @@
 	"files": [
 		"lib"
 	],
-	"publishConfig": {
-		"access": "public"
-	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/eiurur/Mukuu.git"
@@ -25,15 +22,15 @@
 		"url": "https://github.com/eiurur/Mukuu/issues"
 	},
 	"devDependencies": {
-		"eslint": "^6.8.0",
-		"eslint-config-airbnb-base": "^14.1.0",
-		"eslint-config-prettier": "^6.10.1",
-		"eslint-friendly-formatter": "^4.0.1",
-		"eslint-import-resolver-webpack": "^0.12.1",
-		"eslint-loader": "^3.0.4",
-		"eslint-plugin-html": "^6.0.0",
-		"eslint-plugin-import": "^2.20.2",
-		"eslint-plugin-prettier": "^3.1.2"
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-import-resolver-webpack": "^0.13.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0"
 	},
 	"dependencies": {
 		"dayjs": "^1.11.0"
