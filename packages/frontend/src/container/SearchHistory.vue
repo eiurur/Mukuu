@@ -82,16 +82,16 @@ export default {
     //   .add(-30, "days")
     //   .valueOf();
     return {
-      activeName: "first",
+      activeName: "second",
       timerID: null,
       tabs: [
-        {
-          name: "first",
-          label: "直近",
-          args: { sort: { createdAtLatest: -1 } },
-          history: [],
-          shouldUpdate: true
-        },
+        // {
+        //   name: "first",
+        //   label: "直近",
+        //   args: { sort: { createdAtLatest: -1 } },
+        //   history: [],
+        //   shouldUpdate: true
+        // },
         {
           name: "second",
           label: "日",
