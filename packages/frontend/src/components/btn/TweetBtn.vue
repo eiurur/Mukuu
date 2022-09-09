@@ -4,7 +4,7 @@
     class="twitter-share-button"
     data-text="Mukuu - COM3D2 MOD検索サービス"
     data-url="https://mukuu.herokuapp.com/"
-    data-hashtags="Mukuu"
+    data-hashtags="Mukuu,COM3D2"
     data-show-count="false"
     >Tweet</a
   >
