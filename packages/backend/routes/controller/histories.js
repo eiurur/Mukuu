@@ -30,10 +30,10 @@ module.exports = class HistoryController {
       req,
       res,
       (async ({ cacheKey, sort, from, to }) => {
-        if(cacheKey) {
+        if (cacheKey) {
           const shcProvider = ModelProviderFactory.create('searchHistoryCache');
-          const data = await shcProvider.findRaw({cacheKey});
-          if(data.length) {
+          const data = await shcProvider.findRaw({ cacheKey });
+          if (data.length) {
             return JSON.parse(data[0].histories);
           }
         }
@@ -82,7 +82,7 @@ module.exports = class HistoryController {
       })(req.params)
     );
   }
-  
+
   static random(req, res) {
     seaquencer(
       req,
@@ -93,7 +93,7 @@ module.exports = class HistoryController {
         const max = await shProvider.count(query);
         const min = Math.floor(max / 1000);
         const skip = Math.floor(Math.random() * (max + 1 - min)) + min;
-        const searchOption = { limit: Number(limit), skip, sort: {postCount: -1} }; 
+        const searchOption = { limit: Number(limit), skip, sort: { postCount: -1 } };
         const history = await shProvider.findRaw(query, {}, searchOption);
         return history;
       })(req.params)
