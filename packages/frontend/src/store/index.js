@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import add from "./modules/add";
 import bookmark from "./modules/bookmark";
 import config from "./modules/config";
 import drawer from "./modules/drawer";
@@ -12,6 +13,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
+    add,
     bookmark,
     config,
     drawer,

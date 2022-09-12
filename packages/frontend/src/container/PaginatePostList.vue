@@ -187,9 +187,15 @@ export default {
         sort: this.searchOption.sort
       }));
       this.posts = expandedPosts;
+
       this.skip = skip;
       this.storeSearchOptionToQueryString();
       this.skip = skip + this.limit;
+
+      if (this.skip > 0 && this.skip % 10 === 0) {
+        const tail = this.posts[this.posts.length - 1];
+        tail.adds = this.$store.getters["add/take"](2);
+      }
       this.isLoading = false;
       this.$ga.page({
         location: url

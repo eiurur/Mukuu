@@ -23,6 +23,9 @@ export default {
     About,
     Config,
   },
+  async mounted() {
+    await this.$store.dispatch("add/fetch");
+  }
 };
 </script>
 <style lang="scss">

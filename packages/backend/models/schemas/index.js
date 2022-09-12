@@ -1,4 +1,5 @@
 module.exports = {
+  Add: require('./add'),
   DenyPost: require('./denyPost'),
   DenyUser: require('./denyUser'),
   SearchHistory: require('./searchHistory'),

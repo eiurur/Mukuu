@@ -380,7 +380,7 @@ img[lazy='loaded']:after {
   }
   .reply {
     .main {
-      flex-direction: column-reverse  !important;
+      flex-direction: column-reverse !important;
       .text {
         margin-bottom: 1rem !important;
       }
@@ -393,7 +393,7 @@ img[lazy='loaded']:after {
   }
   .quoted {
     .quote {
-      flex-direction: column-reverse  !important;
+      flex-direction: column-reverse !important;
       .text {
         margin-bottom: 1rem !important;
       }
@@ -403,7 +403,6 @@ img[lazy='loaded']:after {
         margin-right: 0 !important;
       }
     }
-  
   }
 }
 @media screen and (max-width: 559px) {
@@ -442,4 +441,9 @@ img[lazy='loaded']:after {
       }
     }
   }
+  .add-container {
+    grid-template-columns: repeat(1, 1fr) !important;
+    section.add:nth-child(1) { display: none; }
+  }
+
 }

@@ -90,7 +90,8 @@ export default {
           label: "直近",
           args: {
             from: yesterday,
-            sort: { createdAtLatest: -1 } },
+            sort: { createdAtLatest: -1 }
+          },
           history: [],
           shouldUpdate: true
         },

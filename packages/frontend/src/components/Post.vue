@@ -7,7 +7,6 @@
     >
       <div class="mukuu el-divider__text is-center">{{ post.createdAt }}</div>
     </div>
-
     <div class="post-container" v-if="hasExternalLink">
       <article class="post" :class="{quoted: isQuoted}">
         <InReply :post="post" :useDrawer="useDrawer" v-if="post.inReply" :isGrid="isGrid"></InReply>
@@ -33,6 +32,7 @@
         </div> -->
         <PostFooter :class="{shrink: isQuoted}" :post="post" :isQuoted="isQuoted"></PostFooter>
       </article>
+      <AddContainer :post="post"></AddContainer>
     </div>
   </fragment>
 </template>
@@ -104,11 +104,12 @@ import UserProfile from "@/components/UserProfile.vue";
 import InReply from "@/components/InReply.vue";
 import QuotedTweet from "@/components/QuotedTweet.vue";
 import QuotedStatus from "@/components/QuotedStatus.vue";
+import AddContainer from "@/components/AddContainer.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
 export default {
   name: "Post",
-  components: { FlexMediaList, GridMediaList, PostFooter, InReply, QuotedTweet, QuotedStatus, UserProfile },
+  components: { FlexMediaList, GridMediaList, PostFooter, InReply, QuotedTweet, QuotedStatus, AddContainer, UserProfile },
   props: {
     post: {
       type: Object,
