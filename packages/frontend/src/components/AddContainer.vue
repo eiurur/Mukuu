@@ -23,20 +23,25 @@
     width: 100%;
     border-radius: 0.25rem;
     position: relative;
-    & a:hover:after {
+    & a:after {
       content: attr(data-title);
-      opacity: 1;
       position: absolute;
+      transition: .1s opacity ease-in-out;
+      opacity: 0;
       background: rgba(250,100,150,.8);
       color: #fff;
+      font-size: .75rem;
       left: 0;
       right: 0;
       padding: 0.5rem;
-      bottom: 0;
+      bottom: -1px; // FIXME:
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      border-radius: 0 0 .25rem;
+      border-radius: 0 0 .25rem .25rem;
+    }
+    & a:hover:after {
+      opacity: 1;
     }
   }
   .add {
