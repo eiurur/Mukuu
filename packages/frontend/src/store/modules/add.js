@@ -9,7 +9,7 @@ const getters = {
 };
 const actions = {
   async fetch({ commit }) {
-    const url = "/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidmaid";
+    const url = "/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid";
     const { data } = await axios.get(url);
     commit("SET_WORKS", data);
   },
