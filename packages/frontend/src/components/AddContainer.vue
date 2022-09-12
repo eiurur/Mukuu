@@ -39,6 +39,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       border-radius: 0 0 .25rem .25rem;
+      text-align: center;
     }
     & a:hover:after {
       opacity: 1;
