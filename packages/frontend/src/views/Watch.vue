@@ -236,6 +236,12 @@ export default {
       }));
       this.posts = [...this.posts, ...expandedPosts];
       this.skip += this.limit;
+
+      if (this.skip > 0 && this.skip % 10 === 0) {
+        const tail = this.posts[this.posts.length - 1];
+        tail.adds = this.$store.getters["add/take"](2);
+      }
+
       this.isLoading = false;
       this.$ga.page({
         location: url
