@@ -66,7 +66,8 @@
         v-infinite-scroll="load"
         infinite-scroll-disabled="canLoad"
       >
-        <article class="profile" v-for="user in users" :key="user._id">
+      <div class="user-container" v-for="user in users" :key="user._id">
+        <article class="profile" >
           <div class="identity">
             <Icon :user="user" :useUserDrawer="true" :size="73"></Icon>
             <div class="names">
@@ -120,7 +121,9 @@
             <UserSearchLink :user="user"></UserSearchLink>
           </div>
         </article>
+        <AddContainer :post="user"></AddContainer>
         <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+      </div>
       </section>
     </el-col>
     <el-col :span="8" class="hidden-smartphone hidden-tablet">
@@ -130,6 +133,9 @@
 </template>
 
 <style lang="scss" scoped>
+.user-container + .user-container {
+  padding-top: 1rem;
+}
 .profile {
   & > div:not(:last-child) {
     padding-bottom: 1rem;
@@ -176,9 +182,6 @@
   opacity: 0.5;
   font-size: 60%;
 }
-.profile + .profile {
-  margin-top: 1rem;
-}
 .media-list {
   height: 240px;
 }
@@ -195,6 +198,7 @@ import FlexMediaList from "@/components/FlexMediaList.vue";
 import GridMediaList from "@/components/GridMediaList.vue";
 import Spons from "@/components/sponsor/Spons.vue";
 import UserSearchLink from "@/components/links/UserSearchLink.vue";
+import AddContainer from "@/components/AddContainer.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
 import { debounce } from "../plugins/util";
 import user from "../api/user";
@@ -216,6 +220,7 @@ export default {
     };
   },
   components: {
+    AddContainer,
     ScreenName,
     UserDrawer,
     Icon,
@@ -299,6 +304,12 @@ export default {
       });
       this.users = [...this.users, ...expandedUsers];
       this.skip += this.limit;
+
+      if (this.skip > 0 && this.skip % 10 === 0) {
+        const tail = this.users[this.users.length - 1];
+        tail.adds = this.$store.getters["add/take"](2);
+      }
+
       this.isLoading = false;
       this.$ga.page({
         location: url,
