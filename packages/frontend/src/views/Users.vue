@@ -122,8 +122,8 @@
           </div>
         </article>
         <AddContainer :post="user"></AddContainer>
-        <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </div>
+      <Loader :shouldShowLoader="shouldShowLoader"></Loader>
       </section>
     </el-col>
     <el-col :span="8" class="hidden-smartphone hidden-tablet">
