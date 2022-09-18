@@ -1,4 +1,5 @@
 import axios from "axios";
+import times from "@/plugins/times";
 
 const state = {
   works: [],
@@ -9,7 +10,8 @@ const getters = {
 };
 const actions = {
   async fetch({ commit }) {
-    const url = "/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid";
+    const day = times().format("YYYY-MM-DD");
+    const url = `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&day=${day}`;
     const { data } = await axios.get(url);
     commit("SET_WORKS", data);
   },

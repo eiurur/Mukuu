@@ -11,9 +11,10 @@ module.exports = class AddController {
       (async (params) => {
         validate(params);
 
-        const { term, range, type, category, sub, aid, count = 20 } = params;
+        const { day, term, range, type, category, sub, aid, count = 20 } = params;
 
         const key = querystring({
+          day,
           term,
           type,
           category,
