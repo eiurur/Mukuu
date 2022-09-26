@@ -38,14 +38,14 @@ const validate = (query) => {
   if (!type) {
     throw new Error('"type" paramter should be "maniax", "books", "pro"');
   }
-  if (!category) {
-    throw new Error('"category" paramter should be "comic", "game", "voice"');
-  }
-  if (!SUB[category].includes(sub)) {
-    throw new Error(
-      `"sub" parameter should be ${JSON.stringify(SUB[category])}`,
-    );
-  }
+  // if (!category) {
+  //   throw new Error('"category" paramter should be "comic", "game", "voice"');
+  // }
+  // if (!SUB[category].includes(sub)) {
+  //   throw new Error(
+  //     `"sub" parameter should be ${JSON.stringify(SUB[category])}`,
+  //   );
+  // }
 };
 
 module.exports = {
