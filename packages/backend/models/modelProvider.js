@@ -8,11 +8,11 @@ const SchemeFactory = require('./schemaFactory');
 const uri = process.env.DB_URI;
 const db = mongoose.connect(
   uri,
-  async(err)=>{
-      if(err) throw err;
-      console.log("conncted to db")
+  async(err) => {
+    if (err) throw err;
+    console.log("conncted to db");
   }
-)
+);
 
 module.exports = class ModelProvider {
   constructor(Schema) {
@@ -29,7 +29,7 @@ module.exports = class ModelProvider {
 
   // preprocess: [{ model: 'User', in: ['screenName'], use: '_id', key: 'postedBy' }],
   async preprocess(query = {}) {
-    let conditions = [];
+    const conditions = [];
     if (!this.queryOption.preprocess) {
       return conditions;
     }
@@ -37,7 +37,7 @@ module.exports = class ModelProvider {
       return conditions;
     }
 
-    for (let process of this.queryOption.preprocess) {
+    for (const process of this.queryOption.preprocess) {
       if (process.model) {
         const builder = new ConditionBuilder();
         builder.addSearchWord(process.columns, query.searchWord);
@@ -45,11 +45,10 @@ module.exports = class ModelProvider {
           builder.condition.length === 0 ? {} : { $and: builder.condition };
 
         const { model } = SchemeFactory.create(process.model);
-        const params = Object.assign({
-          model: model,
+        const params = { model,
           query: q,
           // populates: this.populates,
-        });
+        };
         const finder = new Finder(params);
         const list = await finder.find();
         const tmp = {};
@@ -73,6 +72,7 @@ module.exports = class ModelProvider {
     // this.logger.debug('query  : ', JSON.stringify(query));
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
+    builder.addHigher(this.queryOption.higher, query.higher);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
 
@@ -84,14 +84,12 @@ module.exports = class ModelProvider {
     const q = conditions.length === 0 ? {} : { $and: conditions };
     // this.logger.debug(JSON.stringify(q));
 
-    const params = Object.assign(
-      {
-        model: this.model,
-        query: q,
-        populates: this.populates,
-      },
-      searchOption,
-    );
+    const params = {
+      model: this.model,
+      query: q,
+      populates: this.populates,
+      ...searchOption,
+    };
     const finder = new Finder(params);
     return finder.count();
   }
@@ -103,6 +101,7 @@ module.exports = class ModelProvider {
 
     const builder = new ConditionBuilder();
     builder.buildCondition(this.queryOption.raws, query.column);
+    builder.addHigher(this.queryOption.higher, query.higher);
     builder.addRangeCondition(this.queryOption.range, query.from, query.to);
     builder.addSearchWord(this.queryOption.searchWord, query.searchWord);
     const extendConditions = await this.preprocess(query);
@@ -113,14 +112,12 @@ module.exports = class ModelProvider {
     const q = conditions.length === 0 ? {} : { $and: conditions };
     // this.logger.debug(JSON.stringify(q));
 
-    const params = Object.assign(
-      {
-        model: this.model,
-        query: q,
-        populates: this.populates,
-      },
-      searchOption,
-    );
+    const params = {
+      model: this.model,
+      query: q,
+      populates: this.populates,
+      ...searchOption,
+    };
     const finder = new Finder(params);
     return finder.find();
   }

@@ -128,6 +128,7 @@ export default {
         query: {
           searchWord: this.searchOption.searchWord || "",
           to: !this.searchOption.to ? "" : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          higherRetweet: this.searchOption.higherRetweet === "" || this.searchOption.higherRetweet === undefined ? 5 : this.searchOption.higherRetweet,
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }

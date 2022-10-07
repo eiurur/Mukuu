@@ -150,6 +150,7 @@ export default {
         query: {
           searchWord: this.searchOption.searchWord || "",
           to: !this.searchOption.to ? "" : this.$dayjs(this.searchOption.to).format("YYYY-MM-DD"),
+          higherRetweet: higherRetweet === "" || higherRetweet === undefined ? 5 : Number(higherRetweet),
           sort: this.searchOption.sort || "createdAtDesc",
           skip: this.skip
         }

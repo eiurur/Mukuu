@@ -9,11 +9,12 @@ module.exports = class PostController {
       req,
       res,
       (async ({ data }) => {
-        const { column, searchWord, from, to } = data;
+        const { column, searchWord, higherRetweet, from, to } = data;
         const postProvider = ModelProviderFactory.create('post');
         const query = {};
         if (column) query.column = column;
         if (searchWord) query.searchWord = searchWord;
+        if (higherRetweet) query.higher = higherRetweet;
         if (from) query.from = from;
         if (to) query.to = to;
 
@@ -32,12 +33,13 @@ module.exports = class PostController {
       res,
       // (async ({ query, fields, options }) => {
       (async ({ data }) => {
-        const { column, searchWord, from, to, limit, skip, sort } = data;
+        const { column, searchWord, higherRetweet, from, to, limit, skip, sort } = data;
         const postProvider = ModelProviderFactory.create('post');
 
         const query = {};
         if (column) query.column = column;
         if (searchWord) query.searchWord = searchWord;
+        if (higherRetweet) query.higher = higherRetweet;
         if (from) query.from = from;
         if (to) query.to = to;
 

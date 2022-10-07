@@ -50,7 +50,8 @@ export default {
       searchOption: {
         searchWord: "",
         sort: "createdAtDesc",
-        to: ""
+        to: "",
+        higherRetweet: 5
       },
     };
   },
@@ -71,16 +72,18 @@ export default {
         searchWord: "",
         to: "",
         sort: "createdAtDesc",
+        higherRetweet: 5,
       };
       this.preSkip = 0;
     },
     restoreSearchOptionFromQueryString() {
-      const { searchWord, to, sort, skip } = this.$route.query;
+      const { searchWord, to, sort, higherRetweet, skip } = this.$route.query;
       this.preSkip = skip ? Number(skip) : 0;
       this.searchOption = {
         searchWord: searchWord || "",
         to: !to ? "" : this.$dayjs(to).format("YYYY-MM-DD"),
         sort: sort || "createdAtDesc",
+        higherRetweet: higherRetweet === "" || higherRetweet === undefined ? 5 : Number(higherRetweet),
       };
     },
     passSearchWord(searchWord) {

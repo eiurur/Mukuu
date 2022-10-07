@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+const { Schema } = mongoose;
+const { ObjectId } = Schema;
 
 // #
 // Schemaインタフェースを通してモデルの定義を行う
@@ -29,7 +29,7 @@ const PostSchema = new Schema({
       ref: 'Post',
     },
   ],
-  quoted: String, // 引用ツイート(raw_json), 
+  quoted: String, // 引用ツイート(raw_json),
   inReply: String,
   isReply: {
     type: Boolean,
@@ -82,6 +82,7 @@ module.exports = {
   queryOption: {
     raws: ['_id', 'postedBy', 'isReply'],
     range: 'createdAt',
+    higher: "retweetCount",
     preprocess: [
       {
         model: 'User',

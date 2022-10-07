@@ -24,6 +24,17 @@ module.exports = class ConditionBuilder {
     });
   }
 
+  // TODO: マルチ対応
+  addHigher(key, higher) {
+    if (!key || !higher) return;
+    const condition = {};
+    const range = {};
+    condition[key] = range;
+    if (higher) range.$gte = higher;
+    // if (to) range.$lte = dayjs(to).endOf('day');
+    this.condition.push(condition);
+  }
+
   addRangeCondition(key, from, to) {
     if (!key || (!from && !to)) return;
     const condition = {};

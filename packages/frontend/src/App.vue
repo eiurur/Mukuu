@@ -30,7 +30,6 @@ export default {
 </script>
 <style lang="scss">
 @import "@/styles/index.scss";
-
 main {
   width: 100%;
   padding: 0.5rem;
