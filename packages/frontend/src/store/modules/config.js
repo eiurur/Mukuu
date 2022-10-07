@@ -1,5 +1,5 @@
 const state = {
-  shouldHideReply: false,
+  shouldHideReply: true,
   shouldHideNoImage: false,
   shouldUsePagination: false,
 };
