@@ -12,11 +12,10 @@
 <style lang="scss" scoped>
 
 .add-container {
+  width: 100%;
   margin: 2rem 0 1rem;
-  // padding: 0 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 100%;
   grid-column-gap: 1rem;
 
   section.add {
@@ -48,6 +47,7 @@
   .add {
     img {
       width: 100%;
+      height: 100%;
       display: flex;
       align-items: flex-end;
       border-radius: 0.25rem;
