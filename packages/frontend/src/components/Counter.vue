@@ -25,6 +25,7 @@
 
 <style lang="scss" scoped>
 .counter {
+  height: 32px; /* クリックして出現するinputのheightが32px */
   .displayPanel {
     padding-left: 0.5rem;
     text-align: right;
