@@ -184,7 +184,7 @@ img {
   display: flex;
   align-items: flex-end;
   border-radius: 0.25rem 0.25rem 0 0;
-  min-height: 180px;
+  height: 144px;
   object-fit: cover;
 }
 section {
