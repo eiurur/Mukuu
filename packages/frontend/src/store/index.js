@@ -28,6 +28,10 @@ export default new Vuex.Store({
     },
     loadLocalStorage({ commit }) {
       commit("LOAD");
+    },
+    restoreLocalStorage({ commit }, state) {
+      commit("RESTORE", state);
+      commit("SAVE");
     }
   },
   mutations: {
@@ -40,6 +44,9 @@ export default new Vuex.Store({
         delete store.modal; // FIXME: プロパティがmergeされないので明示的に削除して初期stateが有効になるようにする。
         this.replaceState(Object.assign(state, store));
       }
+    },
+    RESTORE(state, current) {
+      this.replaceState(current);
     }
   }
 });

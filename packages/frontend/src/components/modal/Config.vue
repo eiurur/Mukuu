@@ -37,6 +37,23 @@
             <div class="note">※ Home画面のみ対象</div>
           </div>
         </section>
+        <section>
+          <el-divider content-position="left">
+            <span class="title">
+              <i class="el-icon-document" />
+              <span>設定情報の入出力</span>
+            </span>
+          </el-divider>
+          <div>
+            <el-button icon="el-icon-download" type="primary" @click="exportJson" size="mini">
+              ファイルにエクスポートする
+            </el-button>
+            <el-button icon="el-icon-upload2" @click="checkFile" size="mini">
+              ファイルからインポートする
+            </el-button>
+            <input type="file" id="fileinput" style="display: none;" @change="importJson" accept="application/json">
+          </div>
+        </section>
       </section>
     </div>
   </el-dialog>
@@ -104,6 +121,53 @@ export default {
     changePagination() {
       this.$store.dispatch("config/updatePaginationStatus");
       this.$store.dispatch("saveLocalStorage");
+    },
+    loadContent() {
+      const store = localStorage.getItem("store");
+      if (store) {
+        const ret = JSON.parse(store);
+        ret.add = { works: [] }; // works keyがないとロード直後にReferenceErrorになる
+        return JSON.stringify(ret);
+      }
+      return "";
+    },
+    exportJson() {
+      try {
+        const now = this.$dayjs().format("YYYYMMDD_HHmmss");
+        const fileName = `mukuu_${now}.json`;
+        const contentType = 'text/plain';
+        const content = this.loadContent();
+
+        const a = document.createElement("a");
+        const file = new Blob([content], { type: contentType });
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+        this.$message.success("設定情報をダウンロードしました");
+      } catch (err) {
+        this.$message.error(`設定情報のダウンロードに失敗しました：${err}`);
+      }
+    },
+    checkFile() {
+      document.querySelector('#fileinput').click();
+    },
+    importJson() {
+      const file = document.querySelector('#fileinput').files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = (e) => {
+        try {
+          const state = JSON.parse(e.target.result);
+          if (!state.bookmark || !state.config || !state.drawer || !state.watch || !state.modal || !state.searchHistory) {
+            throw new Error("不正なJSONファイルです");
+          }
+          this.$store.dispatch("restoreLocalStorage", state);
+          this.$message.success("設定情報をインポートしました");
+        } catch (err) {
+          this.$message.error(`設定情報のインポートに失敗しました：${err}`);
+        }
+      };
     }
   }
 };
