@@ -45,10 +45,10 @@
             </span>
           </el-divider>
           <div>
-            <el-button icon="el-icon-download" type="primary" @click="exportJson" size="mini">
+            <el-button icon="el-icon-download" type="primary" round @click="exportJson" size="mini">
               ファイルにエクスポートする
             </el-button>
-            <el-button icon="el-icon-upload2" @click="checkFile" size="mini">
+            <el-button icon="el-icon-upload2" @click="checkFile" round  size="mini">
               ファイルからインポートする
             </el-button>
             <input type="file" id="fileinput" style="display: none;" @change="importJson" accept="application/json">
