@@ -194,7 +194,7 @@ img[lazy='loaded']:after {
   & .el-form-item:last-of-type {
     margin-right: 0;
   }
-  height: 32px; /*件数をクリックしたときに出現するフォームのheightが32px*/
+  min-height: 32px; /*件数をクリックしたときに出現するフォームのheightが32px*/
 }
 .prefix-icon {
   width: 25px;
