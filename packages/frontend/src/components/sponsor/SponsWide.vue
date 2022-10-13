@@ -184,7 +184,7 @@ img {
   display: flex;
   align-items: flex-end;
   border-radius: 0.25rem 0.25rem 0 0;
-  height: 144px;
+  height: 132px;
   object-fit: cover;
 }
 section {
@@ -193,7 +193,7 @@ section {
   border-radius: 0.25rem;
 }
 .title {
-  font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
+  font-size: 0.5rem; // 14px(this font-size) / 18px(root font-size)
   padding: 0.25rem;
   text-align: center;
 }

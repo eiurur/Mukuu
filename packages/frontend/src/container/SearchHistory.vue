@@ -29,9 +29,9 @@
     margin-bottom: .5rem;
   }
   .title {
-    font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
+    font-size: 0.75rem; // 14px(this font-size) / 18px(root font-size)
     color: #606266;
-    line-height: 40px;
+    line-height: 32px;
   }
   .words > span {
     justify-content: space-between;
