@@ -22,7 +22,7 @@
             <el-checkbox :value="shouldHideReply" @change="changeReply">リプライツイートを表示しない</el-checkbox>
           </div>
           <div>
-            <el-checkbox :value="shouldHideNoImage" @change="changeImage" disabled>画像がないツイートを表示しない</el-checkbox>
+            <el-checkbox :value="shouldHideOutOfLink" @change="changeOutOfLink">リンク切れのツイートを表示しない</el-checkbox>
           </div>
         </section>
         <section>
@@ -102,8 +102,8 @@ export default {
     shouldHideReply() {
       return this.$store.getters["config/shouldHideReply"];
     },
-    shouldHideNoImage() {
-      return this.$store.getters["config/shouldHideNoImage"];
+    shouldHideOutOfLink() {
+      return this.$store.getters["config/shouldHideOutOfLink"];
     },
     shouldUsePagination() {
       return this.$store.getters["config/shouldUsePagination"];
@@ -114,8 +114,8 @@ export default {
       this.$store.dispatch("config/updateHideReplyStatus");
       this.$store.dispatch("saveLocalStorage");
     },
-    changeImage() {
-      this.$store.dispatch("config/updateHideNoImage");
+    changeOutOfLink() {
+      this.$store.dispatch("config/updateHideOutOfLink");
       this.$store.dispatch("saveLocalStorage");
     },
     changePagination() {

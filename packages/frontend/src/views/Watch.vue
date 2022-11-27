@@ -164,15 +164,22 @@ export default {
     shouldHideReply() {
       return !this.$store.getters["config/shouldHideReply"];
     },
+    shouldHideOutOfLink() {
+      return !this.$store.getters["config/shouldHideOutOfLink"];
+    },
     column() {
       const column = {};
       column.postedBy = this.watches.map(user => user._id);
       if (!this.shouldHideReply) column.isReply = false;
+      if (!this.shouldHideOutOfLink) column.isOutOfLink = false;
       return column;
     }
   },
   watch: {
     shouldHideReply() {
+      this.search({});
+    },
+    shouldHideOutOfLink() {
       this.search({});
     },
     searchOption: {
