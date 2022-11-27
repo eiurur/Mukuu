@@ -24,7 +24,10 @@ const { sleep } = require('../../lib/utils');
           for (const urls of entities.urls) {
             try {
               console.log(urls.expanded_url);
-              if (urls.expanded_url.indexOf("https://mega.nz") !== -1) continue; // FREEZEするのでスキップ
+              if (urls.expanded_url.indexOf("https://mega.nz") !== -1) {
+                await setOutOfLink(post, false);
+                continue; // FREEZEするのでスキップ
+              }
               const { status } = await axios.head(urls.expanded_url);
               await setOutOfLink(post, false);
               console.log(status);
