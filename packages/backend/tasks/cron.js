@@ -7,7 +7,7 @@ const SCHEDULES = {
   REMOVE_POSTS: '30 4 * * *',
   UPDATE_USER_DATABASE: '35 5 * * *',
   UPDATE_HISTORY_CACHE: '0 0 * * *',
-  CHECK_OUT_OF_LINK: '45 4 * * 1'
+  // CHECK_OUT_OF_LINK: '45 4 * * 1'
 };
 
 [
@@ -36,11 +36,11 @@ const SCHEDULES = {
     cronTime: SCHEDULES.UPDATE_HISTORY_CACHE,
     args: [path.resolve(__dirname, 'database', 'updateHistoryCache')],
   },
-  {
-    jobName: 'checkOutOfLink',
-    cronTime: SCHEDULES.CHECK_OUT_OF_LINK,
-    args: [path.resolve(__dirname, 'database', 'checkOutOfLink')],
-  },
+  // {
+  //   jobName: 'checkOutOfLink',
+  //   cronTime: SCHEDULES.CHECK_OUT_OF_LINK,
+  //   args: [path.resolve(__dirname, 'database', 'checkOutOfLink')],
+  // },
 ]
   .map(({ jobName, cronTime, args }) => makeJob({ jobName, cronTime, args }))
   .forEach((job) => job.start());
