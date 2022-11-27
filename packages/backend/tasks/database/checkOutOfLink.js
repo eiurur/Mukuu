@@ -28,7 +28,11 @@ const { sleep } = require('../../lib/utils');
                 await setOutOfLink(post, false);
                 continue; // FREEZEするのでスキップ
               }
-              const { status } = await axios.head(urls.expanded_url);
+              const { status } = await axios.head(urls.expanded_url, {
+                headers: {
+                  referer: urls.expanded_url,
+                }
+              });
               await setOutOfLink(post, false);
               console.log(status);
             } catch (e) {
