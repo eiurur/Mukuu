@@ -2,11 +2,12 @@ const path = require('path');
 const { spawnProcess, makeJob } = require('./util');
 
 const SCHEDULES = {
-  SEARCH_CRAWLER: '0 5,21 * * *',
-  USER_CRAWLER: '0 6,19,23 * * *',
+  SEARCH_CRAWLER: '0 3,21 * * *',
+  USER_CRAWLER: '0 4,19,23 * * *',
   REMOVE_POSTS: '30 4 * * *',
   UPDATE_USER_DATABASE: '35 5 * * *',
   UPDATE_HISTORY_CACHE: '0 0 * * *',
+  CHECK_OUT_OF_LINK: '45 4 * * 1'
 };
 
 [
@@ -34,6 +35,11 @@ const SCHEDULES = {
     jobName: 'history',
     cronTime: SCHEDULES.UPDATE_HISTORY_CACHE,
     args: [path.resolve(__dirname, 'database', 'updateHistoryCache')],
+  },
+  {
+    jobName: 'checkOutOfLink',
+    cronTime: SCHEDULES.CHECK_OUT_OF_LINK,
+    args: [path.resolve(__dirname, 'database', 'checkOutOfLink')],
   },
 ]
   .map(({ jobName, cronTime, args }) => makeJob({ jobName, cronTime, args }))

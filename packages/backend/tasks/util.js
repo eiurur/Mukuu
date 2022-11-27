@@ -1,45 +1,44 @@
 const path = require('path');
-const CronJob = require('cron').CronJob;
+const { CronJob } = require('cron');
 const getUrls = require('get-urls');
 const { promisify } = require('util');
 const { execFile, spawn } = require('child_process');
+
 const execFileAsync = promisify(execFile);
 const logger = require(path.join('..', 'logger'))('cron');
 
-const { expandUrlOfTweet, sleep } = require('../lib/utils');
-const TweetClient = require("./twitterClient")
-const ModelProviderFactory = require('../models/modelProviderFactory');
 const { acceptedDomains } = require('@mukuu/common/lib/constants');
+const { expandUrlOfTweet, sleep } = require('../lib/utils');
+const TweetClient = require("./twitterClient");
+const ModelProviderFactory = require('../models/modelProviderFactory');
 
-const spawnProcess = (cmd, args = [], option = {}) => {
-  return new Promise((resolve, reject) => {
-    const normalizedCmd = cmd.replace(/\\/g, '/');
-    const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
-    let stdoutChunks = [];
-    let stderrChunks = [];
+const spawnProcess = (cmd, args = [], option = {}) => new Promise((resolve, reject) => {
+  const normalizedCmd = cmd.replace(/\\/g, '/');
+  const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
+  let stdoutChunks = [];
+  let stderrChunks = [];
 
-    const child = spawn(normalizedCmd, normalizedArgs);
-    child.stdout.on('data', (data) => {
-      stdoutChunks = stdoutChunks.concat(data);
-    });
-    child.stdout.on('end', () => {
-      const stdoutContent = Buffer.concat(stdoutChunks).toString();
-      logger.info('stdout chars:', stdoutContent.length);
-      logger.info(stdoutContent);
-      return resolve(stdoutContent);
-    });
-
-    child.stderr.on('data', (data) => {
-      stderrChunks = stderrChunks.concat(data);
-    });
-    child.stderr.on('end', () => {
-      const stderrContent = Buffer.concat(stderrChunks).toString();
-      logger.info('stderr chars:', stderrContent.length);
-      logger.info(stderrContent);
-      return reject(stderrContent);
-    });
+  const child = spawn(normalizedCmd, normalizedArgs);
+  child.stdout.on('data', (data) => {
+    stdoutChunks = stdoutChunks.concat(data);
   });
-};
+  child.stdout.on('end', () => {
+    const stdoutContent = Buffer.concat(stdoutChunks).toString();
+    logger.info('stdout chars:', stdoutContent.length);
+    logger.info(stdoutContent);
+    return resolve(stdoutContent);
+  });
+
+  child.stderr.on('data', (data) => {
+    stderrChunks = stderrChunks.concat(data);
+  });
+  child.stderr.on('end', () => {
+    const stderrContent = Buffer.concat(stderrChunks).toString();
+    logger.info('stderr chars:', stderrContent.length);
+    logger.info(stderrContent);
+    return reject(stderrContent);
+  });
+});
 
 module.exports = {
   addReplyStatus: async (post) => {
@@ -59,17 +58,16 @@ module.exports = {
     return dbPost;
   },
   addInReply: async (post, rawTweet) => {
-    if(!post) return
-    if(!rawTweet) {
+    if (!post) return;
+    if (!rawTweet) {
       try {
         await sleep(1000);
-        rawTweet = await TweetClient.status(post.idStr)
-      }
-      catch(e){
-        return
+        rawTweet = await TweetClient.status(post.idStr);
+      } catch (e) {
+        return;
       }
     }
-    if(rawTweet.in_reply_to_user_id_str !== rawTweet.user.id_str) return
+    if (rawTweet.in_reply_to_user_id_str !== rawTweet.user.id_str) return;
     const postProvider = ModelProviderFactory.create('post');
     try {
       let inReply = await TweetClient.status(rawTweet.in_reply_to_status_id_str);
@@ -89,7 +87,6 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-
   },
   addQuoteStatus: async (post) => {
     if (!post) return;
@@ -162,6 +159,22 @@ module.exports = {
       entity.options
     );
   },
+  async setOutOfLink(post, isOutOfLink) {
+    if (!post) return;
+    const postProvider = ModelProviderFactory.create('post');
+    const entity = {
+      query: { idStr: post.idStr },
+      data: Object.assign(post, {
+        isOutOfLink
+      }),
+      options: { new: true, upsert: true },
+    };
+    const dbPost = await postProvider.findOneAndUpdate(
+      entity.query,
+      entity.data,
+      entity.options
+    );
+  },
   runProcess: async (filepath) => {
     const { stdout, stderr } = await execFileAsync('node', [filepath], {
       maxBuffer: 1024 * 1024 * 10 * 100,
@@ -174,16 +187,14 @@ module.exports = {
     return stdout;
   },
   spawnProcess,
-  makeJob: ({ jobName, cronTime, args }) => {
-    return new CronJob({
-      cronTime,
-      onTick: async () => {
-        logger.info(`--- start ${jobName} cron ---`);
-        const stdout = await spawnProcess('node', args);
-        logger.info(`--- finish ${jobName} cron ---`);
-      },
-      start: true,
-      timeZone: 'Asia/Tokyo',
-    });
-  },
+  makeJob: ({ jobName, cronTime, args }) => new CronJob({
+    cronTime,
+    onTick: async () => {
+      logger.info(`--- start ${jobName} cron ---`);
+      const stdout = await spawnProcess('node', args);
+      logger.info(`--- finish ${jobName} cron ---`);
+    },
+    start: true,
+    timeZone: 'Asia/Tokyo',
+  }),
 };

@@ -40,6 +40,10 @@ const PostSchema = new Schema({
     default: false,
   }, // 手動登録か否か
   medias: [MediaScheme],
+  isOutOfLink: {
+    type: Boolean,
+    default: false
+  },
   postedBy: {
     type: ObjectId,
     ref: 'User',
@@ -80,7 +84,7 @@ const Post = mongoose.model('Post');
 module.exports = {
   model: Post,
   queryOption: {
-    raws: ['_id', 'postedBy', 'isReply'],
+    raws: ['_id', 'postedBy', 'isReply', 'isOutOfLink'],
     range: 'createdAt',
     higher: "retweetCount",
     preprocess: [
