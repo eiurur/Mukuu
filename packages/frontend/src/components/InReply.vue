@@ -58,6 +58,14 @@
     font-weight: 500;
   }
 }
+.out-of-link {
+  .reply-container {
+    width: calc(100% + 2rem);
+    padding: 1rem 1rem 0rem 1rem;
+    margin: -1rem -1rem 1rem -1rem;
+    background: white;
+  }
+}
 .reply {
   display: flex;
   flex-direction: column;

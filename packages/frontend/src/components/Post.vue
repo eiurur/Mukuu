@@ -84,6 +84,7 @@ article.post {
     margin-bottom: 0;
   }
   .text-container {
+    margin-top: 0;
     .text {
       word-break: break-word;
       white-space: pre-wrap;
