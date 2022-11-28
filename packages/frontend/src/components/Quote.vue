@@ -1,6 +1,6 @@
 <template>
   <div class="quote-container" v-if="post.text">
-    <article class="post" :class="{quoted: isQuoted}">
+    <article class="post" :class="{quoted: isQuoted, 'out-of-link': isOutOfLink}">
       <div class="text-container">
         <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
       </div>
@@ -81,6 +81,11 @@ article.post {
     }
   }
 
+  &.out-of-link {
+    background: #DADDE1;
+    opacity: .5;
+  }
+
   .text-container {
     .text {
       word-break: break-word;
@@ -148,6 +153,9 @@ export default {
     gridStyle() {
       if (!this.isGrid) return {};
       return { grid: true };
+    },
+    isOutOfLink() {
+      return this.post.isOutOfLink;
     }
   },
   mounted() {
