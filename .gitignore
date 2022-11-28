@@ -37,3 +37,8 @@ _temp/**
 mukuu/
 packages/backend/newrelic_agent.log
 backup/**
+
+**/refrectLocalOutOfLink.js
+**/refrectLocalOutOfLinkTo.js
+**/posts.json
+packages/backend/tasks/_README.md
