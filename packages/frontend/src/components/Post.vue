@@ -8,7 +8,7 @@
       <div class="mukuu el-divider__text is-center">{{ post.createdAt }}</div>
     </div>
     <div class="post-container" v-if="hasExternalLink">
-      <article class="post" :class="{quoted: isQuoted}">
+      <article class="post" :class="{quoted: isQuoted, 'out-of-link': isOutOfLink}">
         <InReply :post="post" :useDrawer="useDrawer" v-if="post.inReply" :isGrid="isGrid"></InReply>
         <div class="text-container">
           <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
@@ -56,6 +56,11 @@ article.post {
     margin-top: 0.5rem;
   }
 
+  &.out-of-link {
+    background: #DADDE1;
+    opacity: .5;
+  }
+
   &.quoted {
     box-shadow: none;
     border: 1px solid rgb(196, 207, 214);
@@ -79,6 +84,7 @@ article.post {
     margin-bottom: 0;
   }
   .text-container {
+    margin-top: 0;
     .text {
       word-break: break-word;
       white-space: pre-wrap;
@@ -156,6 +162,9 @@ export default {
         return parseToExternalLinks(this.post.text).length > 0;
       },
     },
+    isOutOfLink() {
+      return this.post.isOutOfLink;
+    }
   },
 };
 </script>

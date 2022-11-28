@@ -84,9 +84,13 @@ export default {
     shouldHideReply() {
       return !this.$store.getters["config/shouldHideReply"];
     },
+    shouldHideOutOfLink() {
+      return !this.$store.getters["config/shouldHideOutOfLink"];
+    },
     column() {
       const ret = { column: {} };
       if (!this.shouldHideReply) ret.column.isReply = false;
+      if (!this.shouldHideOutOfLink) ret.column.isOutOfLink = false;
       if (!Object.keys(ret.column).length) return {};
       return ret;
     },
@@ -96,6 +100,11 @@ export default {
   },
   watch: {
     shouldHideReply() {
+      if (this.canWatchSearchOption) {
+        this.search({});
+      }
+    },
+    shouldHideOutOfLink() {
       if (this.canWatchSearchOption) {
         this.search({});
       }

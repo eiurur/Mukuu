@@ -178,9 +178,15 @@ export default {
     shouldHideReply() {
       return !this.$store.getters["config/shouldHideReply"];
     },
+    shouldHideOutOfLink() {
+      return !this.$store.getters["config/shouldHideOutOfLink"];
+    },
   },
   watch: {
     async shouldHideReply() {
+      await this.$store.dispatch("drawer/initialize", this.user);
+    },
+    async shouldHideOutOfLink() {
       await this.$store.dispatch("drawer/initialize", this.user);
     },
     postedBy() {

@@ -45,6 +45,7 @@ const actions = {
     const column = {};
     column.postedBy = state.user._id;
     if (rootState.config.shouldHideReply) column.isReply = false;
+    if (rootState.config.shouldHideOutOfLink) column.isOutOfLink = false;
 
     const { data, url } = await post.fetch({
       ...{ limit: state.limit, skip: state.skip },
