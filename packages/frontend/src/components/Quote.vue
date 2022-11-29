@@ -83,7 +83,7 @@ article.post {
 
   &.out-of-link {
     background: #DADDE1;
-    opacity: .5;
+    // opacity: .5;
   }
 
   .text-container {
