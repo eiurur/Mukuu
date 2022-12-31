@@ -31,6 +31,12 @@ export default {
           title: "カスタムオーダーメイド3D2+ GP-01&GP-02"
         },
         {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013971.html",
+          src: "//img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013971_img_main.jpg",
+          alt: "カスタムオーダーメイド3D2 GP-01＆GP-02＆GP-01 Fb（本体+アペンド）",
+          title: "カスタムオーダーメイド3D2 GP-01＆GP-02＆GP-01 Fb（本体+アペンド）"
+        },
+        {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ014813.html",
           src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ015000/VJ014813_img_main.webp",
           alt: "カスタムオーダーメイド3D2 キャラクターパック 無口で甘えたがりな文学少女",
@@ -86,6 +92,20 @@ export default {
           title: "キャラクターパック 生真面目で甘え下手な淑女"
         },
         {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ009357.html",
+          src:
+            "//img.dlsite.jp/modpub/images2/work/professional/VJ010000/VJ009357_img_main.jpg",
+          alt: "カスタムメイド3D2",
+          title: "カスタムメイド3D2",
+        },
+        {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ010035.html",
+          src:
+            "//img.dlsite.jp/modpub/images2/work/professional/VJ011000/VJ010035_img_main.jpg",
+          alt: "カスタムメイド3D2+",
+          title: "カスタムメイド3D2+",
+        },
+        {
           link: "https://amzn.to/2ZzlHfx",
           src:
             "https://pbs.twimg.com/media/Eusd1WIVEAEjYxd?format=jpg&name=medium",
@@ -93,11 +113,32 @@ export default {
           title: "CM3D2 ACTパック",
         },
         {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ010552.html",
+          src:
+            "//img.dlsite.jp/modpub/images2/work/professional/VJ011000/VJ010552_img_main.jpg",
+          alt: "カスタムメイド3D2+ ACT.2",
+          title: "カスタムメイド3D2+ ACT.2",
+        },
+        {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ011675.html",
+          src:
+            "//img.dlsite.jp/modpub/images2/work/professional/VJ012000/VJ011675_img_main.jpg",
+          alt: "カスタムメイド3D2+ ACT.3",
+          title: "カスタムメイド3D2+ ACT.3",
+        },
+        {
           link: "https://amzn.to/3pImS6R",
           src:
             "https://pbs.twimg.com/media/EusgdKeUUAEuNj3?format=jpg&name=medium",
           alt: "CM3D2 カラオケパックVR",
           title: "CM3D2 カラオケパックVR",
+        },
+        {
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ009680.html",
+          src:
+            "//img.dlsite.jp/modpub/images2/work/professional/VJ010000/VJ009680_img_main.jpg",
+          alt: "カスタムメイド3D2 ビジュアルパック",
+          title: "カスタムメイド3D2 ビジュアルパック",
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013971.html",

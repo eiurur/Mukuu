@@ -160,10 +160,10 @@ export default {
           title: "COM3D2 カラオケパックVR VOL.4"
         },
         {
-          link: "https://amzn.to/35QsVQM",
-          src: "https://pbs.twimg.com/media/EivwctDUYAEU5nq?format=jpg&name=small",
-          alt: "カスタムオーダーメイド3D2+ GP-01&GP-02",
-          title: "カスタムオーダーメイド3D2+ GP-01&GP-02"
+          link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013148.html",
+          src: "/img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013148_img_main.jpg",
+          alt: "カスタムオーダーメイド3D2 GP-01＆GP-02（本体+アペンド）",
+          title: "カスタムオーダーメイド3D2 GP-01＆GP-02（本体+アペンド）"
         }
       ]
     };
