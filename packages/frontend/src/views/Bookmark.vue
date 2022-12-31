@@ -58,7 +58,7 @@
         ></BookmarkArchive>
       </div>
       <div class="sb">
-        <SponsWide></SponsWide>
+        <Spons></Spons>
       </div>
     </el-col>
     <el-col :span="12">
@@ -99,7 +99,7 @@ import UserDrawer from "@/container/UserDrawer.vue";
 import Post from "@/components/Post.vue";
 import Loader from "@/components/Loader.vue";
 import Counter from "@/components/Counter.vue";
-import SponsWide from "@/components/sponsor/SponsWide.vue";
+import Spons from "@/components/sponsor/Spons.vue";
 import BookmarkArchive from "@/components/BookmarkArchive.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 
@@ -125,7 +125,7 @@ export default {
     Loader,
     Counter,
     BookmarkArchive,
-    SponsWide
+    Spons
   },
   computed: {
     canLoad() {
