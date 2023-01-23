@@ -1,12 +1,11 @@
 <template>
   <div class="add-container" v-if="post.adds && post.adds.length">
-    <section  class="add shadow"  v-for="add in post.adds" :key="add.title">
+    <section class="add shadow" v-for="add in post.adds" :key="add.title">
     <a :data-title="add.title" :href="add.source" rel="nofollow noopener sponsored" target="_blank">
       <img :src="add.images.large" :alt="add.title" itemprop="image" class="target_type" />
     </a>
     </section>
   </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -47,37 +46,21 @@
   .add {
     img {
       width: 100%;
-      height: 100%;
+      height: 320px;
       display: flex;
       align-items: flex-end;
       border-radius: 0.25rem;
+      object-fit: cover;
+      overflow: hidden;
     }
     a {
       width: 100%;
-    }
-    // .title {
-    //   opacity: 0;
-    //   &:hover {
-    //     opacity: 1;
-    //     background: white;
-    //   }
-    //   font-size: 0.77rem; // 14px(this font-size) / 18px(root font-size)
-    //   padding: 0.25rem;
-    //   text-align: center;
-    // }
-  }
-  .add {
-    img {
-      width: 100%;
-      object-fit: cover;
-      overflow: hidden;
     }
   }
 }
 </style>
 
 <script>
-
 export default {
   name: "AddContainer",
   props: {
