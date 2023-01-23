@@ -161,7 +161,7 @@ export default {
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013148.html",
-          src: "/img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013148_img_main.jpg",
+          src: "//img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013148_img_main.jpg",
           alt: "カスタムオーダーメイド3D2 GP-01＆GP-02（本体+アペンド）",
           title: "カスタムオーダーメイド3D2 GP-01＆GP-02（本体+アペンド）"
         }
@@ -186,6 +186,7 @@ img {
   border-radius: 0.25rem 0.25rem 0 0;
   height: 132px;
   object-fit: cover;
+  object-position: top;
 }
 section {
   width: 100%;
