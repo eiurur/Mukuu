@@ -39,10 +39,14 @@
 
   &.clickable {
     cursor: pointer;
+    width: 73px;
+    height: 73px;
   }
   & > div {
     // height: 48px;
     // width: 48px;
+    width: 73px;
+    height: 73px;
   }
   & a {
     height: 100%;
