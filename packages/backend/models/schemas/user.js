@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+const { Schema } = mongoose;
+const { ObjectId } = Schema;
 
 const UserSchema = new Schema({
   idStr: {
@@ -29,6 +29,8 @@ const UserSchema = new Schema({
   profileBackgroundImageUrl: String,
   profileImageUrl: String,
   profileBannerUrl: String,
+  profileImageUrlBase64: String,
+  profileBannerUrlBase64: String,
   createdAt: {
     type: Date,
     default: Date.now,
