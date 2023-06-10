@@ -1,6 +1,6 @@
 <template>
-  <div class="icon" @click="openUserDrawer(user)">
-    <img v-lazy="user.profileImageUrl" :alt="user.profileImageUrl"  @error="onIconLoadError" />
+  <div class="icon" @click="openUserDrawer(user)" :style="style">
+    <img :style="style" v-lazy="user.profileImageUrl" :alt="user.profileImageUrl"  @error="onIconLoadError" />
   </div>
 </template>
 
@@ -27,6 +27,17 @@ export default {
   name: "WatchingUserIcon",
   props: {
     user: Object,
+    size: Number,
+  },
+  computed: {
+    style() {
+      return {
+        width: `${this.size}px`,
+        height: `${this.size}px`,
+        "min-width": null,
+        "max-height": null,
+      };
+    },
   },
   methods: {
     async onIconLoadError(e) {

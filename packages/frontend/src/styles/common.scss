@@ -242,6 +242,9 @@ img[lazy='loaded']:after {
 .el-menu-item {
   color: #909399;
 }
+.el-popover {
+  min-width: 32px;
+}
 .mukuu {
   &.el-divider--horizontal {
     margin: 1.5rem 0;

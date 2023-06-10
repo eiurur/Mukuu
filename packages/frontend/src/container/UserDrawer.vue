@@ -1,5 +1,6 @@
 <template>
   <section class="infinite-list drawer" ref="scrollable" v-if="user">
+    <DrawerHistory></DrawerHistory>
     <section class="profile">
       <div :style="{ background: `#${user.profileBackgroundColor}` }">
         <img
@@ -56,8 +57,12 @@
 </template>
 
 <style lang="scss" scoped>
+.drawer {
+  position: relative;
+}
 .inifinite-scroll-container {
   padding-top: 1rem;
+  position: relative;
 }
 .profile {
   display: flex;
@@ -124,6 +129,7 @@ import ScreenName from "@/components/ScreenName.vue";
 import UserSearchLink from "@/components/links/UserSearchLink.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
 import BlankLink from '../components/BlankLink.vue';
+import DrawerHistory from "../components/DrawerHistory.vue";
 
 export default {
   name: "UserDrawer",
@@ -135,6 +141,7 @@ export default {
     UserSearchLink,
     WatchBtn,
     BlankLink,
+    DrawerHistory
   },
   props: ["postedBy"],
   computed: {
@@ -158,6 +165,21 @@ export default {
       get() {
         return this.$store.getters["drawer/getPosts"];
       },
+    },
+    selectableHistory: {
+      get() {
+        return this.history.slice(5, 20);
+      }
+    },
+    showableHistory: {
+      get() {
+        return this.history.slice(0, 5);
+      }
+    },
+    history: {
+      get() {
+        return this.$store.getters["drawer/getHistory"];
+      }
     },
     isDisableLoading: {
       get() {

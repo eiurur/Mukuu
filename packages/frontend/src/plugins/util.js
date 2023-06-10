@@ -9,6 +9,18 @@ export function debounce(fn, interval) {
   };
 }
 
+export function throttle(callback, delay) {
+  let timerId;
+  return (...args) => {
+    if (timerId) return;
+    const context = this;
+    timerId = setTimeout(() => {
+      callback.apply(context, args);
+      timerId = null;
+    }, delay);
+  };
+}
+
 export function createUID(
   size = 32,
   base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"

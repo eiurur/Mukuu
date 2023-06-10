@@ -12,12 +12,14 @@ const state = {
     sort: "createdAtDesc"
   },
   posts: [],
+  history: [],
   isLoading: false,
   isCompletedLoading: false
 };
 const getters = {
   getUser: state => state.user,
   getPosts: state => state.posts,
+  getHistory: state => state.history,
   isLoading: state => state.isLoading,
   isCompletedLoading: state => state.isCompletedLoading
 };
@@ -33,10 +35,12 @@ const actions = {
   async loadUser({ commit }, value) {
     if (value && value._id) {
       commit("SET_USER", value);
+      commit("UPDATE_HISTORY", value);
       return;
     }
     const { data } = await user.fetch({ postedBy: value });
     commit("SET_USER", data);
+    commit("UPDATE_HISTORY", data);
   },
   async loadPost({ commit, state, rootState }) {
     commit("SET_LOADING_STATUS", true);
@@ -86,6 +90,13 @@ const mutations = {
   },
   INCREMENT_SKIP(state) {
     state.skip += state.limit;
+  },
+  UPDATE_HISTORY(state, payload) {
+    if (!state.history) state.history = [];
+    const users = [payload, ...state.history];
+    state.history = Array.from(
+      new Map(users.map((user) => [user._id, user])).values()
+    ).slice(0, 12); // 履歴の最大は12人
   },
   CLEAR_USER(state) {
     state.user = null;
