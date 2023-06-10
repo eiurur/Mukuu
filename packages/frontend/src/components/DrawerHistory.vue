@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     handleResize() {
-      console.log("AAA");
       this.componentWidth = this.$el.offsetWidth;
       this.shownNum = Math.min(this.defaultHiddenNum, Math.floor(this.componentWidth / (48 + 16)) - 1);
       this.hiddenNum = this.defaultHiddenNum - this.shownNum;
