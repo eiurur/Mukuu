@@ -20,19 +20,19 @@ const logger = require(path.join('..', '..', 'logger'))('cron');
       const postSearchOption = {};
       const posts = await postProvider.find(postQuery, postSearchOption);
 
-      // let profileImage = null;
+      let profileImage = null;
       // let profileBanner = null;
-      // try {
-      //   profileImage = await axios.get(user.profileImageUrl, { responseType: 'arraybuffer' });
-      // } catch (err) {
+      try {
+        profileImage = await axios.get(user.profileImageUrl, { responseType: 'arraybuffer' });
+      } catch (err) {
 
-      // }
+      }
       // try {
       //   profileBanner = await axios.get(user.profileBannerUrl, { responseType: 'arraybuffer' });
       // } catch (err) {
 
       // }
-      // const profileImageUrlBase64 = profileImage ? Buffer.from(profileImage.data).toString('base64') : user.profileImageUrlBase64 || null;
+      const profileImageUrlBase64 = profileImage ? Buffer.from(profileImage.data).toString('base64') : user.profileImageUrlBase64 || null;
       // const profileBannerUrlBase64 = profileBanner ? Buffer.from(profileBanner.data).toString('base64') : user.profileBannerUrlBase64 || null;
 
       const entity = {
