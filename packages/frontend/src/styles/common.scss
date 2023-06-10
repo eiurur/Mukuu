@@ -142,6 +142,11 @@ img[lazy='loaded']:after {
   height: 320px;
 }
 
+.fix-loader {
+  position: sticky;
+  bottom: 0;
+}
+
 /* extend property */
 ::-webkit-scrollbar {
   background-color: #f4f4f4;

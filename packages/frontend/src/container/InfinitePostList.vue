@@ -14,7 +14,10 @@
       v-for="post in posts"
     ></Post>
     <TwitterSearchLink :searchWord="searchOption.searchWord" v-if="isLoadedLast" class="tail"></TwitterSearchLink>
-    <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+
+    <div class="fix-loader flex justify-center" v-if="shouldShowLoader">
+      <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+    </div>
   </section>
 </template>
 

@@ -123,7 +123,9 @@
         </article>
         <AddContainer :post="user"></AddContainer>
       </div>
-      <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+      <div class="fix-loader flex justify-center" v-if="shouldShowLoader">
+          <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+        </div>
       </section>
     </el-col>
     <el-col :span="8" class="hidden-smartphone hidden-tablet">

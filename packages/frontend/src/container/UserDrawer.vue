@@ -51,7 +51,10 @@
         :key="post._id"
         v-for="post in posts"
       ></Post>
+
+    <div class="fix-loader flex justify-center" v-if="shouldShowLoader">
       <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+    </div>
     </section>
   </section>
 </template>
