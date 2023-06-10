@@ -6,7 +6,8 @@
         <section>
           <p>
             Mukuu は
-            <BlankLink href="http://com3d2.jp/" text="カスタムオーダーメイド3D2(COM3D2)"></BlankLink>のMODの検索を効率化するためのサイトです。
+            <BlankLink href="http://com3d2.jp/" text="カスタムオーダーメイド3D2(COM3D2)"></BlankLink>および
+            <BlankLink href="https://www.kisskiss.tv/cm3d2/cm3d2.php" text="カスタムメイド3D2(CM3D2)"></BlankLink>のMODの検索を効率化するためのサイトです。
           </p>
           <p>気になったMODの製作者様の過去作品を辿る手段が煩雑だった問題を解消するために作りました。</p>
           <p>
