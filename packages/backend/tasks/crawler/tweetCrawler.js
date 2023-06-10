@@ -7,8 +7,9 @@ const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
 const mapper = require('@mukuu/common/lib/mapper');
 const { sleep, expandUrlOfTweet } = require('../../lib/utils');
 const { addQuoteStatus, addInReply, addReplyStatus } = require('../util');
-const TweetClient = require("../twitterClient")
+const TweetClient = require("../twitterClient");
 const ModelProviderFactory = require('../../models/modelProviderFactory');
+
 const logger = require(path.join('..', '..', 'logger'))('cron');
 
 const SEARCH_INTERVAL = 1000 * 2;
@@ -21,7 +22,7 @@ module.exports = class TweetCrawler {
       rejectPattern: (text) =>
         pattern.rejectedWords.test(text) ||
         acceptedDomains.every((domain) => text.indexOf(domain) === -1),
-      isFinish: isFinish,
+      isFinish,
     });
   }
 
@@ -54,6 +55,17 @@ module.exports = class TweetCrawler {
         let updatedUserData = false;
         for (let tweet of originalStatuses) {
           tweet = expandUrlOfTweet(tweet);
+
+          // 3200件以内にMODのリンクがなければユーザ情報が永遠に更新されないので必ず更新する
+          if (!updatedUserData) {
+            const existUser = await this.findUser(tweet);
+            if (existUser) {
+              await this.saveUser(tweet);
+              updatedUserData = true;
+              console.log("[OK] UPDATED USER");
+            }
+          }
+
           const isDeniedPost = await this.findDenyPost(tweet);
           if (isDeniedPost) {
             logger.debug('REJECT becasue denied post:', tweet.id_str);
@@ -92,21 +104,29 @@ module.exports = class TweetCrawler {
   }
 
   async search(option) {
-    return await TweetClient.search(option)
+    return await TweetClient.search(option);
   }
 
   async statuses(option = {}) {
-    return await TweetClient.statuses(option)
+    return await TweetClient.statuses(option);
   }
 
   async status(tweetId, option = {}) {
-    return await TweetClient.status(tweetId, option)
+    return await TweetClient.status(tweetId, option);
+  }
+
+  async findUser(tweet) {
+    const userProvider = ModelProviderFactory.create('user');
+    const ex = await userProvider.findOne({
+      idStr: tweet.user.id_str
+    });
+    return !!ex;
   }
 
   async findDenyPost(tweet) {
     const denyPostProvider = ModelProviderFactory.create('denypost');
     const ex = await denyPostProvider.findOne({
-      idStr: tweet.id_str 
+      idStr: tweet.id_str
     });
     return !!ex;
   }
@@ -159,17 +179,18 @@ module.exports = class TweetCrawler {
   }
 
   async fetchReplied(tweetId) {
-    return await TweetClient.fetchReplied(tweetId)
+    return await TweetClient.fetchReplied(tweetId);
   }
 
   decStrNum(n) {
-    var i, result;
+    let i; let
+      result;
     n = n.toString();
     result = n;
     i = n.length - 1;
     while (i > -1) {
       if (n[i] === '0') {
-        result = result.substring(0, i) + '9' + result.substring(i + 1);
+        result = `${result.substring(0, i)}9${result.substring(i + 1)}`;
         i--;
       } else {
         result =
