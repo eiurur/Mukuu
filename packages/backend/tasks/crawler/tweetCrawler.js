@@ -139,6 +139,41 @@ module.exports = class TweetCrawler {
     return !!ex;
   }
 
+  async saveByTAC(tweet) {
+    tweet = expandUrlOfTweet(tweet);
+    const rejectPattern = (text) =>
+      text.startsWith("rt") ||
+      pattern.rejectedWords.test(text) ||
+      acceptedDomains.every((domain) => text.indexOf(domain) === -1);
+
+    let updatedUserData = false;
+    const existUser = await this.findUser(tweet);
+    if (existUser) {
+      await this.saveUser(tweet);
+      updatedUserData = true;
+      logger.debug("[OK] UPDATED USER");
+    }
+
+    const isDeniedPost = await this.findDenyPost(tweet);
+    if (isDeniedPost) {
+      logger.debug('REJECT becasue denied post:', tweet.id_str);
+      return;
+    }
+    const isDeniedUser = await this.findDenyUser(tweet);
+    if (isDeniedUser) {
+      logger.debug('REJECT becasue denied user:', tweet.user.id_str);
+      return;
+    }
+    if (rejectPattern && rejectPattern(tweet.full_text.toLowerCase())) {
+      logger.debug('REJECT:', tweet.full_text.toLowerCase());
+      return;
+    }
+    if (!updatedUserData) {
+      await this.saveUser(tweet);
+    }
+    await this.save(tweet);
+  }
+
   async save(tweet) {
     const dbUser = await this.saveUser(tweet);
     const post = await this.savePost(tweet, dbUser);
