@@ -4,7 +4,6 @@ import Home from "../views/Home.vue";
 import Users from "../views/Users.vue";
 import Watch from "../views/Watch.vue";
 import Bookmark from "../views/Bookmark.vue";
-import Register from "../views/Register.vue";
 
 Vue.use(VueRouter);
 
@@ -28,11 +27,6 @@ const routes = [
     path: "/bookmark",
     name: "bookmark",
     component: Bookmark
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: Register
   },
   {
     path: "*",
