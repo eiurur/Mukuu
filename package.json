@@ -47,7 +47,7 @@
     "migrate:history": "node packages/backend/tasks/patch/migrateHistoryToSearchHistory"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "name": "mukuu",
   "dependencies": {

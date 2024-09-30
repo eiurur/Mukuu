@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
-    "dev": "vue-cli-service serve",
-    "start": "vue-cli-service serve",
+    "serve": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "build": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
+    "test:unit": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service test:unit",
+    "test:e2e": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service test:e2e",
+    "lint": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service lint",
+    "dev": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "start": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
     "postinstall": "npm run build"
   },
   "dependencies": {
