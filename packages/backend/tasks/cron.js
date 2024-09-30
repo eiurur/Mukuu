@@ -21,16 +21,16 @@ const SCHEDULES = {
   //   cronTime: SCHEDULES.USER_CRAWLER,
   //   args: [path.resolve(__dirname, 'crawler', 'tweet', 'dailyUserCrawling')],
   // },
-  // {
-  //   jobName: 'remove',
-  //   cronTime: SCHEDULES.REMOVE_POSTS,
-  //   args: [path.resolve(__dirname, 'database', 'removeUntargets')],
-  // },
-  // {
-  //   jobName: 'update',
-  //   cronTime: SCHEDULES.UPDATE_USER_DATABASE,
-  //   args: [path.resolve(__dirname, 'database', 'updateUserDatabase')],
-  // },
+  {
+    jobName: 'remove',
+    cronTime: SCHEDULES.REMOVE_POSTS,
+    args: [path.resolve(__dirname, 'database', 'removeUntargets')],
+  },
+  {
+    jobName: 'update',
+    cronTime: SCHEDULES.UPDATE_USER_DATABASE,
+    args: [path.resolve(__dirname, 'database', 'updateUserDatabase')],
+  },
   {
     jobName: 'history',
     cronTime: SCHEDULES.UPDATE_HISTORY_CACHE,
