@@ -85,18 +85,23 @@ module.exports = class PostController {
         const isUserTimeline = Object(data) === data;
         if (isSearch) {
           for (const row of data) {
-            if (row.content.itemContent.tweet_results.result.__typename === "Tweet") {
-              // console.log(JSON.stringify(row.content.itemContent, null, 2));
-              const legacyUser = row.content.itemContent.tweet_results.result.core.user_results.result.legacy;
-              legacyUser.id_str = row.content.itemContent.tweet_results.result.core.user_results.result.rest_id;
-              const legacyTweet = row.content.itemContent.tweet_results.result.legacy;
-              legacyTweet.user = legacyUser;
-              console.log(legacyUser);
-              await crawler.saveByTAC(legacyTweet);
-            } else if (row.content.itemContent.tweet_results.result.__typename === "TweetWithVisibilityResults") {
-              console.log(row.content.itemContent.tweet_results.result);
-            } else {
-              console.log(row.content.itemContent.tweet_results.result);
+            try {
+              console.log('%o', row);
+              if (row.content.itemContent.tweet_results.result.__typename === "Tweet") {
+                // console.log(JSON.stringify(row.content.itemContent, null, 2));
+                const legacyUser = row.content.itemContent.tweet_results.result.core.user_results.result.legacy;
+                legacyUser.id_str = row.content.itemContent.tweet_results.result.core.user_results.result.rest_id;
+                const legacyTweet = row.content.itemContent.tweet_results.result.legacy;
+                legacyTweet.user = legacyUser;
+                console.log(legacyUser);
+                await crawler.saveByTAC(legacyTweet);
+              } else if (row.content.itemContent.tweet_results.result.__typename === "TweetWithVisibilityResults") {
+                console.log(row.content.itemContent.tweet_results.result);
+              } else {
+                console.log(row.content.itemContent.tweet_results.result);
+              }
+            } catch (e) {
+              console.error(e);
             }
           }
           return "ok";

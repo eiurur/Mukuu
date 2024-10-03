@@ -146,10 +146,11 @@ module.exports = class TweetCrawler {
       pattern.rejectedWords.test(text) ||
       acceptedDomains.every((domain) => text.indexOf(domain) === -1);
 
+    let dbUser = null;
     let updatedUserData = false;
     const existUser = await this.findUser(tweet);
     if (existUser) {
-      await this.saveUser(tweet);
+      dbUser = await this.saveUser(tweet);
       updatedUserData = true;
       logger.debug("[OK] UPDATED USER");
     }
@@ -169,9 +170,10 @@ module.exports = class TweetCrawler {
       return;
     }
     if (!updatedUserData) {
-      await this.saveUser(tweet);
+      dbUser = await this.saveUser(tweet);
     }
-    await this.save(tweet);
+    logger.debug(tweet);
+    await this.savePost(tweet, dbUser);
   }
 
   async save(tweet) {
