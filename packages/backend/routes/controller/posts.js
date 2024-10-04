@@ -86,6 +86,7 @@ module.exports = class PostController {
         if (isSearch) {
           for (const row of data) {
             try {
+              console.log("isSearch");
               console.log('%o', row);
               if (row.content.itemContent.tweet_results.result.__typename === "Tweet") {
                 // console.log(JSON.stringify(row.content.itemContent, null, 2));
