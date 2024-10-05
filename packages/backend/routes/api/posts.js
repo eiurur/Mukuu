@@ -1,7 +1,7 @@
 const API_VERSION = 'v1';
 
 const { logging, parameters } = require('../../middleware');
-const { PostController } = require('../controller/');
+const { PostController } = require("../controller");
 
 module.exports = (app) => {
   app.post(

@@ -88,14 +88,32 @@ module.exports = class PostController {
             try {
               console.log("isSearch");
               console.log('%o', row);
-              if (row.content.itemContent.tweet_results.result.__typename === "Tweet") {
-                // console.log(JSON.stringify(row.content.itemContent, null, 2));
-                const legacyUser = row.content.itemContent.tweet_results.result.core.user_results.result.legacy;
-                legacyUser.id_str = row.content.itemContent.tweet_results.result.core.user_results.result.rest_id;
-                const legacyTweet = row.content.itemContent.tweet_results.result.legacy;
-                legacyTweet.user = legacyUser;
-                console.log(legacyUser);
-                await crawler.saveByTAC(legacyTweet);
+              if (row.content.__typename !== "TimelineTimelineItem") {
+                console.log(row.content.__typename);
+                continue;
+              }
+              const tweet = row.content.itemContent.tweet_results;
+              if (tweet.result.__typename === "Tweet") {
+              // console.log(JSON.stringify(row.content.itemContent, null, 2));
+                const legacyUser = tweet.result.core.user_results.result.legacy;
+                legacyUser.id_str = tweet.result.core.user_results.result.rest_id;
+                const legacyTweet = tweet.result.legacy;
+
+                const retweet = legacyTweet.retweeted_status_result;
+                if (retweet) {
+                  if (retweet.result.__typename == "Tweet") {
+                    const retweetedUser = retweet.result.core.user_results.result.legacy;
+                    retweetedUser.id_str = retweet.result.core.user_results.result.rest_id;
+                    const retweetedTweet = retweet.result.legacy;
+                    retweetedTweet.user = retweetedUser;
+                    console.log(retweetedUser);
+                    await crawler.saveByTAC(retweetedTweet);
+                  }
+                } else {
+                  legacyTweet.user = legacyUser;
+                  console.log(legacyUser);
+                  await crawler.saveByTAC(legacyTweet);
+                }
               } else if (row.content.itemContent.tweet_results.result.__typename === "TweetWithVisibilityResults") {
                 console.log(row.content.itemContent.tweet_results.result);
               } else {
@@ -111,22 +129,40 @@ module.exports = class PostController {
           const { entries } = data.data.user.result.timeline_v2.timeline.instructions.find(timeline => timeline.type === "TimelineAddEntries");
 
           for (const row of entries) {
-            if (row.content.__typename !== "TimelineTimelineItem") {
-              console.log(row.content.__typename);
-              continue;
-            }
-            if (row.content.itemContent.tweet_results.result.__typename === "Tweet") {
+            try {
+              if (row.content.__typename !== "TimelineTimelineItem") {
+                console.log(row.content.__typename);
+                continue;
+              }
+              const tweet = row.content.itemContent.tweet_results;
+              if (tweet.result.__typename === "Tweet") {
               // console.log(JSON.stringify(row.content.itemContent, null, 2));
-              const legacyUser = row.content.itemContent.tweet_results.result.core.user_results.result.legacy;
-              legacyUser.id_str = row.content.itemContent.tweet_results.result.core.user_results.result.rest_id;
-              const legacyTweet = row.content.itemContent.tweet_results.result.legacy;
-              legacyTweet.user = legacyUser;
-              console.log(legacyUser);
-              await crawler.saveByTAC(legacyTweet);
-            } else if (row.content.itemContent.tweet_results.result.__typename === "TweetWithVisibilityResults") {
-              console.log(row.content.itemContent.tweet_results.result);
-            } else {
-              console.log(row.content.itemContent.tweet_results.result);
+                const legacyUser = tweet.result.core.user_results.result.legacy;
+                legacyUser.id_str = tweet.result.core.user_results.result.rest_id;
+                const legacyTweet = tweet.result.legacy;
+
+                const retweet = legacyTweet.retweeted_status_result;
+                if (retweet) {
+                  if (retweet.result.__typename == "Tweet") {
+                    const retweetedUser = retweet.result.core.user_results.result.legacy;
+                    retweetedUser.id_str = retweet.result.core.user_results.result.rest_id;
+                    const retweetedTweet = retweet.result.legacy;
+                    retweetedTweet.user = retweetedUser;
+                    console.log(retweetedUser);
+                    await crawler.saveByTAC(retweetedTweet);
+                  }
+                } else {
+                  legacyTweet.user = legacyUser;
+                  console.log(legacyUser);
+                  await crawler.saveByTAC(legacyTweet);
+                }
+              } else if (row.content.itemContent.tweet_results.result.__typename === "TweetWithVisibilityResults") {
+                console.log(row.content.itemContent.tweet_results.result);
+              } else {
+                console.log(row.content.itemContent.tweet_results.result);
+              }
+            } catch (e) {
+              console.error(e);
             }
           }
           return "ok";
