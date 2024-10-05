@@ -1,16 +1,19 @@
 <template>
   <div v-if="media" class="media-list-container">
     <div class="media-list" :class="imageNumStyle">
-      <Video :media="media" v-if="useVideo" :isGrid="true"></Video>
-      <img
-        v-show="!useVideo"
-        :key="item.id_str"
+      <div class="media-item"
         v-for="item in media"
-        v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
-        class="original"
-        alt="img"
-        data-zoomable
-      />
+        :key="item.id_str"
+      >
+        <Video :videoMedia="item" v-if="item.type==='video'" :isGrid="true"></Video>
+        <img
+          v-else
+          v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
+          class="original"
+          alt="img"
+          data-zoomable
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +28,8 @@
   overflow: hidden;
   grid-row-gap: 1px;
   grid-column-gap: 1px;
+  .media-item {
+  }
   & img {
     height: 100%;
     width: 100%;
@@ -34,12 +39,15 @@
     max-width: 100%;
     padding: 0;
   }
+  & video {
+    object-fit: cover;
+  }
   &.v {
     display: flex;
     border-radius: 0;
   }
   &.n1 {
-    img:nth-of-type(1) {
+    .media-item:nth-of-type(1) {
       grid-row-start: 1;
       grid-row-end: 3;
       grid-column-start: 1;
@@ -47,17 +55,17 @@
     }
   }
   &.n2 {
-    img:nth-of-type(1) {
+    .media-item:nth-of-type(1) {
       grid-row-start: 1;
       grid-row-end: 3;
     }
-    img:nth-of-type(2) {
+    .media-item:nth-of-type(2) {
       grid-row-start: 1;
       grid-row-end: 3;
     }
   }
   &.n3 {
-    img:nth-of-type(1) {
+    .media-item:nth-of-type(1) {
       grid-row-start: 1;
       grid-row-end: 3;
     }
@@ -79,18 +87,12 @@ export default {
     imageNumStyle: {
       get() {
         if (!this.media) return {};
-        if (this.useVideo) return { v: true };
         return {
           n3: this.media.length === 3,
           n2: this.media.length === 2,
           n1: this.media.length === 1
         };
       }
-    },
-    useVideo() {
-      if (!this.media) return false;
-      if (this.useImageOnly) return false;
-      return this.media.some(detail => detail.type === "video");
     }
   },
   mounted() {

@@ -24,7 +24,7 @@ import mobile from "is-mobile";
 
 export default {
   name: "Video",
-  props: ["media", "isGrid"],
+  props: ["videoMedia", "isGrid"],
   methods: {
     onScroll() {
       if (mobile()) return;
@@ -47,7 +47,7 @@ export default {
       return {};
     },
     video() {
-      const videos = this.media[0].video_info.variants;
+      const videos = this.videoMedia.video_info.variants;
       const mp4VideoHasHighestSize = videos
         .filter((video) => video.bitrate)
         .sort((a, b) => b.bitrate - a.bitrate)[0];
