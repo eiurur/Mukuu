@@ -8,6 +8,7 @@
 <style lang="scss" scoped>
 .postlist-container {
   height: 100%;
+  padding-bottom: .25rem; /* patch for bug that scroll not working */
 }
 </style>
 

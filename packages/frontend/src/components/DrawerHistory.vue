@@ -4,7 +4,7 @@
       <WatchingUserIcon class="drawer-history-icon" :user="item" :title="`${item.name} / @${item.screenName}`"></WatchingUserIcon>
     </span>
     <el-popover
-      v-if="this.selectableHistory.length>0"
+      v-if="this.selectableHistory.length > 0"
       placement="bottom"
       trigger="click">
       <span class="drawer-history-user in-popover" v-for="item in selectableHistory" :key="item._id">

@@ -1,17 +1,20 @@
 <template>
   <div v-if="media" class="media-list-container">
     <div class="media-list">
-      <Video :media="media" v-if="useVideo" :isGrid="false"></Video>
-      <img
-        :key="item.id_str"
+      <div class="media-item"
         v-for="item in media"
-        v-show="!useVideo"
-        v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
+        :key="item.id_str"
         :class="[imageWidthStyle, imageWidth]"
-        class="original"
-        alt="img"
-        data-zoomable
-      />
+      >
+        <Video :videoMedia="item" v-if="item.type==='video'" :isGrid="false"></Video>
+        <img
+          v-else
+          v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
+          class="original"
+          alt="img"
+          data-zoomable
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -20,25 +23,37 @@
 .media-list {
   display: flex;
   height: 100%;
-  img {
-    width: auto;
-    object-fit: cover;
-    object-position: top;
+  .media-item {
+    display: flex;
     max-width: 25%;
+    overflow: hidden;
+    &.fixedWidth {
+      width: 25%;
+    }
     &:first-of-type {
       border-radius: 0.5rem 0 0 0.5rem / 0.5rem 0 0 0.5rem;
     }
     &:last-of-type {
       border-radius: 0 0.5rem 0.5rem 0 / 0 0.5rem 0.5rem 0;
     }
-    &.fixedWidth {
-      width: 25%;
-    }
   }
-  & > img + img {
+  & > .media-item + .media-item {
     padding-left: 0.25rem;
   }
 
+  img {
+    width: auto;
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: 100%;
+    &.v {
+      display: flex;
+    }
+  }
+  video {
+    object-fit: cover;
+  }
   & .w33p {
     max-height: 100%;
     max-width: 33%;
@@ -72,7 +87,6 @@ export default {
     imageWidthStyle: {
       get() {
         if (!this.media) return {};
-        if (this.useVideo) return { v: true };
         return {
           w33p: this.media.length === 3,
           w50p: this.media.length === 2,
@@ -83,11 +97,6 @@ export default {
     imageWidth() {
       if (this.useFixedWidth) return { fixedWidth: true };
       return { maxWidth: true };
-    },
-    useVideo() {
-      if (!this.media) return false;
-      if (this.useImageOnly) return false;
-      return this.media.some(detail => detail.type === "video");
     }
   },
   mounted() {

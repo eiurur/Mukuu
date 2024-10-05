@@ -30,6 +30,7 @@ section + section {
   flex-direction: column;
   flex: 1;
   min-height: 100%;
+  position: relative;
 }
 </style>
 
