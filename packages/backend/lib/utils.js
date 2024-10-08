@@ -30,8 +30,56 @@ const createUID = (size, base) => {
   return buf.join('');
 };
 
-const random = (array) => {
-  return array[Math.floor(Math.random() * array.length)];
+const random = (array) => array[Math.floor(Math.random() * array.length)];
+
+/**
+ * REF: https://github.com/tsukumijima/KonomiTV/blob/master/server/app/utils/TwitterGraphQLAPI.py
+ */
+const formatTweet = (rawPost) => {
+  if (rawPost.content.__typename !== "TimelineTimelineItem") {
+    return null;
+  }
+  // もし '__typename' が 'TweetWithVisibilityResults' なら、ツイート情報がさらにネストされているのでそれを取得
+  let tweet = rawPost.content.itemContent.tweet_results;
+  if (tweet.result.__typename === "TweetWithVisibilityResults") {
+    tweet = tweet.tweet;
+  }
+
+  const legacyTweet = tweet.result.legacy;
+  if (tweet.result.__typename === "Tweet") {
+    const retweeted = legacyTweet.retweeted_status_result;
+    if (retweeted) {
+      if (retweeted.result.__typename === "Tweet") {
+        const retweetedTweet = retweeted.result.legacy;
+        const retweetedUser = retweeted.result.core.user_results.result.legacy;
+        retweetedUser.id_str = retweeted.result.core.user_results.result.rest_id;
+        retweetedTweet.user = retweetedUser;
+        console.log("Retweet:", retweetedTweet);
+        return retweetedTweet;
+      }
+      return null;
+    }
+
+    const quoted = legacyTweet.quoted_status_result;
+    if (quoted) {
+      if (quoted.result.__typename === "Tweet") {
+        const quotedTweet = quoted.result.legacy;
+        const quotedUser = quoted.result.core.user_results.result.legacy;
+        quotedUser.id_str = quoted.result.core.user_results.result.rest_id;
+        quotedTweet.user = quotedUser;
+        console.log("Quoted:", quotedTweet);
+        return quotedTweet;
+      }
+      return null;
+    }
+
+    const legacyUser = tweet.result.core.user_results.result.legacy;
+    legacyUser.id_str = tweet.result.core.user_results.result.rest_id;
+    legacyTweet.user = legacyUser;
+    console.log("Tweet:", legacyTweet);
+    return legacyTweet;
+  }
+  return null;
 };
 
 const expandUrlOfTweet = (tweet) => {
@@ -79,5 +127,6 @@ module.exports = {
   createHash,
   createUID,
   random,
+  formatTweet,
   expandUrlOfTweet,
 };

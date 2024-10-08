@@ -1,7 +1,7 @@
 const { seaquencer } = require('../../lib/seaquencer');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 const TweetCrawler = require('../../tasks/crawler/tweetCrawler');
-const { expandUrlOfTweet } = require('../../lib/utils');
+const { formatTweet } = require('../../lib/utils');
 
 module.exports = class PostController {
   static count(req, res) {
@@ -82,85 +82,40 @@ module.exports = class PostController {
       (async ({ data }) => {
         const crawler = new TweetCrawler();
         const isSearch = Array.isArray(data);
-        const isUserTimeline = Object(data) === data;
         if (isSearch) {
           for (const row of data) {
             try {
               console.log("isSearch");
               console.log('%o', row);
-              if (row.content.__typename !== "TimelineTimelineItem") {
-                console.log(row.content.__typename);
-                continue;
-              }
-              const tweet = row.content.itemContent.tweet_results;
-              if (tweet.result.__typename === "Tweet") {
-              // console.log(JSON.stringify(row.content.itemContent, null, 2));
-                const legacyUser = tweet.result.core.user_results.result.legacy;
-                legacyUser.id_str = tweet.result.core.user_results.result.rest_id;
-                const legacyTweet = tweet.result.legacy;
-
-                const retweet = legacyTweet.retweeted_status_result;
-                if (retweet) {
-                  if (retweet.result.__typename == "Tweet") {
-                    const retweetedUser = retweet.result.core.user_results.result.legacy;
-                    retweetedUser.id_str = retweet.result.core.user_results.result.rest_id;
-                    const retweetedTweet = retweet.result.legacy;
-                    retweetedTweet.user = retweetedUser;
-                    console.log(retweetedUser);
-                    await crawler.saveByTAC(retweetedTweet);
-                  }
-                } else {
-                  legacyTweet.user = legacyUser;
-                  console.log(legacyUser);
-                  await crawler.saveByTAC(legacyTweet);
-                }
-              } else if (row.content.itemContent.tweet_results.result.__typename === "TweetWithVisibilityResults") {
-                console.log(row.content.itemContent.tweet_results.result);
-              } else {
-                console.log(row.content.itemContent.tweet_results.result);
-              }
+              const tweet = formatTweet(row);
+              if (!tweet) continue;
+              await crawler.saveByTAC(tweet);
             } catch (e) {
               console.error(e);
-            }
+            }errors;
           }
           return "ok";
         }
+
+        const isUserTimeline = Object(data) === data;
         if (isUserTimeline) {
+          const hasError = data.errors;
+          if (hasError) return "Result has error";
+          const isEmpty = !data.data.user.result;
+          if (isEmpty) return "Tweet is empty";
+          const isLockUser = data.data.user.__typename === "UserUnavailable";
+          if (isLockUser) return "User is lock";
+          const isCursor = !data.data.user.result.timeline_v2;
+          if (isCursor) return "timeline_v2 hasnot timeline";
+
           const { entries } = data.data.user.result.timeline_v2.timeline.instructions.find(timeline => timeline.type === "TimelineAddEntries");
 
           for (const row of entries) {
             try {
-              if (row.content.__typename !== "TimelineTimelineItem") {
-                console.log(row.content.__typename);
-                continue;
-              }
-              const tweet = row.content.itemContent.tweet_results;
-              if (tweet.result.__typename === "Tweet") {
-              // console.log(JSON.stringify(row.content.itemContent, null, 2));
-                const legacyUser = tweet.result.core.user_results.result.legacy;
-                legacyUser.id_str = tweet.result.core.user_results.result.rest_id;
-                const legacyTweet = tweet.result.legacy;
-
-                const retweet = legacyTweet.retweeted_status_result;
-                if (retweet) {
-                  if (retweet.result.__typename == "Tweet") {
-                    const retweetedUser = retweet.result.core.user_results.result.legacy;
-                    retweetedUser.id_str = retweet.result.core.user_results.result.rest_id;
-                    const retweetedTweet = retweet.result.legacy;
-                    retweetedTweet.user = retweetedUser;
-                    console.log(retweetedUser);
-                    await crawler.saveByTAC(retweetedTweet);
-                  }
-                } else {
-                  legacyTweet.user = legacyUser;
-                  console.log(legacyUser);
-                  await crawler.saveByTAC(legacyTweet);
-                }
-              } else if (row.content.itemContent.tweet_results.result.__typename === "TweetWithVisibilityResults") {
-                console.log(row.content.itemContent.tweet_results.result);
-              } else {
-                console.log(row.content.itemContent.tweet_results.result);
-              }
+              console.log('%o', row);
+              const tweet = formatTweet(row);
+              if (!tweet) continue;
+              await crawler.saveByTAC(tweet);
             } catch (e) {
               console.error(e);
             }
