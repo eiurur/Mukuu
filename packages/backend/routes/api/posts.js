@@ -1,6 +1,6 @@
 const API_VERSION = 'v1';
 
-const { logging, parameters } = require('../../middleware');
+const { auth, logging, parameters } = require('../../middleware');
 const { PostController } = require("../controller");
 
 module.exports = (app) => {
@@ -21,7 +21,7 @@ module.exports = (app) => {
   );
   app.post(
     `/api/${API_VERSION}/posts/register`,
-    [parameters.getParameters, logging.log],
+    [parameters.getParameters, logging.log, auth.checkApiKey],
     PostController.register,
   );
   app.post(
