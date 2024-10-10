@@ -1,8 +1,6 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
-const dayjs = require('dayjs');
-
 const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
 const mapper = require('@mukuu/common/lib/mapper');
 const { sleep, expandUrlOfTweet } = require('../../lib/utils');

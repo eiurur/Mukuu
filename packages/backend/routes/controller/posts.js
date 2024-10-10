@@ -85,14 +85,12 @@ module.exports = class PostController {
         if (isSearch) {
           for (const row of data) {
             try {
-              console.log("isSearch");
-              console.log('%o', row);
               const tweet = formatTweet(row);
               if (!tweet) continue;
               await crawler.saveByTAC(tweet);
             } catch (e) {
               console.error(e);
-            }errors;
+            }
           }
           return "ok";
         }
@@ -112,7 +110,6 @@ module.exports = class PostController {
 
           for (const row of entries) {
             try {
-              console.log('%o', row);
               const tweet = formatTweet(row);
               if (!tweet) continue;
               await crawler.saveByTAC(tweet);
@@ -122,6 +119,7 @@ module.exports = class PostController {
           }
           return "ok";
         }
+
         return "None";
       })(req.params),
     );
