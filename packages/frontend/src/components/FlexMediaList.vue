@@ -1,5 +1,5 @@
 <template>
-  <div v-if="media" class="media-list-container">
+  <div v-if="media && media.length > 0" class="media-list-container">
     <div class="media-list">
       <div class="media-item"
         v-for="item in media"
