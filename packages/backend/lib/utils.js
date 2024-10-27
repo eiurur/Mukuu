@@ -54,7 +54,7 @@ const formatTweet = (rawPost) => {
         const retweetedUser = retweeted.result.core.user_results.result.legacy;
         retweetedUser.id_str = retweeted.result.core.user_results.result.rest_id;
         retweetedTweet.user = retweetedUser;
-        console.log("Retweet:", retweetedTweet);
+        // console.log("Retweet:", retweetedTweet);
         return retweetedTweet;
       }
       return null;
@@ -67,7 +67,7 @@ const formatTweet = (rawPost) => {
         const quotedUser = quoted.result.core.user_results.result.legacy;
         quotedUser.id_str = quoted.result.core.user_results.result.rest_id;
         quotedTweet.user = quotedUser;
-        console.log("Quoted:", quotedTweet);
+        // console.log("Quoted:", quotedTweet);
         return quotedTweet;
       }
       return null;
@@ -76,7 +76,7 @@ const formatTweet = (rawPost) => {
     const legacyUser = tweet.result.core.user_results.result.legacy;
     legacyUser.id_str = tweet.result.core.user_results.result.rest_id;
     legacyTweet.user = legacyUser;
-    console.log("Tweet:", legacyTweet);
+    // console.log("Tweet:", legacyTweet);
     return legacyTweet;
   }
   return null;
