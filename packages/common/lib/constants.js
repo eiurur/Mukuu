@@ -2,7 +2,7 @@ module.exports = {
   pattern: {
     acceptedWords: /(co?m3d2|カスタム(オーダー)?メイド3d2)/,
     rejectedWords:
-      /(Twitterを使っています|【定期】|KOIKATU|KOIKATSU|コイカツ|koika2|ハニーセレクト|HoneySelect|サマすく|ハニカム|サマバケ|キャラカ|スカイリム|skyrim|Unity|リポジトリ|インタプリタ|CardWirth|\[ダウンロード\] | ダウンロード \|)/,
+      /(Twitterを使っています|【定期】|KOIKATU|KOIKATSU|コイカツ|koika2|ハニーセレクト|HoneySelect|サマすく|ハニカム|サマバケ|キャラカ|スカイリム|skyrim|Unity|リポジトリ|インタプリタ|CardWirth|カードワース|cwUpS|vrchat|VRC|ブイチャ|\[ダウンロード\] | ダウンロード \|)/,
     // rejectedWords: /(^@.+|コイカツ|koika2|ハニーセレクト|HoneySelect|スカイリム|skyrim|\[ダウンロード\] )/,
   },
   acceptedDomains: [
