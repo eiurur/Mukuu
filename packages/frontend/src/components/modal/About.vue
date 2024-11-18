@@ -14,6 +14,9 @@
             収集および表示対象は ux.getuploader.com / drive.google.com / mega.nz / github.com
             のいずれかを含むツイートとなっています。
           </p>
+          <p>
+            ※ 当サイトはアフィリエイト広告を利用しています。
+          </p>
         </section>
         <h1>外部リンク</h1>
         <section>
