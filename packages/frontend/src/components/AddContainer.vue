@@ -1,9 +1,12 @@
 <template>
   <div class="add-container" v-if="post.adds && post.adds.length">
-    <section class="add shadow" v-for="add in post.adds" :key="add.title">
-    <a :data-title="add.title" :href="add.source" rel="nofollow noopener sponsored" target="_blank">
-      <img :src="add.images.large" :alt="add.title" itemprop="image" class="target_type" />
-    </a>
+    <section class="add" :title="add.title"  v-for="add in post.adds" :key="add.title">
+      <a :data-title="add.title" :href="add.source" rel="nofollow noopener sponsored" target="_blank">
+        <img :src="add.images.large" :alt="add.title" itemprop="image" class="target_type" />
+        <div class="title oneline-text">
+          <span>{{ add.title }}</span>
+        </div>
+      </a>
     </section>
   </div>
 </template>
@@ -12,33 +15,36 @@
 
 .add-container {
   width: 100%;
-  margin: 2rem 0 1rem;
+  margin: 1rem 0 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 1rem;
+  border-radius: 0.25rem;
 
+  section {
+    width: 100%;
+    background: white;
+  }
+  .title {
+    font-size: 0.7rem; // 14px(this font-size) / 18px(root font-size)
+    padding: 0.5rem 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    span {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+  }
   section.add {
     width: 100%;
     border-radius: 0.25rem;
     position: relative;
-    & a:after {
-      content: attr(data-title);
-      position: absolute;
-      transition: .1s opacity ease-in-out;
-      opacity: 0;
-      background: rgba(250,100,150,.8);
-      color: #fff;
-      font-size: .75rem;
-      left: 0;
-      right: 0;
-      padding: 0.5rem;
-      bottom: -1px; // FIXME:
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      border-radius: 0 0 .25rem .25rem;
-      text-align: center;
-    }
     & a:hover:after {
       opacity: 1;
     }
@@ -49,7 +55,6 @@
       height: 320px;
       display: flex;
       align-items: flex-end;
-      border-radius: 0.25rem;
       object-fit: cover;
       overflow: hidden;
     }
