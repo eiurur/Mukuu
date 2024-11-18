@@ -12,6 +12,7 @@ const actions = {
   async fetch({ commit }) {
     const day = times().format("YYYY-MM-DD");
     const conditions = [
+      `/api/v1/adds?term=days&range=new&type=pro&category=game&aid=maidimaid&day=${day}`,
       `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&day=${day}`,
       `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&day=${day}`,
       `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&day=${day}`,
