@@ -16,8 +16,8 @@ module.exports = () => {
   app.disable('x-powered-by');
   app.set('port', process.env.PORT);
   app.use(cookieParser());
-  app.use(bodyParser.json({ limit: '10mb' }));
-  app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+  app.use(bodyParser.json({ limit: '100mb' }));
+  app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
   app.use(methodOverride());
   app.use(compression({ level: 9 }));
 
