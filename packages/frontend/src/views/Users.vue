@@ -176,6 +176,7 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     font-weight: 500;
+    font-size: .9rem;
   }
   .counts {
     font: bold;
