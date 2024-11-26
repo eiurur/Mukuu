@@ -304,13 +304,15 @@ export default {
         if (p.entities) ret.entities = JSON.parse(p.entities);
         return ret;
       });
+      expandedUsers
+        .map((p, i) => {
+          if ((i + 1) % 5 === 0) {
+            p.adds = this.$store.getters["add/take"](2);
+          }
+          return p;
+        });
       this.users = [...this.users, ...expandedUsers];
       this.skip += this.limit;
-
-      if (this.skip > 0 && this.skip % 10 === 0) {
-        const tail = this.users[this.users.length - 1];
-        tail.adds = this.$store.getters["add/take"](2);
-      }
 
       this.isLoading = false;
       this.$ga.page({

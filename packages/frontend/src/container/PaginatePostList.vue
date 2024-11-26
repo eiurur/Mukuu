@@ -190,22 +190,25 @@ export default {
         return;
       }
       const expandedPosts = data.map(p => expandRecusively(p));
-      expandedPosts.map((p, i) => addDividingFlag({
-        current: expandedPosts[i],
-        pre: i > 0 ? expandedPosts[i - 1] : null,
-        tail: this.posts.length > 0 ? this.posts[this.posts.length - 1] : null,
-        sort: this.searchOption.sort
-      }));
+      expandedPosts
+        .map((p, i) => addDividingFlag({
+          current: expandedPosts[i],
+          pre: i > 0 ? expandedPosts[i - 1] : null,
+          tail: this.posts.length > 0 ? this.posts[this.posts.length - 1] : null,
+          sort: this.searchOption.sort
+        }));
+      expandedPosts
+        .map((p, i) => {
+          if ((i + 1) % 5 === 0) {
+            p.adds = this.$store.getters["add/take"](2);
+          }
+          return p;
+        });
       this.posts = expandedPosts;
 
       this.skip = skip;
       this.storeSearchOptionToQueryString();
       this.skip = skip + this.limit;
-
-      if (this.skip > 0 && this.skip % 10 === 0) {
-        const tail = this.posts[this.posts.length - 1];
-        tail.adds = this.$store.getters["add/take"](2);
-      }
       this.isLoading = false;
       this.$ga.page({
         location: url

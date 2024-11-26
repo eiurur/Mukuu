@@ -243,13 +243,15 @@ export default {
         tail: this.posts.length > 0 ? this.posts[this.posts.length - 1] : null,
         sort: this.searchOption.sort
       }));
+      expandedPosts
+        .map((p, i) => {
+          if ((i + 1) % 5 === 0) {
+            p.adds = this.$store.getters["add/take"](2);
+          }
+          return p;
+        });
       this.posts = [...this.posts, ...expandedPosts];
       this.skip += this.limit;
-
-      if (this.skip > 0 && this.skip % 10 === 0) {
-        const tail = this.posts[this.posts.length - 1];
-        tail.adds = this.$store.getters["add/take"](2);
-      }
 
       this.isLoading = false;
       this.$ga.page({
