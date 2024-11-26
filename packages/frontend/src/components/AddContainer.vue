@@ -52,7 +52,7 @@
   .add {
     img {
       width: 100%;
-      height: 320px;
+      height: 280px;
       display: flex;
       align-items: flex-end;
       object-fit: cover;
