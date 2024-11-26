@@ -62,7 +62,7 @@
     </el-col>
     <el-col :span="12">
       <section
-        class="infinite-list"
+        class="infinite-list patch-loading"
         v-infinite-scroll="load"
         infinite-scroll-disabled="canLoad"
       >
@@ -137,6 +137,9 @@
 <style lang="scss" scoped>
 .user-container + .user-container {
   padding-top: 1rem;
+}
+.patch-loading {
+  padding-bottom: .25rem; /* patch for bug that scroll not working */
 }
 .profile {
   & > div:not(:last-child) {
