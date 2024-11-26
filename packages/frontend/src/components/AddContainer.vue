@@ -20,6 +20,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 1rem;
   border-radius: 0.25rem;
+  overflow: hidden;
 
   section {
     width: 100%;
