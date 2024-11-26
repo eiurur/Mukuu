@@ -189,17 +189,19 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
+      const postCount = this.posts.length;
       const expandedPosts = data.map(p => expandRecusively(p));
       expandedPosts
         .map((p, i) => addDividingFlag({
           current: expandedPosts[i],
           pre: i > 0 ? expandedPosts[i - 1] : null,
-          tail: this.posts.length > 0 ? this.posts[this.posts.length - 1] : null,
+          tail: this.posts.length > 0 ? this.posts[postCount - 1] : null,
           sort: this.searchOption.sort
         }));
       expandedPosts
         .map((p, i) => {
-          if ((i + 1) % 5 === 0) {
+          const globalIndex = postCount + i + 1;
+          if (globalIndex % 10 === 0) {
             p.adds = this.$store.getters["add/take"](2);
           }
           return p;

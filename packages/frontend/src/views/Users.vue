@@ -294,6 +294,7 @@ export default {
         this.isCompletedLoading = true;
         return;
       }
+      const userCount = this.users.length;
       const expandedUsers = data.map((p) => {
         const ret = p;
         ret.posts = p.posts.map((post) => {
@@ -310,7 +311,8 @@ export default {
       });
       expandedUsers
         .map((p, i) => {
-          if ((i + 1) % 5 === 0) {
+          const globalIndex = userCount + i + 1;
+          if (globalIndex % 10 === 0) {
             p.adds = this.$store.getters["add/take"](2);
           }
           return p;
