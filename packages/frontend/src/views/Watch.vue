@@ -253,6 +253,14 @@ export default {
           return p;
         });
       this.posts = [...this.posts, ...expandedPosts];
+
+      if (data.length < this.limit) {
+        const tail = this.posts[this.posts.length - 1];
+        if (tail && !tail.adds) {
+          tail.adds = this.$store.getters["add/take"](2);
+        }
+      }
+
       this.skip += this.limit;
 
       this.isLoading = false;

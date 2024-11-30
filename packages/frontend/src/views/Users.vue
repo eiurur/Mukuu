@@ -318,6 +318,14 @@ export default {
           return p;
         });
       this.users = [...this.users, ...expandedUsers];
+
+      if (data.length < this.limit) {
+        const tail = this.users[this.users.length - 1];
+        if (tail && !tail.adds) {
+          tail.adds = this.$store.getters["add/take"](2);
+        }
+      }
+
       this.skip += this.limit;
 
       this.isLoading = false;

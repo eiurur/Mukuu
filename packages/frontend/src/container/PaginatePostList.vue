@@ -181,15 +181,17 @@ export default {
         ...this.searchOption,
       });
       this.canWatchSearchOption = true;
+
+      const postCount = this.posts.length;
       if (data.length < 1) {
-        if (this.posts.length < 1) {
+        if (postCount === 0) {
           this.isEmpty = true;
         }
         this.isLoading = false;
         this.isCompletedLoading = true;
         return;
       }
-      const postCount = this.posts.length;
+
       const expandedPosts = data.map(p => expandRecusively(p));
       expandedPosts
         .map((p, i) => addDividingFlag({
@@ -208,9 +210,17 @@ export default {
         });
       this.posts = expandedPosts;
 
+      if (data.length < this.limit) {
+        const tail = this.posts[this.posts.length - 1];
+        if (tail && !tail.adds) {
+          tail.adds = this.$store.getters["add/take"](2);
+        }
+      }
+
       this.skip = skip;
       this.storeSearchOptionToQueryString();
       this.skip = skip + this.limit;
+
       this.isLoading = false;
       this.$ga.page({
         location: url
