@@ -103,8 +103,12 @@ export default {
     }
   },
   methods: {
+    removeKey(obj, key) {
+      const { [key]: _, ...rest } = obj;
+      return rest;
+    },
     addBookmark() {
-      this.$store.dispatch("bookmark/addBookmark", this.post);
+      this.$store.dispatch("bookmark/addBookmark", this.removeKey(this.post, "adds"));
       this.$store.dispatch("saveLocalStorage");
     },
     removeBookmark() {
