@@ -12,16 +12,16 @@ const actions = {
   async fetch({ commit }) {
     const day = times().format("YYYY-MM-DD");
     const conditions = [
+      `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&count=30&day=${day}`,
+      `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&count=30&day=${day}`,
+      `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&count=30&day=${day}`,
+      `/api/v1/adds?term=weeks&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&count=30&day=${day}`,
       `/api/v1/adds?term=days&range=new&type=pro&category=game&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&category=game&aid=maidimaid&count=30&day=${day}`,
+      `/api/v1/adds?term=weeks&range=new&type=maniax&category=game&aid=maidimaid&count=30&day=${day}`,
       `/api/v1/adds?term=days&range=new&type=maniax&category=comic&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&category=voice&sub=SOU&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&aid=maidimaid&count=30&day=${day}`,
-      `/api/v1/adds?term=days&range=new&type=maniax&aid=maidimaid&count=30&day=${day}`
+      `/api/v1/adds?term=days&range=new&type=maniax&aid=maidimaid&count=20&day=${day}`,
+      `/api/v1/adds?term=weeks&range=new&type=maniax&aid=maidimaid&count=30&day=${day}`,
+      `/api/v1/adds?term=months&range=new&type=maniax&aid=maidimaid&count=30&day=${day}`
     ];
     const idx = Math.floor(Math.random() * conditions.length);
     const url = conditions[idx];
