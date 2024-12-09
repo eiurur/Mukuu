@@ -10,7 +10,7 @@
           ></Counter>
         </el-form-item>
       </el-form>
-      <section class="infinite-list">
+      <section class="postlist-container infinite-list">
         <div class="watch" :key="user._id" v-for="user in watches">
           <div class="user">
             <WatchingUserIcon :user="user"></WatchingUserIcon>
@@ -26,7 +26,7 @@
       </section>
     </el-col>
     <el-col :span="12">
-      <section class="infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
+      <section class="postlist-container infinite-list" v-infinite-scroll="load" infinite-scroll-disabled="canLoad">
         <Post
           :post="post"
           :useSticky="useSticky"
@@ -48,6 +48,10 @@
 </template>
 
 <style lang="scss" scoped>
+.postlist-container {
+  height: 100%;
+  padding-bottom: .25rem; /* patch for bug that scroll not working */
+}
 section + section {
   margin-top: 0.5rem;
 }
