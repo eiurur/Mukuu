@@ -2,6 +2,7 @@
   <video
     ref="video"
     autoplay
+    playsinline
     controls
     loop
     muted
