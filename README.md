@@ -12,7 +12,7 @@ Go to <a href="https://mukuu.herokuapp.com">https://mukuu.herokuapp.com</a>
 # Status
 
 <p align="left">
-<a href="https://github.com/eiurur/Mukuu/actions?query=workflow%3Anodejs"><img src="https://github.com/eiurur/Mukuu/workflows/Node.js%20CI/badge.svg?branch=master" alt="Node.js CI"></a>
+<a href="https://github.com/eiurur/Mukuu/actions?query=workflow%3Anodejs"><img src="https://github.com/eiurur/Mukuu/workflows/Node.js%20CI/badge.svg" alt="Node.js CI"></a>
 </p>
 
 # Requirement
