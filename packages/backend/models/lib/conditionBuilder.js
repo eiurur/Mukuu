@@ -31,7 +31,6 @@ module.exports = class ConditionBuilder {
     const range = {};
     condition[key] = range;
     if (higher) range.$gte = higher;
-    // if (to) range.$lte = dayjs(to).endOf('day');
     this.condition.push(condition);
   }
 
@@ -40,8 +39,8 @@ module.exports = class ConditionBuilder {
     const condition = {};
     const range = {};
     condition[key] = range;
-    if (from) range.$gte = dayjs(from).startOf('day');
-    if (to) range.$lte = dayjs(to).endOf('day');
+    if (from) range.$gte = dayjs(from).startOf('day').toISOString();
+    if (to) range.$lte = dayjs(to).endOf('day').toISOString();
     this.condition.push(condition);
   }
 
@@ -50,8 +49,8 @@ module.exports = class ConditionBuilder {
     const condition = {};
     const range = {};
     condition[key] = range;
-    if (date) range.$gte = dayjs(date).startOf(term);
-    if (date) range.$lte = dayjs(date).endOf(term);
+    if (date) range.$gte = dayjs(date).startOf(term).toISOString();
+    if (date) range.$lte = dayjs(date).endOf(term).toISOString();
     this.condition.push(condition);
   }
 
