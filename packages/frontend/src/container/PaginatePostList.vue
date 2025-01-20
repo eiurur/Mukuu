@@ -101,13 +101,13 @@ export default {
     shouldHideReply() {
       return !this.$store.getters["config/shouldHideReply"];
     },
-    shouldOutOfLink() {
-      return !this.$store.getters["config/shouldOutOfLink"];
+    shouldHideOutOfLink() {
+      return !this.$store.getters["config/shouldHideOutOfLink"];
     },
     column() {
       const ret = { column: {} };
       if (!this.shouldHideReply) ret.column.isReply = false;
-      if (!this.shouldOutOfLink) ret.column.isOutOfLink = false;
+      if (!this.shouldHideOutOfLink) ret.column.isOutOfLink = false;
       if (!Object.keys(ret.column).length) return {};
       return ret;
     },
@@ -126,7 +126,7 @@ export default {
         this.search({});
       }
     },
-    shouldOutOfLink() {
+    shouldHideOutOfLink() {
       if (this.canWatchSearchOption) {
         this.search({});
       }
