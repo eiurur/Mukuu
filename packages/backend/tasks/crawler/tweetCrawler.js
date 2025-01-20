@@ -171,7 +171,8 @@ module.exports = class TweetCrawler {
       dbUser = await this.saveUser(tweet);
     }
     logger.debug(tweet);
-    await this.savePost(tweet, dbUser);
+    const post = await this.savePost(tweet, dbUser);
+    await addReplyStatus(post);
   }
 
   async save(tweet) {

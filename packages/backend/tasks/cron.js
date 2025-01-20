@@ -46,10 +46,10 @@ const SCHEDULES = {
   .forEach((job) => job.start());
 
 // NOTE: cronだと動かない
-// (async () => {
-//   const args = [path.resolve(__dirname, 'database', 'updateReplyStatus')];
-//   const stdout = await spawnProcess('node', args);
-// })();
+(async () => {
+  const args = [path.resolve(__dirname, 'database', 'updateReplyStatus')];
+  const stdout = await spawnProcess('node', args);
+})();
 // (async () => {
 //   const args = [path.resolve(__dirname, 'database', 'updateQuotedStatus')];
 //   const stdout = await spawnProcess('node', args);
