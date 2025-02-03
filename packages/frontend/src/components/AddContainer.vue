@@ -1,6 +1,6 @@
 <template>
   <div class="add-container" v-if="post.adds && post.adds.length">
-    <section class="add" :title="add.title"  v-for="add in post.adds" :key="add.title">
+    <section class="add actionable" :title="add.title"  v-for="add in post.adds" :key="add.title">
       <a :data-title="add.title" :href="add.source" rel="nofollow noopener sponsored" target="_blank">
         <img :src="add.images.large" :alt="add.title" itemprop="image" class="target_type" />
         <div class="title oneline-text">

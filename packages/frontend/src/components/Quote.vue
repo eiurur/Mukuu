@@ -8,7 +8,7 @@
         <img
           v-if="media"
           v-lazy="`${media}?format=jpg&name=medium`"
-          class="original"
+          class="original actionable"
           alt="img"
           data-zoomable
         />

@@ -5,6 +5,7 @@
         <img
           :src="icon"
           :alt="icon"
+          class="actionable"
           onload="this.style.display = 'inline-block'"
           onerror="this.style.display = 'none'"
         />
@@ -14,6 +15,7 @@
       <img
         :src="icon"
         :alt="icon"
+        class="actionable"
         onload="this.style.display = 'inline-block'"
         onerror="this.style.display = 'none'"
       />
@@ -22,6 +24,7 @@
       <img
         :src="icon"
         :alt="icon"
+        class="actionable"
         onload="this.style.display = 'inline-block'"
         onerror="this.style.display = 'none'"
       />

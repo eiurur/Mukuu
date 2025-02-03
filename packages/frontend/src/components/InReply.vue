@@ -22,7 +22,7 @@
             v-if="imageSrc"
             v-lazy="`${imageSrc}?format=jpg&name=medium`"
             :alt="`${imageSrc}?format=jpg&name=medium`"
-            class="original"
+            class="original actionable"
             data-zoomable
           />
           <div class="text" v-html="$activateLink(reply.text)"></div>

@@ -9,7 +9,7 @@
         <img
           v-else
           v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
-          class="original"
+          class="original actionable"
           alt="img"
           data-zoomable
         />

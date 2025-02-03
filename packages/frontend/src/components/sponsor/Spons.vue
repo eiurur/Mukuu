@@ -1,5 +1,5 @@
 <template>
-  <section class="shadow">
+  <section class="shadow actionable">
     <a :href="this.current.link" rel="nofollow noopener sponsored" target="_blank">
       <img :src="this.current.src" :alt="this.current.alt" itemprop="image" class="target_type" />
       <div class="title oneline-text">{{ this.current.title }}</div>
