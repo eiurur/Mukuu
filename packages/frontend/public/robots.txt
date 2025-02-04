@@ -4,16 +4,16 @@ User-agent: Googlebot
 Disallow:
 
 User-Agent: Google-Extended
-Disallow: *
+Disallow: /
 
 User-Agent: FacebookBot
-Disallow: *
+Disallow: /
 
 User-agent: facebookexternalhit
-Disallow: *
+Disallow: /
 
 User-agent: Discordbot
-Disallow: *
+Disallow: /
 
 User-agent: Bingbot
-Disallow: *
+Disallow: /
