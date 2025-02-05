@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import { event } from "vue-analytics";
 import history from "@/api/history";
 
 export default {
@@ -82,6 +83,12 @@ export default {
       this.searchOption.searchWord = word;
       this.$store.dispatch("searchHistory/addSearchWord", { word, postCount });
       this.$store.dispatch("saveLocalStorage");
+      event({
+        eventCategory: 'search',
+        eventAction: 'click',
+        eventLabel: 'random',
+        eventValue: 1
+      });
       this.loading = false;
     },
     async registerHistory(e) {
