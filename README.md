@@ -17,7 +17,7 @@ Go to <a href="https://mukuu.herokuapp.com">https://mukuu.herokuapp.com</a>
 
 # Requirement
 
-- Node.js 16+
+- Node.js 18+
 - MongoDB 3.4+
 
 # Development
