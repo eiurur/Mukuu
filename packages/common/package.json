@@ -14,13 +14,6 @@
 	"files": [
 		"lib"
 	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/eiurur/Mukuu.git"
-	},
-	"bugs": {
-		"url": "https://github.com/eiurur/Mukuu/issues"
-	},
 	"dependencies": {
 		"dayjs": "^1.11.0"
 	}

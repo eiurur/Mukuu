@@ -3,6 +3,8 @@
   "workspaces": [
     "packages/*"
   ],
+  "name": "mukuu",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/eiurur/mukuu"
@@ -46,14 +48,9 @@
     "crawl:search": "node packages/backend/tasks/crawler/tweet/searchCrawling.js",
     "migrate:history": "node packages/backend/tasks/patch/migrateHistoryToSearchHistory"
   },
-  "engines": {
-    "node": "18.x"
-  },
-  "name": "mukuu",
   "dependencies": {
     "chalk": "^4.1.2",
-    "concurrently": "^6.5.1",
-    "minimist": "^1.2.6"
+    "concurrently": "^6.5.1"
   },
   "devDependencies": {
     "eslint": "^8.22.0",
@@ -67,5 +64,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "npm-check-updates": "^11.8.5",
     "prelude-ls": "^1.2.1"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
