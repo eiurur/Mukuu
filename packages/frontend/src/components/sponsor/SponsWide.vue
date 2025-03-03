@@ -86,13 +86,6 @@ export default {
           title: "キャラクターパック GP対応版 小動物系ふわふわ妹"
         },
         {
-          link: "https://amzn.to/327u5oV",
-          src: "https://pbs.twimg.com/media/FSG4dNAaUAAA9wW?format=jpg&name=small",
-          alt:
-            "COM3D2＆カスタムメイド3D2 キャラクターパック 健康的でスポーティなボクっ娘",
-          title: "キャラクターパック 健康的でスポーティなボクっ娘"
-        },
-        {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ01000612.html",
           src: "https://pbs.twimg.com/media/FSG5KW7akAAnjcp?format=jpg&name=small",
           alt: "COM3D2&2.5 キャラクターパック GP対応版 無口で甘えたがりな文学少女",
@@ -155,30 +148,6 @@ export default {
           alt:
             "COM3D2&2.5 キャラクターパック GP対応版 甘々デレデレでご主人様を信仰している妹系幼馴染",
           title: "キャラクターパック GP対応版 甘々デレデレでご主人様を信仰している妹系幼馴染"
-        },
-        {
-          link: "https://amzn.to/3zY0V9M",
-          src: "https://pbs.twimg.com/media/Euser58VkAENyTg?format=jpg&name=small",
-          alt: "COM3D2 キャラクターパックEX ド変態ドM",
-          title: "キャラクターパック ド変態ドM"
-        },
-        {
-          link: "https://amzn.to/2UZYzIB",
-          src: "https://pbs.twimg.com/media/EusesYbUYAMf8gY?format=jpg&name=small",
-          alt: "COM3D2 キャラクターパックEX 腹黒",
-          title: "キャラクターパック 腹黒"
-        },
-        {
-          link: "https://amzn.to/3lhIFnm",
-          src: "https://pbs.twimg.com/media/E7o1HF6VEAcaYUU?format=jpg&name=small",
-          alt: "COM3D2 キャラクターパックEX 気さくでちょっとエッチなお姉さん",
-          title: "キャラクターパック 気さくでちょっとエッチなお姉さん"
-        },
-        {
-          link: "https://amzn.to/3igI1Vo",
-          src: "https://pbs.twimg.com/media/E7o1HFqUUAQoyAj?format=jpg&name=small",
-          alt: "COM3D2 キャラクターパックEX 生真面目で甘え下手な淑女",
-          title: "キャラクターパック 生真面目で甘え下手な淑女"
         },
         {
           link: "https://dl.s-court.me/item.php?iid=174",

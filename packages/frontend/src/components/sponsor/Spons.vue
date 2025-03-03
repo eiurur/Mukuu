@@ -25,12 +25,6 @@ export default {
           title: "COM3D2+ GP-01Fb"
         },
         {
-          link: "https://amzn.to/35QsVQM",
-          src: "https://pbs.twimg.com/media/EiSFht2VoAInBcO?format=jpg&name=medium",
-          alt: "COM3D2+ GP-01&GP-02",
-          title: "COM3D2+ GP-01&GP-02"
-        },
-        {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ013971.html",
           src: "//img.dlsite.jp/modpub/images2/work/professional/VJ014000/VJ013971_img_main.jpg",
           alt: "COM3D2 GP-01＆GP-02＆GP-01 Fb（本体+アペンド）",
@@ -131,30 +125,6 @@ export default {
           title: "キャラクターパック GP対応版 大人の余裕を持つ、頼れるメイド秘書"
         },
         {
-          link: "https://amzn.to/3zY0V9M",
-          src: "https://pbs.twimg.com/media/E7oz6tYVoAAhRW7?format=jpg&name=medium",
-          alt: "COM3D2 キャラクターパックEX ド変態ドM",
-          title: "キャラクターパック ド変態ドM"
-        },
-        {
-          link: "https://amzn.to/2UZYzIB",
-          src: "https://pbs.twimg.com/media/E7oz6t0VkAAKdEP?format=jpg&name=medium",
-          alt: "COM3D2 キャラクターパックEX 腹黒",
-          title: "キャラクターパック 腹黒"
-        },
-        {
-          link: "https://amzn.to/3lhIFnm",
-          src: "https://pbs.twimg.com/media/E7ozf7WVUAYyNJ1?format=jpg&name=medium",
-          alt: "COM3D2 キャラクターパックEX 気さくでちょっとエッチなお姉さん",
-          title: "キャラクターパック 気さくでちょっとエッチなお姉さん"
-        },
-        {
-          link: "https://amzn.to/3igI1Vo",
-          src: "https://pbs.twimg.com/media/E7ozV4IVcAgkD2V?format=jpg&name=medium",
-          alt: "COM3D2 キャラクターパックEX 生真面目で甘え下手な淑女",
-          title: "キャラクターパック 生真面目で甘え下手な淑女"
-        },
-        {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ009357.html",
           src:
             "//img.dlsite.jp/modpub/images2/work/professional/VJ010000/VJ009357_img_main.jpg",
@@ -169,13 +139,6 @@ export default {
           title: "カスタムメイド3D2+",
         },
         {
-          link: "https://amzn.to/2ZzlHfx",
-          src:
-            "https://pbs.twimg.com/media/Eusd1WIVEAEjYxd?format=jpg&name=medium",
-          alt: "CM3D2 ACTパック",
-          title: "CM3D2 ACTパック",
-        },
-        {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ010552.html",
           src:
             "//img.dlsite.jp/modpub/images2/work/professional/VJ011000/VJ010552_img_main.jpg",
@@ -188,13 +151,6 @@ export default {
             "//img.dlsite.jp/modpub/images2/work/professional/VJ012000/VJ011675_img_main.jpg",
           alt: "カスタムメイド3D2+ ACT.3",
           title: "カスタムメイド3D2+ ACT.3",
-        },
-        {
-          link: "https://amzn.to/3pImS6R",
-          src:
-            "https://pbs.twimg.com/media/EusgdKeUUAEuNj3?format=jpg&name=medium",
-          alt: "CM3D2 カラオケパックVR",
-          title: "CM3D2 カラオケパックVR",
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ009680.html",
