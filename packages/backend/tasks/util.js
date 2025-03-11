@@ -125,7 +125,7 @@ module.exports = {
     if (matchedDlLinks.length) {
       for ([dlLink] of matchedDlLinks) {
         if (
-          dlLink.indexOf('ux.getuploader.com') !== -1 &&
+          dlLink.indexOf('getuploader.com') !== -1 &&
           dlLink.indexOf('/download/') === -1
         ) {
           continue;

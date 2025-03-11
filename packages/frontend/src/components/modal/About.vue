@@ -11,7 +11,7 @@
           </p>
           <p>気になったMODの製作者様の過去作品を辿る手段が煩雑だった問題を解消するために作りました。</p>
           <p>
-            収集および表示対象は ux.getuploader.com / drive.google.com / mega.nz / github.com
+            収集および表示対象は getuploader.com / drive.google.com / mega.nz / github.com
             のいずれかを含むツイートとなっています。
           </p>
           <p>

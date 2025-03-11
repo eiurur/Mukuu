@@ -6,7 +6,7 @@ module.exports = {
     // rejectedWords: /(^@.+|コイカツ|koika2|ハニーセレクト|HoneySelect|スカイリム|skyrim|\[ダウンロード\] )/,
   },
   acceptedDomains: [
-    'ux.getuploader.com',
+    'getuploader.com',
     'drive.google.com',
     'mega.nz',
     'github.com',
