@@ -39,7 +39,7 @@
     "mongoose-sequence": "^5.3.1",
     "morgan": "^1.10.0",
     "twit": "^2.2.11",
-    "url-unshort": "^5.0.0",
+    "url-unshort": "^6.1.0",
     "util": "^0.12.4"
   },
   "devDependencies": {
