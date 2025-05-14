@@ -56,13 +56,21 @@ module.exports = class ConditionBuilder {
 
   addSearchWord(keys = [], searchWord = '') {
     if (!keys || keys.length < 1 || searchWord === '') return;
-    const escapedWord = escapeStringRegexp(searchWord);
-    const condition = {};
-    condition.$or = keys.map((key) => {
-      const tmp = {};
-      tmp[key] = new RegExp(escapedWord, 'i');
-      return tmp;
-    });
-    this.condition.push(condition);
+
+    const SPACE_PATTERN = /[\s\u3000]+/;
+    const words = searchWord.split(SPACE_PATTERN).filter(word => word !== '');
+    const escapedWords = words.map(escapeStringRegexp);
+
+    if (escapedWords.length > 1) {
+      const andConditions = [];
+      escapedWords.forEach(word => {
+        const regexConditions = keys.map(key => ({ [key]: new RegExp(word, 'i') }));
+        andConditions.push({ $or: regexConditions });
+      });
+      this.condition.push({ $and: andConditions });
+    } else if (escapedWords.length === 1) {
+      const orConditions = keys.map(key => ({ [key]: new RegExp(escapedWords[0], 'i') }));
+      this.condition.push({ $or: orConditions });
+    }
   }
 };
