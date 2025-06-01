@@ -263,7 +263,7 @@ export default {
       this.skip = skip || 0;
       this.users = [];
       Promise.all([this.fetchCount(), this.load()]);
-    }, 150).bind(this);
+    }, 300).bind(this);
   },
   mounted() {
     this.fetchCount();
