@@ -131,14 +131,31 @@ export default {
         this.search({});
       }
     },
-    searchOption: {
-      handler() {
-        if (this.canWatchSearchOption) {
-          this.search({});
-        }
-      },
-      deep: true
-    }
+    'searchOption.searchWord': function handleSearchWordChange(newVal, oldVal) {
+      if (!this.canWatchSearchOption) {
+        return;
+      }
+      if (newVal.trim() !== oldVal.trim()) {
+        this.search({});
+      }
+    },
+    'searchOption.sort': function handleSortChange(newVal, oldVal) {
+      if (this.canWatchSearchOption && newVal !== oldVal) {
+        this.search({});
+      }
+    },
+    'searchOption.to': function handleDateChange(newVal, oldVal) {
+      const newDate = newVal ? this.$dayjs(newVal).toISOString() : null;
+      const oldDate = oldVal ? this.$dayjs(oldVal).toISOString() : null;
+      if (this.canWatchSearchOption && newDate !== oldDate) {
+        this.search({});
+      }
+    },
+    'searchOption.higherRetweet': function handleRetweetChange(newVal, oldVal) {
+      if (this.canWatchSearchOption && newVal !== oldVal) {
+        this.search({});
+      }
+    },
   },
   mounted() {
     this.search({ skip: this.preSkip });
