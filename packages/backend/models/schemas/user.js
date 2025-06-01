@@ -31,6 +31,10 @@ const UserSchema = new Schema({
   profileBannerUrl: String,
   profileImageUrlBase64: String,
   profileBannerUrlBase64: String,
+  not_exist: {
+    type: Boolean,
+    defalt: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
