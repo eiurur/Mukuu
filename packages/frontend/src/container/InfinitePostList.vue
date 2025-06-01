@@ -150,7 +150,7 @@ export default {
       this.skip = skip || 0;
       this.posts = [];
       Promise.all([this.fetchCount(), this.load()]);
-    }, 150).bind(this);
+    }, 300).bind(this);
   },
   methods: {
     storeSearchOptionToQueryString() {
