@@ -78,9 +78,9 @@ export default {
     const lastWeek = this.$dayjs()
       .add(-7, "days")
       .valueOf();
-    // const lastMonth = this.$dayjs()
-    //   .add(-30, "days")
-    //   .valueOf();
+    const lastMonth = this.$dayjs()
+      .add(-30, "days")
+      .valueOf();
     return {
       activeName: "first",
       timerID: null,
@@ -117,25 +117,25 @@ export default {
           history: [],
           shouldUpdate: true
         },
-        // {
-        //   name: "fourth",
-        //   label: "月",
-        //   cacheKey: "month",
-        //   args: {
-        //     from: lastMonth,
-        //     to: today
-        //   },
-        //   history: [],
-        //   shouldUpdate: true
-        // },
         {
-          name: "five",
-          label: "累計",
-          cacheKey: "total",
-          args: {},
+          name: "fourth",
+          label: "月",
+          cacheKey: "month",
+          args: {
+            from: lastMonth,
+            to: today
+          },
           history: [],
           shouldUpdate: true
         }
+        // {
+        //   name: "five",
+        //   label: "累計",
+        //   cacheKey: "total",
+        //   args: {},
+        //   history: [],
+        //   shouldUpdate: true
+        // }
       ]
     };
   },
@@ -147,10 +147,16 @@ export default {
   methods: {
     async pourHistory() {
       this.tabs.map(async tab => {
-        if (tab.cacheKey) {
-          tab.history = await this.aggregate({ cacheKey: tab.cacheKey });
-        } else if (tab.args) {
-          tab.history = await this.aggregate(tab.args);
+        try {
+          if (tab.cacheKey) {
+            tab.history = await this.aggregate({ cacheKey: tab.cacheKey });
+          } else if (tab.args) {
+            tab.history = await this.aggregate(tab.args);
+          }
+        } catch (err) {
+          if (tab.args) {
+            tab.history = await this.aggregate(tab.args);
+          }
         }
       });
     },
