@@ -1,11 +1,11 @@
 const path = require('path');
-const dayjs = require('dayjs')
+const dayjs = require('dayjs');
 
 const logger = require(path.join('..', '..', 'logger'))('cron');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 
-const aggregateAndUpsert = async (cacheKey, {sort, from, to}) => {
-  logger.info(cacheKey, from, to)
+const aggregateAndUpsert = async (cacheKey, { sort, from, to }) => {
+  logger.info(cacheKey, from, to);
   const shProvider = ModelProviderFactory.create('searchHistory');
   const query = [];
   const match = { createdAt: {} };
@@ -47,17 +47,32 @@ const aggregateAndUpsert = async (cacheKey, {sort, from, to}) => {
   }
   query.push({ $limit: 10 });
   const histories = await shProvider.aggregate(query);
-  
+
   const shcProvider = ModelProviderFactory.create('searchHistoryCache');
-  const cacheQuery = {cacheKey}
+  const cacheQuery = { cacheKey };
   const cacheData = {
     cacheKey,
-    histories:JSON.stringify(histories),
+    histories: JSON.stringify(histories),
     updatedAt: Date.now()
+  };
+  const cacheOption = { new: true, upsert: true };
+  const result = await shcProvider.findOneAndUpdate(cacheQuery, cacheData, cacheOption);
+  logger.info(result);
+};
+
+const deleteOldSearchHistory = async () => {
+  logger.info('DELETE OLD HISTORY RECORDS');
+  const thirtyDaysAgo = dayjs().add(-30, "days").toDate();
+  try {
+    const shProvider = ModelProviderFactory.create('searchHistory');
+    const deleteResult = await shProvider.remove({
+      createdAt: { $lt: thirtyDaysAgo }
+    });
+    const deletedCount = deleteResult.deletedCount || deleteResult.n || 0;
+    logger.info(`Deleted ${deletedCount} old search history records`);
+  } catch (error) {
+    logger.error('Failed to delete old search history records:', error);
   }
-  const cacheOption =  { new: true, upsert: true }
-  const result = await shcProvider.findOneAndUpdate(cacheQuery, cacheData, cacheOption)
-  logger.info(result)
 };
 
 (async () => {
@@ -67,6 +82,9 @@ const aggregateAndUpsert = async (cacheKey, {sort, from, to}) => {
     .valueOf();
   const lastWeek = dayjs()
     .add(-7, "days")
+    .valueOf();
+  const lastMonth = dayjs()
+    .add(-30, "days")
     .valueOf();
   const list = [
     {
@@ -84,15 +102,21 @@ const aggregateAndUpsert = async (cacheKey, {sort, from, to}) => {
       },
     },
     {
-      cacheKey: "total",
-      args: {},
+      cacheKey: "month",
+      args: {
+        from: lastMonth,
+        to: today
+      },
     }
-  ]
+  ];
   try {
     logger.info('UPDATE HISTORY');
-    for(const row of list) {
-      await aggregateAndUpsert(row.cacheKey, row.args)
+    for (const row of list) {
+      await aggregateAndUpsert(row.cacheKey, row.args);
     }
+
+    // 古い検索履歴レコードを削除
+    await deleteOldSearchHistory();
   } catch (e) {
     logger.info(e);
   }
