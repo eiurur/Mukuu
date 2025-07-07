@@ -113,6 +113,13 @@ export default {
         this.search({});
       }
     },
+    searchOption: {
+      handler() {
+        if (this.canWatchSearchOption) {
+          this.search({});
+        }
+      },
+    },
     'searchOption.searchWord': function handleSearchWordChange(newVal, oldVal) {
       if (!this.canWatchSearchOption) {
         return;
