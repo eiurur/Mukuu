@@ -6,9 +6,7 @@
         :key="item.id_str"
         :class="[imageWidthStyle, imageWidth]"
       >
-        <Video :videoMedia="item" v-if="item.type==='video'" :isGrid="false"></Video>
         <img
-          v-else
           v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
           class="original actionable"
           alt="img"
@@ -76,14 +74,14 @@
 
 <script>
 import mediumZoom from "medium-zoom";
-import Video from "@/components/Video.vue";
+// import Video from "@/components/Video.vue";
 
 export default {
   name: "FlexMediaList",
   props: ["media", "useImageOnly", "useFixedWidth"],
-  components: {
-    Video
-  },
+  // components: {
+  //   Video
+  // },
   computed: {
     imageWidthStyle: {
       get() {

@@ -5,9 +5,7 @@
         v-for="item in media"
         :key="item.id_str"
       >
-        <Video :videoMedia="item" v-if="item.type==='video'" :isGrid="true"></Video>
         <img
-          v-else
           v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
           class="original actionable"
           alt="img"
@@ -75,14 +73,14 @@
 
 <script>
 import mediumZoom from "medium-zoom";
-import Video from "@/components/Video.vue";
+// import Video from "@/components/Video.vue";
 
 export default {
   name: "GridMediaList",
   props: ["media", "useImageOnly"],
-  components: {
-    Video
-  },
+  // components: {
+  //   Video
+  // },
   computed: {
     imageNumStyle: {
       get() {
