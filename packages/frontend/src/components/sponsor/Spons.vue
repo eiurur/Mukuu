@@ -55,6 +55,12 @@ export default {
           title: "COM3D2＆2.5+ X1改+"
         },
         {
+          link: "https://dlaf.jp/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ01005261.html",
+          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ01006000/VJ01005261_img_main.webp",
+          alt: "カスタムオーダーメイド3D2&2.5 キャラクターパックEX ギャル",
+          title: "キャラクターパックEX ギャル"
+        },
+        {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ01000612.html",
           src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ01001000/VJ01000612_img_main.webp",
           alt: "COM3D2&2.5 キャラクターパック GP対応版 無口で甘えたがりな文学少女",
