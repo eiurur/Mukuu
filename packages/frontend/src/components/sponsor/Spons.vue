@@ -56,13 +56,13 @@ export default {
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ01000612.html",
-          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ015000/VJ014813_img_main.webp",
+          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ01001000/VJ01000612_img_main.webp",
           alt: "COM3D2&2.5 キャラクターパック GP対応版 無口で甘えたがりな文学少女",
           title: "キャラクターパック GP対応版 無口で甘えたがりな文学少女"
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/n/link/work/aid/maidimaid/id/VJ01000613.html",
-          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ015000/VJ014875_img_main.webp",
+          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ01001000/VJ01000613_img_main.webp",
           alt: "COM3D2&2.5 キャラクターパック GP対応版 天然サディスティックな小悪魔",
           title: "キャラクターパック GP対応版 天然サディスティックな小悪魔"
         },
@@ -74,7 +74,7 @@ export default {
         },
         {
           link: "https://www.dlsite.com/pro/dlaf/=/t/i/link/work/aid/maidimaid/id/VJ01000614.html",
-          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ015000/VJ014943_img_main.webp",
+          src: "https://img.dlsite.jp/modpub/images2/work/professional/VJ01001000/VJ01000614_img_main.webp",
           alt: "COM3D2&2.5 キャラクターパック GP対応版 色気のあるおしとやかなお姉さん",
           title: "キャラクターパック GP対応版 色気のあるおしとやかなお姉さん"
         },
