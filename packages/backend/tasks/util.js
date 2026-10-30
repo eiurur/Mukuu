@@ -1,6 +1,5 @@
 const path = require('path');
 const { CronJob } = require('cron');
-const getUrls = require('get-urls');
 const { promisify } = require('util');
 const { execFile, spawn } = require('child_process');
 
@@ -9,36 +8,41 @@ const logger = require(path.join('..', 'logger'))('cron');
 
 const { acceptedDomains } = require('@mukuu/common/lib/constants');
 const { expandUrlOfTweet, sleep } = require('../lib/utils');
-const TweetClient = require("./twitterClient");
+// const TweetClient = require('./twitterClient');
 const ModelProviderFactory = require('../models/modelProviderFactory');
 
-const spawnProcess = (cmd, args = [], option = {}) => new Promise((resolve, reject) => {
-  const normalizedCmd = cmd.replace(/\\/g, '/');
-  const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
-  let stdoutChunks = [];
-  let stderrChunks = [];
+const spawnProcess = (cmd, args = [], option = {}) =>
+  new Promise((resolve, reject) => {
+    const normalizedCmd = cmd.replace(/\\/g, '/');
+    const normalizedArgs = args.map((arg) => arg.replace(/\\/g, '/'));
+    let stdoutChunks = [];
+    let stderrChunks = [];
 
-  const child = spawn(normalizedCmd, normalizedArgs);
-  child.stdout.on('data', (data) => {
-    stdoutChunks = stdoutChunks.concat(data);
-  });
-  child.stdout.on('end', () => {
-    const stdoutContent = Buffer.concat(stdoutChunks).toString();
-    logger.info('stdout chars:', stdoutContent.length);
-    logger.info(stdoutContent);
-    return resolve(stdoutContent);
+    const child = spawn(normalizedCmd, normalizedArgs);
+    child.stdout.on('data', (data) => {
+      stdoutChunks = stdoutChunks.concat(data);
+    });
+    child.stdout.on('end', () => {
+      const stdoutContent = Buffer.concat(stdoutChunks).toString();
+      logger.info('stdout chars:', stdoutContent.length);
+      logger.info(stdoutContent);
+      return resolve(stdoutContent);
+    });
+
+    child.stderr.on('data', (data) => {
+      stderrChunks = stderrChunks.concat(data);
+    });
+    child.stderr.on('end', () => {
+      const stderrContent = Buffer.concat(stderrChunks).toString();
+      logger.info('stderr chars:', stderrContent.length);
+      logger.info(stderrContent);
+      return reject(stderrContent);
+    });
   });
 
-  child.stderr.on('data', (data) => {
-    stderrChunks = stderrChunks.concat(data);
-  });
-  child.stderr.on('end', () => {
-    const stderrContent = Buffer.concat(stderrChunks).toString();
-    logger.info('stderr chars:', stderrContent.length);
-    logger.info(stderrContent);
-    return reject(stderrContent);
-  });
-});
+const extractUrls = (text = '') => {
+  return text.match(/https?:\/\/[^\s<>"']+/g) || [];
+};
 
 module.exports = {
   addReplyStatus: async (post) => {
@@ -53,7 +57,7 @@ module.exports = {
     const dbPost = await postProvider.findOneAndUpdate(
       entity.query,
       entity.data,
-      entity.options
+      entity.options,
     );
     return dbPost;
   },
@@ -70,19 +74,21 @@ module.exports = {
     if (rawTweet.in_reply_to_user_id_str !== rawTweet.user.id_str) return;
     const postProvider = ModelProviderFactory.create('post');
     try {
-      let inReply = await TweetClient.status(rawTweet.in_reply_to_status_id_str);
+      let inReply = await TweetClient.status(
+        rawTweet.in_reply_to_status_id_str,
+      );
       inReply = expandUrlOfTweet(inReply);
       const entity = {
         query: { idStr: post.idStr },
         data: Object.assign(post, {
-          inReply: inReply ? JSON.stringify(inReply) : "", // JSON.stringify("")だと""""になる
+          inReply: inReply ? JSON.stringify(inReply) : '', // JSON.stringify("")だと""""になる
         }),
         options: { new: true, upsert: true },
       };
       await postProvider.findOneAndUpdate(
         entity.query,
         entity.data,
-        entity.options
+        entity.options,
       );
     } catch (err) {
       console.log(err);
@@ -120,7 +126,7 @@ module.exports = {
     // DL Link
     const quotedStatuses = [];
     const matchedDlLinks = urls.filter((m) =>
-      acceptedDomains.some((domain) => m[0].indexOf(domain) !== -1)
+      acceptedDomains.some((domain) => m[0].indexOf(domain) !== -1),
     );
     if (matchedDlLinks.length) {
       for ([dlLink] of matchedDlLinks) {
@@ -136,7 +142,7 @@ module.exports = {
         };
         const [oldest] = await postProvider.find(postQuery, postSearchOption);
         if (oldest && post.idStr !== oldest.idStr) {
-          const urls = getUrls(oldest.text);
+          const urls = extractUrls(oldest.text);
           const isExactMatch = Array.from(urls).includes(dlLink);
           if (!isExactMatch) continue;
           quotedStatuses.push(oldest);
@@ -149,14 +155,14 @@ module.exports = {
       query: { idStr: post.idStr },
       data: Object.assign(post, {
         quotedStatuses: quotedStatuses.map((post) => post._id),
-        quoted: quoted ? JSON.stringify(quoted) : "", // JSON.stringify("")だと""""になる
+        quoted: quoted ? JSON.stringify(quoted) : '', // JSON.stringify("")だと""""になる
       }),
       options: { new: true, upsert: true },
     };
     const dbPost = await postProvider.findOneAndUpdate(
       entity.query,
       entity.data,
-      entity.options
+      entity.options,
     );
   },
   async setOutOfLink(post, isOutOfLink) {
@@ -165,14 +171,14 @@ module.exports = {
     const entity = {
       query: { idStr: post.idStr },
       data: Object.assign(post, {
-        isOutOfLink
+        isOutOfLink,
       }),
       options: { new: true, upsert: true },
     };
     const dbPost = await postProvider.findOneAndUpdate(
       entity.query,
       entity.data,
-      entity.options
+      entity.options,
     );
   },
   runProcess: async (filepath) => {
@@ -187,14 +193,15 @@ module.exports = {
     return stdout;
   },
   spawnProcess,
-  makeJob: ({ jobName, cronTime, args }) => new CronJob({
-    cronTime,
-    onTick: async () => {
-      logger.info(`--- start ${jobName} cron ---`);
-      const stdout = await spawnProcess('node', args);
-      logger.info(`--- finish ${jobName} cron ---`);
-    },
-    start: true,
-    timeZone: 'Asia/Tokyo',
-  }),
+  makeJob: ({ jobName, cronTime, args }) =>
+    new CronJob({
+      cronTime,
+      onTick: async () => {
+        logger.info(`--- start ${jobName} cron ---`);
+        const stdout = await spawnProcess('node', args);
+        logger.info(`--- finish ${jobName} cron ---`);
+      },
+      start: true,
+      timeZone: 'Asia/Tokyo',
+    }),
 };

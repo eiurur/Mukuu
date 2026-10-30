@@ -5,7 +5,7 @@ const { pattern, acceptedDomains } = require('@mukuu/common/lib/constants');
 const mapper = require('@mukuu/common/lib/mapper');
 const { sleep, expandUrlOfTweet } = require('../../lib/utils');
 const { addQuoteStatus, addInReply, addReplyStatus } = require('../util');
-const TweetClient = require("../twitterClient");
+const TweetClient = require('../twitterClient');
 const ModelProviderFactory = require('../../models/modelProviderFactory');
 
 const logger = require(path.join('..', '..', 'logger'))('cron');
@@ -60,7 +60,7 @@ module.exports = class TweetCrawler {
             if (existUser) {
               await this.saveUser(tweet);
               updatedUserData = true;
-              console.log("[OK] UPDATED USER");
+              console.log('[OK] UPDATED USER');
             }
           }
 
@@ -116,7 +116,7 @@ module.exports = class TweetCrawler {
   async findUser(tweet) {
     const userProvider = ModelProviderFactory.create('user');
     const ex = await userProvider.findOne({
-      idStr: tweet.user.id_str
+      idStr: tweet.user.id_str,
     });
     return !!ex;
   }
@@ -124,7 +124,7 @@ module.exports = class TweetCrawler {
   async findDenyPost(tweet) {
     const denyPostProvider = ModelProviderFactory.create('denypost');
     const ex = await denyPostProvider.findOne({
-      idStr: tweet.id_str
+      idStr: tweet.id_str,
     });
     return !!ex;
   }
@@ -132,7 +132,7 @@ module.exports = class TweetCrawler {
   async findDenyUser(tweet) {
     const denyUserProvider = ModelProviderFactory.create('denyuser');
     const ex = await denyUserProvider.findOne({
-      idStr: tweet.user.id_str
+      idStr: tweet.user.id_str,
     });
     return !!ex;
   }
@@ -140,7 +140,7 @@ module.exports = class TweetCrawler {
   async saveByTAC(tweet) {
     tweet = expandUrlOfTweet(tweet);
     const rejectPattern = (text) =>
-      text.startsWith("rt") ||
+      text.startsWith('rt') ||
       pattern.rejectedWords.test(text) ||
       acceptedDomains.every((domain) => text.indexOf(domain) === -1);
 
@@ -150,7 +150,7 @@ module.exports = class TweetCrawler {
     if (existUser) {
       dbUser = await this.saveUser(tweet);
       updatedUserData = true;
-      logger.debug("[OK] UPDATED USER");
+      logger.debug('[OK] UPDATED USER');
     }
 
     const isDeniedPost = await this.findDenyPost(tweet);
@@ -219,8 +219,8 @@ module.exports = class TweetCrawler {
   }
 
   decStrNum(n) {
-    let i; let
-      result;
+    let i;
+    let result;
     n = n.toString();
     result = n;
     i = n.length - 1;
