@@ -1,6 +1,12 @@
 <template>
   <div class="icon" @click="openUserDrawer()">
-    <img class="actionable" v-lazy="post.postedBy.profileImageUrl" alt="img" onerror="this.style.display = 'none'" />
+    <img
+      class="actionable"
+      v-lazy="post.postedBy.profileImageUrl"
+      alt="img"
+      onerror="this.style.display = 'none'"
+      referrerpolicy="no-referrer"
+    />
   </div>
 </template>
 
@@ -43,7 +49,7 @@ export default {
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
       this.$store.dispatch("saveLocalStorage");
-    }
-  }
+    },
+  },
 };
 </script>

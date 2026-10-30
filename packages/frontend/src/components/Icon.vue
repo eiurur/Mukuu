@@ -8,6 +8,7 @@
           class="actionable"
           onload="this.style.display = 'inline-block'"
           onerror="this.style.display = 'none'"
+          referrerpolicy="no-referrer"
         />
       </a>
     </div>
@@ -18,6 +19,7 @@
         class="actionable"
         onload="this.style.display = 'inline-block'"
         onerror="this.style.display = 'none'"
+        referrerpolicy="no-referrer"
       />
     </div>
     <div v-else>
@@ -27,6 +29,7 @@
         class="actionable"
         onload="this.style.display = 'inline-block'"
         onerror="this.style.display = 'none'"
+        referrerpolicy="no-referrer"
       />
     </div>
   </div>

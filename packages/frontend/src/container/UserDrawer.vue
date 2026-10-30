@@ -6,7 +6,9 @@
         <img
           v-lazy="`${user.profileBannerUrl}/web`"
           :alt="`${user.profileBannerUrl}/web`"
-          class="banner" />
+          class="banner"
+          referrerpolicy="no-referrer"
+        />
       </div>
       <Icon class="icon" :user="user" :useTwitterPage="true"></Icon>
       <WatchBtn
@@ -52,9 +54,9 @@
         v-for="post in posts"
       ></Post>
 
-    <div class="fix-loader flex justify-center" v-if="shouldShowLoader">
-      <Loader :shouldShowLoader="shouldShowLoader"></Loader>
-    </div>
+      <div class="fix-loader flex justify-center" v-if="shouldShowLoader">
+        <Loader :shouldShowLoader="shouldShowLoader"></Loader>
+      </div>
     </section>
   </section>
 </template>
@@ -70,7 +72,7 @@
 .profile {
   display: flex;
   flex-direction: column;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   position: relative;
   contain: content;
   & .text > div + div {
@@ -131,7 +133,7 @@ import Loader from "@/components/Loader.vue";
 import ScreenName from "@/components/ScreenName.vue";
 import UserSearchLink from "@/components/links/UserSearchLink.vue";
 import WatchBtn from "@/components/btn/WatchBtn.vue";
-import BlankLink from '../components/BlankLink.vue';
+import BlankLink from "../components/BlankLink.vue";
 import DrawerHistory from "../components/DrawerHistory.vue";
 
 export default {
@@ -144,7 +146,7 @@ export default {
     UserSearchLink,
     WatchBtn,
     BlankLink,
-    DrawerHistory
+    DrawerHistory,
   },
   props: ["postedBy"],
   computed: {
@@ -153,7 +155,7 @@ export default {
         const user = this.$store.getters["drawer/getUser"];
         if (!user) return user;
         const { url } = user;
-        let hostname = '';
+        let hostname = "";
         try {
           hostname = url ? new URL(url).hostname : ""; // NOTE: github-issue:#60
         } catch (e) {
@@ -172,17 +174,17 @@ export default {
     selectableHistory: {
       get() {
         return this.history.slice(5, 20);
-      }
+      },
     },
     showableHistory: {
       get() {
         return this.history.slice(0, 5);
-      }
+      },
     },
     history: {
       get() {
         return this.$store.getters["drawer/getHistory"];
-      }
+      },
     },
     isDisableLoading: {
       get() {

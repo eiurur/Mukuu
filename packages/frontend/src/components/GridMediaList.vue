@@ -1,15 +1,13 @@
 <template>
   <div v-if="media && media.length > 0" class="media-list-container">
     <div class="media-list" :class="imageNumStyle">
-      <div class="media-item"
-        v-for="item in media"
-        :key="item.id_str"
-      >
+      <div class="media-item" v-for="item in media" :key="item.id_str">
         <img
           v-lazy="`${item.media_url_https}?format=jpg&name=medium`"
           class="original actionable"
           alt="img"
           data-zoomable
+          referrerpolicy="no-referrer"
         />
       </div>
     </div>
@@ -88,10 +86,10 @@ export default {
         return {
           n3: this.media.length === 3,
           n2: this.media.length === 2,
-          n1: this.media.length === 1
+          n1: this.media.length === 1,
         };
-      }
-    }
+      },
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -99,12 +97,11 @@ export default {
         document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
       images.map(
-        img =>
+        (img) =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
-  }
+  },
 };
 </script>

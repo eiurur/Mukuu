@@ -1,6 +1,12 @@
 <template>
   <div class="icon actionable" @click="openUserDrawer(user)" :style="style">
-    <img c:style="style" v-lazy="user.profileImageUrl" :alt="user.profileImageUrl"  @error="onIconLoadError" />
+    <img
+      c:style="style"
+      v-lazy="user.profileImageUrl"
+      :alt="user.profileImageUrl"
+      @error="onIconLoadError"
+      referrerpolicy="no-referrer"
+    />
   </div>
 </template>
 
@@ -41,7 +47,7 @@ export default {
   },
   methods: {
     async onIconLoadError(e) {
-      e.target.style.display = 'none';
+      e.target.style.display = "none";
       const { data } = await user.fetchByTwitterId(this.user.idStr);
       if (!data || !Object.keys(data).length) return;
       this.$store.dispatch("watch/updateWatch", data);
@@ -60,7 +66,7 @@ export default {
       const payload = { ...postedBy };
       this.$store.dispatch("drawer/initialize", payload);
       this.$store.dispatch("saveLocalStorage");
-    }
-  }
+    },
+  },
 };
 </script>

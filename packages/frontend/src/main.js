@@ -2,18 +2,17 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 import { Plugin } from "vue-fragment";
 import VueAnalytics from "vue-analytics";
-import VueLazyload from "vue-lazyload";
 import VueMq from "vue-mq";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import locale from "element-ui/lib/locale/lang/ja";
 // import "element-ui/lib/theme-chalk/display.css";
-import { errorImageBase64 } from "@mukuu/common/lib/constants";
 
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import LazyDirective from "./directives/lazy";
 
 import { activateLink, parseToExternalLinks } from "./plugins/tweet";
 
@@ -28,27 +27,19 @@ Vue.use(VueAnalytics, {
   router,
   debug: {
     enabled: !isProd,
-    sendHitTask: isProd
-  }
-});
-Vue.use(VueLazyload, {
-  preLoad: 1.3,
-  filter: {
-    progressive(listener) {
-      listener.el.setAttribute("lazy-progressive", "true");
-      listener.loading = listener.src.replace("name=medium", "name=small");
-    }
+    sendHitTask: isProd,
   },
-  error: errorImageBase64
 });
+
+Vue.directive("lazy", LazyDirective);
 Vue.use(VueMq, {
   breakpoints: {
     sm: 640,
     md: 1281, // NOTE: https://github.com/AlexandreBonaventure/vue-mq/issues/35
     lg: 1920,
-    xl: Infinity
+    xl: Infinity,
   },
-  defaultBreakpoint: "lg"
+  defaultBreakpoint: "lg",
 });
 
 Vue.prototype.$activateLink = activateLink;
@@ -60,8 +51,8 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
   beforeCreate() {
     this.$store.dispatch("loadLocalStorage");
-  }
+  },
 }).$mount("#app");

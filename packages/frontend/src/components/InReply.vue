@@ -24,6 +24,7 @@
             :alt="`${imageSrc}?format=jpg&name=medium`"
             class="original actionable"
             data-zoomable
+            referrerpolicy="no-referrer"
           />
           <div class="text" v-html="$activateLink(reply.text)"></div>
         </div>
@@ -34,15 +35,15 @@
 
 <style lang="scss" scoped>
 .reply-connection {
-    background-color: #bbb;
-    width: 2px;
-    flex-grow: 1;
-    height: 100%;
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    flex-shrink: 0;
-    margin-top: .5rem;
+  background-color: #bbb;
+  width: 2px;
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
 }
 .reply-container {
   contain: content;
@@ -76,7 +77,7 @@
   width: 100%;
   &.grid {
     .main {
-      flex-direction: column-reverse ;
+      flex-direction: column-reverse;
       .text {
         margin-bottom: 1rem;
       }
@@ -86,7 +87,6 @@
         margin-right: 0;
       }
     }
-
   }
   .header {
     display: flex;
@@ -107,7 +107,7 @@
     }
     .names {
       & > span + span {
-        margin-left: .25rem;
+        margin-left: 0.25rem;
       }
     }
   }
@@ -124,10 +124,10 @@
     width: 120px;
     height: 120px;
     margin-right: 1rem;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
   .text {
-    font-size: .8rem;
+    font-size: 0.8rem;
     word-break: break-word;
     width: 100%;
   }
@@ -141,7 +141,7 @@ import BlankLink from "@/components/BlankLink.vue";
 import { parseToExternalLinks } from "@/plugins/tweet";
 import { expandRecusively } from "@/plugins/post";
 
-const mapper = require('@mukuu/common/lib/mapper');
+const mapper = require("@mukuu/common/lib/mapper");
 
 export default {
   name: "InReply",
@@ -177,7 +177,7 @@ export default {
     gridStyle() {
       if (!this.isGrid) return {};
       return { grid: true };
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -185,12 +185,11 @@ export default {
         document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
       images.map(
-        img =>
+        (img) =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
-  }
+  },
 };
 </script>

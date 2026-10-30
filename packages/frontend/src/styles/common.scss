@@ -216,11 +216,13 @@ img[lazy='loaded']:after {
 }
 
 .actionable {
+  transition: filter 0.2s ease;
+
   &:hover {
-    filter: brightness(110%);
+    filter: brightness(0.94) saturate(1.15) contrast(1.08);
   }
 }
-.medium-zoom-image.medium-zoom-image--opened  {
+.medium-zoom-image.medium-zoom-image--opened {
   &:hover {
     filter: none !important; // medium-zoom用の画像はホバー効果を無効化
   }
@@ -463,6 +465,8 @@ img[lazy='loaded']:after {
   }
   .add-container {
     grid-template-columns: repeat(1, 1fr) !important;
-    section.add:nth-child(1) { display: none; }
+    section.add:nth-child(1) {
+      display: none;
+    }
   }
 }

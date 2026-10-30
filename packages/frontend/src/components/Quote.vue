@@ -1,6 +1,6 @@
 <template>
   <div class="quote-container" v-if="post.text">
-    <article class="post" :class="{quoted: isQuoted, 'out-of-link': isOutOfLink}">
+    <article class="post" :class="{ quoted: isQuoted, 'out-of-link': isOutOfLink }">
       <div class="text-container">
         <UserProfile :post="post" :useDrawer="useDrawer"></UserProfile>
       </div>
@@ -11,10 +11,11 @@
           class="original actionable"
           alt="img"
           data-zoomable
+          referrerpolicy="no-referrer"
         />
         <div class="text" v-html="$activateLink(post.text)"></div>
       </div>
-      <PostFooter :class="{shrink: isQuoted}" :post="post" :isQuoted="isQuoted"></PostFooter>
+      <PostFooter :class="{ shrink: isQuoted }" :post="post" :isQuoted="isQuoted"></PostFooter>
     </article>
   </div>
 </template>
@@ -34,7 +35,7 @@
   margin-top: 1rem;
   font-weight: 500;
   &.grid {
-    flex-direction: column-reverse  !important;
+    flex-direction: column-reverse !important;
     .text {
       margin-bottom: 1rem !important;
     }
@@ -49,10 +50,10 @@
     width: 120px;
     height: 120px;
     margin-right: 1rem;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
   .text {
-    font-size: .8rem;
+    font-size: 0.8rem;
     word-break: break-word;
   }
 }
@@ -72,7 +73,7 @@ article.post {
     margin-top: 0.5rem;
     .shrink {
       opacity: 0.1;
-      transition: all ease .25s;
+      transition: all ease 0.25s;
     }
     &:hover {
       .shrink {
@@ -82,7 +83,7 @@ article.post {
   }
 
   &.out-of-link {
-    background: #DADDE1;
+    background: #dadde1;
     // opacity: .5;
   }
 
@@ -137,7 +138,7 @@ export default {
     isGrid: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   computed: {
     media() {
@@ -156,7 +157,7 @@ export default {
     },
     isOutOfLink() {
       return this.post.isOutOfLink;
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -164,12 +165,11 @@ export default {
         document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
       images.map(
-        img =>
+        (img) =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
-  }
+  },
 };
 </script>

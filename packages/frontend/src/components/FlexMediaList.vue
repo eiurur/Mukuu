@@ -1,7 +1,8 @@
 <template>
   <div v-if="media && media.length > 0" class="media-list-container">
     <div class="media-list">
-      <div class="media-item"
+      <div
+        class="media-item"
         v-for="item in media"
         :key="item.id_str"
         :class="[imageWidthStyle, imageWidth]"
@@ -11,6 +12,7 @@
           class="original actionable"
           alt="img"
           data-zoomable
+          referrerpolicy="no-referrer"
         />
       </div>
     </div>
@@ -89,14 +91,14 @@ export default {
         return {
           w33p: this.media.length === 3,
           w50p: this.media.length === 2,
-          w100p: this.media.length === 1
+          w100p: this.media.length === 1,
         };
-      }
+      },
     },
     imageWidth() {
       if (this.useFixedWidth) return { fixedWidth: true };
       return { maxWidth: true };
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -104,12 +106,11 @@ export default {
         document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
       );
       images.map(
-        img =>
+        (img) =>
           (img.onload = () =>
-            !img.classList.contains("medium-zoom-image") &&
-            mediumZoom(img, { background: "#000" }))
+            !img.classList.contains("medium-zoom-image") && mediumZoom(img, { background: "#000" }))
       );
     });
-  }
+  },
 };
 </script>

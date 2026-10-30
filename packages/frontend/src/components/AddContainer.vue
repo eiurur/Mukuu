@@ -2,7 +2,7 @@
   <div class="add-container" v-if="post.adds && post.adds.length">
     <section class="add actionable" :title="add.title"  v-for="add in post.adds" :key="add.title">
       <a :data-title="add.title" :href="add.source" rel="nofollow noopener sponsored" target="_blank">
-        <img :src="add.images.large" :alt="add.title" itemprop="image" class="target_type" />
+        <img :src="add.images.large" :alt="add.title" itemprop="image" class="target_type" referrerpolicy="no-referrer" />
         <div class="title oneline-text">
           <span>{{ add.title }}</span>
         </div>
